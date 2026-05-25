@@ -5088,6 +5088,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-mission__bg { opacity: 0.45; object-position: 75% center; }
 }
 
+/* Estado inicial da animação GSAP — entram quando o GSAP rodar */
+.ee-mission__eyebrow,
+.ee-mission__list li {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.ee-mission__title {
+  opacity: 0;
+  transform: translateY(40px) scale(0.92);
+  transform-origin: left center;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-mission__eyebrow,
+  .ee-mission__list li,
+  .ee-mission__title {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* === SEÇÃO MÉTODO (svg + headline + 4 pilares com divisores marrons) === */
 .ee-method {
   background: #FFFFFF;
@@ -5197,6 +5219,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: rgba(5, 5, 5, 0.68);
   margin: 0;
   letter-spacing: -0.005em;
+}
+/* Estado inicial pra animação GSAP em onda dos 4 pilares */
+.ee-method__pillar {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-method__pillar { opacity: 1; transform: none; }
 }
 
 /* === SEÇÃO PROBLEMA (fundo marrom V4, 2 blocos centrais com divisor vertical) === */
@@ -5358,6 +5389,17 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 .ee-product__sub strong { font-weight: 700; }
+/* Estado inicial GSAP — logo + sub fade-up ao entrar na viewport */
+.ee-product__logo,
+.ee-product__sub {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-product__logo,
+  .ee-product__sub { opacity: 1; transform: none; }
+}
 
 /* Marquee na seção produto: full-bleed (extrapola padding lateral) */
 .ee-product__marquee {
@@ -8124,6 +8166,87 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         scrub: 0.4           // smoothing suave acompanhando o scroll (1:1 com pequeno lag)
       }
     });
+  });
+
+  // ── MISSÃO: timeline GSAP (eyebrow + VENDER + lista 01-04) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var section = document.getElementById('missao');
+    if (!section) return;
+    var eyebrow = section.querySelector('.ee-mission__eyebrow');
+    var title   = section.querySelector('.ee-mission__title');
+    var items   = section.querySelectorAll('.ee-mission__list li');
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      gsap.set([eyebrow, title].filter(Boolean), { opacity: 1, y: 0, scale: 1 });
+      gsap.set(items, { opacity: 1, y: 0 });
+      return;
+    }
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    var tl = gsap.timeline({
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: section,
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+
+    if (eyebrow)      tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0);
+    if (title)        tl.to(title,   { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power3.out' }, 0.15);
+    if (items.length) tl.to(items,   { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.12 }, 0.55);
+  });
+
+  // ── MÉTODO PILARES: animação em onda dos 4 pilares (Aquisição/Engajamento/...) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var pillars = document.querySelectorAll('.ee-method__pillar');
+    if (!pillars.length) return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) { gsap.set(pillars, { opacity: 1, y: 0 }); return; }
+
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(pillars, {
+      opacity: 1, y: 0,
+      duration: 0.7,
+      ease: 'power3.out',
+      stagger: 0.13,
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: '.ee-method__pillars',
+        start: 'top 82%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+  });
+
+  // ── PRODUTO: logo + sub fade-up sequencial ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var section = document.getElementById('produto');
+    if (!section) return;
+    var logo = section.querySelector('.ee-product__logo');
+    var sub  = section.querySelector('.ee-product__sub');
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      gsap.set([logo, sub].filter(Boolean), { opacity: 1, y: 0 });
+      return;
+    }
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    var tl = gsap.timeline({
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: section,
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+
+    if (logo) tl.to(logo, { opacity: 1, y: 0, duration: 0.95, ease: 'power3.out' }, 0);
+    if (sub)  tl.to(sub,  { opacity: 1, y: 0, duration: 0.7,  ease: 'power2.out' }, 0.3);
   });
 
   // ── PILARES: animação em onda (stagger fade-up) ao entrar na viewport ──
