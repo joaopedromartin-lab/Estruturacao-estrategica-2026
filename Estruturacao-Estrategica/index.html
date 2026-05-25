@@ -8524,10 +8524,41 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           { strong: 'Reuniões:',                text: '1 reunião mensal de resultados (1h).' }
         ]
       },
-      // TODO: substituir placeholders pelos textos reais dos Packs M, L, XL quando disponíveis
-      'm':  { label: 'Pack M',  items: [{ strong: 'Conteúdo do Pack M:',  text: 'aguardando texto completo dos entregáveis.' }] },
-      'l':  { label: 'Pack L',  items: [{ strong: 'Conteúdo do Pack L:',  text: 'aguardando texto completo dos entregáveis.' }] },
-      'xl': { label: 'Pack XL', items: [{ strong: 'Conteúdo do Pack XL:', text: 'aguardando texto completo dos entregáveis.' }] }
+      'm': {
+        label: 'Pack M',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'até 2 canais (Meta e/ou Google). Monitoramento diário + otimizações 3–4×/semana.' },
+          { strong: 'Produção de criativos:', text: '14 peças estáticas + 3 vídeos/motion. Design + copywriting. SLA: entrega em até 6 dias corridos.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 2 dias úteis.' },
+          { strong: 'Relatórios:',            text: 'report diário automatizado + relatório semanal por e-mail + relatório mensal completo.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos compartilhado. Respostas em até 24h úteis.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (30 min) + 1 mensal estratégica (1h).' }
+        ]
+      },
+      'l': {
+        label: 'Pack L',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'até 4 canais. Monitoramento diário + otimizações diárias. SLA: otimizações em até 12h após desvio.' },
+          { strong: 'Produção de criativos:', text: '20 peças estáticas + 4 vídeos/motion. Design + copywriting + produção. SLA: entrega em até 5 dias.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 1 dia útil.' },
+          { strong: 'Relatórios:',            text: 'report diário + dashboard operacional + relatório executivo mensal.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos + envolvimento operacional da coordenação. Respostas em até 4h úteis.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (45 min) + 1 quinzenal estratégica (1h).' },
+          { strong: 'Inteligência:',          text: 'data analytics / CRM no time alocado.' }
+        ]
+      },
+      'xl': {
+        label: 'Pack XL',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'canais ilimitados. Equipe dedicada + monitoramento em tempo real. SLA: otimizações em tempo real. Campanha parada: comunicação em até 1h.' },
+          { strong: 'Produção de criativos:', text: '28+ peças estáticas + vídeos sob demanda. Equipe criativa dedicada. Revisões ilimitadas. SLA: entrega em até 4 dias corridos.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 4h úteis.' },
+          { strong: 'Relatórios:',            text: 'dashboard em tempo real + relatório executivo mensal + análise estratégica trimestral.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos + coordenador + gerente. Respostas em até 4h úteis. Urgências em horário comercial: imediato.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (1h) + 1 weekly estratégica (1h).' },
+          { strong: 'Inteligência:',          text: 'data analytics / CRM dedicado.' }
+        ]
+      }
     };
 
     var SOLUTIONS = {
@@ -8576,12 +8607,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       }
     };
 
-    // Restaura estado salvo na sessão
-    var saved = loadState();
-    if (saved) {
-      if (saved.solution && SOLUTIONS[saved.solution]) window.V4Proposal.solution = saved.solution;
-      if (saved.addons) window.V4Proposal.addons = Object.assign({ socialMedia: false }, saved.addons);
-    }
+    // F5 sempre reseta a proposta — não restauramos do sessionStorage no load
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
 
     // ===== Render =====
     function buildItemHTML(weekLabel, text) {
