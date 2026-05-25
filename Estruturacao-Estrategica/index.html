@@ -5012,6 +5012,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-cases__nav-dot.is-active { background: #FFFFFF; }
 
+/* === SEÇÃO ECOSSISTEMA (full-bleed image only) === */
+.ee-ecosystem {
+  display: block;
+  background: #000000; /* fallback caso a imagem demore a carregar */
+  line-height: 0; /* remove qualquer gap em torno da img */
+}
+.ee-ecosystem__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* === SEÇÃO MISSÃO (full-bleed bg + conteúdo esquerda) === */
 .ee-mission {
   position: relative;
@@ -5230,11 +5242,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-method__pillar { opacity: 1; transform: none; }
 }
 
-/* === SEÇÃO PROBLEMA (fundo marrom V4, 2 blocos centrais com divisor vertical) === */
+/* === SEÇÃO PROBLEMA (background full-bleed + globo animado por cima) === */
 .ee-problem {
-  background: #280000; /* marrom V4 brand */
+  position: relative;
+  background:
+    /* Gradiente sutil pra emendar com #produto (preto) na base */
+    linear-gradient(180deg, transparent 0%, transparent 75%, rgba(10, 0, 0, 0.85) 100%),
+    /* Imagem full-bleed com chips + métricas embutidos */
+    url('assets/fullbleedmetodo.png') center center / cover no-repeat,
+    #280000;
   padding: clamp(120px, 16vh, 240px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
   color: #FFFFFF;
+  overflow: hidden;
 }
 .ee-problem__inner {
   max-width: 1100px;
@@ -5242,8 +5261,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(60px, 9vh, 140px);
+  gap: clamp(48px, 6vh, 96px);
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 .ee-problem__block {
   display: flex;
@@ -5276,17 +5297,97 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   max-width: 760px;
 }
 
-/* Divisor vertical entre os dois blocos — desenha do topo pro fim conforme scroll */
-.ee-problem__divider {
-  width: 1px;
-  height: clamp(80px, 11vh, 160px);
-  background: rgba(255, 255, 255, 0.32);
+/* === LINHAS VERTICAIS (topo e fundo) — crescem com scroll === */
+.ee-problem__line {
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, rgba(229, 9, 20, 0.9) 35%, rgba(229, 9, 20, 0.95) 100%);
   transform-origin: top center;
-  transform: scaleY(0); /* estado inicial — GSAP cresce até 1 com scrub */
+  transform: scaleY(0);
   will-change: transform;
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.55);
 }
+.ee-problem__line--top {
+  height: clamp(60px, 9vh, 140px);
+  background: linear-gradient(180deg, transparent 0%, rgba(229, 9, 20, 0.9) 60%, rgba(229, 9, 20, 1) 100%);
+}
+.ee-problem__line--bottom {
+  height: clamp(60px, 9vh, 140px);
+  background: linear-gradient(180deg, rgba(229, 9, 20, 1) 0%, rgba(229, 9, 20, 0.9) 40%, transparent 100%);
+}
+
+/* === GLOBO CENTRAL === */
+.ee-problem__globe {
+  position: relative;
+  width: clamp(280px, 44vw, 560px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Container query: filhos podem usar cqw pra escalar proporcionalmente ao GLOBO */
+  container-type: inline-size;
+}
+/* SVG circle desenhado progressivamente (stroke-dashoffset animado pelo GSAP).
+   rotate(-90deg) faz o desenho começar a partir das 12h (topo) descendo. */
+.ee-problem__globe-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 14px rgba(229, 9, 20, 0.55))
+          drop-shadow(0 0 32px rgba(229, 9, 20, 0.3));
+  pointer-events: none;
+}
+.ee-problem__globe-stroke {
+  fill: none;
+  stroke: rgba(229, 9, 20, 0.95);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  /* Comprimento real do círculo (r=98) = 2π·98 ≈ 615.75.
+     JS chama getTotalLength() e re-aplica via gsap.set pra ser exato. */
+  stroke-dasharray: 616;
+  stroke-dashoffset: 616;
+  will-change: stroke-dashoffset;
+}
+/* Aura/glow externo do globo (suaviza a borda) — fade in depois do círculo desenhar */
+.ee-problem__globe-glow {
+  position: absolute;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(229, 9, 20, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.ee-problem__globe-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  /* Padding proporcional ao DIÂMETRO do globo (cqw) — garante respiro consistente */
+  padding: 14cqw 16cqw;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 2cqw, 18px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  /* Estado inicial: invisível, GSAP revela depois do globo */
+  opacity: 0;
+  will-change: opacity;
+}
+.ee-problem__block--solution {
+  max-width: none;
+  gap: clamp(8px, 2cqw, 18px);
+}
+
+/* Reduced motion: tudo visível, sem scroll-driven animation */
 @media (prefers-reduced-motion: reduce) {
-  .ee-problem__divider { transform: scaleY(1); }
+  .ee-problem__line { transform: scaleY(1); }
+  .ee-problem__globe-stroke { stroke-dashoffset: 0; }
+  .ee-problem__globe-glow,
+  .ee-problem__globe-content { opacity: 1; }
 }
 
 /* Bloco da solução (parte de baixo) */
@@ -5297,7 +5398,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-problem__lead {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(17px, 1.4vw, 24px);
+  font-size: clamp(13px, 4cqw, 22px);
   color: rgba(255, 255, 255, 0.92);
   margin: 0;
   letter-spacing: -0.005em;
@@ -5305,7 +5406,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-problem__big {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(140px, 22vw, 400px);
+  font-size: clamp(64px, 30cqw, 240px);
   line-height: 0.85;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -5315,7 +5416,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-problem__caption {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
-  font-size: clamp(14px, 1.15vw, 20px);
+  font-size: clamp(10px, 2.6cqw, 18px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #FFFFFF;
@@ -5345,15 +5446,87 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(40px, 5vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
   color: #FFFFFF;
   overflow: hidden;
-  /* Aproximação CSS do fundo: preto com feixes horizontais de luz vermelha.
-     Substituir por background-image se o user enviar a PNG oficial. */
+  /* Fundo base preto com aura central sutil (os "feixes" são divs animadas separadas) */
   background:
-    radial-gradient(ellipse 70% 6%  at 20% 38%, rgba(255, 80, 40, 0.45) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 5%  at 60% 48%, rgba(229, 9, 20, 0.40) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 4%  at 30% 58%, rgba(255, 100, 50, 0.35) 0%, transparent 75%),
-    radial-gradient(ellipse 40% 3%  at 75% 62%, rgba(200, 20, 8, 0.30) 0%, transparent 75%),
     radial-gradient(ellipse 120% 80% at 50% 50%, #1a0303 0%, #000000 75%),
     #000000;
+}
+
+/* Container dos feixes animados de luz vermelha */
+.ee-product__beams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.ee-product__beam {
+  position: absolute;
+  left: 0;
+  height: 8px;
+  border-radius: 50%;
+  filter: blur(22px);
+  will-change: transform, opacity;
+}
+.ee-product__beam--1 {
+  top: 34%;
+  width: 70%;
+  height: 12px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 100, 50, 0.75) 50%, transparent 100%);
+  animation: ee-product-beam-right 14s linear infinite;
+}
+.ee-product__beam--2 {
+  top: 46%;
+  width: 60%;
+  height: 10px;
+  background: linear-gradient(90deg, transparent 0%, rgba(229, 9, 20, 0.7) 50%, transparent 100%);
+  animation: ee-product-beam-left 19s linear infinite;
+  animation-delay: -4s;
+}
+.ee-product__beam--3 {
+  top: 56%;
+  width: 55%;
+  height: 9px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 80, 40, 0.65) 50%, transparent 100%);
+  animation: ee-product-beam-right 22s linear infinite;
+  animation-delay: -8s;
+}
+.ee-product__beam--4 {
+  top: 64%;
+  width: 50%;
+  height: 7px;
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 20, 8, 0.55) 50%, transparent 100%);
+  animation: ee-product-beam-left 17s linear infinite;
+  animation-delay: -2s;
+}
+.ee-product__beam--5 {
+  top: 72%;
+  width: 45%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 60, 30, 0.5) 50%, transparent 100%);
+  animation: ee-product-beam-right 26s linear infinite;
+  animation-delay: -14s;
+}
+
+@keyframes ee-product-beam-right {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(220%); opacity: 0; }
+}
+@keyframes ee-product-beam-left {
+  0%   { transform: translateX(220%); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ee-product__beam {
+    animation: none;
+    opacity: 0.4;
+    transform: translateX(60%);
+  }
 }
 .ee-product__tag {
   position: absolute;
@@ -6810,6 +6983,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <a href="#reconhecimento">Reconhecimento</a>
     <a href="#clientes">Clientes</a>
     <a href="#cases">Cases</a>
+    <a href="#ecossistema">Ecossistema</a>
     <a href="#missao">Missão</a>
     <a href="#metodo">Método</a>
     <a href="#problema">Problema</a>
@@ -7303,6 +7477,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 </section>
 
 <!-- ============================================================ -->
+<!-- SEÇÃO — ECOSSISTEMA (full-bleed image only)                   -->
+<!-- ============================================================ -->
+<section id="ecossistema" class="ee-ecosystem" aria-label="Ecossistema V4">
+  <img class="ee-ecosystem__img" src="assets/Ecossistema foto.png" alt="Ecossistema V4 — em 13 anos de mercado, construímos um ecossistema sólido e próspero"/>
+</section>
+
+<!-- ============================================================ -->
 <!-- SEÇÃO 04 — MISSÃO (full-bleed bg + conteúdo à esquerda)       -->
 <!-- ============================================================ -->
 <section id="missao" class="ee-mission" aria-label="Nossa missão: vender">
@@ -7366,20 +7547,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO 06 — PROBLEMA (fundo marrom + transição "MÉTODO")       -->
 <!-- ============================================================ -->
 <section id="problema" class="ee-problem" aria-label="O problema não é falta de esforço, é falta de método">
+
   <div class="ee-problem__inner">
 
+    <!-- Bloco 1: o problema -->
     <div class="ee-problem__block">
       <h2 class="ee-problem__title ee-reveal-chars">O problema não é falta de <strong>esforço.</strong></h2>
       <p class="ee-problem__body ee-reveal-chars">É falta de método. Sua mídia roda, sua equipe entrega, mas cada decisão é intuição, e o próximo patamar de crescimento não vem só com mais esforço.</p>
     </div>
 
-    <div class="ee-problem__divider" aria-hidden="true"></div>
+    <!-- Linha vertical que desce do bloco 1 até tocar no globo -->
+    <div class="ee-problem__line ee-problem__line--top" aria-hidden="true"></div>
 
-    <div class="ee-problem__block ee-problem__block--solution">
-      <p class="ee-problem__lead ee-reveal-chars">A solução não é fazer mais. É fazer com</p>
-      <h2 class="ee-problem__big ee-reveal-chars">MÉTODO</h2>
-      <p class="ee-problem__caption ee-reveal-chars">E O MÉTODO TEM NOME...</p>
+    <!-- Globo central — círculo desenhado progressivamente via SVG stroke-dashoffset -->
+    <div class="ee-problem__globe" aria-hidden="false">
+      <svg class="ee-problem__globe-svg" viewBox="0 0 200 200" aria-hidden="true">
+        <circle
+          class="ee-problem__globe-stroke"
+          cx="100" cy="100" r="98"
+        />
+      </svg>
+      <div class="ee-problem__globe-glow" aria-hidden="true"></div>
+      <div class="ee-problem__block ee-problem__block--solution ee-problem__globe-content">
+        <p class="ee-problem__lead">A solução não é fazer mais. É fazer com</p>
+        <h2 class="ee-problem__big">MÉTODO</h2>
+        <p class="ee-problem__caption">E O MÉTODO TEM NOME...</p>
+      </div>
     </div>
+
+    <!-- Linha vertical que continua do globo até o fim, conectando à seção #produto -->
+    <div class="ee-problem__line ee-problem__line--bottom" aria-hidden="true"></div>
 
   </div>
 </section>
@@ -7388,6 +7585,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO 07 — PRODUTO (Estruturação Estratégica)                 -->
 <!-- ============================================================ -->
 <section id="produto" class="ee-product" aria-label="Estruturação Estratégica — apresentação do produto">
+
+  <!-- Feixes animados de luz vermelha (motion blur effect) -->
+  <div class="ee-product__beams" aria-hidden="true">
+    <div class="ee-product__beam ee-product__beam--1"></div>
+    <div class="ee-product__beam ee-product__beam--2"></div>
+    <div class="ee-product__beam ee-product__beam--3"></div>
+    <div class="ee-product__beam ee-product__beam--4"></div>
+    <div class="ee-product__beam ee-product__beam--5"></div>
+  </div>
 
   <p class="ee-product__tag">#Go to IPO</p>
 
@@ -8149,26 +8355,73 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     });
   });
 
-  // ── SCROLL-DRIVEN DIVIDER (linha vertical que cresce conforme o scroll) ──
+  // ── PROBLEMA: composição scroll-driven (linha topo → globo revela → texto + chips → linha bottom) ──
   document.addEventListener('DOMContentLoaded', function () {
-    var divider = document.querySelector('.ee-problem__divider');
-    if (!divider) return;
+    var section = document.getElementById('problema');
+    if (!section) return;
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
     var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduce) { gsap.set(divider, { scaleY: 1 }); return; }
+
+    var lineTop      = section.querySelector('.ee-problem__line--top');
+    var lineBottom   = section.querySelector('.ee-problem__line--bottom');
+    var globeStroke  = section.querySelector('.ee-problem__globe-stroke');
+    var globeGlow    = section.querySelector('.ee-problem__globe-glow');
+    var globeContent = section.querySelector('.ee-problem__globe-content');
+
+    // Mede o comprimento REAL do círculo SVG pra animar stroke-dashoffset exato
+    var circLen = 616;
+    if (globeStroke && typeof globeStroke.getTotalLength === 'function') {
+      try { circLen = globeStroke.getTotalLength() || 616; } catch (e) {}
+    }
+    // Aplica o estado inicial imediatamente (sobrescreve o CSS default)
+    if (globeStroke) {
+      gsap.set(globeStroke, { strokeDasharray: circLen, strokeDashoffset: circLen });
+    }
+
+    if (prefersReduce) {
+      gsap.set([lineTop, lineBottom].filter(Boolean), { scaleY: 1 });
+      gsap.set(globeStroke, { strokeDashoffset: 0 });
+      gsap.set([globeGlow, globeContent].filter(Boolean), { opacity: 1 });
+      return;
+    }
 
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to(divider, {
-      scaleY: 1,
-      ease: 'none',
+
+    // Timeline única com scrub — toda a coreografia acompanha o scroll da seção
+    var tl = gsap.timeline({
       scrollTrigger: {
-        trigger: divider,
-        start: 'top 88%',   // começa quando topo do divisor entra na viewport
-        end:   'bottom 55%', // completa quando passa pelo centro da tela
-        scrub: 0.4           // smoothing suave acompanhando o scroll (1:1 com pequeno lag)
+        trigger: section,
+        start: 'top 80%',
+        end:   'bottom 30%',
+        scrub: 0.6
       }
     });
+
+    // 0.0–0.18 → linha superior cresce (scaleY 0 → 1)
+    if (lineTop) {
+      tl.fromTo(lineTop, { scaleY: 0 }, { scaleY: 1, ease: 'none' }, 0);
+    }
+    // 0.18–0.55 → círculo do globo é DESENHADO progressivamente do topo até a base
+    //             (stroke-dashoffset circLen → 0 com SVG rotacionado -90° pra iniciar às 12h)
+    if (globeStroke) {
+      tl.to(globeStroke,
+        { strokeDashoffset: 0, ease: 'none', immediateRender: false },
+        0.18
+      );
+    }
+    // 0.5–0.7 → aura externa do globo entra (suaviza a borda fechada)
+    if (globeGlow) {
+      tl.fromTo(globeGlow, { opacity: 0 }, { opacity: 1, ease: 'power1.out' }, 0.5);
+    }
+    // 0.55–0.75 → texto interno fade in (depois do círculo estar quase fechado)
+    if (globeContent) {
+      tl.fromTo(globeContent, { opacity: 0 }, { opacity: 1, ease: 'power1.out' }, 0.55);
+    }
+    // 0.82–1.0 → linha inferior cresce, conectando à próxima seção
+    if (lineBottom) {
+      tl.fromTo(lineBottom, { scaleY: 0 }, { scaleY: 1, ease: 'none' }, 0.82);
+    }
   });
 
   // ── MISSÃO: timeline GSAP (eyebrow + VENDER + lista 01-04) ──
