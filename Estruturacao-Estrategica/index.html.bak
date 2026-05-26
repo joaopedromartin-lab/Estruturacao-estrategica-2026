@@ -142,6 +142,100 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 
 <!-- DESIGN SYSTEM SHOWCASE STYLES (minimal, for section nav + spec tables only) -->
 <style id="ds-showcase-styles">
+.ds-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  background: linear-gradient(135deg, #560303 0%, #7A0A02 40%, #FB2E0A 100%);
+  -webkit-backdrop-filter: blur(0px) saturate(100%);
+  backdrop-filter: blur(0px) saturate(100%);
+  border-bottom: 1px solid transparent;
+  padding: 0 var(--wp--style--root--padding-right);
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #E50914 rgba(86, 3, 3, 0.6);
+  transition: background 0.4s ease,
+              backdrop-filter 0.4s ease,
+              -webkit-backdrop-filter 0.4s ease,
+              border-color 0.4s ease;
+}
+.ds-nav::-webkit-scrollbar { height: 8px; }
+.ds-nav::-webkit-scrollbar-track {
+  background: rgba(86, 3, 3, 0.6);
+}
+.ds-nav::-webkit-scrollbar-thumb {
+  background: #E50914;
+  border-radius: 9999px;
+}
+.ds-nav::-webkit-scrollbar-thumb:hover {
+  background: #FB2E0A;
+}
+.ds-nav.is-scrolled {
+  background: rgba(86, 3, 3, 0.65);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ds-nav a {
+  display: inline-block;
+  padding: 28px 28px;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: var(--wp--preset--font-size--p-4);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color .3s ease, text-shadow .3s ease;
+}
+.ds-nav a:hover {
+  color: #fff !important;
+  text-shadow: 0 0 16px rgba(251, 46, 10, 0.5);
+}
+.ds-nav__toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 16px 20px;
+  align-items: center;
+  justify-content: center;
+}
+.ds-nav__toggle img { display: block; width: 28px; height: 28px; }
+@media (min-width: 782px) {
+  .ds-nav__links { display: contents; }
+}
+@media (max-width: 781px) {
+  .ds-nav {
+    overflow-x: visible;
+    white-space: normal;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ds-nav__toggle {
+    display: inline-flex;
+    align-self: center;
+  }
+  .ds-nav__links {
+    display: none;
+    flex-direction: column;
+    background: rgba(86, 3, 3, 0.95);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ds-nav.is-open .ds-nav__links { display: flex; }
+  .ds-nav__links a {
+    display: block;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ds-nav__links a:last-child { border-bottom: 0; }
+}
 .ds-section-label {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--wp--preset--font-size--p-4);
@@ -673,6 +767,11 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   color: #FB2E0A !important;
   text-shadow: 0 0 12px rgba(251, 46, 10, 0.3);
 }
+/* DS nav link hover — already defined in ds-showcase-styles, this is a fallback */
+.ds-nav a:hover {
+  color: #fff !important;
+  text-shadow: 0 0 16px rgba(251, 46, 10, 0.5);
+}
 /* Buttons on gradient sections override */
 .ds-bg-gradient .wp-block-button__link,
 .ds-bg-gradient .wp-element-button {
@@ -761,6 +860,32 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   transform: translate(-50%, -50%) scale(1);
 }
 /* Gradient grid: 4 columns */
+
+/* === CONSTELLATION PARTICLES (gradient sections only) === */
+.ds-bg-gradient,
+.ds-bg-gradient-subtle,
+.ds-bg-gradient-radial {
+  position: relative;
+}
+.ds-constellation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.ds-constellation canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* Ensure section content stays above particles */
+.ds-bg-gradient > *:not(.ds-constellation),
+.ds-bg-gradient-subtle > *:not(.ds-constellation),
+.ds-bg-gradient-radial > *:not(.ds-constellation) {
+  position: relative;
+  z-index: 1;
+}
 
 /* === WORK CARDS: force left alignment inside constrained layout === */
 .wp-block-select-content-template .wp-container-core-group-is-layout-4515af47 > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
@@ -6007,6 +6132,548 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__week3-variant { display: none; }
 .ee-roadmap__week3-variant.is-shown { display: block; }
 
+/* === BLOCO DE FLUXO (#pilares + #jornada com gradient único) === */
+.ee-flow {
+  position: relative;
+}
+/* Override do gradient padrão (.ds-bg-gradient) pra emendar com #estrutura,
+   que termina em #280000. Aqui o gradient sobe do marrom V4 até o vermelho brand. */
+.ee-flow.ds-bg-gradient {
+  background: linear-gradient(180deg,
+    #280000 0%,
+    #560303 45%,
+    #7A0A02 100%
+  ) !important;
+}
+/* Jornada: continuação do gradient sem constellation (não usa .ds-bg-gradient
+   pra não ser pego pelo injetor de partículas) */
+.ee-flow--journey {
+  background: linear-gradient(180deg,
+    #7A0A02 0%,
+    #C41E08 55%,
+    #FB2E0A 100%
+  );
+}
+/* Quando dentro do flow, as seções perdem o padding-bottom/top
+   pra emendar visualmente — a constellation única cobre tudo */
+.ee-flow .ee-pillars { padding-bottom: clamp(56px, 8vh, 110px); }
+.ee-flow .ee-journey { padding-top:    clamp(40px, 6vh, 90px); }
+
+/* === SEÇÃO PILARES (4 cards liquid glass) === */
+.ee-pillars {
+  position: relative;
+  padding: clamp(96px, 14vh, 200px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  overflow: hidden;
+}
+.ee-pillars__inner {
+  max-width: 1720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.ee-pillars__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: clamp(72px, 9.5vw, 168px);
+  line-height: 0.88;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 clamp(48px, 6vh, 96px);
+  text-align: center;
+}
+.ee-pillars__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 2vw, 32px);
+}
+@media (min-width: 760px)  { .ee-pillars__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .ee-pillars__grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Liquid Glass card (segue specs do brandbook: inner shadows + glass + drop) */
+.ee-pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.2vw, 32px);
+  padding: clamp(26px, 2.4vw, 38px);
+  min-height: clamp(260px, 28vh, 320px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+          backdrop-filter: blur(18px) saturate(180%);
+  overflow: hidden;
+  box-shadow:
+    /* drop shadow externo */
+    -5px 5px 20px rgba(0, 0, 0, 0.12),
+    /* inner shadows brancos (efeito de luz refratada) */
+    inset 0 0 150px rgba(255, 255, 255, 0.18),
+    inset 0 0 100px rgba(255, 255, 255, 0.14),
+    inset 0 0 10px  rgba(255, 255, 255, 0.40);
+  isolation: isolate;
+  /* Estado inicial — GSAP anima pra opacity 1 + y 0 com stagger (efeito onda) */
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-pillar { opacity: 1; transform: none; }
+}
+/* Camada de refração — gradient branco overlay */
+.ee-pillar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.12) 100%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Borda fina branca */
+.ee-pillar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  pointer-events: none;
+  z-index: 1;
+}
+.ee-pillar > * { position: relative; z-index: 2; }
+
+.ee-pillar__icon {
+  width: clamp(40px, 3.6vw, 56px);
+  height: clamp(40px, 3.6vw, 56px);
+  color: #FFFFFF;
+}
+.ee-pillar__icon img,
+.ee-pillar__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  stroke-width: 2;
+}
+.ee-pillar__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(20px, 1.6vw, 26px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.ee-pillar__body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+/* === SEÇÃO JORNADA DETALHADA (tabs por semana, semana 3 dinâmica) === */
+.ee-journey {
+  position: relative;
+  padding: clamp(80px, 12vh, 180px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  overflow: hidden;
+}
+.ee-journey__inner {
+  max-width: 1720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.ee-journey__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: clamp(64px, 8vw, 140px);
+  line-height: 0.88;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 clamp(40px, 5vh, 72px);
+  text-align: left;
+}
+
+/* Tabs (4 abas no topo) */
+.ee-journey__tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.4vw, 22px);
+  margin-bottom: clamp(16px, 2vh, 28px);
+}
+@media (min-width: 760px)  { .ee-journey__tabs { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .ee-journey__tabs { grid-template-columns: repeat(5, 1fr); } }
+.ee-journey__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+          backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  color: #FFFFFF;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  text-align: left;
+  isolation: isolate;
+  box-shadow:
+    -4px 4px 16px rgba(0, 0, 0, 0.10),
+    inset 0 0 80px rgba(255, 255, 255, 0.12),
+    inset 0 0 8px  rgba(255, 255, 255, 0.30);
+  transition:
+    background 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-journey__tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.10) 100%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: -1;
+}
+.ee-journey__tab svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke-width: 2;
+}
+.ee-journey__tab:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    -4px 4px 18px rgba(0, 0, 0, 0.14),
+    inset 0 0 90px rgba(255, 255, 255, 0.16),
+    inset 0 0 10px rgba(255, 255, 255, 0.4),
+    0 0 24px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+.ee-journey__tab.is-active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    -4px 4px 20px rgba(0, 0, 0, 0.16),
+    inset 0 0 100px rgba(255, 255, 255, 0.20),
+    inset 0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 32px rgba(255, 255, 255, 0.18);
+}
+.ee-journey__tab:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+/* Variante --link: aba que pula pra outra seção (no caso, Semana 5 → #executar) */
+a.ee-journey__tab--link {
+  text-decoration: none;
+}
+.ee-journey__tab--link {
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.32) 0%, rgba(86, 3, 3, 0.45) 100%);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow:
+    -4px 4px 18px rgba(0, 0, 0, 0.18),
+    inset 0 0 90px rgba(255, 255, 255, 0.14),
+    inset 0 0 10px rgba(255, 255, 255, 0.4),
+    0 0 24px rgba(229, 9, 20, 0.28);
+  color: #FFFFFF;
+}
+.ee-journey__tab--link:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    -4px 4px 22px rgba(0, 0, 0, 0.22),
+    inset 0 0 100px rgba(255, 255, 255, 0.18),
+    inset 0 0 12px rgba(255, 255, 255, 0.5),
+    0 0 36px rgba(255, 98, 0, 0.35);
+}
+
+/* Painéis: grid de 1 célula com todos os painéis empilhados (crossfade suave) */
+.ee-journey__panels {
+  display: grid;
+  position: relative;
+}
+.ee-journey__panel {
+  grid-area: 1 / 1; /* todos ocupam a mesma célula → altura = maior painel, sem "pulo" */
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity   0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0.45s; /* visibility só some depois do fade */
+}
+.ee-journey__panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+  transition:
+    opacity   0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0s; /* visibility entra imediato */
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-journey__panel {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* === CARD LIQUID GLASS POR SEMANA === */
+.ee-week-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 40px);
+  padding: clamp(28px, 3.6vw, 56px);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(20px) saturate(180%);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow:
+    -5px 5px 22px rgba(0, 0, 0, 0.14),
+    inset 0 0 160px rgba(255, 255, 255, 0.18),
+    inset 0 0 110px rgba(255, 255, 255, 0.14),
+    inset 0 0 10px  rgba(255, 255, 255, 0.42);
+}
+.ee-week-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.12) 100%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+.ee-week-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  pointer-events: none;
+  z-index: 1;
+}
+.ee-week-card > * { position: relative; z-index: 2; }
+
+.ee-week-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.6vw, 12px);
+}
+.ee-week-card__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 2.4vw, 40px);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+.ee-week-card__intro {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.ee-week-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  position: relative;
+}
+@media (min-width: 760px) {
+  .ee-week-card__list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(40px, 4vw, 72px);
+  }
+  /* Divisor vertical central — pseudo absoluto, centrado no gap */
+  .ee-week-card__list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+}
+.ee-week-card__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: clamp(14px, 1.4vw, 20px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: -0.005em;
+}
+.ee-week-card__item:last-child { border-bottom: none; }
+
+/* Check-square bullet: amarelo CTA V4 (#FFDD00) com glow sutil */
+.ee-week-card__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #FFEA5C 0%, #FFDD00 100%);
+  box-shadow:
+    0 0 12px rgba(255, 221, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+  margin-top: 3px;
+}
+
+/* Variantes da semana 3 — só uma fica visível por vez (controlado por JS) */
+.ee-week-card[data-week3-model] { display: none; }
+.ee-week-card[data-week3-model].is-shown { display: flex; }
+
+/* === SEÇÃO BRIDGE / EXECUTAR (timeline EE → Executar) === */
+.ee-bridge {
+  background: #280000;
+  padding: clamp(120px, 18vh, 240px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.ee-bridge__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* Container da timeline — altura comporta os pop-ups acima/abaixo dos nós */
+.ee-bridge__timeline {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 32vh, 380px);
+}
+/* Trilha base — dim, atravessa toda a largura */
+.ee-bridge__track {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  right: 8%;
+  height: 4px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: visible;
+}
+/* Glow vermelho do início até o nó EE — sinaliza "trecho percorrido" */
+.ee-bridge__track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 42%; /* até o nó EE */
+  height: 100%;
+  transform: translateY(-50%);
+  background: linear-gradient(to right,
+    rgba(229, 9, 20, 0.35) 0%,
+    rgba(251, 46, 10, 0.95) 70%,
+    rgba(251, 46, 10, 1) 100%
+  );
+  border-radius: 9999px;
+  box-shadow: 0 0 28px rgba(251, 46, 10, 0.55);
+}
+/* Nó genérico (start / EE / Executar) */
+.ee-bridge__node {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.ee-bridge__node-dot {
+  display: block;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FF4520 0%, #C20810 65%, #7A0A02 100%);
+  box-shadow:
+    0 0 24px rgba(251, 46, 10, 0.7),
+    0 0 56px rgba(251, 46, 10, 0.35);
+}
+/* Variantes de nó */
+.ee-bridge__node--start { left: 8%; }
+.ee-bridge__node--start .ee-bridge__node-dot {
+  width: clamp(14px, 1.4vw, 18px);
+  height: clamp(14px, 1.4vw, 18px);
+  box-shadow: 0 0 18px rgba(251, 46, 10, 0.55);
+}
+.ee-bridge__node--ee { left: 42%; }
+.ee-bridge__node--ee .ee-bridge__node-dot {
+  width: clamp(22px, 2vw, 28px);
+  height: clamp(22px, 2vw, 28px);
+}
+.ee-bridge__node--executar { left: 75%; }
+.ee-bridge__node--executar .ee-bridge__node-dot {
+  width: clamp(48px, 5vw, 68px);
+  height: clamp(48px, 5vw, 68px);
+  box-shadow:
+    0 0 36px rgba(251, 46, 10, 0.9),
+    0 0 90px rgba(251, 46, 10, 0.45),
+    inset -4px -6px 14px rgba(0, 0, 0, 0.45);
+}
+/* Pop-up (linha vertical + label) — sobre ou sob o nó */
+.ee-bridge__node-pop {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vh, 18px);
+  white-space: nowrap;
+}
+.ee-bridge__node--ee .ee-bridge__node-pop {
+  bottom: calc(100% + 8px);
+  flex-direction: column; /* label em cima, linha em baixo apontando pro dot */
+}
+.ee-bridge__node--executar .ee-bridge__node-pop {
+  top: calc(100% + 8px);
+  flex-direction: column-reverse; /* linha em cima saindo do dot, label em baixo */
+}
+.ee-bridge__node-line {
+  width: 1.5px;
+  height: clamp(48px, 7vh, 80px);
+  background: rgba(255, 255, 255, 0.55);
+}
+.ee-bridge__node-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 500;
+  color: #FFFFFF;
+  letter-spacing: -0.005em;
+  line-height: 1;
+}
+.ee-bridge__node--executar .ee-bridge__node-label {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(38px, 5vw, 80px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
 /* === SEÇÃO ATIVOS — recapitulação por benefícios tangíveis === */
 .ee-assets {
   position: relative;
@@ -7399,6 +8066,25 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transform: translateY(-1px);
 }
 .ee-proposal__finalize svg { width: 16px; height: 16px; stroke-width: 2.5; }
+/* Prompt quando semana 3 está ativa mas sem modelo selecionado */
+.ee-journey__prompt {
+  display: none;
+  min-height: clamp(280px, 40vh, 500px);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.3vw, 22px);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  padding: clamp(40px, 6vw, 80px);
+  max-width: 600px;
+  margin: 0 auto;
+  letter-spacing: -0.005em;
+}
+.ee-journey__prompt.is-shown { display: flex; }
+.ee-journey__prompt strong { color: #FFDD00; font-weight: 700; }
+
 /* Mobile responsive */
 @media (max-width: 900px) {
   .ee-hero { min-height: auto; padding-top: 120px; padding-bottom: 96px; }
@@ -9344,6 +10030,33 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     if (sub)  tl.to(sub,  { opacity: 1, y: 0, duration: 0.7,  ease: 'power2.out' }, 0.3);
   });
 
+  // ── PILARES: animação em onda (stagger fade-up) ao entrar na viewport ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var pillars = document.querySelectorAll('.ee-pillar');
+    if (!pillars.length) return;
+    if (typeof gsap === 'undefined') return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      gsap.set(pillars, { opacity: 1, y: 0 });
+      return;
+    }
+
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(pillars, {
+      opacity: 1,
+      y: 0,
+      duration: 0.75,
+      ease: 'power3.out',
+      stagger: 0.13, // delay entre cards — gera o efeito de onda da esquerda pra direita
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: '.ee-pillars__grid',
+        start: 'top 82%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+  });
 
   // ── CASES DE SUCESSO: grupo varia por modelo, slider interno por grupo ──
   document.addEventListener('DOMContentLoaded', function () {
@@ -9390,6 +10103,83 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     updateGroup();
   });
 
+  // ── JORNADA DETALHADA: tabs + sincronização da semana 3 com V4SalesModel ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var tabs = document.querySelectorAll('.ee-journey__tab');
+    if (!tabs.length) return;
+    var panels = document.querySelectorAll('.ee-journey__panel');
+    var week3Variants = document.querySelectorAll('#ee-panel-week-3 .ee-week-card[data-week3-model]');
+    var week3Prompt = document.getElementById('ee-week3-prompt');
+
+    function activate(week) {
+      tabs.forEach(function (t) {
+        var isActive = t.getAttribute('data-week') === week;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('aria-labelledby') === 'ee-tab-week-' + week);
+      });
+    }
+
+    function updateWeek3() {
+      if (!week3Variants.length) return;
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var anyShown = false;
+      week3Variants.forEach(function (card) {
+        var matches = !!model && card.getAttribute('data-week3-model') === model;
+        card.classList.toggle('is-shown', matches);
+        if (matches) anyShown = true;
+      });
+      if (week3Prompt) {
+        week3Prompt.classList.toggle('is-shown', !anyShown);
+      }
+    }
+
+    tabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-week'));
+      });
+      tab.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          var next = tabs[(idx + 1) % tabs.length];
+          activate(next.getAttribute('data-week'));
+          next.focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+          activate(prev.getAttribute('data-week'));
+          prev.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          activate(tabs[0].getAttribute('data-week'));
+          tabs[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          activate(tabs[tabs.length - 1].getAttribute('data-week'));
+          tabs[tabs.length - 1].focus();
+        }
+      });
+    });
+
+    // Atualiza semana 3 quando o user trocar o modelo lá no hero
+    window.addEventListener('v4-sales-model-change', updateWeek3);
+    // Estado inicial
+    updateWeek3();
+
+    // Aba "Semana 5" → não muda painel, faz scroll suave pra #executar
+    var jumpTabs = document.querySelectorAll('.ee-journey__tab[data-jump]');
+    jumpTabs.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var target = document.getElementById(link.getAttribute('data-jump'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
 
   // ── CARROSSEL DE ATIVOS (#ativos): cover-flow com setas + dots ──
   document.addEventListener('DOMContentLoaded', function () {
@@ -10743,7 +11533,182 @@ Evitar: fundo poluído, textura no fundo, manchas no gradiente, ruído, transiç
     });
   })();
 
+  // ── NAV GLASS ON SCROLL ──
+  const nav = document.querySelector('.ds-nav');
+  if (nav) {
+    const onScroll = () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('is-scrolled');
+      } else {
+        nav.classList.remove('is-scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
+    // ── MOBILE HAMBURGER TOGGLE ──
+    const navToggle = nav.querySelector('.ds-nav__toggle');
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      nav.querySelectorAll('.ds-nav__links a').forEach(a => {
+        a.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+
+  // ── CONSTELLATION PARTICLES (desativado) ──
+  return;
+  // Inject a canvas into each gradient section
+  const gradientSections = document.querySelectorAll('.ds-bg-gradient, .ds-bg-gradient-subtle, .ds-bg-gradient-radial');
+  if (!gradientSections.length) return;
+
+  // Global mouse position
+  let globalMouseX = -9999, globalMouseY = -9999;
+  document.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; });
+  document.addEventListener('mouseleave', () => { globalMouseX = -9999; globalMouseY = -9999; });
+
+  const PARTICLE_COUNT = 60;
+  const CONNECTION_DIST = 130;
+  const MOUSE_RADIUS = 180;
+
+  class Particle {
+    constructor(w, h) {
+      this.w = w; this.h = h;
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.baseAlpha = Math.random() * 0.35 + 0.08;
+      this.alpha = this.baseAlpha;
+      const roll = Math.random();
+      if (roll < 0.35) { this.r = 251; this.g = 46; this.b = 10; }       // brand orange-red
+      else if (roll < 0.6) { this.r = 255; this.g = 80; this.b = 40; }   // warm orange
+      else if (roll < 0.8) { this.r = 200; this.g = 20; this.b = 8; }    // deep red
+      else { this.r = 255; this.g = 255; this.b = 255; }                  // white accent
+    }
+    update(mx, my) {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < -20) this.x = this.w + 20;
+      if (this.x > this.w + 20) this.x = -20;
+      if (this.y < -20) this.y = this.h + 20;
+      if (this.y > this.h + 20) this.y = -20;
+      const dx = mx - this.x, dy = my - this.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.008;
+        this.vx += dx / dist * force;
+        this.vy += dy / dist * force;
+        this.alpha = this.baseAlpha + (1 - dist / MOUSE_RADIUS) * 0.55;
+      } else {
+        this.alpha += (this.baseAlpha - this.alpha) * 0.02;
+      }
+      this.vx *= 0.999;
+      this.vy *= 0.999;
+    }
+    draw(ctx) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.r},${this.g},${this.b},${this.alpha})`;
+      ctx.fill();
+      if (this.alpha > 0.25) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.r},${this.g},${this.b},${this.alpha * 0.12})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  gradientSections.forEach(section => {
+    // Create wrapper + canvas
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ds-constellation';
+    const canvas = document.createElement('canvas');
+    wrapper.appendChild(canvas);
+    section.insertBefore(wrapper, section.firstChild);
+
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+
+    function resize() {
+      const rect = section.getBoundingClientRect();
+      W = canvas.width = rect.width;
+      H = canvas.height = rect.height;
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle(W, H));
+      }
+    }
+
+    function drawConnections(mx, my) {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            let alpha = (1 - dist / CONNECTION_DIST) * 0.1;
+            const midX = (particles[i].x + particles[j].x) / 2;
+            const midY = (particles[i].y + particles[j].y) / 2;
+            const mDist = Math.sqrt((mx - midX) ** 2 + (my - midY) ** 2);
+            if (mDist < MOUSE_RADIUS) alpha += (1 - mDist / MOUSE_RADIUS) * 0.18;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(251,46,10,${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // Only animate when section is visible
+    let isVisible = false;
+    const io = new IntersectionObserver(entries => {
+      isVisible = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(section);
+
+    function loop() {
+      requestAnimationFrame(loop);
+      if (!isVisible) return;
+
+      // Convert global mouse to section-local coords
+      const rect = section.getBoundingClientRect();
+      const mx = globalMouseX - rect.left;
+      const my = globalMouseY - rect.top;
+
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.w = W; p.h = H; p.update(mx, my); p.draw(ctx); });
+      drawConnections(mx, my);
+    }
+
+    resize();
+    initParticles();
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resize();
+        particles.forEach(p => { p.w = W; p.h = H; });
+      }, 200);
+    });
+
+    setTimeout(loop, 300);
+  });
 
   // === BRANDBOOK V4 — HEADLINE SCRAMBLE / COUNT-UP DE LETRAS ===
   (function bbHeadlineScramble() {
