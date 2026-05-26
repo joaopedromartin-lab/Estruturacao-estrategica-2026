@@ -5619,7 +5619,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-structure__inner {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto clamp(80px, 11vh, 150px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5629,15 +5629,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-structure__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 3vw, 48px);
+  font-size: clamp(22px, 2.4vw, 42px);
   font-weight: 400;
   color: #FFFFFF;
   margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.18;
-  max-width: 820px;
+  max-width: none;
+  white-space: nowrap;
 }
-.ee-structure__title strong { font-weight: 700; }
+.ee-structure__title strong { font-weight: 700; color: #ffd60a; }
 
 /* ===== CARROSSEL 3D — vanilla port do CircularGallery ===== */
 .ee-gallery {
@@ -5739,6 +5740,108 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 
+/* === SEÇÃO — PRA QUEM (6 dores em grid com divisores edge-to-edge) === */
+.ee-foru {
+  position: relative;
+  background: #000000;
+  padding: clamp(80px, 12vh, 160px) 0;
+  overflow: hidden;
+}
+.ee-foru__inner {
+  max-width: 1400px;
+  margin: 0 auto clamp(48px, 6vh, 80px);
+  padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.ee-foru__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+.ee-foru__title strong { font-weight: 700; }
+
+/* Grid full-bleed: dividers extending edge to edge */
+.ee-foru__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  width: 100%;
+}
+@media (min-width: 720px)  { .ee-foru__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ee-foru__grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Célula — sem fundo padrão; só ícone + label e bordas pra formar divisores */
+.ee-foru__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 48px);
+  padding: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 64px);
+  min-height: clamp(220px, 26vh, 300px);
+  background: transparent;
+  border-right:  1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* Gradient overlay revelado no hover */
+.ee-foru__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+.ee-foru__card:hover::before { opacity: 1; }
+.ee-foru__card > * { position: relative; z-index: 1; }
+
+/* Mobile (1 coluna): só linhas horizontais entre as células */
+@media (max-width: 719px) {
+  .ee-foru__card { border-right: none; }
+  .ee-foru__card:last-child { border-bottom: none; }
+}
+/* Tablet (2 colunas): zera border-right na 2ª coluna, border-bottom nas últimas 2 */
+@media (min-width: 720px) and (max-width: 1079px) {
+  .ee-foru__card:nth-child(2n) { border-right: none; }
+  .ee-foru__card:nth-last-child(-n+2):nth-child(odd),
+  .ee-foru__card:nth-last-child(-n+2):nth-child(odd) ~ .ee-foru__card { border-bottom: none; }
+}
+/* Desktop (3 colunas): zera border-right na 3ª coluna, border-bottom nas últimas 3 */
+@media (min-width: 1080px) {
+  .ee-foru__card:nth-child(3n) { border-right: none; }
+  .ee-foru__card:nth-last-child(-n+3) { border-bottom: none; }
+}
+
+.ee-foru__icon {
+  width: clamp(28px, 2.2vw, 36px);
+  height: clamp(28px, 2.2vw, 36px);
+  color: #FB2E0A;
+  transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-foru__icon svg { width: 100%; height: 100%; stroke-width: 1.75; }
+.ee-foru__card:hover .ee-foru__icon { color: #FFFFFF; }
+
+.ee-foru__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  margin-top: auto;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-foru__card:hover .ee-foru__label { color: #FFFFFF; }
+
 /* === SEÇÃO SETUP (full-bleed image + headline sobreposta) === */
 .ee-setup {
   position: relative;
@@ -5814,11 +5917,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-flow.ds-bg-gradient {
   background: linear-gradient(180deg,
     #280000 0%,
-    #560303 25%,
-    #7A0A02 55%,
-    #C41E08 85%,
-    #FB2E0A 100%
+    #560303 45%,
+    #7A0A02 100%
   ) !important;
+}
+/* Jornada: continuação do gradient sem constellation (não usa .ds-bg-gradient
+   pra não ser pego pelo injetor de partículas) */
+.ee-flow--journey {
+  background: linear-gradient(180deg,
+    #7A0A02 0%,
+    #C41E08 55%,
+    #FB2E0A 100%
+  );
 }
 /* Quando dentro do flow, as seções perdem o padding-bottom/top
    pra emendar visualmente — a constellation única cobre tudo */
@@ -6292,54 +6402,56 @@ a.ee-journey__tab--link {
   text-align: center;
 }
 
-/* Toggle de pacotes (E.E vs Bundle) — centralizado */
+/* Toggle de pacotes (E.E vs Bundle) — texto puro com divisor vertical
+   e underline horizontal abaixo do grupo */
 .ee-pricing__toggle {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 18px;
+  gap: 0;
   margin-bottom: clamp(48px, 6vh, 80px);
   flex-wrap: wrap;
+  border-bottom: 1px solid rgba(40, 0, 0, 0.14);
+  padding-bottom: clamp(20px, 2.6vh, 36px);
 }
 .ee-pricing__sep {
   width: 1px;
   align-self: stretch;
   min-height: 32px;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(40, 0, 0, 0.18);
+  margin: 0 clamp(28px, 3.2vw, 56px);
 }
 .ee-pricing__option-wrap {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 .ee-pricing__option {
   display: inline-flex;
   align-items: center;
-  padding: 12px 26px;
-  background: linear-gradient(135deg, #E50914 0%, #C20810 100%);
-  color: rgba(255, 255, 255, 0.65);
+  padding: clamp(10px, 1.2vw, 16px) clamp(20px, 2.4vw, 36px);
+  background: transparent;
+  color: #280000;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 1vw, 15px);
-  font-weight: 600;
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 700;
   border: none;
-  border-radius: 9999px;
+  border-radius: 0;
   cursor: pointer;
-  letter-spacing: -0.005em;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 4px 14px rgba(229, 9, 20, 0.18);
+  letter-spacing: -0.01em;
   transition:
-    color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 0.25s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    background 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    color      0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.ee-pricing__option:hover { transform: translateY(-1px); }
+.ee-pricing__option:hover { color: #C41E08; }
 .ee-pricing__option.is-active {
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
   color: #FFFFFF;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
-    0 8px 24px rgba(229, 9, 20, 0.4),
-    0 0 28px rgba(255, 98, 0, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.32);
 }
+.ee-pricing__option.is-active:hover { color: #FFFFFF; }
 .ee-pricing__option:focus-visible {
   outline: 2px solid rgba(229, 9, 20, 0.6);
   outline-offset: 3px;
@@ -6556,42 +6668,66 @@ a.ee-journey__tab--link {
 }
 .ee-pricing__bundle-desc strong { font-weight: 700; color: #280000; }
 
-/* Pack tabs (S / M / L / XL) */
-.ee-pricing__pack-tabs {
+/* Layout horizontal: tabs (esquerda, empilhadas) + detalhes (direita) */
+.ee-pricing__pack-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(12px, 1.4vw, 20px);
-  margin-bottom: clamp(28px, 3.4vh, 44px);
+  gap: clamp(20px, 2.4vw, 36px);
+  align-items: start;
 }
-@media (min-width: 760px) {
-  .ee-pricing__pack-tabs { grid-template-columns: repeat(4, 1fr); }
+@media (min-width: 960px) {
+  .ee-pricing__pack-layout {
+    grid-template-columns: clamp(200px, 22%, 280px) 1fr;
+  }
+}
+
+/* Pack tabs (S / M / L / XL) — empilhadas verticalmente com divisores */
+.ee-pricing__pack-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+@media (min-width: 960px) {
+  .ee-pricing__pack-tabs {
+    grid-template-columns: 1fr;
+    position: sticky;
+    top: clamp(16px, 2vh, 28px);
+  }
 }
 .ee-pricing__pack-tab {
-  padding: clamp(16px, 1.8vw, 24px) clamp(20px, 2vw, 32px);
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  border-radius: 14px;
+  position: relative;
+  padding: clamp(20px, 2.4vw, 32px) clamp(20px, 2vw, 32px);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(40, 0, 0, 0.14);
+  border-radius: 0;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(18px, 1.5vw, 24px);
+  font-size: clamp(22px, 2vw, 32px);
   font-weight: 700;
   color: #E50914;
   letter-spacing: -0.01em;
   text-align: left;
   cursor: pointer;
   transition:
-    border-color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow   0.25s cubic-bezier(0.23, 1, 0.32, 1),
-    transform    0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    background 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    color      0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-pricing__pack-tab:last-child {
+  border-bottom: none;
 }
 .ee-pricing__pack-tab:hover {
-  border-color: rgba(229, 9, 20, 0.5);
-  transform: translateY(-1px);
+  color: #C41E08;
 }
 .ee-pricing__pack-tab.is-active {
-  border-color: rgba(229, 9, 20, 0.7);
-  box-shadow:
-    0 8px 20px rgba(229, 9, 20, 0.18),
-    inset 0 0 0 1px rgba(229, 9, 20, 0.4);
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
+  color: #FFFFFF;
+  border-radius: 0;
+  border-bottom-color: transparent;
+  box-shadow: 0 8px 20px rgba(229, 9, 20, 0.32);
+}
+.ee-pricing__pack-tab.is-active:hover {
+  color: #FFFFFF;
 }
 .ee-pricing__pack-tab:focus-visible {
   outline: 2px solid rgba(229, 9, 20, 0.6);
@@ -7216,35 +7352,6 @@ a.ee-journey__tab--link {
 </head>
 
 <body class="home page wp-custom-logo wp-theme-studiosunup">
-
-<!-- ============================================================ -->
-<!-- DESIGN SYSTEM NAV (horizontal anchor links)                    -->
-<!-- ============================================================ -->
-<nav class="ds-nav" aria-label="Seções da Estruturação Estratégica 2026">
-  <button class="ds-nav__toggle" type="button" aria-expanded="false" aria-controls="ds-nav-links" aria-label="Abrir menu de seções">
-    <img src="assets/dehaze_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="" aria-hidden="true"/>
-  </button>
-  <div class="ds-nav__links" id="ds-nav-links">
-    <a href="#hero">Início</a>
-    <a href="#autoridade">Autoridade</a>
-    <a href="#reconhecimento">Reconhecimento</a>
-    <a href="#clientes">Clientes</a>
-    <a href="#cases">Cases</a>
-    <a href="#ecossistema">Ecossistema</a>
-    <a href="#missao">Missão</a>
-    <a href="#metodo">Método</a>
-    <a href="#problema">Problema</a>
-    <a href="#produto">Produto</a>
-    <a href="#setup">Setup</a>
-    <a href="#estrutura">Estrutura</a>
-    <a href="#pilares">Pilares</a>
-    <a href="#jornada">Jornada</a>
-    <a href="#executar">Executar</a>
-    <a href="#precos">Preços</a>
-    <a href="#proposta">Proposta</a>
-    <!-- âncoras das próximas seções serão adicionadas aqui -->
-  </div>
-</nav>
 
 <div class="wp-site-blocks">
 
@@ -7907,6 +8014,41 @@ a.ee-journey__tab--link {
 </section>
 
 <!-- ============================================================ -->
+<!-- SEÇÃO — PRA QUEM (6 dores em cards glass)                      -->
+<!-- ============================================================ -->
+<section id="para-quem" class="ee-foru" aria-label="Pra que tipo de empresa esse serviço foi desenhado">
+  <div class="ee-foru__inner">
+    <h2 class="ee-foru__title">Pra que tipo de empresa esse serviço foi <strong>desenhado?</strong></h2>
+  </div>
+  <div class="ee-foru__grid">
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="thumbs-down" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Experiências frustrantes com outras agências</p>
+    </article>
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="lightbulb-off" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Setor de marketing pouco experiente</p>
+    </article>
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Estrutura comercial muito amadora</p>
+    </article>
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="trending-up" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Concorrência avançando</p>
+    </article>
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="circle-help" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Medo de fazer uma contratação errada</p>
+    </article>
+    <article class="ee-foru__card">
+      <div class="ee-foru__icon"><i data-lucide="shuffle" aria-hidden="true"></i></div>
+      <p class="ee-foru__label">Não ter um plano bem definido</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SEÇÃO — SETUP (Não é diagnóstico. É setup — imagem + texto)   -->
 <!-- ============================================================ -->
 <section id="setup" class="ee-setup" aria-label="Tenha a estrutura pronta antes da operação começar">
@@ -7915,7 +8057,7 @@ a.ee-journey__tab--link {
   <div class="ee-setup__inner">
     <div class="ee-setup__content">
       <h2 class="ee-setup__title">Tenha a estrutura pronta. Antes mesmo da operação começar</h2>
-      <p class="ee-setup__sub">Em 4 semanas, a V4 prepara tudo. Você ganha o tempo da preparação e entra em operação com método.</p>
+      <p class="ee-setup__sub">Em 30 dias, a V4 prepara tudo. Você ganha o tempo da preparação e entra em operação com método.</p>
     </div>
   </div>
 </section>
@@ -8069,9 +8211,12 @@ a.ee-journey__tab--link {
   </div>
 </section>
 
+</div><!-- /.ee-flow (pilares — com constellation) -->
+
 <!-- ============================================================ -->
 <!-- SEÇÃO 09 — JORNADA DETALHADA (tabs por semana, S3 dinâmica)   -->
 <!-- ============================================================ -->
+<div class="ee-flow ee-flow--journey">
 <section id="jornada" class="ee-journey" aria-label="Jornada detalhada — semana a semana">
   <div class="ee-journey__inner">
 
@@ -8218,7 +8363,7 @@ a.ee-journey__tab--link {
   </div>
 </section>
 
-</div><!-- /.ee-flow -->
+</div><!-- /.ee-flow--journey (sem constellation) -->
 
 <!-- ============================================================ -->
 <!-- SEÇÃO 10 — BRIDGE (transição pra próxima fase: Executar)      -->
@@ -8241,18 +8386,18 @@ a.ee-journey__tab--link {
 
     <!-- Toggle de pacotes -->
     <div class="ee-pricing__toggle" role="tablist" aria-label="Pacotes disponíveis">
-      <button type="button" role="tab" class="ee-pricing__option is-active" data-pack="ee" aria-selected="true" aria-controls="ee-pricing-panel-ee" id="ee-pricing-tab-ee">E.E</button>
+      <button type="button" role="tab" class="ee-pricing__option" data-pack="ee" aria-selected="false" aria-controls="ee-pricing-panel-ee" id="ee-pricing-tab-ee" tabindex="-1">E.E</button>
       <span class="ee-pricing__sep" aria-hidden="true"></span>
       <div class="ee-pricing__option-wrap">
         <span class="ee-pricing__badge"><i data-lucide="flame" aria-hidden="true"></i>Mais Vendido</span>
-        <button type="button" role="tab" class="ee-pricing__option" data-pack="bundle" aria-selected="false" aria-controls="ee-pricing-panel-bundle" id="ee-pricing-tab-bundle" tabindex="-1">E.E + Executar (Bundle)</button>
+        <button type="button" role="tab" class="ee-pricing__option is-active" data-pack="bundle" aria-selected="true" aria-controls="ee-pricing-panel-bundle" id="ee-pricing-tab-bundle">E.E + Executar (Bundle)</button>
       </div>
     </div>
 
     <div class="ee-pricing__panels">
 
       <!-- PAINEL: E.E -->
-      <div role="tabpanel" id="ee-pricing-panel-ee" class="ee-pricing__panel is-active" aria-labelledby="ee-pricing-tab-ee">
+      <div role="tabpanel" id="ee-pricing-panel-ee" class="ee-pricing__panel" aria-labelledby="ee-pricing-tab-ee">
 
         <header class="ee-pricing__head">
           <h3 class="ee-pricing__title">
@@ -8302,12 +8447,15 @@ a.ee-journey__tab--link {
       </div>
 
       <!-- PAINEL: BUNDLE (E.E + Executar) — 4 packs: S / M / L / XL -->
-      <div role="tabpanel" id="ee-pricing-panel-bundle" class="ee-pricing__panel" aria-labelledby="ee-pricing-tab-bundle">
+      <div role="tabpanel" id="ee-pricing-panel-bundle" class="ee-pricing__panel is-active" aria-labelledby="ee-pricing-tab-bundle">
 
         <header class="ee-pricing__bundle-head">
           <h3 class="ee-pricing__bundle-title">Bundle — Estruturação Estratégica + Executar</h3>
           <p class="ee-pricing__bundle-desc">A Estruturação Estratégica monta o plano. O Pack do Executar coloca em operação. Contratando os dois juntos, com Executar por no mínimo 6 meses, <strong>você desbloqueia o desconto na contratação combinada.</strong></p>
         </header>
+
+        <!-- Layout horizontal: tabs à esquerda, detalhes à direita -->
+        <div class="ee-pricing__pack-layout">
 
         <!-- Seletor de pack (S / M / L / XL) -->
         <div class="ee-pricing__pack-tabs" role="tablist" aria-label="Tamanhos do pack Executar">
@@ -8360,7 +8508,9 @@ a.ee-journey__tab--link {
             </div>
           </article>
 
-        </div>
+        </div><!-- /.ee-pricing__pack-details -->
+
+        </div><!-- /.ee-pricing__pack-layout -->
 
       </div>
 
@@ -10452,7 +10602,8 @@ Evitar: fundo poluído, textura no fundo, manchas no gradiente, ruído, transiç
     }
   }
 
-  // ── CONSTELLATION PARTICLES ──
+  // ── CONSTELLATION PARTICLES (desativado) ──
+  return;
   // Inject a canvas into each gradient section
   const gradientSections = document.querySelectorAll('.ds-bg-gradient, .ds-bg-gradient-subtle, .ds-bg-gradient-radial');
   if (!gradientSections.length) return;
