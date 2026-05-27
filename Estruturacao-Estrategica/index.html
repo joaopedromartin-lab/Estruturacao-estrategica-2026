@@ -4673,7 +4673,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases {
   background: #0a0a0a;
   color: #FFFFFF;
-  padding: clamp(80px, 12vh, 180px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
   position: relative;
   overflow: hidden;
 }
@@ -4736,9 +4736,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__slide-inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(32px, 4vw, 64px);
+  gap: clamp(20px, 2.4vw, 40px);
   align-items: center;
-  margin-bottom: clamp(40px, 5vh, 72px);
+  margin-bottom: clamp(20px, 2.4vh, 36px);
 }
 @media (min-width: 900px) {
   .ee-cases__slide-inner {
@@ -4749,28 +4749,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__title {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(44px, 5.5vw, 90px);
+  font-size: clamp(36px, 4.5vw, 72px);
   line-height: 0.88;
   text-transform: uppercase;
   letter-spacing: 0;
   color: #FFFFFF;
-  margin: 0 0 clamp(36px, 4.5vw, 72px);
+  margin: 0 0 clamp(20px, 2.4vw, 36px);
 }
 /* Eyebrow "CASES" — pequeno texto identificando a seção */
 .ee-cases__eyebrow {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(32px, 3.6vw, 56px);
+  font-size: clamp(24px, 2.8vw, 44px);
   text-transform: uppercase;
   letter-spacing: 0;
   line-height: 1;
   color: #FFFFFF;
-  margin: 0 0 clamp(36px, 4.5vw, 72px);
+  margin: 0 0 clamp(20px, 2.5vw, 36px);
 }
 .ee-cases__brand-name {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
-  font-size: clamp(28px, 3vw, 48px);
+  font-size: clamp(22px, 2.4vw, 38px);
   color: #FFFFFF;
   margin: 0;
   letter-spacing: -0.015em;
@@ -4779,19 +4779,19 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__brand-type {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(15px, 1.2vw, 20px);
+  font-size: clamp(13px, 1vw, 17px);
   color: rgba(255, 255, 255, 0.6);
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   letter-spacing: -0.005em;
 }
 /* Descrição do case (parágrafo abaixo do brand) */
 .ee-cases__brand-desc {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(17px, 1.4vw, 22px);
+  font-size: clamp(14px, 1.15vw, 18px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.88);
-  margin: clamp(20px, 2.4vw, 32px) 0 0;
-  line-height: 1.5;
+  margin: clamp(12px, 1.6vw, 22px) 0 0;
+  line-height: 1.45;
   letter-spacing: -0.005em;
   max-width: 500px;
 }
@@ -4832,11 +4832,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-cases__media {
     aspect-ratio: auto;
     height: auto;
-    min-height: clamp(420px, 55vh, 640px);
+    min-height: clamp(280px, 40vh, 440px);
+    max-height: 56vh;
     /* Vaza pelo padding-right da section → cola na borda direita */
     margin-right: calc(-1 * clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem));
     /* Vaza pelo padding-top da section → cola no topo */
-    margin-top: calc(-1 * clamp(80px, 12vh, 180px));
+    margin-top: calc(-1 * clamp(40px, 6vh, 80px));
     /* Cantos retos onde cola na borda; mantém só o canto inferior esquerdo arredondado */
     border-radius: 0 0 0 14px;
     border-top: none;
@@ -4867,14 +4868,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 3.5vw, 56px);
-  padding-top: clamp(28px, 3.4vh, 44px);
+  gap: clamp(20px, 2.6vw, 40px);
+  padding-top: clamp(16px, 2vh, 28px);
   position: relative;
 }
 .ee-cases__metrics::before {
   content: "";
   position: absolute;
-  top: clamp(28px, 3.4vh, 44px);
+  top: clamp(16px, 2vh, 28px);
   bottom: 0;
   left: 50%;
   width: 1px;
@@ -4883,21 +4884,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-cases__metric-label {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-size: clamp(12px, 0.95vw, 16px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 clamp(14px, 1.6vw, 24px);
+  margin: 0 0 clamp(10px, 1.2vw, 18px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 .ee-cases__metric-values {
   display: flex;
   align-items: baseline;
-  gap: clamp(20px, 2.6vw, 40px);
+  gap: clamp(16px, 2vw, 32px);
 }
 .ee-cases__metric-before {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(26px, 2.8vw, 44px);
+  font-size: clamp(20px, 2.2vw, 34px);
   font-weight: 300;
   color: rgba(255, 255, 255, 0.32);
   letter-spacing: -0.02em;
@@ -4905,7 +4906,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-cases__metric-after {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(48px, 5.5vw, 88px);
+  font-size: clamp(40px, 4.4vw, 68px);
   font-weight: 700;
   color: #FFFFFF;
   letter-spacing: -0.025em;
@@ -5158,21 +5159,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO MÉTODO (svg + headline + 4 pilares com divisores marrons) === */
 .ee-method {
   background: #FFFFFF;
-  padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 160px);
 }
 .ee-method__inner {
   max-width: 1720px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 2.6vh, 40px);
+  gap: clamp(14px, 2vh, 28px);
 }
 
 /* Topo: SVG + headline */
 .ee-method__top {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(40px, 5vw, 80px);
+  gap: clamp(24px, 3vw, 48px);
   align-items: center;
 }
 @media (min-width: 900px) {
@@ -5180,7 +5181,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-method__visual {
   width: 100%;
-  max-width: 860px;
+  max-width: 620px;
   margin: 0 auto;
 }
 .ee-method__visual img {
@@ -5191,7 +5192,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-method__title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(22px, 2.2vw, 34px);
+  font-size: clamp(18px, 1.9vw, 28px);
   line-height: 1.2;
   letter-spacing: -0.018em;
   color: #280000;
@@ -5209,12 +5210,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Pilares (4 colunas com divisores marrom V4 = #280000) */
 .ee-method__pillars {
   list-style: none;
-  padding: clamp(20px, 2.6vh, 36px) 0 0;
+  padding: clamp(14px, 2vh, 24px) 0 0;
   margin: 0;
   border-top: 1px solid rgba(40, 0, 0, 0.18);
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(40px, 4vw, 56px);
+  gap: clamp(24px, 2.4vw, 36px);
 }
 @media (min-width: 760px) {
   .ee-method__pillars { grid-template-columns: repeat(2, 1fr); }
@@ -5242,24 +5243,24 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-method__pillar-num {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(18px, 1.3vw, 22px);
+  font-size: clamp(14px, 1.1vw, 18px);
   font-weight: 400;
   color: rgba(40, 0, 0, 0.45);
-  margin: 0 0 clamp(8px, 0.8vw, 14px);
+  margin: 0 0 clamp(6px, 0.6vw, 10px);
   letter-spacing: -0.005em;
 }
 .ee-method__pillar-title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(22px, 1.8vw, 32px);
+  font-size: clamp(18px, 1.5vw, 26px);
   font-weight: 400;
   color: #280000;
-  margin: 0 0 clamp(16px, 1.6vw, 26px);
+  margin: 0 0 clamp(10px, 1.1vw, 18px);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 .ee-method__pillar-body {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 0.95vw, 15px);
+  font-size: clamp(14px, 1.1vw, 18px);
   line-height: 1.55;
   color: rgba(5, 5, 5, 0.68);
   margin: 0;
@@ -5584,7 +5585,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 /* === SEÇÃO ESTRUTURA (fundo marrom V4 + carrossel 3D dos entregáveis) === */
 .ee-structure {
-  background: #280000;
+  background: linear-gradient(180deg, #000000 0%, #140000 45%, #280000 100%);
   padding: clamp(96px, 14vh, 200px) 0 clamp(80px, 12vh, 180px);
   overflow: hidden;
 }
@@ -6272,7 +6273,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-handoff__title strong {
   font-weight: 700;
-  color: #FB2E0A;
+  color: #FFD60A;
 }
 .ee-handoff__sub {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -6335,6 +6336,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.015em;
   line-height: 1.15;
 }
+.ee-handoff__phase-list {
+  list-style: none;
+  margin: 0 0 clamp(16px, 2vh, 26px);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vh, 12px);
+}
+.ee-handoff__phase-list li {
+  position: relative;
+  padding-left: 18px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1.05vw, 16px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.ee-handoff__phase-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFD60A;
+}
+.ee-handoff__phase--executar .ee-handoff__phase-list li { color: #FFFFFF; }
+.ee-handoff__phase--executar .ee-handoff__phase-list li::before { background: #FFFFFF; }
 .ee-handoff__weeks {
   display: flex;
   gap: 6px;
@@ -6453,7 +6484,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(32px, 5vh, 70px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(40px, 6vh, 80px);
 }
 .ee-pricing__inner {
-  max-width: 1080px;
+  max-width: 1720px;
   margin: 0 auto;
 }
 .ee-pricing__heading {
@@ -6904,7 +6935,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 180px);
 }
 .ee-proposal__inner {
-  max-width: 1100px;
+  max-width: 1720px;
   margin: 0 auto;
 }
 .ee-proposal__eyebrow {
@@ -8145,19 +8176,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SEÇÃO — SETUP (Não é diagnóstico. É setup — imagem + texto)   -->
-<!-- ============================================================ -->
-<section id="setup" class="ee-setup" aria-label="Tenha a estrutura pronta antes da operação começar">
-  <img class="ee-setup__bg" src="assets/Fullbleedee2.png" alt="" aria-hidden="true"/>
-  <div class="ee-setup__overlay" aria-hidden="true"></div>
-  <div class="ee-setup__inner">
-    <div class="ee-setup__content">
-      <h2 class="ee-setup__title">Tenha a estrutura pronta. Antes mesmo da operação começar</h2>
-      <p class="ee-setup__sub">Em 30 dias, a V4 prepara tudo. Você ganha o tempo da preparação e entra em operação com método.</p>
-    </div>
-  </div>
-</section>
+<!-- SEÇÃO — SETUP removida (redundante com #estrutura/#cronograma/#ativos) -->
 
 <!-- ============================================================ -->
 <!-- SEÇÃO — ESTRUTURA COMPLETA (continuação narrativa, centralizada) -->
@@ -8493,23 +8512,24 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-handoff__inner">
 
     <header class="ee-handoff__header">
-      <h2 class="ee-handoff__title">Agora você tem o Plano, <strong>a V4 te ajuda na execução.</strong></h2>
+      <h2 class="ee-handoff__title">Agora você tem o Plano, a V4 te ajuda na <strong>execução</strong>.</h2>
       <p class="ee-handoff__sub">O Executar é a operação contínua que coloca a Estruturação Estratégica pra rodar — todo dia, sem reabrir diagnóstico, sem reaprender o negócio.</p>
     </header>
 
-    <!-- Timeline: EE (4 semanas) → Executar (operação contínua) -->
-    <div class="ee-handoff__timeline" role="img" aria-label="A Estruturação Estratégica dura 30 dias; o Executar é a operação contínua que vem depois">
+    <!-- Comparativo: o que a EE cuida × o que o Executar faz -->
+    <div class="ee-handoff__timeline" role="img" aria-label="A Estruturação Estratégica cuida do planejamento; o Executar cuida da operação">
 
       <div class="ee-handoff__phase ee-handoff__phase--ee">
         <span class="ee-handoff__phase-label">Fase 1 · Planejamento</span>
         <h3 class="ee-handoff__phase-name">Estruturação Estratégica</h3>
-        <div class="ee-handoff__weeks" aria-hidden="true">
-          <span class="ee-handoff__week">S1</span>
-          <span class="ee-handoff__week">S2</span>
-          <span class="ee-handoff__week">S3</span>
-          <span class="ee-handoff__week">S4</span>
-        </div>
-        <span class="ee-handoff__phase-duration">30 dias</span>
+        <ul class="ee-handoff__phase-list">
+          <li>Pesquisa de mercado e ICP</li>
+          <li>Posicionamento estratégico</li>
+          <li>Identidade de marca completa</li>
+          <li>Plano de mídia de 6 meses</li>
+          <li>Estrutura comercial calibrada</li>
+        </ul>
+        <span class="ee-handoff__phase-duration">30 dias · entrega no Dia 31</span>
       </div>
 
       <div class="ee-handoff__connector" aria-hidden="true">
@@ -8519,35 +8539,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-handoff__phase ee-handoff__phase--executar">
         <span class="ee-handoff__phase-label">Fase 2 · Operação</span>
         <h3 class="ee-handoff__phase-name">Executar</h3>
-        <div class="ee-handoff__continuous" aria-hidden="true">
-          <span class="ee-handoff__continuous-dot"></span>
-          <span class="ee-handoff__continuous-dot"></span>
-          <span class="ee-handoff__continuous-dot"></span>
-          <span class="ee-handoff__continuous-dot"></span>
-          <span class="ee-handoff__continuous-arrow">∞</span>
-        </div>
+        <ul class="ee-handoff__phase-list">
+          <li>Gestão de mídia paga (Meta + Google)</li>
+          <li>Produção de criativos e copy</li>
+          <li>Time dedicado de especialistas</li>
+          <li>Dashboard diário · otimização 2-3×/semana</li>
+          <li>Reuniões periódicas de performance</li>
+        </ul>
         <span class="ee-handoff__phase-duration">Operação contínua</span>
       </div>
 
-    </div>
-
-    <!-- 3 pilares do Executar -->
-    <div class="ee-handoff__pillars">
-      <article class="ee-handoff__pillar">
-        <div class="ee-handoff__pillar-icon"><i data-lucide="repeat-2" aria-hidden="true"></i></div>
-        <h4 class="ee-handoff__pillar-title">Continuidade</h4>
-        <p class="ee-handoff__pillar-body">Mesma equipe que estruturou. Sem reabrir diagnóstico, sem reaprender o negócio — a operação começa calibrada.</p>
-      </article>
-      <article class="ee-handoff__pillar">
-        <div class="ee-handoff__pillar-icon"><i data-lucide="zap" aria-hidden="true"></i></div>
-        <h4 class="ee-handoff__pillar-title">Execução com método</h4>
-        <p class="ee-handoff__pillar-body">Tudo o que foi planejado vira ação semanal — com SLA, entregas e rituais definidos pelo seu pack.</p>
-      </article>
-      <article class="ee-handoff__pillar">
-        <div class="ee-handoff__pillar-icon"><i data-lucide="trending-up" aria-hidden="true"></i></div>
-        <h4 class="ee-handoff__pillar-title">Calibração contínua</h4>
-        <p class="ee-handoff__pillar-body">Ajustes baseados em performance, não em palpite. O plano vive, evolui e se adapta ao seu mercado.</p>
-      </article>
     </div>
 
   </div>
