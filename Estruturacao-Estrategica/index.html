@@ -5898,34 +5898,134 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-roadmap__heading {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(32px, 3.4vw, 56px);
+  font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
   color: #FFFFFF;
-  text-align: center;
-  margin: 0 0 clamp(56px, 7vh, 96px);
+  text-align: left;
+  margin: 0 0 clamp(28px, 3.6vh, 48px);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 .ee-roadmap__heading strong { font-weight: 700; }
 
-/* Cada semana é um bloco grid: conteúdo (esquerda) + imagem sticky (direita) */
+/* Tabs no topo: arrows + tabs centralizadas com divisores verticais */
+.ee-roadmap__tabs {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 0 clamp(64px, 8vh, 110px);
+}
+.ee-roadmap__tab {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: clamp(14px, 1.8vh, 22px) clamp(24px, 3vw, 44px);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  position: relative;
+  transition:
+    background 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-roadmap__tab strong { font-weight: 700; }
+.ee-roadmap__tab:hover { color: rgba(255, 255, 255, 0.85); }
+/* Divisores verticais entre tabs consecutivos */
+.ee-roadmap__tab + .ee-roadmap__tab {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+/* Tab ativo: gradient brand vermelho + texto branco, divisores adjacentes some */
+.ee-roadmap__tab.is-active {
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  color: #FFFFFF;
+  border-left-color: transparent;
+  box-shadow: 0 8px 24px rgba(251, 46, 10, 0.28);
+}
+.ee-roadmap__tab.is-active strong { color: #FFFFFF; }
+.ee-roadmap__tab.is-active + .ee-roadmap__tab {
+  border-left-color: transparent;
+}
+.ee-roadmap__tab:focus-visible {
+  outline: 2px solid rgba(251, 46, 10, 0.65);
+  outline-offset: 3px;
+}
+
+/* Setas de navegação (← / →) */
+.ee-roadmap__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 3vw, 46px);
+  height: clamp(38px, 3vw, 46px);
+  margin: 0 clamp(12px, 1.6vw, 22px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+  align-self: center;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, opacity 0.25s ease;
+}
+.ee-roadmap__arrow:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
+}
+.ee-roadmap__arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.ee-roadmap__arrow:focus-visible {
+  outline: 2px solid rgba(251, 46, 10, 0.65);
+  outline-offset: 3px;
+}
+.ee-roadmap__arrow svg { width: 18px; height: 18px; stroke-width: 2; }
+
+/* Container dos painéis (cross-fade entre semanas) */
+.ee-roadmap__panels {
+  position: relative;
+  display: grid;
+  isolation: isolate;
+}
+
+/* Cada semana é um painel grid: conteúdo (esquerda) + imagem (direita) */
 .ee-roadmap__week {
+  grid-area: 1 / 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(28px, 4vw, 64px);
-  padding: clamp(48px, 8vh, 120px) 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0.4s;
 }
-.ee-roadmap__week + .ee-roadmap__week {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+.ee-roadmap__week.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  z-index: 2;
+  transition:
+    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0s;
 }
 @media (min-width: 960px) {
   .ee-roadmap__week {
     grid-template-columns: 0.95fr 1.15fr;
     align-items: start;
   }
-  /* Alterna a posição da imagem: semanas pares têm a imagem à esquerda */
-  .ee-roadmap__week:nth-of-type(even) .ee-roadmap__content { order: 2; }
-  .ee-roadmap__week:nth-of-type(even) .ee-roadmap__media   { order: 1; }
 }
 .ee-roadmap__content {
   display: flex;
@@ -5994,21 +6094,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   background: #FFD60A;
   transform: translateY(-1px);
 }
-/* Coluna da imagem — sticky no desktop, segue o scroll até a semana acabar */
+/* Coluna da imagem — agora dentro do painel da tab */
 .ee-roadmap__media {
   position: relative;
-}
-@media (min-width: 960px) {
-  .ee-roadmap__media {
-    position: sticky;
-    top: clamp(40px, 8vh, 100px);
-    align-self: start;
-  }
 }
 .ee-roadmap__media-inner {
   position: relative;
   width: 100%;
+  max-width: 600px;
   aspect-ratio: 1 / 1;
+  margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #560303 100%);
@@ -8373,10 +8468,26 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     <h2 class="ee-roadmap__heading">Cronograma da <strong>Estruturação Estratégica</strong></h2>
 
+    <!-- Tabs das semanas (com setas de navegação) -->
+    <div class="ee-roadmap__tabs" role="tablist" aria-label="Semanas do cronograma">
+      <button type="button" class="ee-roadmap__arrow" id="ee-roadmap-prev" aria-label="Semana anterior">
+        <i data-lucide="arrow-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" role="tab" class="ee-roadmap__tab is-active" data-week="1" aria-selected="true" aria-controls="ee-roadmap-panel-1" id="ee-roadmap-tab-1">Semana <strong>01</strong></button>
+      <button type="button" role="tab" class="ee-roadmap__tab" data-week="2" aria-selected="false" aria-controls="ee-roadmap-panel-2" id="ee-roadmap-tab-2" tabindex="-1">Semana <strong>02</strong></button>
+      <button type="button" role="tab" class="ee-roadmap__tab" data-week="3" aria-selected="false" aria-controls="ee-roadmap-panel-3" id="ee-roadmap-tab-3" tabindex="-1">Semana <strong>03</strong></button>
+      <button type="button" role="tab" class="ee-roadmap__tab" data-week="4" aria-selected="false" aria-controls="ee-roadmap-panel-4" id="ee-roadmap-tab-4" tabindex="-1">Semana <strong>04</strong></button>
+      <button type="button" class="ee-roadmap__arrow" id="ee-roadmap-next" aria-label="Próxima semana">
+        <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Painéis (semanas) — só o ativo aparece -->
+    <div class="ee-roadmap__panels">
+
     <!-- SEMANA 1 -->
-    <article class="ee-roadmap__week">
+    <article class="ee-roadmap__week is-active" role="tabpanel" id="ee-roadmap-panel-1" aria-labelledby="ee-roadmap-tab-1">
       <div class="ee-roadmap__content">
-        <span class="ee-roadmap__badge">Semana 1</span>
         <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de&nbsp;Mercado</h3>
         <p class="ee-roadmap__intro">Imersão no negócio do cliente, mapeamento de concorrentes e <strong>construção da base estratégica.</strong></p>
         <ul class="ee-roadmap__list">
@@ -8399,9 +8510,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </article>
 
     <!-- SEMANA 2 -->
-    <article class="ee-roadmap__week">
+    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-2" aria-labelledby="ee-roadmap-tab-2">
       <div class="ee-roadmap__content">
-        <span class="ee-roadmap__badge">Semana 2</span>
         <h3 class="ee-roadmap__title">Diagnóstico Digital e Posicionamento Estratégico</h3>
         <p class="ee-roadmap__intro">Análise profunda da operação digital atual e <strong>definição do posicionamento</strong> que vai sustentar a comunicação.</p>
         <ul class="ee-roadmap__list">
@@ -8419,9 +8529,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </article>
 
     <!-- SEMANA 3 — 3 variantes (PDV / Inside Sales / E-commerce), JS revela só a do modelo selecionado -->
-    <article class="ee-roadmap__week ee-roadmap__week--week3">
+    <article class="ee-roadmap__week ee-roadmap__week--week3" role="tabpanel" id="ee-roadmap-panel-3" aria-labelledby="ee-roadmap-tab-3">
       <div class="ee-roadmap__content">
-        <span class="ee-roadmap__badge">Semana 3</span>
 
         <!-- Fallback: nenhum modelo selecionado -->
         <div class="ee-roadmap__week3-variant is-shown" data-week3-variant="prompt">
@@ -8481,9 +8590,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </article>
 
     <!-- SEMANA 4 -->
-    <article class="ee-roadmap__week">
+    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-4" aria-labelledby="ee-roadmap-tab-4">
       <div class="ee-roadmap__content">
-        <span class="ee-roadmap__badge">Semana 4</span>
         <h3 class="ee-roadmap__title">Identidade de Comunicação e Plano de&nbsp;Mídia</h3>
         <p class="ee-roadmap__intro">Consolidação da identidade da marca e elaboração do <strong>plano de mídia de 6 meses</strong>, pronto pra execução.</p>
         <ul class="ee-roadmap__list">
@@ -8498,6 +8606,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-roadmap__media-inner" data-week="4" role="img" aria-label="Imagem de apoio da Semana 4"></div>
       </div>
     </article>
+
+    </div><!-- /.ee-roadmap__panels -->
 
   </div>
 </section>
@@ -9516,6 +9626,77 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     });
 
     render();
+  });
+
+  // ── CRONOGRAMA (#cronograma): tabs das semanas + setas (sem loop circular) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var tabs   = document.querySelectorAll('.ee-roadmap__tab');
+    if (!tabs.length) return;
+    var panels = document.querySelectorAll('.ee-roadmap__week');
+    var prevBtn = document.getElementById('ee-roadmap-prev');
+    var nextBtn = document.getElementById('ee-roadmap-next');
+
+    function currentIndex() {
+      for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].classList.contains('is-active')) return i;
+      }
+      return 0;
+    }
+    function updateArrows() {
+      var idx = currentIndex();
+      if (prevBtn) prevBtn.disabled = (idx === 0);
+      if (nextBtn) nextBtn.disabled = (idx === tabs.length - 1);
+    }
+    function activate(week) {
+      tabs.forEach(function (t) {
+        var isActive = t.getAttribute('data-week') === week;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('aria-labelledby') === 'ee-roadmap-tab-' + week);
+      });
+      updateArrows();
+    }
+    function step(delta) {
+      var idx = currentIndex() + delta;
+      if (idx < 0 || idx >= tabs.length) return; // bloqueia nas pontas
+      activate(tabs[idx].getAttribute('data-week'));
+    }
+
+    tabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-week'));
+      });
+      tab.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          var nextIdx = Math.min(idx + 1, tabs.length - 1);
+          activate(tabs[nextIdx].getAttribute('data-week'));
+          tabs[nextIdx].focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var prevIdx = Math.max(idx - 1, 0);
+          activate(tabs[prevIdx].getAttribute('data-week'));
+          tabs[prevIdx].focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          activate(tabs[0].getAttribute('data-week'));
+          tabs[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          activate(tabs[tabs.length - 1].getAttribute('data-week'));
+          tabs[tabs.length - 1].focus();
+        }
+      });
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { step( 1); });
+
+    // Estado inicial das setas
+    updateArrows();
   });
 
   // ── CRONOGRAMA (#cronograma): Semana 3 sincronizada com V4SalesModel ──
