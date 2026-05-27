@@ -4479,7 +4479,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-auth__who {
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 2.6vw, 40px);
+  gap: clamp(12px, 1.4vw, 22px);
 }
 .ee-auth__who-label {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -4487,10 +4487,23 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(16px, 1.1vw, 19px);
   color: #606060;
   margin: 0;
-  padding-bottom: clamp(18px, 2.2vw, 28px);
+  padding-bottom: clamp(10px, 1.4vw, 18px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.10);
   letter-spacing: -0.005em;
 }
+/* Selos no fluxo, abaixo do sub */
+.ee-auth__who-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 22px);
+  margin-top: clamp(8px, 1vw, 16px);
+}
+.ee-auth__who-badge {
+  display: block;
+  height: clamp(56px, 5.4vw, 88px);
+  width: auto;
+}
+.ee-auth__who-badge--gptw { height: clamp(88px, 8.5vw, 140px); }
 .ee-auth__who-title {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
@@ -5902,7 +5915,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (min-width: 960px) {
   .ee-roadmap__week {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.95fr 1.15fr;
     align-items: start;
   }
   /* Alterna a posição da imagem: semanas pares têm a imagem à esquerda */
@@ -5930,11 +5943,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(24px, 2.4vw, 38px);
-  font-weight: 700;
+  font-weight: 400;
   color: #FFFFFF;
   margin: clamp(6px, 0.6vh, 12px) 0 0;
   letter-spacing: -0.02em;
   line-height: 1.18;
+  text-wrap: balance;
 }
 .ee-roadmap__intro {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -5989,18 +6003,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__media-inner {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #560303 100%);
-  box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.45),
-    inset 0 0 80px rgba(255, 255, 255, 0.06);
+  background: transparent;
 }
 .ee-roadmap__media-inner img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 /* Variantes da Semana 3 (PDV / Inside Sales / E-commerce + fallback) */
@@ -6265,10 +6272,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-handoff__title strong {
   font-weight: 700;
-  background: linear-gradient(135deg, #FB2E0A 0%, #FFD60A 100%);
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #FB2E0A;
 }
 .ee-handoff__sub {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -7499,6 +7503,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <span>ASSESSORIA</span>
       </h2>
       <p class="ee-auth__who-sub">de Marketing da <strong>América Latina</strong></p>
+      <div class="ee-auth__who-badges" aria-label="Selos de reconhecimento">
+        <img src="assets/reclameaqui.svg" alt="Verificada por Reclame Aqui" class="ee-auth__who-badge"/>
+        <img src="assets/Gptw.png" alt="Great Place to Work — Certificado 2023" class="ee-auth__who-badge ee-auth__who-badge--gptw"/>
+      </div>
     </div>
 
   </div>
@@ -8278,7 +8286,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <article class="ee-roadmap__week">
       <div class="ee-roadmap__content">
         <span class="ee-roadmap__badge">Semana 1</span>
-        <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de Mercado</h3>
+        <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de&nbsp;Mercado</h3>
         <p class="ee-roadmap__intro">Imersão no negócio do cliente, mapeamento de concorrentes e <strong>construção da base estratégica.</strong></p>
         <ul class="ee-roadmap__list">
           <li class="ee-roadmap__item">Criação de grupo com o cliente e boas-vindas.</li>
@@ -8293,7 +8301,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </ul>
       </div>
       <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="1" role="img" aria-label="Imagem de apoio da Semana 1"></div>
+        <div class="ee-roadmap__media-inner" data-week="1">
+          <img src="assets/Semana1-entregas.webp" alt="Entregáveis da Semana 1: Descoberta do Negócio e Pesquisa de Mercado"/>
+        </div>
       </div>
     </article>
 
@@ -8568,11 +8578,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
         <header class="ee-pricing__head">
           <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__title-img"/>
-          <div class="ee-pricing__price">
-            <span class="ee-pricing__price-label">Por:</span>
-            <span class="ee-pricing__price-value">valor</span>
-            <span class="ee-pricing__price-installment">Ou 6x de ...</span>
-          </div>
         </header>
 
         <article class="ee-pricing__card">
