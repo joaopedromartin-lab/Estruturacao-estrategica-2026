@@ -7104,6 +7104,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: 1;
   padding-top: 0.1em; /* respiro pra til/acento não cortar */
 }
+.ee-proposal__group-logo {
+  display: block;
+  width: 100%;
+  max-width: clamp(220px, 26vw, 380px);
+  height: auto;
+  margin: 0;
+}
 .ee-proposal__group-sub {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(12px, 0.9vw, 14px);
@@ -8736,7 +8743,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <!-- Grupo: Estruturação Estratégica (sempre) -->
         <div class="ee-proposal__group" id="ee-proposal-group-ee">
           <header class="ee-proposal__group-head">
-            <h4 class="ee-proposal__group-title">Estruturação Estratégica</h4>
+            <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-proposal__group-logo"/>
             <p class="ee-proposal__group-sub">Sprint de 4 semanas</p>
           </header>
           <div class="ee-proposal__weeks" id="ee-proposal-list-ee"></div>
