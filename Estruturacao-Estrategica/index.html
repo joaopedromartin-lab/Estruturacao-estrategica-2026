@@ -6165,20 +6165,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: inherit;
   opacity: 0.62;
   letter-spacing: -0.005em;
-  position: relative;
-  padding-left: 16px;
 }
 .ee-assets__slide.is-active .ee-assets__detail li { opacity: 0.85; }
-.ee-assets__detail li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 7px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FFD60A;
-}
 
 /* Controles do carrossel (setas + dots) */
 .ee-assets__controls {
@@ -6627,6 +6615,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: transparent;
 }
 .ee-pricing__title span { display: block; }
+.ee-pricing__title-img {
+  display: block;
+  width: 100%;
+  max-width: clamp(280px, 32vw, 540px);
+  height: auto;
+  margin: 0;
+}
 
 .ee-pricing__price {
   display: flex;
@@ -7232,6 +7227,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   flex-direction: column;
   gap: clamp(12px, 1.4vw, 20px);
 }
+.ee-proposal__addon-logo {
+  display: block;
+  width: 100%;
+  max-width: clamp(220px, 28vw, 420px);
+  height: auto;
+  margin: 0 0 clamp(20px, 2.4vw, 32px);
+}
 .ee-proposal__addon-kicker {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(16px, 1.25vw, 20px);
@@ -7305,6 +7307,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: #E50914;
   margin: clamp(14px, 1.6vw, 22px) 0 0;
   letter-spacing: -0.005em;
+}
+.ee-proposal__addon-price-img {
+  display: block;
+  width: 100%;
+  max-width: clamp(180px, 22vw, 320px);
+  height: auto;
+  margin: clamp(14px, 1.6vw, 22px) 0 0;
 }
 
 /* Coluna direita — lista de entregáveis */
@@ -8413,66 +8422,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <div class="ee-assets__icon"><i data-lucide="bar-chart-2" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Plano de Mídia de 6 meses</h3>
           <p class="ee-assets__card-body">Você sabe quanto investir, em qual canal, com qual criativo e qual resultado esperar — mês a mês.</p>
-          <ul class="ee-assets__detail">
-            <li>Forecast de performance</li>
-            <li>Planejamento de mídia paga</li>
-            <li>Diagnóstico dos canais atuais</li>
-          </ul>
         </article>
 
         <article class="ee-assets__slide" data-slide="1">
           <div class="ee-assets__icon"><i data-lucide="palette" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Identidade de Marca Completa</h3>
           <p class="ee-assets__card-body">Sua marca fala a mesma língua no anúncio, no site e no PDV — sem produção truncada.</p>
-          <ul class="ee-assets__detail">
-            <li>Brandbook + MIV</li>
-            <li>Banco de copy pra anúncios</li>
-            <li>Briefing de criativos</li>
-          </ul>
         </article>
 
         <article class="ee-assets__slide" data-slide="2">
           <div class="ee-assets__icon"><i data-lucide="target" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Posicionamento Estratégico</h3>
           <p class="ee-assets__card-body">Sua marca para de competir por preço e passa a ter um argumento claro de porquê escolher você.</p>
-          <ul class="ee-assets__detail">
-            <li>PUV + taglines</li>
-            <li>SWOT estratégica</li>
-            <li>Análise competitiva</li>
-          </ul>
         </article>
 
         <article class="ee-assets__slide" data-slide="3">
           <div class="ee-assets__icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Operação Comercial Estruturada</h3>
           <p class="ee-assets__card-body">Seu time deixa de vender no achismo. Funil claro, métricas definidas, ferramentas configuradas.</p>
-          <ul class="ee-assets__detail">
-            <li>CRM implementado/otimizado</li>
-            <li>Funil + métricas comerciais</li>
-            <li>Scripts e réguas (varia por modelo)</li>
-          </ul>
         </article>
 
         <article class="ee-assets__slide" data-slide="4">
           <div class="ee-assets__icon"><i data-lucide="search" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Inteligência de Mercado</h3>
           <p class="ee-assets__card-body">Você sabe quem é seu cliente ideal, onde está e quanto seu mercado vale.</p>
-          <ul class="ee-assets__detail">
-            <li>Persona + ICP</li>
-            <li>TAM / SAM / SOM</li>
-            <li>Marketshare e oportunidades</li>
-          </ul>
         </article>
 
         <article class="ee-assets__slide" data-slide="5">
           <div class="ee-assets__icon"><i data-lucide="activity" aria-hidden="true"></i></div>
           <h3 class="ee-assets__card-title">Diagnóstico Digital Completo</h3>
           <p class="ee-assets__card-body">Você enxerga exatamente onde sua operação digital está furando dinheiro — e o que priorizar.</p>
-          <ul class="ee-assets__detail">
-            <li>Auditoria de comunicação</li>
-            <li>Maturidade digital</li>
-            <li>Arquitetura de presença digital</li>
-          </ul>
         </article>
 
       </div>
@@ -8588,10 +8567,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div role="tabpanel" id="ee-pricing-panel-ee" class="ee-pricing__panel" aria-labelledby="ee-pricing-tab-ee">
 
         <header class="ee-pricing__head">
-          <h3 class="ee-pricing__title">
-            <span>ESTRUTURAÇÃO</span>
-            <span>ESTRATÉGICA</span>
-          </h3>
+          <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__title-img"/>
           <div class="ee-pricing__price">
             <span class="ee-pricing__price-label">Por:</span>
             <span class="ee-pricing__price-value">valor</span>
@@ -8759,9 +8735,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <input type="checkbox" class="ee-proposal__addon-input" hidden/>
           <div class="ee-proposal__addon-grid">
             <div class="ee-proposal__addon-brand">
-              <p class="ee-proposal__addon-kicker">Pacote</p>
-              <h4 class="ee-proposal__addon-title-big">SOCIAL MEDIA</h4>
-              <p class="ee-proposal__addon-price">+ R$ XX.XXX</p>
+              <img src="assets/Logo-socialmedia.png" alt="Pacote Social Media" class="ee-proposal__addon-logo"/>
+              <img src="assets/ValorSocialedia.png" alt="+ R$ XX.XXX" class="ee-proposal__addon-price-img"/>
               <!-- Botão "Adicionar este pacote" no canto esquerdo inferior do card -->
               <div class="ee-proposal__addon-controls">
                 <span class="ee-proposal__addon-check" aria-hidden="true"></span>
