@@ -924,6 +924,10 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   --ds-gradient-subtle: linear-gradient(160deg, #560303 0%, #8B1205 50%, #C41E08 100%);
   --ds-gradient-radial: radial-gradient(ellipse at 20% 80%, #FB2E0A 0%, #7A0A02 40%, #560303 100%);
   --ds-offwhite: #FAF9F7;
+  /* Tokens de espaçamento vertical pra padronização entre seções */
+  --ee-pad-y-default: clamp(80px, 12vh, 160px);
+  --ee-pad-y-compact: clamp(40px, 6vh, 80px);
+  --ee-pad-x: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 .ds-bg-gradient {
   background: var(--ds-gradient-dark) !important;
@@ -4199,7 +4203,7 @@ body.bb-lightbox-open { overflow: hidden; }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: clamp(96px, 14vh, 180px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
 }
 .ee-hero__inner {
@@ -4402,7 +4406,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO AUTORIDADE === */
 .ee-auth {
   background: #FFFFFF;
-  padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-auth__inner {
   max-width: 1720px;
@@ -4537,7 +4541,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO RECONHECIMENTO (texto esquerda + badges empilhados direita) === */
 .ee-recognition {
   background: #FFFFFF;
-  padding: clamp(72px, 10vh, 140px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-recognition__inner {
   max-width: 1200px;
@@ -4602,7 +4606,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO CLIENTES (marquee de logos, 2 linhas, direções opostas) === */
 .ee-clients {
   background: #FFFFFF;
-  padding: clamp(72px, 10vh, 140px) 0;
+  padding: var(--ee-pad-y-default) 0;
   overflow: hidden;
 }
 .ee-clients__title {
@@ -4673,7 +4677,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases {
   background: #0a0a0a;
   color: #FFFFFF;
-  padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
   position: relative;
   overflow: hidden;
 }
@@ -4985,7 +4989,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-ecosystem30 {
   position: relative;
   background: #280000;
-  padding: clamp(72px, 10vh, 140px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
 }
 .ee-ecosystem30__inner {
@@ -5159,7 +5163,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO MÉTODO (svg + headline + 4 pilares com divisores marrons) === */
 .ee-method {
   background: #FFFFFF;
-  padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 160px);
+  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
 }
 .ee-method__inner {
   max-width: 1720px;
@@ -5192,12 +5196,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-method__title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(18px, 1.9vw, 28px);
-  line-height: 1.2;
-  letter-spacing: -0.018em;
+  font-size: clamp(26px, 2.8vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: #280000;
   margin: 0;
-  max-width: 460px;
+  max-width: 520px;
 }
 .ee-method__title strong {
   font-weight: 700;
@@ -5477,7 +5481,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: clamp(40px, 5vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
   color: #FFFFFF;
   overflow: hidden;
   background: #000000;
@@ -5596,7 +5600,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(140px, 18vh, 220px);
+  gap: 48px;
   padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 .ee-structure__title {
@@ -5616,7 +5620,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-gallery {
   position: relative;
   width: 100%;
-  height: clamp(500px, 68vh, 720px);
+  height: clamp(380px, 50vh, 540px);
   perspective: 2000px;
   display: flex;
   align-items: center;
@@ -5645,10 +5649,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 300px;
-  height: 400px;
-  margin-left: -150px;
-  margin-top: -200px;
+  width: 260px;
+  height: 320px;
+  margin-left: -130px;
+  margin-top: -160px;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -5659,10 +5663,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (max-width: 760px) {
   .ee-gallery__card {
-    width: 220px;
-    height: 300px;
-    margin-left: -110px;
-    margin-top: -150px;
+    width: 200px;
+    height: 250px;
+    margin-left: -100px;
+    margin-top: -125px;
   }
 }
 .ee-gallery__card-bg {
@@ -5717,7 +5721,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-foru {
   position: relative;
   background: #000000;
-  padding: clamp(80px, 12vh, 160px) 0;
+  padding: var(--ee-pad-y-default) 0;
   overflow: hidden;
 }
 .ee-foru__inner {
@@ -5885,7 +5889,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap {
   position: relative;
   background: #280000;
-  padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: visible; /* sticky precisa de ancestral sem overflow:hidden */
 }
 .ee-roadmap__inner {
@@ -6033,7 +6037,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-assets {
   position: relative;
   background: #280000;
-  padding: clamp(80px, 12vh, 160px) 0;
+  padding: var(--ee-pad-y-default) 0;
 }
 .ee-assets__inner {
   max-width: 1400px;
@@ -6258,8 +6262,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO HANDOFF — ancoragem EE → Executar (timeline contínua) === */
 .ee-handoff {
   position: relative;
-  background: linear-gradient(180deg, #280000 0%, #1A0000 100%);
-  padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  background:
+    radial-gradient(ellipse 130% 110% at 50% 110%,
+      #FB2E0A 0%,
+      #C41E08 28%,
+      #7A0A02 52%,
+      #3A0000 78%,
+      #280000 100%
+    );
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
 }
 .ee-handoff__inner {
@@ -6325,10 +6336,46 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   background: linear-gradient(135deg, rgba(86, 3, 3, 0.55), rgba(40, 0, 0, 0.65));
   border-color: rgba(255, 255, 255, 0.18);
 }
+/* Card Executar — liquid glass (recipe portada do componente React) */
 .ee-handoff__phase--executar {
-  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 12px 40px rgba(251, 46, 10, 0.28);
+  position: relative;
+  background: transparent;
+  border: none;
+  isolation: isolate;
+  overflow: hidden;
+}
+/* Camada 1 — blur leve do que está atrás (efeito vidro fosco) */
+.ee-glass-distort {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+          backdrop-filter: blur(16px) saturate(160%);
+}
+/* Camada 2 — "casca" de vidro com 9 box-shadows (8 inset brancos + 1 externo) */
+.ee-glass-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.03),
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.09),
+    inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
+    inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
+    0 0 12px rgba(0, 0, 0, 0.15);
+}
+/* Camada 3 — conteúdo (z-index acima das camadas de glass) */
+.ee-handoff__phase--executar > *:not(.ee-glass-distort):not(.ee-glass-shell) {
+  position: relative;
+  z-index: 1;
 }
 .ee-handoff__phase-label {
   display: block;
@@ -6495,7 +6542,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO PREÇOS (toggle E.E vs Bundle + painel detalhado) === */
 .ee-pricing {
   background: #FFFFFF;
-  padding: clamp(32px, 5vh, 70px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(40px, 6vh, 80px);
+  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
 }
 .ee-pricing__inner {
   max-width: 1720px;
@@ -6950,7 +6997,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO PROPOSTA (orçamento dinâmico baseado nas escolhas) === */
 .ee-proposal {
   background: #FFFFFF;
-  padding: clamp(40px, 6vh, 80px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 180px);
+  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
 }
 .ee-proposal__inner {
   max-width: 1720px;
@@ -8055,7 +8102,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO 06 — PROBLEMA (fundo marrom + transição "MÉTODO")       -->
 <!-- ============================================================ -->
-<section id="problema" class="ee-problem" aria-label="O problema não é falta de esforço, é falta de método">
+<section id="problema" class="ee-problem" aria-label="O problema não é falta de esforço, é falta de método" hidden style="display:none">
 
   <div class="ee-problem__inner">
 
@@ -8562,6 +8609,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       </div>
 
       <div class="ee-handoff__phase ee-handoff__phase--executar">
+        <!-- Camadas de glass: distorção (atrás) + casca (overlay de shadows) -->
+        <div class="ee-glass-distort" aria-hidden="true"></div>
+        <div class="ee-glass-shell" aria-hidden="true"></div>
+        <!-- Conteúdo -->
         <span class="ee-handoff__phase-label">Fase 2 · Operação</span>
         <h3 class="ee-handoff__phase-name">Executar</h3>
         <ul class="ee-handoff__phase-list">
@@ -8573,6 +8624,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </ul>
         <span class="ee-handoff__phase-duration">Operação contínua</span>
       </div>
+
 
     </div>
 
