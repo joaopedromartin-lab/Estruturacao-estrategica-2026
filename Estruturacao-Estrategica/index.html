@@ -6004,7 +6004,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__media-inner {
   position: relative;
   width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #560303 100%);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.45),
+    inset 0 0 80px rgba(255, 255, 255, 0.06);
+}
+/* Quando a semana tem imagem (Semana 1, por enquanto), zera o placeholder gradient */
+.ee-roadmap__media-inner:has(img) {
+  aspect-ratio: auto;
   background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
 }
 .ee-roadmap__media-inner img {
   width: 100%;
@@ -6875,6 +6889,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: block;
   width: 100%;
   height: auto;
+  max-width: 880px;
+  max-height: 70vh;
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 /* CTA "Seguir com essa solução" — verde V4 com hover laranja + glow */
