@@ -4677,7 +4677,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 /* === SEÇÃO CASES (fundo preto, varia por modelo de vendas) === */
 .ee-cases {
-  background: #0a0a0a;
+  background:
+    radial-gradient(ellipse 130% 110% at 50% 110%,
+      #FB2E0A 0%,
+      #C41E08 28%,
+      #7A0A02 52%,
+      #3A0000 78%,
+      #280000 100%
+    );
   color: #FFFFFF;
   padding: var(--ee-pad-y-compact) var(--ee-pad-x);
   position: relative;
@@ -5743,30 +5750,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-foru__title strong { font-weight: 700; }
 
-/* Grid full-bleed: dividers extending edge to edge */
+/* Grid de cards discretos (constrained, com gap) */
 .ee-foru__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
+  gap: clamp(16px, 1.8vw, 28px);
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 @media (min-width: 720px)  { .ee-foru__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .ee-foru__grid { grid-template-columns: repeat(3, 1fr); } }
 
-/* Célula — sem fundo padrão; só ícone + label e bordas pra formar divisores */
+/* Card — fundo sutil, borda, cantos arredondados */
 .ee-foru__card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(28px, 3vw, 48px);
-  padding: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 64px);
-  min-height: clamp(220px, 26vh, 300px);
-  background: transparent;
-  border-right:  1px solid rgba(255, 255, 255, 0.16);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  gap: clamp(20px, 2.2vw, 32px);
+  padding: clamp(28px, 2.8vw, 40px);
+  min-height: clamp(180px, 20vh, 220px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   overflow: hidden;
   isolation: isolate;
-  transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 /* Gradient overlay revelado no hover */
 .ee-foru__card::before {
@@ -5779,25 +5792,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   pointer-events: none;
 }
+.ee-foru__card:hover {
+  border-color: rgba(251, 46, 10, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 24px rgba(251, 46, 10, 0.12);
+}
 .ee-foru__card:hover::before { opacity: 1; }
 .ee-foru__card > * { position: relative; z-index: 1; }
-
-/* Mobile (1 coluna): só linhas horizontais entre as células */
-@media (max-width: 719px) {
-  .ee-foru__card { border-right: none; }
-  .ee-foru__card:last-child { border-bottom: none; }
-}
-/* Tablet (2 colunas): zera border-right na 2ª coluna, border-bottom nas últimas 2 */
-@media (min-width: 720px) and (max-width: 1079px) {
-  .ee-foru__card:nth-child(2n) { border-right: none; }
-  .ee-foru__card:nth-last-child(-n+2):nth-child(odd),
-  .ee-foru__card:nth-last-child(-n+2):nth-child(odd) ~ .ee-foru__card { border-bottom: none; }
-}
-/* Desktop (3 colunas): zera border-right na 3ª coluna, border-bottom nas últimas 3 */
-@media (min-width: 1080px) {
-  .ee-foru__card:nth-child(3n) { border-right: none; }
-  .ee-foru__card:nth-last-child(-n+3) { border-bottom: none; }
-}
 
 .ee-foru__icon {
   width: clamp(28px, 2.2vw, 36px);
@@ -5820,6 +5821,141 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ee-foru__card:hover .ee-foru__label { color: #FFFFFF; }
+
+/* === SEÇÃO — O QUE É / O QUE NÃO É (2 cards: verde × vermelho) === */
+.ee-define {
+  position: relative;
+  background: #000000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-define__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.ee-define__heading {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(26px, 2.8vw, 44px);
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0 0 clamp(40px, 5vh, 72px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  max-width: 900px;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+.ee-define__heading strong { font-weight: 700; }
+.ee-define__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 2.4vw, 36px);
+}
+@media (min-width: 820px) {
+  .ee-define__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Card base */
+.ee-define__card {
+  position: relative;
+  padding: clamp(28px, 3vw, 48px);
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Glow/tint por variante */
+.ee-define__card--is {
+  border-color: rgba(14, 132, 32, 0.45);
+  background:
+    linear-gradient(160deg, rgba(14, 132, 32, 0.12) 0%, rgba(14, 132, 32, 0.02) 60%),
+    rgba(255, 255, 255, 0.02);
+  box-shadow: 0 0 28px rgba(14, 132, 32, 0.10);
+}
+.ee-define__card--isnt {
+  border-color: rgba(251, 46, 10, 0.45);
+  background:
+    linear-gradient(160deg, rgba(251, 46, 10, 0.12) 0%, rgba(251, 46, 10, 0.02) 60%),
+    rgba(255, 255, 255, 0.02);
+  box-shadow: 0 0 28px rgba(251, 46, 10, 0.10);
+}
+
+/* Cabeçalho do card */
+.ee-define__card-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 18px);
+  margin-bottom: clamp(20px, 2.4vh, 32px);
+  padding-bottom: clamp(16px, 2vh, 24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ee-define__card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(40px, 3.4vw, 52px);
+  height: clamp(40px, 3.4vw, 52px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ee-define__card-icon svg { width: 55%; height: 55%; stroke-width: 2.5; }
+.ee-define__card--is .ee-define__card-icon {
+  background: #0E8420;
+  color: #FFFFFF;
+}
+.ee-define__card--isnt .ee-define__card-icon {
+  background: #FB2E0A;
+  color: #FFFFFF;
+}
+.ee-define__card-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+.ee-define__card--is .ee-define__card-title strong { color: #2ecc71; font-weight: 700; }
+.ee-define__card--isnt .ee-define__card-title strong { color: #FB2E0A; font-weight: 700; }
+
+/* Lista de itens */
+.ee-define__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.8vh, 22px);
+}
+.ee-define__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1.2vw, 16px);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.ee-define__list li em {
+  font-style: normal;
+  font-weight: 600;
+  color: #FFD60A;
+}
+.ee-define__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ee-define__mark svg { width: 18px; height: 18px; stroke-width: 2.5; }
+.ee-define__card--is .ee-define__mark { color: #2ecc71; }
+.ee-define__card--isnt .ee-define__mark { color: #FB2E0A; }
 
 /* === SEÇÃO SETUP (full-bleed image + headline sobreposta) === */
 .ee-setup {
@@ -6130,232 +6266,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__week3-variant { display: none; }
 .ee-roadmap__week3-variant.is-shown { display: block; }
 
-/* === SEÇÃO ATIVOS — recapitulação por benefícios tangíveis === */
-.ee-assets {
-  position: relative;
-  background: #280000;
-  padding: var(--ee-pad-y-default) 0;
-}
-.ee-assets__inner {
-  max-width: 1400px;
-  margin: 0 auto clamp(8px, 1vh, 20px);
-  padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
-}
-.ee-assets__header {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(12px, 1.5vh, 20px);
-}
-.ee-assets__badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 14px;
-  background: #FFD60A;
-  color: #280000;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(11px, 0.85vw, 13px);
-  font-weight: 700;
-  border-radius: 9999px;
-  letter-spacing: -0.005em;
-}
-.ee-assets__title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 3.2vw, 52px);
-  font-weight: 400;
-  color: #FFFFFF;
-  margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  max-width: 1000px;
-  text-wrap: balance;
-}
-.ee-assets__title strong { font-weight: 700; color: #FFD60A; }
-.ee-assets__sub {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(15px, 1.2vw, 19px);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-  max-width: 680px;
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-}
-/* Carrossel cover-flow — viewport + track de slides absolutos */
-.ee-assets__carousel {
-  position: relative;
-  width: 100%;
-  padding: clamp(12px, 1.6vh, 28px) 0 clamp(28px, 3.4vh, 48px);
-  overflow: hidden;
-}
-.ee-assets__viewport {
-  position: relative;
-  height: clamp(380px, 50vh, 480px);
-  margin: 0 auto;
-  max-width: 100%;
-}
-.ee-assets__track {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.ee-assets__slide {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(280px, 36vw, 440px);
-  min-height: clamp(340px, 44vh, 420px);
-  padding: clamp(28px, 3vw, 44px);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 1.6vw, 22px);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #FFFFFF;
-  opacity: 0.25;
-  transform: translate(-50%, -50%) scale(0.78);
-  z-index: 1;
-  transition:
-    transform 0.55s cubic-bezier(0.23, 1, 0.32, 1),
-    opacity   0.55s cubic-bezier(0.23, 1, 0.32, 1),
-    background-color 0.4s ease,
-    box-shadow 0.55s cubic-bezier(0.23, 1, 0.32, 1),
-    color 0.4s ease;
-  pointer-events: none;
-  isolation: isolate;
-}
-.ee-assets__slide.is-prev  { opacity: 0.45; transform: translate(calc(-50% - 62%), -50%) scale(0.86); z-index: 2; }
-.ee-assets__slide.is-next  { opacity: 0.45; transform: translate(calc(-50% + 62%), -50%) scale(0.86); z-index: 2; }
-.ee-assets__slide.is-prev-2 { opacity: 0.2; transform: translate(calc(-50% - 105%), -50%) scale(0.72); z-index: 1; }
-.ee-assets__slide.is-next-2 { opacity: 0.2; transform: translate(calc(-50% + 105%), -50%) scale(0.72); z-index: 1; }
-
-/* Slide ativo: card branco, texto escuro, sombra forte */
-.ee-assets__slide.is-active {
-  opacity: 1;
-  z-index: 5;
-  transform: translate(-50%, -50%) scale(1);
-  background: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #280000;
-  box-shadow:
-    0 24px 56px rgba(0, 0, 0, 0.55),
-    0 0 36px rgba(251, 46, 10, 0.18);
-  pointer-events: auto;
-}
-
-.ee-assets__icon {
-  width: clamp(32px, 2.6vw, 42px);
-  height: clamp(32px, 2.6vw, 42px);
-  color: #FB2E0A;
-}
-.ee-assets__icon svg { width: 100%; height: 100%; stroke-width: 1.75; }
-
-.ee-assets__card-title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(18px, 1.5vw, 26px);
-  font-weight: 700;
-  color: inherit;
-  margin: auto 0 0;
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-}
-.ee-assets__card-body {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.05vw, 16px);
-  font-weight: 400;
-  color: inherit;
-  opacity: 0.78;
-  margin: 0;
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-}
-.ee-assets__slide.is-active .ee-assets__card-body { opacity: 0.72; }
-
-.ee-assets__detail {
-  list-style: none;
-  margin: clamp(4px, 0.6vh, 10px) 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.ee-assets__detail li {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.9vw, 14px);
-  font-weight: 400;
-  color: inherit;
-  opacity: 0.62;
-  letter-spacing: -0.005em;
-}
-.ee-assets__slide.is-active .ee-assets__detail li { opacity: 0.85; }
-
-/* Controles do carrossel (setas + dots) */
-.ee-assets__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 2.4vw, 36px);
-  margin-top: clamp(28px, 3.6vh, 48px);
-}
-.ee-assets__arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(40px, 3.2vw, 48px);
-  height: clamp(40px, 3.2vw, 48px);
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: transparent;
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
-}
-.ee-assets__arrow:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.45);
-  transform: translateY(-1px);
-}
-.ee-assets__arrow:focus-visible {
-  outline: 2px solid rgba(251, 46, 10, 0.65);
-  outline-offset: 3px;
-}
-.ee-assets__arrow svg { width: 18px; height: 18px; stroke-width: 2; }
-.ee-assets__dots {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.ee-assets__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  background: rgba(255, 255, 255, 0.28);
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s ease;
-}
-.ee-assets__dot:hover { background: rgba(255, 255, 255, 0.55); }
-.ee-assets__dot.is-active {
-  background: #FFD60A;
-  transform: scale(1.2);
-}
-.ee-assets__dot:focus-visible {
-  outline: 2px solid rgba(251, 46, 10, 0.65);
-  outline-offset: 3px;
-}
-
-/* Mobile: cards laterais somem (apenas o ativo aparece) */
-@media (max-width: 719px) {
-  .ee-assets__slide.is-prev,
-  .ee-assets__slide.is-next,
-  .ee-assets__slide.is-prev-2,
-  .ee-assets__slide.is-next-2 { opacity: 0; }
-  .ee-assets__slide { width: 88%; }
-}
-
 /* === SEÇÃO HANDOFF — ancoragem EE → Executar (timeline contínua) === */
 .ee-handoff {
   position: relative;
@@ -6563,8 +6473,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   align-items: center;
   justify-content: center;
   font-size: clamp(32px, 3vw, 48px);
-  color: #FB2E0A;
-  filter: drop-shadow(0 0 12px rgba(251, 46, 10, 0.45));
+  color: #FFFFFF;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
 }
 @media (max-width: 819px) {
   .ee-handoff__connector { transform: rotate(90deg); }
@@ -6689,7 +6599,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(20px, 1.8vw, 28px);
   font-weight: 700;
   border: 2px solid rgba(229, 9, 20, 0.4);
-  border-radius: 28px;
+  border-radius: 9999px;
   cursor: pointer;
   letter-spacing: -0.01em;
   transition:
@@ -8312,8 +8222,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <img class="ee-product__bg" src="assets/ChatGPT Image 25 de mai. de 2026, 18_38_54.png" alt="" aria-hidden="true"/>
   <div class="ee-product__bg-overlay" aria-hidden="true"></div>
 
-  <p class="ee-product__tag">#Go to IPO</p>
-
   <div class="ee-product__content">
     <img src="assets/eelogo.svg" alt="Estruturação Estratégica" class="ee-product__logo"/>
     <p class="ee-product__sub"><strong>O setup estratégico em sprint de 4 semanas.</strong> Da estratégia ao plano de mídia, com a operação já dimensionada pra começar a rodar.</p>
@@ -8411,6 +8319,47 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-foru__icon"><i data-lucide="shuffle" aria-hidden="true"></i></div>
       <p class="ee-foru__label">Não ter um plano bem definido</p>
     </article>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — O QUE É / O QUE NÃO É (definição didática)             -->
+<!-- ============================================================ -->
+<section id="definicao" class="ee-define" aria-label="O que é e o que não é a Estruturação Estratégica">
+  <div class="ee-define__inner">
+    <h2 class="ee-define__heading">Antes de tudo: <strong>o que é</strong> e <strong>o que não é</strong> a Estruturação Estratégica</h2>
+
+    <div class="ee-define__grid">
+
+      <!-- Card: O que É -->
+      <article class="ee-define__card ee-define__card--is">
+        <header class="ee-define__card-head">
+          <span class="ee-define__card-icon"><i data-lucide="check" aria-hidden="true"></i></span>
+          <h3 class="ee-define__card-title">O que <strong>É</strong></h3>
+        </header>
+        <ul class="ee-define__list">
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Um sprint de 30 dias com início e fim definidos</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Ativos prontos pra operar já no Dia 31</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Um plano executável de 6 meses</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Decisão baseada em método, não em achismo</li>
+        </ul>
+      </article>
+
+      <!-- Card: O que NÃO é -->
+      <article class="ee-define__card ee-define__card--isnt">
+        <header class="ee-define__card-head">
+          <span class="ee-define__card-icon"><i data-lucide="x" aria-hidden="true"></i></span>
+          <h3 class="ee-define__card-title">O que <strong>NÃO é</strong></h3>
+        </header>
+        <ul class="ee-define__list">
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Um diagnóstico em PDF que fica na gaveta</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Consultoria mensal genérica e sem prazo</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Execução de mídia ou criativos</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Promessa vaga sem entregável tangível</li>
+        </ul>
+      </article>
+
+    </div>
   </div>
 </section>
 
@@ -8685,78 +8634,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 <!-- SEÇÃO 08 — PILARES e SEÇÃO 09 — JORNADA DETALHADA removidas -->
 
-<!-- ============================================================ -->
-<!-- SEÇÃO — ATIVOS (recapitulação por benefícios tangíveis)        -->
-<!-- ============================================================ -->
-<section id="ativos" class="ee-assets" aria-label="O que você tem em mãos no Dia 31">
-  <div class="ee-assets__inner">
-    <header class="ee-assets__header">
-      <span class="ee-assets__badge">Dia 31</span>
-      <h2 class="ee-assets__title">Em 30 dias, você não recebe relatório. <strong>Recebe ativos.</strong></h2>
-    </header>
-  </div>
-
-  <div class="ee-assets__carousel">
-    <div class="ee-assets__viewport">
-      <div class="ee-assets__track" id="ee-assets-track">
-
-        <article class="ee-assets__slide" data-slide="0">
-          <div class="ee-assets__icon"><i data-lucide="bar-chart-2" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Plano de Mídia de 6 meses</h3>
-          <p class="ee-assets__card-body">Você sabe quanto investir, em qual canal, com qual criativo e qual resultado esperar — mês a mês.</p>
-        </article>
-
-        <article class="ee-assets__slide" data-slide="1">
-          <div class="ee-assets__icon"><i data-lucide="palette" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Identidade de Marca Completa</h3>
-          <p class="ee-assets__card-body">Sua marca fala a mesma língua no anúncio, no site e no PDV — sem produção truncada.</p>
-        </article>
-
-        <article class="ee-assets__slide" data-slide="2">
-          <div class="ee-assets__icon"><i data-lucide="target" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Posicionamento Estratégico</h3>
-          <p class="ee-assets__card-body">Sua marca para de competir por preço e passa a ter um argumento claro de porquê escolher você.</p>
-        </article>
-
-        <article class="ee-assets__slide" data-slide="3">
-          <div class="ee-assets__icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Operação Comercial Estruturada</h3>
-          <p class="ee-assets__card-body">Seu time deixa de vender no achismo. Funil claro, métricas definidas, ferramentas configuradas.</p>
-        </article>
-
-        <article class="ee-assets__slide" data-slide="4">
-          <div class="ee-assets__icon"><i data-lucide="search" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Inteligência de Mercado</h3>
-          <p class="ee-assets__card-body">Você sabe quem é seu cliente ideal, onde está e quanto seu mercado vale.</p>
-        </article>
-
-        <article class="ee-assets__slide" data-slide="5">
-          <div class="ee-assets__icon"><i data-lucide="activity" aria-hidden="true"></i></div>
-          <h3 class="ee-assets__card-title">Diagnóstico Digital Completo</h3>
-          <p class="ee-assets__card-body">Você enxerga exatamente onde sua operação digital está furando dinheiro — e o que priorizar.</p>
-        </article>
-
-      </div>
-    </div>
-
-    <div class="ee-assets__controls">
-      <button type="button" class="ee-assets__arrow" id="ee-assets-prev" aria-label="Ativo anterior">
-        <i data-lucide="arrow-left" aria-hidden="true"></i>
-      </button>
-      <div class="ee-assets__dots" id="ee-assets-dots" role="tablist" aria-label="Selecionar ativo">
-        <button type="button" class="ee-assets__dot is-active" data-index="0" aria-label="Ativo 1"></button>
-        <button type="button" class="ee-assets__dot" data-index="1" aria-label="Ativo 2"></button>
-        <button type="button" class="ee-assets__dot" data-index="2" aria-label="Ativo 3"></button>
-        <button type="button" class="ee-assets__dot" data-index="3" aria-label="Ativo 4"></button>
-        <button type="button" class="ee-assets__dot" data-index="4" aria-label="Ativo 5"></button>
-        <button type="button" class="ee-assets__dot" data-index="5" aria-label="Ativo 6"></button>
-      </div>
-      <button type="button" class="ee-assets__arrow" id="ee-assets-next" aria-label="Próximo ativo">
-        <i data-lucide="arrow-right" aria-hidden="true"></i>
-      </button>
-    </div>
-  </div>
-</section>
+<!-- SEÇÃO — ATIVOS removida (redundante com #estrutura/#cronograma) -->
 
 <!-- ============================================================ -->
 <!-- SEÇÃO — HANDOFF (ancoragem EE → Executar, timeline contínua)   -->
@@ -9632,76 +9510,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     updateGroup();
   });
 
-
-  // ── CARROSSEL DE ATIVOS (#ativos): cover-flow com setas + dots ──
-  document.addEventListener('DOMContentLoaded', function () {
-    var track = document.getElementById('ee-assets-track');
-    if (!track) return;
-    var slides = Array.prototype.slice.call(track.querySelectorAll('.ee-assets__slide'));
-    if (!slides.length) return;
-    var prevBtn = document.getElementById('ee-assets-prev');
-    var nextBtn = document.getElementById('ee-assets-next');
-    var dotsWrap = document.getElementById('ee-assets-dots');
-    var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.ee-assets__dot')) : [];
-
-    var active = 0;
-    var total = slides.length;
-
-    function render() {
-      slides.forEach(function (slide, i) {
-        var diff = i - active;
-        // normaliza pra menor distância circular (-total/2, total/2]
-        if (diff >  total / 2) diff -= total;
-        if (diff < -total / 2) diff += total;
-
-        slide.classList.remove('is-active', 'is-prev', 'is-next', 'is-prev-2', 'is-next-2');
-        if (diff === 0)      slide.classList.add('is-active');
-        else if (diff === -1) slide.classList.add('is-prev');
-        else if (diff ===  1) slide.classList.add('is-next');
-        else if (diff === -2) slide.classList.add('is-prev-2');
-        else if (diff ===  2) slide.classList.add('is-next-2');
-      });
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === active);
-        dot.setAttribute('aria-selected', i === active ? 'true' : 'false');
-      });
-    }
-
-    function go(delta) {
-      active = (active + delta + total) % total;
-      render();
-    }
-    function jump(i) {
-      active = ((i % total) + total) % total;
-      render();
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function () { go(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { go( 1); });
-    dots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () { jump(i); });
-    });
-
-    // Navegação por teclado quando viewport está em foco
-    var viewport = track.parentElement;
-    if (viewport) {
-      viewport.setAttribute('tabindex', '0');
-      viewport.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  { e.preventDefault(); go(-1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); go( 1); }
-      });
-    }
-
-    // Click no slide adjacente: vira o ativo
-    slides.forEach(function (slide, i) {
-      slide.addEventListener('click', function () {
-        if (!slide.classList.contains('is-active')) jump(i);
-      });
-      slide.style.cursor = 'pointer';
-    });
-
-    render();
-  });
 
   // ── CRONOGRAMA (#cronograma): tabs das semanas + setas (sem loop circular) ──
   document.addEventListener('DOMContentLoaded', function () {
