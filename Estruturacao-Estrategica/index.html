@@ -6555,7 +6555,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: var(--ee-pad-y-compact) var(--ee-pad-x);
 }
 .ee-pricing__inner {
-  max-width: 1720px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 .ee-pricing__heading {
@@ -6856,20 +6856,25 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-pricing__pack-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(20px, 2.4vw, 36px);
+  gap: clamp(16px, 2vw, 28px);
   align-items: start;
 }
 @media (min-width: 960px) {
   .ee-pricing__pack-layout {
     grid-template-columns: clamp(200px, 22%, 280px) 1fr;
+    gap: 0;
   }
 }
 
-/* Pack tabs (S / M / L / XL) — empilhadas verticalmente com divisores */
+/* Pack tabs (S / M / L / XL) — sidebar com fundo próprio + divisores */
 .ee-pricing__pack-tabs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
+  background: #F4F1F0;
+  border: 1px solid rgba(40, 0, 0, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
 }
 @media (min-width: 960px) {
   .ee-pricing__pack-tabs {
@@ -6883,7 +6888,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(20px, 2.4vw, 32px) clamp(20px, 2vw, 32px);
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(40, 0, 0, 0.14);
+  border-bottom: 1px solid rgba(40, 0, 0, 0.1);
   border-radius: 0;
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(22px, 2vw, 32px);
@@ -6897,21 +6902,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     color      0.25s cubic-bezier(0.23, 1, 0.32, 1),
     box-shadow 0.25s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.ee-pricing__pack-tab:last-child {
-  border-bottom: none;
+/* No grid de 1 coluna (desktop), o divisor é só horizontal; remove do último */
+@media (min-width: 960px) {
+  .ee-pricing__pack-tab:last-child { border-bottom: none; }
 }
 .ee-pricing__pack-tab:hover {
+  background: rgba(229, 9, 20, 0.05);
   color: #C41E08;
 }
-.ee-pricing__pack-tab.is-active {
+.ee-pricing__pack-tab.is-active,
+.ee-pricing__pack-tab.is-active:hover {
   background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
   color: #FFFFFF;
   border-radius: 0;
   border-bottom-color: transparent;
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.32);
-}
-.ee-pricing__pack-tab.is-active:hover {
-  color: #FFFFFF;
 }
 .ee-pricing__pack-tab:focus-visible {
   outline: 2px solid rgba(229, 9, 20, 0.6);
@@ -6948,13 +6953,194 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Cada pack detail é só a imagem do pack (assets/pack*.png) */
 .ee-pricing__pack-detail img {
   display: block;
-  width: 100%;
+  width: calc(100% + 160px);
   height: auto;
-  max-width: 880px;
-  max-height: 70vh;
+  max-width: none;
+  max-height: 94vh;
   object-fit: contain;
-  margin: 0 auto;
+  object-position: left center;
+  margin: 0 0 0 -60px; /* compensa o padding transparente embutido no PNG */
 }
+
+/* === BUNDLE EM CÓDIGO (Pack S) — réplica do PNG === */
+.ee-bundle {
+  width: 100%;
+}
+.ee-bundle__head {
+  margin-bottom: clamp(20px, 2.4vh, 32px);
+}
+.ee-bundle__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 700;
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+.ee-bundle__title strong { color: #E50914; font-weight: 700; }
+.ee-bundle__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  font-weight: 400;
+  color: rgba(5, 5, 5, 0.6);
+  margin: clamp(4px, 0.6vh, 8px) 0 0;
+  letter-spacing: -0.005em;
+}
+/* Grid: card EE | conector | card Executar */
+.ee-bundle__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 2vw, 32px);
+  align-items: stretch;
+}
+@media (min-width: 880px) {
+  .ee-bundle__grid {
+    grid-template-columns: 1fr auto 1.12fr;
+    align-items: stretch;
+  }
+}
+
+/* Card base */
+.ee-bundle__card {
+  border-radius: 22px;
+  padding: clamp(28px, 2.8vw, 44px);
+  position: relative;
+  overflow: hidden;
+}
+/* Card EE — gradient de baixo (vermelho vivo) pra cima (preto) */
+.ee-bundle__card--ee {
+  background: linear-gradient(to top, #E01E08 0%, #9A1004 28%, #4A0200 60%, #1A0000 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ee-bundle__logo {
+  display: block;
+  width: clamp(180px, 60%, 300px);
+  height: auto;
+  margin: 0 0 clamp(40px, 5vh, 72px);
+}
+.ee-bundle__weeks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.6vh, 52px);
+}
+.ee-bundle__week {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1vw, 14px);
+}
+.ee-bundle__week-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ee-bundle__week-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+.ee-bundle__week-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+/* Conector "+" — losango vermelho */
+.ee-bundle__connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ee-bundle__connector span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(36px, 3vw, 46px);
+  height: clamp(36px, 3vw, 46px);
+  color: #E50914;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 400;
+  line-height: 1;
+}
+/* Losango = pseudo rotacionado; o "+" (texto literal) fica reto no centro */
+.ee-bundle__connector span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(229, 9, 20, 0.6);
+  border-radius: 8px;
+  transform: rotate(45deg);
+}
+
+/* Card Executar — branco */
+.ee-bundle__card--exec {
+  background: #FFFFFF;
+  border: 1px solid rgba(40, 0, 0, 0.1);
+}
+.ee-bundle__exec-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(30px, 3.4vw, 52px);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ee-bundle__exec-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  font-weight: 400;
+  color: rgba(5, 5, 5, 0.6);
+  margin: clamp(8px, 1vh, 14px) 0 clamp(20px, 2.4vh, 32px);
+  letter-spacing: -0.005em;
+}
+.ee-bundle__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.6vh, 34px);
+}
+.ee-bundle__item {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1vw, 14px);
+}
+.ee-bundle__item p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1.02vw, 15px);
+  font-weight: 400;
+  color: rgba(5, 5, 5, 0.78);
+  margin: 0;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.ee-bundle__item p strong { color: #280000; font-weight: 700; }
+
+/* Checks (ícone circle-check) */
+.ee-bundle__check {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.ee-bundle__check svg { width: clamp(16px, 1.3vw, 20px); height: clamp(16px, 1.3vw, 20px); stroke-width: 2; }
+.ee-bundle__check--yellow { color: #FFD60A; }
+.ee-bundle__check--red    { color: #E50914; }
 
 /* CTA "Seguir com essa solução" — verde V4 com hover laranja + glow */
 .ee-pricing__cta-wrap {
