@@ -928,6 +928,8 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   --ee-pad-y-default: clamp(80px, 12vh, 160px);
   --ee-pad-y-compact: clamp(40px, 6vh, 80px);
   --ee-pad-x: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  /* Largura máxima do conteúdo — reduzida pra centralizar melhor em telas compartilhadas */
+  --ee-max-width: 1440px;
 }
 .ds-bg-gradient {
   background: var(--ds-gradient-dark) !important;
@@ -4197,6 +4199,58 @@ body.bb-lightbox-open { overflow: hidden; }
 <!-- ESTRUTURAÇÃO ESTRATÉGICA — ESTILOS DA PÁGINA                 -->
 <!-- ============================================================ -->
 <style id="ee-page-styles">
+/* === RESPONSIVIDADE GERAL — COMPORTAMENTO DE SLIDE ===
+   Cada seção é EXATAMENTE 1 viewport (um slide). O conteúdo "in-flow" é envolvido
+   por .ee-slide__fit e escalado via JS (transform: scale) pra caber sem passar nem
+   sobrar — exatamente como um slide se adapta a qualquer tela.
+   Fundos absolutos (imagens full-bleed: mission/product) NÃO são escalados: ficam
+   no lugar e cobrem a seção. Limitado a >=901px; no mobile mantém o fluxo natural. */
+@media (min-width: 901px) {
+  #top > section {
+    height: 100vh;
+    max-height: none;       /* anula caps antigos (ex.: mission tinha max-height) */
+    aspect-ratio: auto;     /* anula aspect-ratio antigo (ex.: mission 16/9) */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    /* Padding vertical enxuto: dá espaço pro conteúdo (o JS escala o resto) */
+    padding-top: clamp(24px, 5vh, 72px);
+    padding-bottom: clamp(24px, 5vh, 72px);
+  }
+  /* Wrapper (criado via JS) que segura o conteúdo e recebe o scale */
+  #top > section > .ee-slide__fit {
+    width: 100%;
+    flex: 0 0 auto;         /* não deixa o flex encolher: medimos a altura natural */
+  }
+  /* Ecossistema é imagem full-bleed pura: cabe inteira na tela, sem cortar info */
+  #top > #ecossistema {
+    display: block;
+    padding: 0;
+  }
+  #ecossistema .ee-ecosystem__img {
+    width: 100%;
+    height: 100vh;
+    object-fit: contain;
+    margin: 0;
+    clip-path: none;
+  }
+  /* Preços e Proposta: seções que NÃO viram slide — rolam normalmente (conteúdo grande).
+     overflow:hidden corta só o sangramento lateral das imagens dos packs (não corta vertical,
+     pois height:auto faz a caixa crescer com o conteúdo). */
+  #top > #precos,
+  #top > #proposta {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: hidden;
+    display: block;
+    padding-top: var(--ee-pad-y-default);
+    padding-bottom: var(--ee-pad-y-default);
+  }
+}
+
 /* === HERO === */
 .ee-hero {
   position: relative;
@@ -4208,7 +4262,7 @@ body.bb-lightbox-open { overflow: hidden; }
 }
 .ee-hero__inner {
   width: 100%;
-  max-width: 1720px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -4263,6 +4317,55 @@ body.bb-lightbox-open { overflow: hidden; }
     transform: none;
   }
 }
+
+/* === HERO — FLUXO DE SELEÇÃO ===
+   Estado "select" (inicial): mostra só o pré-selecionador, centralizado no meio
+   da tela, pra forçar o vendedor a escolher o modelo de vendas antes de seguir.
+   Quando um modelo é escolhido, vira "welcome" e revela o "Bem vindo a V4". */
+.ee-hero__select-prompt {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(18px, 1.6vw, 26px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: -0.01em;
+  margin: 0;
+  /* Estado inicial — GSAP anima no load */
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.ee-hero__select-prompt strong { font-weight: 700; color: #FFFFFF; }
+
+.ee-hero[data-hero-state="select"] {
+  /* Garante centralização vertical mesmo no mobile (sobrescreve min-height:auto) */
+  min-height: 100vh;
+}
+.ee-hero[data-hero-state="select"] .ee-hero__inner {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+.ee-hero[data-hero-state="select"] .ee-hero__content {
+  align-items: center;
+  text-align: center;
+}
+.ee-hero[data-hero-state="select"] .ee-hero__title,
+.ee-hero[data-hero-state="select"] .ee-hero__visual {
+  display: none;
+}
+/* No estado welcome o prompt some e o layout normal volta */
+.ee-hero[data-hero-state="welcome"] .ee-hero__select-prompt {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-hero__select-prompt { opacity: 1; transform: none; }
+}
+
+/* Trava de scroll enquanto nenhum modelo de vendas foi escolhido */
+html.ee-scroll-lock,
+html.ee-scroll-lock body {
+  overflow: hidden;
+}
+
 .ee-hero__visual {
   position: relative;
   width: 100%;
@@ -4409,7 +4512,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-auth__inner {
-  max-width: 1720px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -4678,39 +4781,86 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   animation-name: ee-marquee-seamless;
 }
 
-/* === SEÇÃO CASES (fundo preto, varia por modelo de vendas) === */
+/* === FAIXA DE AFILIAÇÃO (Grupo Dreamers + InfoMoney) ===
+   Vive DENTRO da seção "Quem acredita na V4" (#clientes), abaixo das 2 faixas de logo.
+   Sem fundo próprio (herda o branco da seção); só um gap das faixas acima. */
+.ee-affiliation {
+  margin-top: clamp(36px, 6vh, 72px);
+  padding: 0 var(--ee-pad-x); /* #clientes tem padding lateral 0 (marquees full-bleed) */
+}
+.ee-affiliation__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vh, 40px);
+  text-align: center;
+}
+.ee-affiliation__text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.6vw, 24px);
+  font-weight: 400;
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.ee-affiliation__text strong { font-weight: 700; }
+.ee-affiliation__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(32px, 6vw, 96px);
+}
+.ee-affiliation__logo {
+  height: clamp(34px, 3.6vw, 52px);
+  width: auto;
+  display: block;
+  /* Os SVGs originais são brancos (sumiam no fundo claro). Recolorimos pra escuro
+     via filtro — mesma técnica das logos de clientes acima (brightness(0)). */
+  filter: brightness(0);
+  opacity: 0.72;
+}
+/* O globo do Rock in Rio é mais "alto" que os logos de texto — equilibra visualmente */
+.ee-affiliation__logo--rockinrio { height: clamp(46px, 4.8vw, 68px); }
+
+/* === SEÇÃO CASES (fundo branco — card por modelo de vendas) === */
 .ee-cases {
-  background:
-    radial-gradient(ellipse 130% 110% at 50% 110%,
-      #FB2E0A 0%,
-      #C41E08 28%,
-      #7A0A02 52%,
-      #3A0000 78%,
-      #280000 100%
-    );
-  color: #FFFFFF;
-  padding: var(--ee-pad-y-compact) var(--ee-pad-x);
+  background: #FFFFFF;
+  color: #280000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
   position: relative;
   overflow: hidden;
 }
 .ee-cases__inner {
-  max-width: 1400px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
 }
+.ee-cases__heading {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #280000;
+  margin: 0 0 clamp(32px, 5vh, 64px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.ee-cases__heading strong { font-weight: 700; color: #E50914; }
 
 /* Estado vazio (sem modelo selecionado) */
 .ee-cases__empty {
   text-align: center;
-  padding: clamp(60px, 8vw, 100px);
-  border: 1px dashed rgba(255, 255, 255, 0.18);
+  padding: clamp(48px, 7vw, 90px);
+  border: 1px dashed rgba(40, 0, 0, 0.2);
   border-radius: 22px;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(40, 0, 0, 0.6);
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(15px, 1.2vw, 19px);
   line-height: 1.45;
   letter-spacing: -0.005em;
 }
-.ee-cases__empty strong { color: #FFDD00; font-weight: 700; }
+.ee-cases__empty strong { color: #E50914; font-weight: 700; }
 .ee-cases[data-state="filled"] .ee-cases__empty { display: none; }
 .ee-cases[data-state="empty"]  .ee-cases__group { display: none; }
 
@@ -4726,6 +4876,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-cases__slide {
   grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
   opacity: 0;
   transform: translateY(10px);
   pointer-events: none;
@@ -4735,6 +4889,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     opacity   0.45s cubic-bezier(0.23, 1, 0.32, 1),
     transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
     visibility 0s linear 0.45s;
+}
+@media (min-width: 900px) {
+  .ee-cases__slide { grid-template-columns: 0.9fr 1fr; } /* imagem | conteúdo */
 }
 .ee-cases__slide.is-active {
   opacity: 1;
@@ -4747,21 +4904,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
     visibility 0s linear 0s;
 }
-
-/* Layout interno do case: esquerda (texto) + direita (media) */
-.ee-cases__slide-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(20px, 2.4vw, 40px);
-  align-items: center;
-  margin-bottom: clamp(20px, 2.4vh, 36px);
-}
-@media (min-width: 900px) {
-  .ee-cases__slide-inner {
-    grid-template-columns: 1fr 1.5fr;
-    align-items: stretch; /* media estica vertical pra acompanhar o texto */
-  }
-}
+.ee-cases__content { display: flex; flex-direction: column; }
 .ee-cases__title {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
@@ -4786,79 +4929,50 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__brand-name {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
-  font-size: clamp(22px, 2.4vw, 38px);
-  color: #FFFFFF;
+  font-size: clamp(24px, 2.6vw, 40px);
+  color: #280000;
   margin: 0;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   line-height: 1.1;
 }
 .ee-cases__brand-type {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(13px, 1vw, 17px);
-  color: rgba(255, 255, 255, 0.6);
-  margin: 4px 0 0;
+  font-size: clamp(14px, 1.1vw, 18px);
+  color: #707070;
+  margin: 6px 0 0;
   letter-spacing: -0.005em;
 }
 /* Descrição do case (parágrafo abaixo do brand) */
 .ee-cases__brand-desc {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.15vw, 18px);
+  font-size: clamp(15px, 1.2vw, 19px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.88);
-  margin: clamp(12px, 1.6vw, 22px) 0 0;
-  line-height: 1.45;
+  color: #444444;
+  margin: clamp(16px, 2vw, 28px) 0 0;
+  line-height: 1.5;
   letter-spacing: -0.005em;
-  max-width: 500px;
+  max-width: 520px;
 }
-/* Label "Resultado:" antes das métricas */
-.ee-cases__metrics-label {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 1vw, 16px);
-  font-weight: 700;
-  color: #FFFFFF;
-  margin: 0 0 clamp(14px, 1.6vw, 22px);
-  letter-spacing: -0.005em;
-}
-/* Nota auxiliar dentro do bloco de métricas (ex: "Cadência de follow-up ativa.") */
+/* Nota auxiliar abaixo das métricas (ex: "Cadência de follow-up ativa.") */
 .ee-cases__metric-note {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
-  font-weight: 700;
-  color: #FFFFFF;
-  margin: 0;
-  line-height: 1.35;
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 400;
+  color: #606060;
+  margin: clamp(16px, 2vh, 24px) 0 0;
+  line-height: 1.4;
   letter-spacing: -0.005em;
-  align-self: end;
-  padding-bottom: clamp(8px, 1vw, 14px);
 }
 
-/* Mídia do case (imagem ou placeholder) */
+/* Mídia do case — imagem grande arredondada (coluna esquerda) */
 .ee-cases__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  border-radius: 14px;
+  aspect-ratio: 1 / 1;
+  border-radius: clamp(20px, 2vw, 32px);
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a1010 50%, #1a0505 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-/* No desktop, a media cola no topo da seção e na borda direita da página */
-@media (min-width: 900px) {
-  .ee-cases__media {
-    aspect-ratio: auto;
-    height: auto;
-    min-height: clamp(280px, 40vh, 440px);
-    max-height: 56vh;
-    /* Vaza pelo padding-right da section → cola na borda direita */
-    margin-right: calc(-1 * clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem));
-    /* Vaza pelo padding-top da section → cola no topo */
-    margin-top: calc(-1 * clamp(40px, 6vh, 80px));
-    /* Cantos retos onde cola na borda; mantém só o canto inferior esquerdo arredondado */
-    border-radius: 0 0 0 14px;
-    border-top: none;
-    border-right: none;
-  }
+  background: linear-gradient(180deg, #FF3B0F 0%, #C41E08 45%, #3A0000 100%);
 }
 .ee-cases__media img {
   display: block;
@@ -4874,57 +4988,50 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   justify-content: center;
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(13px, 1vw, 16px);
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 24px;
   letter-spacing: -0.005em;
 }
 
-/* Métricas (ROAS / CAC) com divisor central + antes→depois */
+/* Resultados (data points) — antes → depois, em linha */
 .ee-cases__metrics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(20px, 2.6vw, 40px);
-  padding-top: clamp(16px, 2vh, 28px);
-  position: relative;
-}
-.ee-cases__metrics::before {
-  content: "";
-  position: absolute;
-  top: clamp(16px, 2vh, 28px);
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.18);
-  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 4vw, 64px);
+  margin-top: clamp(28px, 4vh, 56px);
 }
 .ee-cases__metric-label {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 16px);
+  font-size: clamp(13px, 1vw, 16px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 clamp(10px, 1.2vw, 18px);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: #909090;
+  margin: 0 0 8px;
+  letter-spacing: 0.01em;
 }
 .ee-cases__metric-values {
   display: flex;
   align-items: baseline;
-  gap: clamp(16px, 2vw, 32px);
+  gap: 10px;
 }
 .ee-cases__metric-before {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(20px, 2.2vw, 34px);
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.32);
+  font-size: clamp(18px, 1.8vw, 26px);
+  font-weight: 400;
+  color: #B5B5B5;
   letter-spacing: -0.02em;
   line-height: 1;
 }
+.ee-cases__metric-before::after {
+  content: "→";
+  margin-left: 10px;
+  color: #C8C8C8;
+}
 .ee-cases__metric-after {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(40px, 4.4vw, 68px);
+  font-size: clamp(34px, 4vw, 60px);
   font-weight: 700;
-  color: #FFFFFF;
+  color: #E50914;
   letter-spacing: -0.025em;
   line-height: 1;
 }
@@ -4942,10 +5049,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-cases__nav-btn {
   width: 48px;
   height: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(40, 0, 0, 0.25);
   border-radius: 50%;
   background: transparent;
-  color: #FFFFFF;
+  color: #280000;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -4953,15 +5060,17 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transition:
     background 0.25s cubic-bezier(0.23, 1, 0.32, 1),
     border-color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    color 0.25s,
     transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ee-cases__nav-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(229, 9, 20, 0.06);
+  border-color: rgba(229, 9, 20, 0.5);
+  color: #E50914;
   transform: translateY(-1px);
 }
 .ee-cases__nav-btn:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline: 2px solid rgba(229, 9, 20, 0.5);
   outline-offset: 3px;
 }
 .ee-cases__nav-btn svg { width: 18px; height: 18px; stroke-width: 2.2; }
@@ -4974,15 +5083,27 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(40, 0, 0, 0.2);
   transition: background 0.25s;
 }
-.ee-cases__nav-dot.is-active { background: #FFFFFF; }
+.ee-cases__nav-dot.is-active { background: #E50914; }
 
 /* === SEÇÃO ECOSSISTEMA (full-bleed image only) === */
 .ee-ecosystem {
+  position: relative;
   display: block;
-  background: #000000; /* fallback caso a imagem demore a carregar */
+  /* O PNG dos 5 personagens tem fundo transparente, então este gradiente aparece
+     atrás dele. Ele CONTINUA o radial da seção de Cases (mesma elipse/stops, só com
+     o centro deslocado pra -10%, deixando o brilho laranja no topo, casando com o
+     rodapé dos Cases) e TERMINA em #280000 (mesma cor do +30 soluções, logo abaixo). */
+  background:
+    radial-gradient(ellipse 130% 110% at 50% -10%,
+      #FB2E0A 0%,
+      #C41E08 28%,
+      #7A0A02 52%,
+      #3A0000 78%,
+      #280000 100%
+    );
   line-height: 0; /* remove qualquer gap em torno da img */
   font-size: 0;     /* mata whitespace inline residual */
   margin: 0;
@@ -4995,6 +5116,71 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0 0 -1px 0; /* puxa 1px pra cima e cobre qualquer rounding do navegador */
   vertical-align: bottom; /* trava o baseline pra não criar gap */
   clip-path: inset(0 0 4px 0); /* corta 4px da borda inferior (faixa escura/transparente do PNG) */
+}
+
+/* Gradiente à FRENTE do PNG: apaga a parte de baixo dos personagens, mesclando-os
+   com o fundo #280000 (mesma cor do +30 soluções). */
+.ee-ecosystem__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 52%,
+    rgba(40, 0, 0, 0.45) 74%,
+    #280000 97%
+  );
+}
+
+/* Texto sobreposto: "Ecossistema" (Morganite) embaixo à esquerda + sub à direita */
+.ee-ecosystem__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding-bottom: clamp(36px, 6vh, 96px);
+}
+.ee-ecosystem__overlay-inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 80px);
+}
+.ee-ecosystem__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(64px, 9.5vw, 180px);
+  line-height: 0.82;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin: 0;
+}
+.ee-ecosystem__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.5vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: right;
+  max-width: 420px;
+  margin: 0 0 clamp(8px, 1vh, 18px);
+}
+.ee-ecosystem__sub strong { font-weight: 700; color: #FFFFFF; }
+
+@media (max-width: 760px) {
+  .ee-ecosystem__overlay-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(8px, 2vw, 16px);
+  }
+  .ee-ecosystem__sub { text-align: left; max-width: 100%; }
 }
 
 /* === SEÇÃO ECOSSISTEMA-30 (+30 soluções digitais — texto + imagem) === */
@@ -5096,13 +5282,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1720px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
   padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 .ee-mission__content {
-  max-width: min(680px, 60%);
+  max-width: var(--ee-max-width);
   color: #FFFFFF;
+}
+/* VENDER à esquerda + os 4 pontos à direita (ao lado), centralizados na vertical */
+.ee-mission__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 120px);
+  flex-wrap: wrap;
 }
 .ee-mission__eyebrow {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -5116,15 +5309,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-mission__title {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(140px, 22vw, 420px);
+  font-size: clamp(120px, 18vw, 340px);
   line-height: 0.82;
   letter-spacing: 0;
   text-transform: uppercase;
   color: #FFFFFF;
-  margin: 0 0 clamp(40px, 5vh, 80px);
-  width: max-content;     /* deixa o título crescer além do container de 60% */
-  max-width: none;
-  white-space: nowrap;    /* mantém "VENDER" em uma linha mesmo extrapolando */
+  margin: 0;
+  white-space: nowrap;    /* mantém "VENDER" em uma linha */
+  flex: 0 0 auto;
 }
 .ee-mission__list {
   list-style: none;
@@ -5132,16 +5324,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1vw, 14px);
+  gap: clamp(16px, 2vh, 32px);
+  flex: 1 1 280px;        /* ocupa o espaço ao lado de VENDER; quebra embaixo no mobile */
 }
 .ee-mission__list li {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(17px, 1.3vw, 22px);
+  font-size: clamp(20px, 1.8vw, 32px);
   color: #FFFFFF;
-  font-weight: 400;
-  letter-spacing: -0.005em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
-.ee-mission__num { font-weight: 500; }
+.ee-mission__num { font-weight: 700; }
 
 /* Mobile: conteúdo ocupa tudo, imagem fade out à direita */
 @media (max-width: 900px) {
@@ -5178,7 +5372,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(64px, 9vh, 120px) var(--ee-pad-x);
 }
 .ee-method__inner {
-  max-width: 1720px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -6862,7 +7056,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 @media (min-width: 960px) {
   .ee-pricing__pack-layout {
     grid-template-columns: clamp(200px, 22%, 280px) 1fr;
-    gap: 0;
+    gap: clamp(24px, 3vw, 56px); /* respiro entre a sidebar e o card EE / imagens dos packs */
   }
 }
 
@@ -6950,8 +7144,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     visibility 0s linear 0s;
 }
 
-/* Cada pack detail é só a imagem do pack (assets/pack*.png) */
-.ee-pricing__pack-detail img {
+/* Cada pack detail (S/M/L/XL) é só a imagem do pack (assets/pack*.png).
+   O detalhe do E.E (--ee) é uma lista, não uma imagem full-bleed — por isso o :not(). */
+.ee-pricing__pack-detail:not(.ee-pricing__pack-detail--ee) img {
   display: block;
   width: calc(100% + 160px);
   height: auto;
@@ -6960,6 +7155,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   object-fit: contain;
   object-position: left center;
   margin: 0 0 0 -60px; /* compensa o padding transparente embutido no PNG */
+}
+
+/* E.E sozinho não é bundle → esconde o header e o rodapé (Social Media + CTA) do bundle */
+#precos[data-active-pack="ee"] .ee-pricing__bundle-head,
+#precos[data-active-pack="ee"] .ee-pricing__bundle-footer { display: none; }
+/* Rodapé do bundle: Social Media (Leve também) + CTA único, abaixo do pack */
+.ee-pricing__bundle-footer { margin-top: clamp(28px, 4vh, 56px); }
+/* No mobile (sidebar em 2 colunas), o botão E.E ocupa a linha inteira acima dos packs */
+@media (max-width: 959px) {
+  .ee-pricing__pack-tab--ee { grid-column: 1 / -1; }
 }
 
 /* === BUNDLE EM CÓDIGO (Pack S) — réplica do PNG === */
@@ -7200,7 +7405,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: var(--ee-pad-y-compact) var(--ee-pad-x);
 }
 .ee-proposal__inner {
-  max-width: 1720px;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
 }
 .ee-proposal__eyebrow {
@@ -7834,9 +8039,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO 01 — HERO                                               -->
 <!-- ============================================================ -->
-<section id="hero" class="ee-hero ds-bg-gradient" aria-label="Bem-vindo à V4 Company">
+<section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
   <div class="ee-hero__inner">
     <div class="ee-hero__content">
+      <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
       <h1 class="ee-hero__title">
         <span>Bem vindo a</span>
         <span>V4 Company</span>
@@ -8048,6 +8254,19 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </div>
 
   </div>
+
+  <!-- Faixa de afiliação: Grupo Dreamers + InfoMoney — dentro de "Quem acredita na V4" -->
+  <div class="ee-affiliation">
+    <div class="ee-affiliation__inner">
+      <p class="ee-affiliation__text">Somos uma empresa do <strong>Grupo Dreamers</strong> e parceiros do <strong>InfoMoney</strong>.</p>
+      <div class="ee-affiliation__logos">
+        <img src="assets/grupoDreamers.svg" alt="Grupo Dreamers" class="ee-affiliation__logo ee-affiliation__logo--dreamers"/>
+        <img src="assets/rock-in-rio 1.svg" alt="Rock in Rio" class="ee-affiliation__logo ee-affiliation__logo--rockinrio"/>
+        <img src="assets/Infomoney.svg" alt="InfoMoney" class="ee-affiliation__logo ee-affiliation__logo--infomoney"/>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ============================================================ -->
@@ -8055,6 +8274,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <section id="cases" class="ee-cases" data-state="empty" aria-label="Cases de sucesso" aria-live="polite">
   <div class="ee-cases__inner">
+
+    <h2 class="ee-cases__heading">Cases de <strong>sucesso</strong></h2>
 
     <!-- Estado vazio: prompt -->
     <div class="ee-cases__empty">
@@ -8067,33 +8288,27 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
         <!-- Case 1: Dr. Saúde -->
         <article class="ee-cases__slide is-active" data-slide="0">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <p class="ee-cases__eyebrow">CASES</p>
-              <div class="ee-cases__brand">
-                <h3 class="ee-cases__brand-name">Dr. Saúde</h3>
-                <p class="ee-cases__brand-type">PDV</p>
-                <p class="ee-cases__brand-desc">Pra Dr. Saúde, clínica de saúde &amp; wellness, estruturamos a operação de mídia paga (Google Ads + Meta Ads) e implementamos CRM.</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <img src="assets/drsaude.webp" alt="Equipe da Dr. Saúde — clínica de saúde e wellness"/>
-            </div>
+          <div class="ee-cases__media">
+            <img src="assets/drsaude.webp" alt="Equipe da Dr. Saúde — clínica de saúde e wellness"/>
           </div>
-          <p class="ee-cases__metrics-label">Resultado:</p>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">CPL</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">6</span>
-                <span class="ee-cases__metric-after">5,5</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">Dr. Saúde</h3>
+            <p class="ee-cases__brand-type">PDV · Saúde &amp; Wellness</p>
+            <p class="ee-cases__brand-desc">Pra Dr. Saúde, clínica de saúde &amp; wellness, estruturamos a operação de mídia paga (Google Ads + Meta Ads) e implementamos CRM.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">CPL</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">6</span>
+                  <span class="ee-cases__metric-after">5,5</span>
+                </div>
               </div>
-            </div>
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">ROAS</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">133</span>
-                <span class="ee-cases__metric-after">220</span>
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">ROAS</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">133</span>
+                  <span class="ee-cases__metric-after">220</span>
+                </div>
               </div>
             </div>
           </div>
@@ -8101,26 +8316,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
         <!-- Case 2: WL Veículos -->
         <article class="ee-cases__slide" data-slide="1">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <p class="ee-cases__eyebrow">CASES</p>
-              <div class="ee-cases__brand">
-                <h3 class="ee-cases__brand-name">WL Veículos</h3>
-                <p class="ee-cases__brand-type">PDV</p>
-                <p class="ee-cases__brand-desc">Pra WL Veículos Bragança, concessionária de automóveis, estruturamos a captação via Meta Ads e implementamos WhatsApp + CRM.</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <img src="assets/wlveiculosphoto.webp" alt="Fachada da WL Veículos — concessionária de automóveis"/>
-            </div>
+          <div class="ee-cases__media">
+            <img src="assets/wlveiculosphoto.webp" alt="Fachada da WL Veículos — concessionária de automóveis"/>
           </div>
-          <p class="ee-cases__metrics-label">Resultado:</p>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">ROAS</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">169,79</span>
-                <span class="ee-cases__metric-after">238,55</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">WL Veículos</h3>
+            <p class="ee-cases__brand-type">PDV · Concessionária</p>
+            <p class="ee-cases__brand-desc">Pra WL Veículos Bragança, concessionária de automóveis, estruturamos a captação via Meta Ads e implementamos WhatsApp + CRM.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">ROAS</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">169,79</span>
+                  <span class="ee-cases__metric-after">238,55</span>
+                </div>
               </div>
             </div>
             <p class="ee-cases__metric-note">Cadência de follow-up ativa.</p>
@@ -8147,62 +8356,54 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-cases__slider">
 
         <article class="ee-cases__slide is-active" data-slide="0">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <h2 class="ee-cases__title">RESULTADOS<br/>EXPRESSIVOS</h2>
-              <div class="ee-cases__brand">
-                <p class="ee-cases__brand-name">Cliente Inside Sales 01</p>
-                <p class="ee-cases__brand-type">Inside Sales / B2B</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
-            </div>
+          <div class="ee-cases__media">
+            <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
           </div>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">SQL/mês</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">XX</span>
-                <span class="ee-cases__metric-after">XXX</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">Cliente Inside Sales 01</h3>
+            <p class="ee-cases__brand-type">Inside Sales / B2B</p>
+            <p class="ee-cases__brand-desc">Proposta apresentada para cliente com desafios.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">SQL/mês</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">XX</span>
+                  <span class="ee-cases__metric-after">XXX</span>
+                </div>
               </div>
-            </div>
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">CAC</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">XXX</span>
-                <span class="ee-cases__metric-after">XX</span>
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">CAC</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">XXX</span>
+                  <span class="ee-cases__metric-after">XX</span>
+                </div>
               </div>
             </div>
           </div>
         </article>
 
         <article class="ee-cases__slide" data-slide="1">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <h2 class="ee-cases__title">RESULTADOS<br/>EXPRESSIVOS</h2>
-              <div class="ee-cases__brand">
-                <p class="ee-cases__brand-name">Cliente Inside Sales 02</p>
-                <p class="ee-cases__brand-type">Inside Sales / B2B</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
-            </div>
+          <div class="ee-cases__media">
+            <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
           </div>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">Taxa de conversão</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">X%</span>
-                <span class="ee-cases__metric-after">XX%</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">Cliente Inside Sales 02</h3>
+            <p class="ee-cases__brand-type">Inside Sales / B2B</p>
+            <p class="ee-cases__brand-desc">Proposta apresentada para cliente com desafios.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">Taxa de conversão</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">X%</span>
+                  <span class="ee-cases__metric-after">XX%</span>
+                </div>
               </div>
-            </div>
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">Ciclo de venda</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">XX d</span>
-                <span class="ee-cases__metric-after">X d</span>
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">Ciclo de venda</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">XX d</span>
+                  <span class="ee-cases__metric-after">X d</span>
+                </div>
               </div>
             </div>
           </div>
@@ -8228,62 +8429,54 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-cases__slider">
 
         <article class="ee-cases__slide is-active" data-slide="0">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <h2 class="ee-cases__title">RESULTADOS<br/>EXPRESSIVOS</h2>
-              <div class="ee-cases__brand">
-                <p class="ee-cases__brand-name">Cliente E-commerce 01</p>
-                <p class="ee-cases__brand-type">E-commerce</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
-            </div>
+          <div class="ee-cases__media">
+            <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
           </div>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">ROAS</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">8</span>
-                <span class="ee-cases__metric-after">16,3</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">Cliente E-commerce 01</h3>
+            <p class="ee-cases__brand-type">E-commerce</p>
+            <p class="ee-cases__brand-desc">Proposta apresentada para cliente com desafios.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">ROAS</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">8</span>
+                  <span class="ee-cases__metric-after">16,3</span>
+                </div>
               </div>
-            </div>
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">CAC</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">250</span>
-                <span class="ee-cases__metric-after">300</span>
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">CAC</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">250</span>
+                  <span class="ee-cases__metric-after">300</span>
+                </div>
               </div>
             </div>
           </div>
         </article>
 
         <article class="ee-cases__slide" data-slide="1">
-          <div class="ee-cases__slide-inner">
-            <div class="ee-cases__content">
-              <h2 class="ee-cases__title">RESULTADOS<br/>EXPRESSIVOS</h2>
-              <div class="ee-cases__brand">
-                <p class="ee-cases__brand-name">Cliente E-commerce 02</p>
-                <p class="ee-cases__brand-type">E-commerce</p>
-              </div>
-            </div>
-            <div class="ee-cases__media">
-              <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
-            </div>
+          <div class="ee-cases__media">
+            <div class="ee-cases__media-placeholder">Imagem do case (aguardando asset real)</div>
           </div>
-          <div class="ee-cases__metrics">
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">Receita mensal</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">X</span>
-                <span class="ee-cases__metric-after">XX</span>
+          <div class="ee-cases__content">
+            <h3 class="ee-cases__brand-name">Cliente E-commerce 02</h3>
+            <p class="ee-cases__brand-type">E-commerce</p>
+            <p class="ee-cases__brand-desc">Proposta apresentada para cliente com desafios.</p>
+            <div class="ee-cases__metrics">
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">Receita mensal</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">X</span>
+                  <span class="ee-cases__metric-after">XX</span>
+                </div>
               </div>
-            </div>
-            <div class="ee-cases__metric">
-              <p class="ee-cases__metric-label">Carrinho abandonado</p>
-              <div class="ee-cases__metric-values">
-                <span class="ee-cases__metric-before">XX%</span>
-                <span class="ee-cases__metric-after">X%</span>
+              <div class="ee-cases__metric">
+                <p class="ee-cases__metric-label">Carrinho abandonado</p>
+                <div class="ee-cases__metric-values">
+                  <span class="ee-cases__metric-before">XX%</span>
+                  <span class="ee-cases__metric-after">X%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -8312,6 +8505,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <section id="ecossistema" class="ee-ecosystem" aria-label="Ecossistema V4">
   <img class="ee-ecosystem__img" src="assets/Ecossistema foto.png" alt="Ecossistema V4 — em 13 anos de mercado, construímos um ecossistema sólido e próspero"/>
+  <div class="ee-ecosystem__fade" aria-hidden="true"></div>
+  <div class="ee-ecosystem__overlay">
+    <div class="ee-ecosystem__overlay-inner">
+      <h2 class="ee-ecosystem__title">Ecossistema</h2>
+      <p class="ee-ecosystem__sub">Em <strong>13 anos</strong> de mercado, construímos um ecossistema <strong>sólido e próspero</strong>.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ============================================================ -->
@@ -8342,13 +8542,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-mission__inner">
     <div class="ee-mission__content">
       <p class="ee-mission__eyebrow">Mas qual é a <strong>NOSSA MISSÃO?</strong></p>
-      <h2 class="ee-mission__title">VENDER</h2>
-      <ol class="ee-mission__list">
-        <li><span class="ee-mission__num">01</span> - O seu produto</li>
-        <li><span class="ee-mission__num">02</span> - Para mais pessoas</li>
-        <li><span class="ee-mission__num">03</span> - Mais vezes</li>
-        <li><span class="ee-mission__num">04</span> - Pelo maior valor</li>
-      </ol>
+      <div class="ee-mission__row">
+        <h2 class="ee-mission__title">VENDER</h2>
+        <ol class="ee-mission__list">
+          <li><span class="ee-mission__num">01</span> - O seu produto</li>
+          <li><span class="ee-mission__num">02</span> - Para mais pessoas</li>
+          <li><span class="ee-mission__num">03</span> - Mais vezes</li>
+          <li><span class="ee-mission__num">04</span> - Pelo maior valor</li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
@@ -8712,7 +8914,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <button type="button" class="ee-roadmap__arrow" id="ee-roadmap-prev" aria-label="Semana anterior">
         <i data-lucide="arrow-left" aria-hidden="true"></i>
       </button>
-      <button type="button" role="tab" class="ee-roadmap__tab is-active" data-week="1" aria-selected="true" aria-controls="ee-roadmap-panel-1" id="ee-roadmap-tab-1">Semana <strong>01</strong></button>
+      <button type="button" role="tab" class="ee-roadmap__tab is-active" data-week="0" aria-selected="true" aria-controls="ee-roadmap-panel-0" id="ee-roadmap-tab-0">Início do <strong>Projeto</strong></button>
+      <button type="button" role="tab" class="ee-roadmap__tab" data-week="1" aria-selected="false" aria-controls="ee-roadmap-panel-1" id="ee-roadmap-tab-1" tabindex="-1">Semana <strong>01</strong></button>
       <button type="button" role="tab" class="ee-roadmap__tab" data-week="2" aria-selected="false" aria-controls="ee-roadmap-panel-2" id="ee-roadmap-tab-2" tabindex="-1">Semana <strong>02</strong></button>
       <button type="button" role="tab" class="ee-roadmap__tab" data-week="3" aria-selected="false" aria-controls="ee-roadmap-panel-3" id="ee-roadmap-tab-3" tabindex="-1">Semana <strong>03</strong></button>
       <button type="button" role="tab" class="ee-roadmap__tab" data-week="4" aria-selected="false" aria-controls="ee-roadmap-panel-4" id="ee-roadmap-tab-4" tabindex="-1">Semana <strong>04</strong></button>
@@ -8724,15 +8927,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <!-- Painéis (semanas) — só o ativo aparece -->
     <div class="ee-roadmap__panels">
 
-    <!-- SEMANA 1 -->
-    <article class="ee-roadmap__week is-active" role="tabpanel" id="ee-roadmap-panel-1" aria-labelledby="ee-roadmap-tab-1">
+    <!-- INÍCIO DO PROJETO (kickoff — primeiros 3 itens, antes da Semana 1) -->
+    <article class="ee-roadmap__week is-active" role="tabpanel" id="ee-roadmap-panel-0" aria-labelledby="ee-roadmap-tab-0">
       <div class="ee-roadmap__content">
-        <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de&nbsp;Mercado</h3>
-        <p class="ee-roadmap__intro">Imersão no negócio do cliente, mapeamento de concorrentes e <strong>construção da base estratégica.</strong></p>
+        <h3 class="ee-roadmap__title">Início do Projeto</h3>
+        <p class="ee-roadmap__intro">O kickoff que destrava a operação: <strong>boas-vindas, alinhamento e acessos</strong> pra começar com tudo no lugar.</p>
         <ul class="ee-roadmap__list">
           <li class="ee-roadmap__item">Criação de grupo com o cliente e boas-vindas.</li>
           <li class="ee-roadmap__item">Reunião para alinhamento de expectativas e cronograma.</li>
           <li class="ee-roadmap__item">Solicitação de acesso a todos os canais e ferramentas do cliente.</li>
+        </ul>
+      </div>
+      <div class="ee-roadmap__media">
+        <div class="ee-roadmap__media-inner" data-week="0" role="img" aria-label="Imagem de apoio do Início do Projeto"></div>
+      </div>
+    </article>
+
+    <!-- SEMANA 1 -->
+    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-1" aria-labelledby="ee-roadmap-tab-1">
+      <div class="ee-roadmap__content">
+        <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de&nbsp;Mercado</h3>
+        <p class="ee-roadmap__intro">Imersão no negócio do cliente, mapeamento de concorrentes e <strong>construção da base estratégica.</strong></p>
+        <ul class="ee-roadmap__list">
           <li class="ee-roadmap__item">Análise de concorrente e SWOT estratégica.</li>
           <li class="ee-roadmap__item">Auditoria de comunicação no digital.</li>
           <li class="ee-roadmap__item">Persona e ICP.</li>
@@ -8866,176 +9082,119 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <p class="ee-handoff__sub">O Executar é a operação contínua que coloca a Estruturação Estratégica pra rodar — todo dia, sem reabrir diagnóstico, sem reaprender o negócio.</p>
     </header>
 
-    <!-- Comparativo: o que a EE cuida × o que o Executar faz -->
-    <div class="ee-handoff__timeline" role="img" aria-label="A Estruturação Estratégica cuida do planejamento; o Executar cuida da operação">
-
-      <div class="ee-handoff__phase ee-handoff__phase--ee">
-        <span class="ee-handoff__phase-label">Fase 1 · Planejamento</span>
-        <h3 class="ee-handoff__phase-name">Estruturação Estratégica</h3>
-        <ul class="ee-handoff__phase-list">
-          <li>Pesquisa de mercado e ICP</li>
-          <li>Posicionamento estratégico</li>
-          <li>Identidade de marca completa</li>
-          <li>Plano de mídia de 6 meses</li>
-          <li>Estrutura comercial calibrada</li>
-        </ul>
-        <span class="ee-handoff__phase-duration">30 dias · entrega no Dia 31</span>
-      </div>
-
-      <div class="ee-handoff__connector" aria-hidden="true">
-        <i data-lucide="arrow-right"></i>
-      </div>
-
-      <div class="ee-handoff__phase ee-handoff__phase--executar">
-        <!-- Camadas de glass: distorção (atrás) + casca (overlay de shadows) -->
-        <div class="ee-glass-distort" aria-hidden="true"></div>
-        <div class="ee-glass-shell" aria-hidden="true"></div>
-        <!-- Conteúdo -->
-        <span class="ee-handoff__phase-label">Fase 2 · Operação</span>
-        <h3 class="ee-handoff__phase-name">Executar</h3>
-        <ul class="ee-handoff__phase-list">
-          <li>Gestão de mídia paga (Meta + Google)</li>
-          <li>Produção de criativos e copy</li>
-          <li>Time dedicado de especialistas</li>
-          <li>Dashboard diário · otimização 2-3×/semana</li>
-          <li>Reuniões periódicas de performance</li>
-        </ul>
-        <span class="ee-handoff__phase-duration">Operação contínua</span>
-      </div>
-
-
-    </div>
-
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SEÇÃO 11 — PREÇOS (toggle E.E vs Bundle)                      -->
 <!-- ============================================================ -->
-<section id="precos" class="ee-pricing" aria-label="Tabela de preços">
+<section id="precos" class="ee-pricing" data-active-pack="s" aria-label="Tabela de preços">
   <div class="ee-pricing__inner">
 
-    <h2 class="ee-pricing__heading">Escolha seu Plano</h2>
-
-    <!-- Toggle de pacotes -->
-    <div class="ee-pricing__toggle" role="tablist" aria-label="Pacotes disponíveis">
-      <button type="button" role="tab" class="ee-pricing__option" data-pack="ee" aria-selected="false" aria-controls="ee-pricing-panel-ee" id="ee-pricing-tab-ee" tabindex="-1">E.E</button>
-      <span class="ee-pricing__sep" aria-hidden="true"></span>
-      <div class="ee-pricing__option-wrap">
-        <span class="ee-pricing__badge"><i data-lucide="flame" aria-hidden="true"></i>Mais Contratado</span>
-        <button type="button" role="tab" class="ee-pricing__option is-active" data-pack="bundle" aria-selected="true" aria-controls="ee-pricing-panel-bundle" id="ee-pricing-tab-bundle">E.E + Executar (Bundle)</button>
-      </div>
-    </div>
-
     <div class="ee-pricing__panels">
-
-      <!-- PAINEL: E.E -->
-      <div role="tabpanel" id="ee-pricing-panel-ee" class="ee-pricing__panel" aria-labelledby="ee-pricing-tab-ee">
-
-        <header class="ee-pricing__head">
-          <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__title-img"/>
-        </header>
-
-        <article class="ee-pricing__card">
-          <p class="ee-pricing__card-label">O que vai estar incluso:</p>
-          <ul class="ee-pricing__list">
-            <li class="ee-pricing__item">
-              <span class="ee-pricing__week">Semana 01</span>
-              <span class="ee-pricing__check" aria-hidden="true"></span>
-              <span class="ee-pricing__text">Descoberta do Negócio e Pesquisa de Mercado</span>
-            </li>
-            <li class="ee-pricing__item">
-              <span class="ee-pricing__week">Semana 02</span>
-              <span class="ee-pricing__check" aria-hidden="true"></span>
-              <span class="ee-pricing__text">Diagnóstico Digital e Posicionamento Estratégico</span>
-            </li>
-            <li class="ee-pricing__item">
-              <span class="ee-pricing__week">Semana 03</span>
-              <span class="ee-pricing__check" aria-hidden="true"></span>
-              <span class="ee-pricing__text">Estrutura da Operação</span>
-            </li>
-            <li class="ee-pricing__item">
-              <span class="ee-pricing__week">Semana 04</span>
-              <span class="ee-pricing__check" aria-hidden="true"></span>
-              <span class="ee-pricing__text">Identidade de Comunicação e Plano de Mídia</span>
-            </li>
-          </ul>
-        </article>
-
-        <div class="ee-pricing__cta-wrap">
-          <button type="button" class="ee-pricing__cta" data-pack-cta="ee">
-            Seguir com essa solução
-            <i data-lucide="arrow-right" aria-hidden="true"></i>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- PAINEL: BUNDLE (E.E + Executar) — 4 packs: S / M / L / XL -->
-      <div role="tabpanel" id="ee-pricing-panel-bundle" class="ee-pricing__panel is-active" aria-labelledby="ee-pricing-tab-bundle">
+      <div class="ee-pricing__panel is-active">
 
         <header class="ee-pricing__bundle-head">
           <h3 class="ee-pricing__bundle-title">Bundle — Estruturação Estratégica + Executar</h3>
           <p class="ee-pricing__bundle-desc">A Estruturação Estratégica monta o plano. O Pack do Executar coloca em operação. Contratando os dois juntos, com Executar por no mínimo 6 meses, <strong>você desbloqueia o desconto na contratação combinada.</strong></p>
         </header>
 
-        <!-- Layout horizontal: tabs à esquerda, detalhes à direita -->
+        <!-- Layout horizontal: sidebar de soluções à esquerda, detalhes à direita -->
         <div class="ee-pricing__pack-layout">
 
-        <!-- Seletor de pack (S / M / L / XL) -->
-        <div class="ee-pricing__pack-tabs" role="tablist" aria-label="Tamanhos do pack Executar">
+        <!-- Seletor: E.E (sozinho) + os 4 packs do bundle (S / M / L / XL) -->
+        <div class="ee-pricing__pack-tabs" role="tablist" aria-label="Soluções disponíveis">
+          <button type="button" role="tab" class="ee-pricing__pack-tab ee-pricing__pack-tab--ee" data-pack-size="ee" aria-selected="false" aria-controls="ee-pack-detail-ee" id="ee-pack-tab-ee" tabindex="-1">E.E</button>
           <button type="button" role="tab" class="ee-pricing__pack-tab is-active" data-pack-size="s" aria-selected="true" aria-controls="ee-pack-detail-s" id="ee-pack-tab-s">Pack S</button>
           <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="m" aria-selected="false" aria-controls="ee-pack-detail-m" id="ee-pack-tab-m" tabindex="-1">Pack M</button>
           <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="l" aria-selected="false" aria-controls="ee-pack-detail-l" id="ee-pack-tab-l" tabindex="-1">Pack L</button>
           <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="xl" aria-selected="false" aria-controls="ee-pack-detail-xl" id="ee-pack-tab-xl" tabindex="-1">Pack XL</button>
         </div>
 
-        <!-- Detalhes do pack selecionado — imagens dos packs -->
+        <!-- Detalhes da solução selecionada -->
         <div class="ee-pricing__pack-details">
 
-          <article role="tabpanel" id="ee-pack-detail-s" class="ee-pricing__pack-detail is-active" aria-labelledby="ee-pack-tab-s">
-            <img src="assets/packS.png" alt="Bundle com Pack S — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
+          <!-- DETALHE: E.E (sozinho) — lista das 4 semanas + CTA -->
+          <article role="tabpanel" id="ee-pack-detail-ee" class="ee-pricing__pack-detail ee-pricing__pack-detail--ee" aria-labelledby="ee-pack-tab-ee">
+            <header class="ee-pricing__head">
+              <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__title-img"/>
+            </header>
+            <article class="ee-pricing__card">
+              <p class="ee-pricing__card-label">O que vai estar incluso:</p>
+              <ul class="ee-pricing__list">
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 01</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Descoberta do Negócio e Pesquisa de Mercado</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 02</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Diagnóstico Digital e Posicionamento Estratégico</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 03</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Estrutura da Operação</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 04</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Identidade de Comunicação e Plano de Mídia</span>
+                </li>
+              </ul>
+            </article>
             <div class="ee-pricing__cta-wrap">
-              <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-s">
+              <button type="button" class="ee-pricing__cta" data-pack-cta="ee">
                 Seguir com essa solução
                 <i data-lucide="arrow-right" aria-hidden="true"></i>
               </button>
             </div>
+          </article>
+
+          <article role="tabpanel" id="ee-pack-detail-s" class="ee-pricing__pack-detail is-active" aria-labelledby="ee-pack-tab-s">
+            <img src="assets/packS.png" alt="Bundle com Pack S — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
           </article>
 
           <article role="tabpanel" id="ee-pack-detail-m" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-m">
             <img src="assets/packm.png" alt="Bundle com Pack M — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
-            <div class="ee-pricing__cta-wrap">
-              <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-m">
-                Seguir com essa solução
-                <i data-lucide="arrow-right" aria-hidden="true"></i>
-              </button>
-            </div>
           </article>
 
           <article role="tabpanel" id="ee-pack-detail-l" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-l">
             <img src="assets/packL.png" alt="Bundle com Pack L — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
-            <div class="ee-pricing__cta-wrap">
-              <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-l">
-                Seguir com essa solução
-                <i data-lucide="arrow-right" aria-hidden="true"></i>
-              </button>
-            </div>
           </article>
 
           <article role="tabpanel" id="ee-pack-detail-xl" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-xl">
             <img src="assets/packXl.png" alt="Bundle com Pack XL — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
-            <div class="ee-pricing__cta-wrap">
-              <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-xl">
-                Seguir com essa solução
-                <i data-lucide="arrow-right" aria-hidden="true"></i>
-              </button>
-            </div>
           </article>
 
         </div><!-- /.ee-pricing__pack-details -->
 
         </div><!-- /.ee-pricing__pack-layout -->
+
+        <!-- Rodapé do bundle: Social Media (Leve também) + CTA único, ANTES de seguir -->
+        <!-- Some quando E.E está ativo (E.E tem CTA próprio e não leva add-on) -->
+        <div class="ee-pricing__bundle-footer">
+          <div class="ee-proposal__addon-section">
+            <h3 class="ee-proposal__addon-heading">Leve também</h3>
+            <div class="ee-proposal__addon" data-addon="socialMedia" data-checked="false">
+              <input type="checkbox" class="ee-proposal__addon-input" hidden/>
+              <div class="ee-proposal__addon-card">
+                <img src="assets/SocialMediaBanner.png" alt="Pacote Social Media — gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões" class="ee-proposal__addon-banner"/>
+              </div>
+              <button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
+                <span class="ee-proposal__addon-check" aria-hidden="true"></span>
+                <span class="ee-proposal__addon-action">Adicionar este pacote</span>
+              </button>
+            </div>
+          </div>
+          <div class="ee-pricing__cta-wrap">
+            <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-s" id="ee-bundle-cta">
+              Seguir com essa solução
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
 
       </div>
 
@@ -9089,21 +9248,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </div>
       </div>
 
-      <!-- Adicional: Social Media — bloco "Leve também" -->
-      <div class="ee-proposal__addon-section">
-        <h3 class="ee-proposal__addon-heading">Leve também</h3>
-        <div class="ee-proposal__addon" data-addon="socialMedia" data-checked="false">
-          <input type="checkbox" class="ee-proposal__addon-input" hidden/>
-          <div class="ee-proposal__addon-card">
-            <img src="assets/SocialMediaBanner.png" alt="Pacote Social Media — gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões" class="ee-proposal__addon-banner"/>
-          </div>
-          <button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
-            <span class="ee-proposal__addon-check" aria-hidden="true"></span>
-            <span class="ee-proposal__addon-action">Adicionar este pacote</span>
-          </button>
-        </div>
-      </div>
-
       <!-- Total + CTA finalizar -->
       <div class="ee-proposal__total">
         <div class="ee-proposal__total-body">
@@ -9133,6 +9277,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <script id="ee-page-script">
 (function () {
   'use strict';
+
+  // ── TRAVA DE SCROLL ATÉ ESCOLHER O MODELO DE VENDAS ──
+  // Aplicada já no parse do script (antes do paint) pra evitar flash. É liberada
+  // na 1ª seleção de modelo de vendas (ver revealWelcome). Sem persistência: todo
+  // reload (F5/Ctrl+R) ou nova visita volta pro seletor antes do "Bem vindo a V4".
+  //
+  // O navegador, por padrão, restaura a posição de scroll no reload — o que, com a
+  // trava, deixaria o usuário "preso" na seção em que estava. Então desligamos a
+  // restauração e forçamos o topo, garantindo que todo F5 caia no seletor.
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  document.documentElement.classList.add('ee-scroll-lock');
+  window.addEventListener('load', function () {
+    if (document.documentElement.classList.contains('ee-scroll-lock')) window.scrollTo(0, 0);
+  });
 
   // ── ESTADO GLOBAL DO MODELO DE VENDAS ──
   // Disponível em window.V4SalesModel para qualquer seção/script ler.
@@ -9238,9 +9397,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       if (!selector.contains(e.target)) close();
     });
 
-    // Default: abrir a página já com PDV selecionado
-    var defaultOpt = options.find(function (o) { return o.getAttribute('data-value') === 'pdv'; });
-    if (defaultOpt) select(defaultOpt);
+    // Sem seleção padrão e sem persistência: a página começa sempre travada no
+    // hero até o vendedor escolher o modelo de vendas (ver fluxo do hero /
+    // revealWelcome). Todo reload volta pro seletor.
   });
 
   // ── COUNT-UP ANIMATION (big numbers em .ee-auth__stat-number) ──
@@ -9298,53 +9457,134 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     nodes.forEach(function (el) { io.observe(el); });
   });
 
-  // ── HERO ENTRY ANIMATION (GSAP timeline ao carregar a página) ──
+  // ── HERO: FLUXO DE SELEÇÃO + ANIMAÇÃO DE ENTRADA ──
+  // Na carga, só o prompt + o pré-selecionador entram (estado "select"), centralizados.
+  // O "Bem vindo a V4" (título + visual) só é revelado quando um modelo de vendas é
+  // escolhido — momento em que a trava de scroll também é liberada.
   document.addEventListener('DOMContentLoaded', function () {
-    if (typeof gsap === 'undefined') return;
-    var titleSpans = document.querySelectorAll('.ee-hero__title span');
+    var hero       = document.getElementById('hero');
+    var prompt     = document.querySelector('.ee-hero__select-prompt');
     var selector   = document.querySelector('.ee-hero .ee-model-selector');
+    var titleSpans = document.querySelectorAll('.ee-hero__title span');
     var visual     = document.querySelector('.ee-hero__visual');
-    if (!titleSpans.length && !selector && !visual) return;
+    if (!hero) return;
 
+    var hasGsap       = typeof gsap !== 'undefined';
     var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduce) {
-      gsap.set([titleSpans, selector, visual].filter(Boolean), { opacity: 1, y: 0, scale: 1 });
-      return;
+
+    function show(el, anim) {
+      if (!el) return;
+      if (hasGsap) { gsap.set(el, anim || { opacity: 1, y: 0, scale: 1 }); return; }
+      el.style.opacity = '1';
+      el.style.transform = 'none';
     }
 
-    var tl = gsap.timeline({ delay: 0.15 });
-
-    // 1. Visual (frames + logo V4) entra primeiro com scale + fade — base da composição
-    if (visual) {
-      tl.to(visual, {
-        opacity: 1,
-        scale: 1,
-        duration: 1.1,
-        ease: 'power3.out'
-      }, 0);
+    // Entrada do estado "select": prompt + seletor
+    if (hasGsap && !prefersReduce) {
+      var tl = gsap.timeline({ delay: 0.15 });
+      if (prompt)   tl.to(prompt,   { opacity: 1, y: 0, duration: 0.7,  ease: 'power2.out' }, 0);
+      if (selector) tl.to(selector, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, 0.2);
+    } else {
+      show(prompt, { opacity: 1, y: 0 });
+      show(selector, { opacity: 1, y: 0 });
     }
 
-    // 2. Headline desce linha por linha com stagger (BEM VINDO A → V4 COMPANY)
-    if (titleSpans.length) {
-      tl.to(titleSpans, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.18
-      }, 0.2); // começa 0.2s depois do visual
+    // Revela o "Bem vindo a V4" e libera o scroll (roda só uma vez)
+    var revealed = false;
+    function revealWelcome() {
+      if (revealed) return;
+      revealed = true;
+      hero.setAttribute('data-hero-state', 'welcome');
+      document.documentElement.classList.remove('ee-scroll-lock');
+
+      if (hasGsap && !prefersReduce) {
+        var tlw = gsap.timeline();
+        if (visual) tlw.to(visual, { opacity: 1, scale: 1, duration: 1.0, ease: 'power3.out' }, 0);
+        if (titleSpans.length) tlw.to(titleSpans, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', stagger: 0.16 }, 0.15);
+      } else {
+        show(visual);
+        [].forEach.call(titleSpans, function (s) { show(s); });
+      }
+
+      // Recalcula os ScrollTriggers agora que o scroll foi liberado
+      if (typeof ScrollTrigger !== 'undefined') {
+        requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+      }
     }
 
-    // 3. Selector entra por último (pra reforçar o CTA)
-    if (selector) {
-      tl.to(selector, {
-        opacity: 1,
-        y: 0,
-        duration: 0.65,
-        ease: 'power2.out'
-      }, 0.85);
-    }
+    // Dispara quando um modelo de vendas é escolhido (ignora o "clear")
+    window.addEventListener('v4-sales-model-change', function (e) {
+      if (e.detail && e.detail.value) revealWelcome();
+    });
   });
+
+  // ── SLIDE FIT: cada seção = 1 viewport; o conteúdo escala pra caber (nunca passa nem sobra) ──
+  // Envolve o conteúdo "in-flow" de cada seção num .ee-slide__fit e aplica transform:scale
+  // pra encaixar exatamente na altura da tela. Fundos absolutos (imagens full-bleed) ficam
+  // de fora e cobrem a seção. Só atua em telas >=901px (no mobile mantém o fluxo natural).
+  (function () {
+    var SLIDE_MQ = window.matchMedia('(min-width: 901px)');
+    // Seções fora do escalonamento: hero (fluxo próprio), problema (oculta),
+    // ecossistema (imagem full-bleed tratada por object-fit no CSS),
+    // produto (texto ancorado no rodapé via margin-top:auto — cabe em 100vh),
+    // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport).
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1 };
+    var sections = [];
+
+    var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
+      if (ro.__raf) cancelAnimationFrame(ro.__raf);
+      ro.__raf = requestAnimationFrame(fitAll);
+    }) : null;
+
+    function wrap(sec) {
+      if (sec.__fitWrap) return sec.__fitWrap;
+      var w = document.createElement('div');
+      w.className = 'ee-slide__fit';
+      [].slice.call(sec.childNodes).forEach(function (n) {
+        if (n.nodeType === 1) {
+          var pos = getComputedStyle(n).position;
+          if (pos === 'absolute' || pos === 'fixed') return; // fundos ficam no lugar
+        }
+        w.appendChild(n);
+      });
+      sec.appendChild(w);
+      sec.__fitWrap = w;
+      if (ro) ro.observe(w);
+      return w;
+    }
+
+    function fit(sec) {
+      if (!SLIDE_MQ.matches) { if (sec.__fitWrap) sec.__fitWrap.style.transform = ''; return; }
+      if (getComputedStyle(sec).display === 'none') return;
+      var w = sec.__fitWrap || wrap(sec);
+      var cs = getComputedStyle(sec);
+      var avail = sec.clientHeight - (parseFloat(cs.paddingTop) || 0) - (parseFloat(cs.paddingBottom) || 0);
+      var needed = w.offsetHeight; // altura natural (offsetHeight ignora o transform já aplicado)
+      if (needed <= 0 || avail <= 0) return;
+      var scale = avail / needed;
+      w.style.transformOrigin = 'center center';
+      w.style.transform = scale < 1 ? 'scale(' + scale + ')' : 'none';
+    }
+
+    function fitAll() { sections.forEach(fit); }
+
+    function init() {
+      sections = [].filter.call(document.querySelectorAll('#top > section'), function (s) {
+        return !SKIP[s.id];
+      });
+      fitAll();
+      var rt;
+      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fitAll, 120); });
+      window.addEventListener('load', fitAll);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+      // Conteúdo dependente do modelo (cases/cronograma/proposta) muda de tamanho
+      window.addEventListener('v4-sales-model-change', function () { requestAnimationFrame(fitAll); });
+      if (SLIDE_MQ.addEventListener) SLIDE_MQ.addEventListener('change', fitAll);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
 
   // ── GSAP CHARACTER REVEAL (letra por letra ao entrar na viewport) ──
   document.addEventListener('DOMContentLoaded', function () {
@@ -9522,10 +9762,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var ITEM_COUNT     = cards.length;
     var ANGLE_PER_ITEM = 360 / ITEM_COUNT;
     var RADIUS         = 600;            // distância dos cards ao centro do rotator
-    var AUTO_SPEED     = 0.02;           // graus por frame quando não está scrollando
+    var AUTO_SPEED     = 0.03;           // graus por frame quando não está scrollando (levemente mais rápido)
     var SCROLL_IDLE_MS = 150;            // ms de inatividade pra voltar pro auto-rotate
     var DRAG_IDLE_MS   = 800;            // ms após soltar o drag pra voltar pro auto-rotate
-    var DRAG_SENSITIVITY = 0.4;          // graus por pixel arrastado
+    var DRAG_SENSITIVITY = 0.15;         // graus por pixel arrastado (drag bem mais suave)
 
     // Distribui cada card ao redor do círculo (eixo Y)
     cards.forEach(function (card, i) {
@@ -9815,42 +10055,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     updateCronogramaWeek3();
     window.addEventListener('v4-sales-model-change', updateCronogramaWeek3);
-  });
-
-  // ── TABELA DE PREÇOS: toggle entre E.E e Bundle ──
-  document.addEventListener('DOMContentLoaded', function () {
-    var options = document.querySelectorAll('.ee-pricing__option');
-    if (!options.length) return;
-    var panels = document.querySelectorAll('.ee-pricing__panel');
-
-    function activate(pack) {
-      options.forEach(function (opt) {
-        var isActive = opt.getAttribute('data-pack') === pack;
-        opt.classList.toggle('is-active', isActive);
-        opt.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        opt.setAttribute('tabindex', isActive ? '0' : '-1');
-      });
-      panels.forEach(function (p) {
-        p.classList.toggle('is-active', p.getAttribute('aria-labelledby') === 'ee-pricing-tab-' + pack);
-      });
-    }
-
-    options.forEach(function (opt, idx) {
-      opt.addEventListener('click', function () {
-        activate(opt.getAttribute('data-pack'));
-      });
-      opt.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          var nextIdx = e.key === 'ArrowRight'
-            ? (idx + 1) % options.length
-            : (idx - 1 + options.length) % options.length;
-          var next = options[nextIdx];
-          activate(next.getAttribute('data-pack'));
-          next.focus();
-        }
-      });
-    });
   });
 
   // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
@@ -10165,30 +10369,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       var headingEl = document.getElementById('ee-proposal-heading');
       if (headingEl) headingEl.textContent = 'Sua proposta personalizada';
 
-      // Addon Social Media — SÓ disponível quando solução é bundle (E.E + Executar)
-      // Pra E.E sozinho, o addon fica oculto e desativado.
-      var addonSection = document.querySelector('.ee-proposal__addon-section');
-      var addonEl = document.querySelector('.ee-proposal__addon[data-addon="socialMedia"]');
-      if (addonSection) {
-        addonSection.hidden = !sol.isBundle;
-      }
+      // Addon Social Media foi movido pra seção de Preços (antes do CTA).
+      // Aqui só garantimos que E.E sozinho não carregue o add-on de bundle.
       if (!sol.isBundle && state.addons.socialMedia) {
-        // Se usuário trocou de bundle pra E.E com addon ativo, desliga automaticamente
-        state.addons.socialMedia = false;
         window.V4Proposal.addons.socialMedia = false;
         try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(window.V4Proposal.get())); } catch (e) {}
-      }
-      if (addonEl) {
-        var isChecked = !!state.addons.socialMedia;
-        addonEl.setAttribute('data-checked', isChecked ? 'true' : 'false');
-        var input = addonEl.querySelector('.ee-proposal__addon-input');
-        if (input) input.checked = isChecked;
-        var btn = addonEl.querySelector('.ee-proposal__addon-controls');
-        if (btn) {
-          btn.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
-          btn.querySelector('.ee-proposal__addon-action').textContent =
-            isChecked ? 'Pacote adicionado' : 'Adicionar este pacote';
-        }
       }
 
       // Total (placeholder por enquanto — quando user passar valores reais, calcula aqui)
@@ -10217,7 +10402,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         });
       });
 
-      // 2) Toggle do addon Social Media — só o botão "Adicionar este pacote"
+      // 2) Toggle do addon Social Media (agora nos Preços, antes do CTA)
       var addonBtn = document.querySelector('.ee-proposal__addon[data-addon="socialMedia"] .ee-proposal__addon-controls');
       if (addonBtn) {
         addonBtn.addEventListener('click', function (e) {
@@ -10225,13 +10410,30 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           window.V4Proposal.toggleAddon('socialMedia');
         });
       }
+      // 2b) Estado visual do addon — independente da proposta (pode alternar antes de escolher)
+      function renderAddonVisual() {
+        var addonEl = document.querySelector('.ee-proposal__addon[data-addon="socialMedia"]');
+        if (!addonEl) return;
+        var on = !!(window.V4Proposal.addons && window.V4Proposal.addons.socialMedia);
+        addonEl.setAttribute('data-checked', on ? 'true' : 'false');
+        var input = addonEl.querySelector('.ee-proposal__addon-input');
+        if (input) input.checked = on;
+        var b = addonEl.querySelector('.ee-proposal__addon-controls');
+        if (b) {
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          var act = b.querySelector('.ee-proposal__addon-action');
+          if (act) act.textContent = on ? 'Pacote adicionado' : 'Adicionar este pacote';
+        }
+      }
 
       // 3) Listeners pra re-render
       window.addEventListener('v4-proposal-change',     render);
+      window.addEventListener('v4-proposal-change',     renderAddonVisual);
       window.addEventListener('v4-sales-model-change',  render);
 
       // Render inicial (caso já exista estado salvo na sessão)
       render();
+      renderAddonVisual();
     });
   })();
 
@@ -10241,6 +10443,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     if (!packTabs.length) return;
     var packDetails = document.querySelectorAll('.ee-pricing__pack-detail');
 
+    var pricingSection = document.getElementById('precos');
+    var bundleCta = document.getElementById('ee-bundle-cta');
     function activatePack(size) {
       packTabs.forEach(function (t) {
         var isActive = t.getAttribute('data-pack-size') === size;
@@ -10251,6 +10455,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       packDetails.forEach(function (d) {
         d.classList.toggle('is-active', d.getAttribute('aria-labelledby') === 'ee-pack-tab-' + size);
       });
+      // Marca a solução ativa na seção: o CSS esconde o header e o rodapé de "Bundle"
+      // (Social Media + CTA único) quando é E.E sozinho.
+      if (pricingSection) pricingSection.setAttribute('data-active-pack', size);
+      // O CTA único do bundle aponta pro pack ativo (E.E tem CTA próprio no seu detalhe)
+      if (bundleCta && size !== 'ee') bundleCta.setAttribute('data-pack-cta', 'bundle-' + size);
     }
 
     packTabs.forEach(function (tab, idx) {
