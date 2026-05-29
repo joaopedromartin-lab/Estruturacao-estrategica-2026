@@ -4249,6 +4249,19 @@ body.bb-lightbox-open { overflow: hidden; }
     padding-top: var(--ee-pad-y-default);
     padding-bottom: var(--ee-pad-y-default);
   }
+  /* Simulador: preenche a viewport, mas NÃO é escalado (pro drag funcionar em px
+     reais) e cresce se precisar, sem clipar o conteúdo. */
+  #top > #simulador {
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: var(--ee-pad-y-default);
+    padding-bottom: var(--ee-pad-y-default);
+  }
 }
 
 /* === HERO === */
@@ -4516,56 +4529,57 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(56px, 7vw, 120px);
+  gap: clamp(40px, 5vw, 80px);
   align-items: center;
 }
 @media (min-width: 960px) {
   .ee-auth__inner {
-    grid-template-columns: 1fr 1.05fr;
+    grid-template-columns: 1.15fr 0.85fr; /* conteúdo | mapa */
   }
-  /* Inverte: texto + selos à esquerda, big numbers à direita */
-  .ee-auth__who   { order: 1; }
-  .ee-auth__stats { order: 2; }
+}
+/* Coluna de conteúdo (esquerda) */
+.ee-auth__main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vh, 36px);
+}
+.ee-auth__eyebrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.2vw, 20px);
+  color: #606060;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+/* Divisor + selos: imagem única (divisornumber.png) que você passou */
+.ee-auth__divider-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Mapa (direita) */
+.ee-auth__map { display: flex; justify-content: center; }
+.ee-auth__map-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
 }
 
-/* Stats grid 2x2 com divisores finos */
+/* Big numbers em uma única linha (4 colunas) no rodapé do conteúdo */
 .ee-auth__stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 2.4vw, 48px);
+  align-items: flex-end;
+  margin-top: clamp(8px, 1.6vh, 24px);
 }
-.ee-auth__stat {
-  padding: clamp(20px, 2.5vw, 36px) clamp(20px, 2.5vw, 36px);
-  position: relative;
-}
-.ee-auth__stat:nth-child(1) { padding-top: 0; padding-left: 0; }
-.ee-auth__stat:nth-child(2) { padding-top: 0; padding-right: 0; }
-.ee-auth__stat:nth-child(3) { padding-bottom: 0; padding-left: 0; }
-.ee-auth__stat:nth-child(4) { padding-bottom: 0; padding-right: 0; }
-
-/* Linha horizontal entre as duas fileiras */
-.ee-auth__stat:nth-child(1)::after,
-.ee-auth__stat:nth-child(2)::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.10);
-}
-/* Linha vertical entre as duas colunas */
-.ee-auth__stat:nth-child(1)::before,
-.ee-auth__stat:nth-child(3)::before {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; right: 0;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.10);
-}
+.ee-auth__stat { position: relative; }
 
 .ee-auth__stat-number {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(88px, 12vw, 220px);
+  font-size: clamp(48px, 5.4vw, 96px);
   line-height: 0.86;
   letter-spacing: 0;
   color: #E50914;
@@ -4585,35 +4599,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 
-/* Bloco "Quem somos" */
-.ee-auth__who {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 1.4vw, 22px);
-}
-.ee-auth__who-label {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
-  font-size: clamp(16px, 1.1vw, 19px);
-  color: #606060;
-  margin: 0;
-  padding-bottom: clamp(10px, 1.4vw, 18px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-  letter-spacing: -0.005em;
-}
-/* Selos no fluxo, abaixo do sub */
-.ee-auth__who-badges {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(12px, 1.4vw, 22px);
-  margin-top: clamp(8px, 1vw, 16px);
-}
-.ee-auth__who-badge {
-  display: block;
-  height: clamp(56px, 5.4vw, 88px);
-  width: auto;
-}
-.ee-auth__who-badge--gptw { height: clamp(88px, 8.5vw, 140px); }
 .ee-auth__who-title {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
@@ -5287,7 +5272,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(80px, 12vh, 160px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 .ee-mission__content {
-  max-width: var(--ee-max-width);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;     /* centraliza o bloco (VENDER + pontos) na seção */
   color: #FFFFFF;
 }
 /* VENDER à esquerda + os 4 pontos à direita (ao lado), centralizados na vertical */
@@ -5325,7 +5312,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   flex-direction: column;
   gap: clamp(16px, 2vh, 32px);
-  flex: 1 1 280px;        /* ocupa o espaço ao lado de VENDER; quebra embaixo no mobile */
+  flex: 0 1 auto;         /* largura pelo conteúdo (pra centralizar o bloco); quebra no mobile */
 }
 .ee-mission__list li {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -5923,6 +5910,144 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 
+/* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
+   Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
+.ee-sim {
+  background: #FFFFFF;
+  color: #280000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-sim__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+.ee-sim__head { max-width: 820px; margin: 0 0 clamp(32px, 5vh, 56px); }
+.ee-sim__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #280000;
+  margin: 0 0 clamp(12px, 1.6vh, 20px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.ee-sim__title strong { font-weight: 700; color: #E50914; }
+.ee-sim__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 400;
+  color: #555555;
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.ee-sim__bars {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.6vh, 20px);
+}
+.ee-sim__bar {
+  display: grid;
+  grid-template-columns: clamp(56px, 6vw, 96px) 1fr;
+  gap: clamp(12px, 1.4vw, 20px);
+  align-items: stretch;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ee-sim__chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: transparent;
+  color: #E50914;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 34px);
+}
+/* Traçado (borda) em gradiente, sem fundo — máscara pra respeitar o border-radius */
+.ee-sim__chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.ee-sim__track {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: clamp(54px, 8vh, 88px);
+  background: linear-gradient(90deg, #1a0000 0%, #280000 100%);
+}
+.ee-sim__fill {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: var(--start, 50%);
+  background: linear-gradient(90deg, #FF3B0F 0%, #C41E08 60%, #7A0A02 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  touch-action: none; /* nós controlamos o arrasto horizontal do nível */
+}
+.ee-sim__fill.is-dragging { filter: brightness(1.06); }
+/* "Pega" (grip) na borda esquerda do preenchimento — sinaliza que dá pra arrastar */
+.ee-sim__fill::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 38%;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
+}
+.ee-sim__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 34px);
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.ee-sim__alert {
+  margin: clamp(20px, 3vh, 32px) 0 0;
+  min-height: 1.6em;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: #E50914;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.ee-sim__alert.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Frase-gancho: transição pro próximo bloco (Estruturação Estratégica) */
+.ee-sim__hook {
+  margin: clamp(20px, 3vh, 40px) 0 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(20px, 2.2vw, 34px);
+  font-weight: 400;
+  color: #280000;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+.ee-sim__hook strong { font-weight: 700; }
+.ee-sim__hook-dots { color: #E50914; font-weight: 700; }
+
 /* === SEÇÃO — PRA QUEM (6 dores em grid com divisores edge-to-edge) === */
 .ee-foru {
   position: relative;
@@ -5931,43 +6056,73 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   overflow: hidden;
 }
 .ee-foru__inner {
-  max-width: 1400px;
-  margin: 0 auto clamp(48px, 6vh, 80px);
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
   padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
 }
 .ee-foru__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 3vw, 48px);
+  font-size: clamp(24px, 2.4vw, 38px);
   font-weight: 400;
   color: #FFFFFF;
-  text-align: center;
-  margin: 0;
+  text-align: left;
+  margin: 0 0 clamp(36px, 6vh, 64px);
   letter-spacing: -0.02em;
-  line-height: 1.18;
+  line-height: 1.2;
 }
 .ee-foru__title strong { font-weight: 700; }
 
-/* Grid de cards discretos (constrained, com gap) */
+/* Layout: cards (2×3) à esquerda + headline/sub à direita */
+.ee-foru__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .ee-foru__layout { grid-template-columns: auto 1fr; }
+}
+.ee-foru__aside { max-width: 520px; align-self: center; }
+.ee-foru__headline {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.ee-foru__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.4vw, 22px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+
+/* Grid de cards — 2 colunas × 3 linhas (coluna esquerda do layout) */
 .ee-foru__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(16px, 1.8vw, 28px);
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  gap: clamp(14px, 1.4vw, 24px);
 }
-@media (min-width: 720px)  { .ee-foru__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1080px) { .ee-foru__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 600px) {
+  .ee-foru__grid { grid-template-columns: repeat(2, minmax(150px, 220px)); }
+}
 
 /* Card — fundo sutil, borda, cantos arredondados */
 .ee-foru__card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 2.2vw, 32px);
-  padding: clamp(28px, 2.8vw, 40px);
-  min-height: clamp(180px, 20vh, 220px);
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  gap: clamp(10px, 1.2vw, 16px);
+  padding: clamp(18px, 1.8vw, 26px);
+  min-height: clamp(108px, 13vh, 148px);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -6008,16 +6163,124 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 .ee-foru__label {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(16px, 1.3vw, 20px);
+  font-size: clamp(15px, 1.2vw, 18px);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.92);
   margin: 0;
-  margin-top: auto;
   letter-spacing: -0.01em;
-  line-height: 1.4;
+  line-height: 1.35;
   transition: color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ee-foru__card:hover .ee-foru__label { color: #FFFFFF; }
+
+/* === SEÇÃO — CRESCER COM PREVISIBILIDADE (gráfico de traçado animado) ===
+   Fundo escuro. Frase no topo-esquerdo, título grande no rodapé-direito, e ao
+   centro uma linha que sobe (traçado), desenhada ao entrar na viewport + um pulso
+   de gradiente que percorre a linha (efeito "tracing"). */
+.ee-grow {
+  position: relative;
+  min-height: 100vh;
+  background: #000000;
+  overflow: hidden;
+}
+/* Grid full-bleed, visível só no centro (resto desvanece pro preto via máscara radial) */
+.ee-grow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right,  rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: clamp(40px, 4vw, 64px) clamp(40px, 4vw, 64px);
+  -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 48%, transparent 78%);
+          mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 48%, transparent 78%);
+}
+/* Palco centralizado no max-width da página (controla a largura do conteúdo) */
+.ee-grow__inner {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  max-width: var(--ee-max-width);
+  margin-inline: auto;
+}
+.ee-grow__chart {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+/* A linha só aparece onde o cometa (gradiente que viaja) está; o resto é transparente */
+.ee-grow__line {
+  stroke-width: 4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+/* Ponto luminoso na ponta — pulsa quando a cabeça do cometa chega (~70% do loop) */
+.ee-grow__dot {
+  position: absolute;
+  left: 92%;
+  top: 3.8%;
+  z-index: 2;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.35), 0 0 20px 5px rgba(255, 59, 15, 0.7);
+  opacity: 0;
+  transform: scale(0.4);
+  animation: ee-grow-dot 3s linear infinite;
+}
+@keyframes ee-grow-dot {
+  0%, 62%  { opacity: 0; transform: scale(0.4); }
+  70%      { opacity: 1; transform: scale(1.35); } /* cabeça do cometa chega na ponta */
+  80%      { opacity: 1; transform: scale(1); }
+  100%     { opacity: 0; transform: scale(0.6); }  /* some conforme o cometa sai */
+}
+.ee-grow__lead {
+  position: absolute;
+  top: clamp(40px, 9vh, 110px);
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  z-index: 3;
+  max-width: min(440px, 46%);
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 34px);
+  color: #FFFFFF;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.ee-grow__title {
+  position: absolute;
+  bottom: clamp(40px, 9vh, 110px);
+  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  z-index: 3;
+  margin: 0;
+  text-align: right;
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(56px, 11vw, 200px);
+  line-height: 0.82;
+  letter-spacing: 0;
+  color: #FFFFFF;
+}
+/* "previsibilidade" com gradiente: branco (esquerda) → amarelo V4 (direita) */
+.ee-grow__title-em {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFD60A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-grow__line { stroke: #E50914; } /* linha sólida estática (sem cometa) */
+  .ee-grow__dot { animation: none; opacity: 1; transform: none; }
+}
 
 /* === SEÇÃO — O QUE É / O QUE NÃO É (2 cards: verde × vermelho) === */
 .ee-define {
@@ -8079,38 +8342,41 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <section id="autoridade" class="ee-auth" aria-label="Autoridade da V4 Company">
   <div class="ee-auth__inner">
 
-    <!-- Stats 2x2 -->
-    <div class="ee-auth__stats" role="list">
-      <div class="ee-auth__stat" role="listitem">
-        <p class="ee-auth__stat-number">+13</p>
-        <p class="ee-auth__stat-label">Anos do<br/>mercado</p>
-      </div>
-      <div class="ee-auth__stat" role="listitem">
-        <p class="ee-auth__stat-number">+16bi</p>
-        <p class="ee-auth__stat-label">receita gerada para<br/>nossos clientes</p>
-      </div>
-      <div class="ee-auth__stat" role="listitem">
-        <p class="ee-auth__stat-number">+260</p>
-        <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
-      </div>
-      <div class="ee-auth__stat" role="listitem">
-        <p class="ee-auth__stat-number">+8600</p>
-        <p class="ee-auth__stat-label">Clientes Ativos</p>
-      </div>
-    </div>
+    <!-- Conteúdo (esquerda) -->
+    <div class="ee-auth__main">
+      <p class="ee-auth__eyebrow">Quem somos?</p>
+      <img src="assets/divisornumber.png" alt="Verificada por Reclame Aqui · Great Place To Work — Certificado 2023" class="ee-auth__divider-img"/>
 
-    <!-- Quem somos -->
-    <div class="ee-auth__who">
-      <p class="ee-auth__who-label">Quem somos?</p>
       <h2 class="ee-auth__who-title">
         <span>MAIOR</span>
         <span>ASSESSORIA</span>
       </h2>
       <p class="ee-auth__who-sub">de Marketing da <strong>América Latina</strong></p>
-      <div class="ee-auth__who-badges" aria-label="Selos de reconhecimento">
-        <img src="assets/reclameaqui.svg" alt="Verificada por Reclame Aqui" class="ee-auth__who-badge"/>
-        <img src="assets/Gptw.png" alt="Great Place to Work — Certificado 2023" class="ee-auth__who-badge ee-auth__who-badge--gptw"/>
+
+      <!-- Big numbers em linha -->
+      <div class="ee-auth__stats" role="list">
+        <div class="ee-auth__stat" role="listitem">
+          <p class="ee-auth__stat-number">+13</p>
+          <p class="ee-auth__stat-label">Anos de<br/>mercado</p>
+        </div>
+        <div class="ee-auth__stat" role="listitem">
+          <p class="ee-auth__stat-number">+260</p>
+          <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
+        </div>
+        <div class="ee-auth__stat" role="listitem">
+          <p class="ee-auth__stat-number">+16bi</p>
+          <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
+        </div>
+        <div class="ee-auth__stat" role="listitem">
+          <p class="ee-auth__stat-number">+8600</p>
+          <p class="ee-auth__stat-label">Clientes<br/>ativos</p>
+        </div>
       </div>
+    </div>
+
+    <!-- Mapa (direita) -->
+    <div class="ee-auth__map">
+      <img src="assets/V4map.png" alt="Mapa do Brasil com a presença nacional da V4 Company" class="ee-auth__map-img"/>
     </div>
 
   </div>
@@ -8597,6 +8863,41 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 </section>
 
 <!-- ============================================================ -->
+<!-- SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) -->
+<!-- ============================================================ -->
+<section id="simulador" class="ee-sim" aria-label="Por que saber antes de executar">
+  <div class="ee-sim__inner">
+    <header class="ee-sim__head">
+      <h2 class="ee-sim__title">Por que <strong>saber</strong> antes de <strong>executar?</strong></h2>
+      <p class="ee-sim__sub">Cada solução depende da anterior. Tente reorganizar as barras — você vai ver que não dá pra pular etapa.</p>
+    </header>
+
+    <div class="ee-sim__bars" id="ee-sim-bars">
+      <div class="ee-sim__bar" data-key="potencializar" style="--start: 62%;">
+        <span class="ee-sim__chip" aria-hidden="true">P</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Potencializar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="executar" style="--start: 50%;">
+        <span class="ee-sim__chip" aria-hidden="true">E</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Executar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="ter" style="--start: 34%;">
+        <span class="ee-sim__chip" aria-hidden="true">T</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Ter</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="saber" style="--start: 17%;">
+        <span class="ee-sim__chip" aria-hidden="true">S</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Saber</span></div></div>
+      </div>
+    </div>
+
+    <p class="ee-sim__alert" id="ee-sim-alert" role="status" aria-live="polite"></p>
+
+    <p class="ee-sim__hook">E foi seguindo esse <strong>raciocínio</strong> que criamos<span class="ee-sim__hook-dots">...</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SEÇÃO 06 — PROBLEMA (fundo marrom + transição "MÉTODO")       -->
 <!-- ============================================================ -->
 <section id="problema" class="ee-problem" aria-label="O problema não é falta de esforço, é falta de método" hidden style="display:none">
@@ -8714,32 +9015,67 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <section id="para-quem" class="ee-foru" aria-label="Pra que tipo de empresa esse serviço foi desenhado">
   <div class="ee-foru__inner">
     <h2 class="ee-foru__title">Pra que tipo de empresa esse serviço foi <strong>desenhado?</strong></h2>
+
+    <div class="ee-foru__layout">
+      <div class="ee-foru__grid">
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="thumbs-down" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Experiências frustrantes com outras agências</p>
+        </article>
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="lightbulb-off" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Setor de marketing pouco experiente</p>
+        </article>
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Estrutura comercial muito amadora</p>
+        </article>
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="trending-up" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Concorrência avançando</p>
+        </article>
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="circle-help" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Medo de fazer uma contratação errada</p>
+        </article>
+        <article class="ee-foru__card">
+          <div class="ee-foru__icon"><i data-lucide="shuffle" aria-hidden="true"></i></div>
+          <p class="ee-foru__label">Não ter um plano bem definido</p>
+        </article>
+      </div>
+
+      <div class="ee-foru__aside">
+        <h3 class="ee-foru__headline">Não é sobre prometer resultados, é sobre entregar estratégia</h3>
+        <p class="ee-foru__sub">Analisamos e planejamos cada passo para posicionar sua empresa à frente da concorrência e acelerar o crescimento.</p>
+      </div>
+    </div>
   </div>
-  <div class="ee-foru__grid">
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="thumbs-down" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Experiências frustrantes com outras agências</p>
-    </article>
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="lightbulb-off" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Setor de marketing pouco experiente</p>
-    </article>
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Estrutura comercial muito amadora</p>
-    </article>
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="trending-up" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Concorrência avançando</p>
-    </article>
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="circle-help" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Medo de fazer uma contratação errada</p>
-    </article>
-    <article class="ee-foru__card">
-      <div class="ee-foru__icon"><i data-lucide="shuffle" aria-hidden="true"></i></div>
-      <p class="ee-foru__label">Não ter um plano bem definido</p>
-    </article>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — CRESCER COM PREVISIBILIDADE (gráfico de traçado animado) -->
+<!-- ============================================================ -->
+<section id="crescer" class="ee-grow" aria-label="Crescer com previsibilidade">
+  <div class="ee-grow__inner">
+  <svg class="ee-grow__chart" viewBox="0 0 1000 520" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <defs>
+      <!-- Cometa: cabeça branca/brilhante na frente, rabo perdendo opacidade atrás.
+           x1/x2 viajam → o segmento percorre o caminho e "apaga" onde passou. -->
+      <linearGradient id="ee-grow-comet" gradientUnits="userSpaceOnUse" x1="-320" y1="0" x2="0" y2="0">
+        <stop offset="0"    stop-color="#E50914" stop-opacity="0"/>
+        <stop offset="0.55" stop-color="#E50914" stop-opacity="0.6"/>
+        <stop offset="0.85" stop-color="#FF5A2A" stop-opacity="1"/>
+        <stop offset="0.98" stop-color="#FFFFFF" stop-opacity="1"/>
+        <stop offset="1"    stop-color="#FFFFFF" stop-opacity="0"/>
+        <animate attributeName="x1" values="-320;1000" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="0;1320"    dur="3s" repeatCount="indefinite"/>
+      </linearGradient>
+    </defs>
+    <path class="ee-grow__line" d="M0,470 L360,250 L450,330 L760,90 L860,85 L920,20" stroke="url(#ee-grow-comet)" vector-effect="non-scaling-stroke"/>
+  </svg>
+  <span class="ee-grow__dot" aria-hidden="true"></span>
+  <p class="ee-grow__lead">Você já tem um negócio que funciona, e agora quer:</p>
+  <h2 class="ee-grow__title">Crescer com<br/><span class="ee-grow__title-em">previsibilidade</span></h2>
   </div>
 </section>
 
@@ -9527,8 +9863,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // Seções fora do escalonamento: hero (fluxo próprio), problema (oculta),
     // ecossistema (imagem full-bleed tratada por object-fit no CSS),
     // produto (texto ancorado no rodapé via margin-top:auto — cabe em 100vh),
-    // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1 };
+    // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
+    // simulador (interativo de arrastar — não pode ser escalado por transform),
+    // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
@@ -9957,6 +10295,96 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     updateGroup();
   });
 
+
+  // ── SIMULADOR DE PRODUTO (#simulador): arrastar o NÍVEL (gradiente) na horizontal ──
+  // Cada barra tem um nível = largura do preenchimento. Arrasta-se o gradiente na
+  // horizontal pra ajustar. A dependência limita o nível: uma categoria não pode passar
+  // do nível da que ela depende — ao tentar, o nível trava e mostra o alerta.
+  // Ordem visual (top→bottom): 0 Potencializar, 1 Executar, 2 Ter, 3 Saber.
+  // start% = borda esquerda do preenchimento (menor start = mais cheio = nível maior).
+  // Invariante: start0 >= start1 >= start2 >= start3 (Saber é a base, mais cheia).
+  document.addEventListener('DOMContentLoaded', function () {
+    var wrap = document.getElementById('ee-sim-bars');
+    if (!wrap) return;
+    var alertEl = document.getElementById('ee-sim-alert');
+    var bars = [].slice.call(wrap.querySelectorAll('.ee-sim__bar'));
+    if (!bars.length) return;
+
+    // Mensagens por fronteira de dependência (i | i+1):
+    var MESSAGES = [
+      'Não dá pra POTENCIALIZAR algo que ainda não está rodando.', // 0 Potencializar | 1 Executar
+      'Não dá pra EXECUTAR sem ter uma base montada.',             // 1 Executar | 2 Ter
+      'Não dá pra TER algo sem saber o porquê daquilo.'            // 2 Ter | 3 Saber
+    ];
+    var MIN = 0, MAX = 86; // limite mínimo 0 = dá pra preencher o trilho inteiro (sem sobrar marrom)
+
+    var starts = bars.map(function (bar) {
+      return parseFloat(getComputedStyle(bar).getPropertyValue('--start')) || 50;
+    });
+    function apply(i) { bars[i].style.setProperty('--start', starts[i] + '%'); }
+
+    var alertTimer;
+    function showAlert(msg) {
+      if (!alertEl || !msg) return;
+      alertEl.textContent = msg;
+      alertEl.classList.add('is-visible');
+      clearTimeout(alertTimer);
+      alertTimer = setTimeout(function () { alertEl.classList.remove('is-visible'); }, 2600);
+    }
+
+    function pointerX(e) {
+      if (e.touches && e.touches[0]) return e.touches[0].clientX;
+      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+      return e.clientX;
+    }
+
+    var drag = null;
+    function onMove(e) {
+      if (!drag) return;
+      var i = drag.i;
+      var want = drag.startStart + (pointerX(e) - drag.downX) / drag.trackW * 100;
+      var lower = (i < bars.length - 1) ? starts[i + 1] : MIN; // não pode ficar mais cheio que a base
+      var upper = (i > 0) ? starts[i - 1] : MAX;               // não pode ficar menos cheio que o dependente
+      if (want < lower) { want = lower; showAlert(MESSAGES[i]); }            // bateu na base (dependência)
+      else if (want > upper) { want = upper; showAlert(MESSAGES[i - 1]); }   // bateu no dependente
+      starts[i] = want;
+      apply(i);
+      if (e.cancelable) e.preventDefault();
+    }
+    function onEnd() {
+      if (!drag) return;
+      drag.fill.classList.remove('is-dragging');
+      drag = null;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+      document.removeEventListener('touchcancel', onEnd);
+    }
+    function startDrag(e, bar, fill) {
+      var track = bar.querySelector('.ee-sim__track');
+      drag = {
+        i: bars.indexOf(bar),
+        fill: fill,
+        downX: pointerX(e),
+        startStart: starts[bars.indexOf(bar)],
+        trackW: track.getBoundingClientRect().width || 1
+      };
+      fill.classList.add('is-dragging');
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', onEnd);
+      document.addEventListener('touchcancel', onEnd);
+    }
+
+    bars.forEach(function (bar) {
+      var fill = bar.querySelector('.ee-sim__fill');
+      if (!fill) return;
+      fill.addEventListener('mousedown', function (e) { e.preventDefault(); startDrag(e, bar, fill); });
+      fill.addEventListener('touchstart', function (e) { startDrag(e, bar, fill); }, { passive: true });
+    });
+  });
 
   // ── CRONOGRAMA (#cronograma): tabs das semanas + setas (sem loop circular) ──
   document.addEventListener('DOMContentLoaded', function () {
@@ -10436,6 +10864,29 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       renderAddonVisual();
     });
   })();
+
+  // ── PREÇOS: imagens dos packs variam conforme o modelo de vendas selecionado ──
+  // Arquivos: assets/bundlePack{S|M|L|XL}-{PDV|Inside|ECOM}.png
+  document.addEventListener('DOMContentLoaded', function () {
+    var articles = document.querySelectorAll('.ee-pricing__pack-detail');
+    if (!articles.length) return;
+    var SUFFIX = { 'pdv': 'PDV', 'inside-sales': 'Inside', 'e-commerce': 'ECOM' };
+    var SIZE   = { s: 'S', m: 'M', l: 'L', xl: 'XL' };
+
+    function update() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var suffix = model && SUFFIX[model];
+      if (!suffix) return; // sem modelo escolhido: mantém a imagem atual
+      articles.forEach(function (art) {
+        var size = (art.id || '').replace('ee-pack-detail-', '');
+        if (!SIZE[size]) return; // pula o detalhe E.E (não é imagem de pack)
+        var img = art.querySelector('img');
+        if (img) img.src = 'assets/bundlePack' + SIZE[size] + '-' + suffix + '.png';
+      });
+    }
+    window.addEventListener('v4-sales-model-change', update);
+    update();
+  });
 
   // ── BUNDLE: toggle entre os 4 packs (S / M / L / XL) ──
   document.addEventListener('DOMContentLoaded', function () {
