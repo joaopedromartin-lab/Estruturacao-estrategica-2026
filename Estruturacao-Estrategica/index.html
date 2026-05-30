@@ -5438,13 +5438,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-method__pillar:first-child { padding-left: 0; }
   .ee-method__pillar:last-child  { padding-right: 0; }
 }
-.ee-method__pillar-num {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
-  font-weight: 400;
-  color: rgba(40, 0, 0, 0.45);
-  margin: 0 0 clamp(6px, 0.6vw, 10px);
-  letter-spacing: -0.005em;
+.ee-method__pillar-icon {
+  display: block;
+  width: clamp(48px, 4.6vw, 72px);
+  height: auto;
+  margin: 0 0 clamp(12px, 1.4vw, 20px);
 }
 .ee-method__pillar-title {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -5462,6 +5460,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: rgba(5, 5, 5, 0.68);
   margin: 0;
   letter-spacing: -0.005em;
+}
+/* Ferramentas de cada pilar (Meta Ads, Google Ads, etc.) — grid 2 col */
+.ee-method__pillar-tools {
+  list-style: none;
+  padding: 0;
+  margin: clamp(20px, 2.4vh, 32px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 1.8vh, 22px) clamp(10px, 1.2vw, 18px);
+}
+.ee-method__tool {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.ee-method__tool img {
+  display: block;
+  width: clamp(40px, 3.6vw, 56px);
+  height: clamp(40px, 3.6vw, 56px);
+  object-fit: contain;
+  object-position: left center;
+}
+.ee-method__tool-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  font-weight: 500;
+  color: rgba(5, 5, 5, 0.78);
+  letter-spacing: -0.005em;
+  line-height: 1.3;
 }
 /* Estado inicial pra animação GSAP em onda dos 4 pilares */
 .ee-method__pillar {
@@ -6722,11 +6750,144 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   height: auto;
   display: block;
 }
+/* Painéis com imagem (Início, S1, S2, S4) — layout em coluna única: título + intro + imagem full-width */
+@media (min-width: 960px) {
+  .ee-roadmap__week--image { grid-template-columns: 1fr; }
+}
+.ee-roadmap__week--image .ee-roadmap__media-inner { max-width: none; }
+
 /* Variantes da Semana 3 (PDV / Inside Sales / E-commerce + fallback) */
 .ee-roadmap__week3-variant { display: none; }
 .ee-roadmap__week3-variant.is-shown { display: block; }
 
 /* === SEÇÃO HANDOFF — ancoragem EE → Executar (timeline contínua) === */
+/* === SEÇÃO RECAP (placeholder — recapitulação dos entregáveis) ===
+   Mesma cor do cronograma (#280000) pra fluir entre as seções. */
+.ee-recap {
+  background: #280000;
+  color: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-recap__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .ee-recap__inner { grid-template-columns: 1fr 1fr; }
+}
+.ee-recap__eyebrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight: 700;
+  color: #FFD60A;
+  margin: 0 0 clamp(14px, 1.6vw, 22px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ee-recap__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.ee-recap__title strong { font-weight: 700; }
+.ee-recap__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.3vw, 20px);
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  max-width: 520px;
+}
+.ee-recap__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: clamp(20px, 2vw, 32px);
+  background: linear-gradient(135deg, #3A0000 0%, #560303 60%, #280000 100%);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ee-recap__media-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(12px, 0.95vw, 15px);
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* === SEÇÃO GARANTIA (30 dias money-back — card centralizado) === */
+.ee-warranty {
+  background: #280000;
+  color: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-warranty__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ee-warranty__card {
+  max-width: 880px;
+  width: 100%;
+  padding: clamp(36px, 5vw, 72px) clamp(24px, 4vw, 64px);
+  border-radius: clamp(20px, 2vw, 32px);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(251, 46, 10, 0.18) 0%, transparent 60%),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ee-warranty__badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 100%);
+  color: #FFFFFF;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight: 700;
+  border-radius: 9999px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(20px, 2.4vh, 32px);
+  box-shadow: 0 0 24px rgba(251, 46, 10, 0.35);
+}
+.ee-warranty__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(26px, 2.8vw, 44px);
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 clamp(16px, 2vh, 28px);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.ee-warranty__title strong { font-weight: 700; }
+.ee-warranty__hl { color: #FFD60A; } /* só "devolve seu dinheiro" em amarelo */
+.ee-warranty__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 19px);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 auto;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  max-width: 640px;
+}
+
 .ee-handoff {
   position: relative;
   background:
@@ -7007,6 +7168,37 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 
 /* === SEÇÃO PREÇOS (toggle E.E vs Bundle + painel detalhado) === */
+/* === SEÇÃO BENEFÍCIO (gancho pra contratação combinada — headline centralizada) ===
+   O fundo continua o radial do rodapé do Executar (mesma elipse/stops, centro deslocado
+   pra -10%) e termina em #280000, fluindo suave entre as duas seções. */
+.ee-bonus {
+  background:
+    #280000 url('assets/Garantiaexecutar.png') center / cover no-repeat;
+  color: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-bonus__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100%;
+}
+.ee-bonus__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  max-width: 920px;
+  text-wrap: balance;
+}
+.ee-bonus__title strong { font-weight: 700; color: #FFD60A; }
+
 .ee-pricing {
   background: #FFFFFF;
   padding: var(--ee-pad-y-compact) var(--ee-pad-x);
@@ -8838,24 +9030,42 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <!-- 4 pilares com divisores marrom -->
     <ol class="ee-method__pillars">
       <li class="ee-method__pillar">
-        <p class="ee-method__pillar-num">01</p>
+        <img class="ee-method__pillar-icon" src="assets/aquisicao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Aquisição</h3>
         <p class="ee-method__pillar-body">O primeiro aspecto necessário a um projeto de Marketing Digital é ter fontes de Tráfego. Se seu público não conhecer o seu produto, será impossível gerar vendas.</p>
+        <ul class="ee-method__pillar-tools">
+          <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
+          <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
+          <li class="ee-method__tool"><img src="assets/Tiktokads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">TikTok Ads</span></li>
+        </ul>
       </li>
       <li class="ee-method__pillar">
-        <p class="ee-method__pillar-num">02</p>
+        <img class="ee-method__pillar-icon" src="assets/engagamento.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Engajamento</h3>
         <p class="ee-method__pillar-body">Quando você consegue conquistar uma audiência, precisa fazer com que ela se apaixone pelo que você tem a oferecer. Há diversas estratégias para engajar seu público.</p>
+        <ul class="ee-method__pillar-tools">
+          <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
+          <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
+        </ul>
       </li>
       <li class="ee-method__pillar">
-        <p class="ee-method__pillar-num">03</p>
+        <img class="ee-method__pillar-icon" src="assets/monetizacao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Monetização</h3>
         <p class="ee-method__pillar-body">Com uma audiência engajada, você está apto para transformar a atenção do seu público em vendas. Existem diversas táticas que podem colaborar para ampliar suas conversões.</p>
+        <ul class="ee-method__pillar-tools">
+          <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
+          <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
+          <li class="ee-method__tool"><img src="assets/inbound.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inbound</span></li>
+        </ul>
       </li>
       <li class="ee-method__pillar">
-        <p class="ee-method__pillar-num">04</p>
+        <img class="ee-method__pillar-icon" src="assets/retencao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Retenção</h3>
         <p class="ee-method__pillar-body">Após a conversão, é preciso encontrar maneiras de manter o cliente conectado com seu negócio e aumentar o consumo por usuário, reduzindo seus custos de aquisição de novos clientes.</p>
+        <ul class="ee-method__pillar-tools">
+          <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
+          <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
+        </ul>
       </li>
     </ol>
 
@@ -9263,59 +9473,42 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <!-- Painéis (semanas) — só o ativo aparece -->
     <div class="ee-roadmap__panels">
 
-    <!-- INÍCIO DO PROJETO (kickoff — primeiros 3 itens, antes da Semana 1) -->
-    <article class="ee-roadmap__week is-active" role="tabpanel" id="ee-roadmap-panel-0" aria-labelledby="ee-roadmap-tab-0">
+    <!-- INÍCIO DO PROJETO (kickoff) -->
+    <article class="ee-roadmap__week ee-roadmap__week--image is-active" role="tabpanel" id="ee-roadmap-panel-0" aria-labelledby="ee-roadmap-tab-0">
       <div class="ee-roadmap__content">
         <h3 class="ee-roadmap__title">Início do Projeto</h3>
         <p class="ee-roadmap__intro">O kickoff que destrava a operação: <strong>boas-vindas, alinhamento e acessos</strong> pra começar com tudo no lugar.</p>
-        <ul class="ee-roadmap__list">
-          <li class="ee-roadmap__item">Criação de grupo com o cliente e boas-vindas.</li>
-          <li class="ee-roadmap__item">Reunião para alinhamento de expectativas e cronograma.</li>
-          <li class="ee-roadmap__item">Solicitação de acesso a todos os canais e ferramentas do cliente.</li>
-        </ul>
       </div>
       <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="0" role="img" aria-label="Imagem de apoio do Início do Projeto"></div>
+        <div class="ee-roadmap__media-inner" data-week="0">
+          <img src="assets/Kickoff.png" alt="Kickoff do projeto: criação de grupo + boas-vindas, reunião de alinhamento e solicitação de acessos"/>
+        </div>
       </div>
     </article>
 
     <!-- SEMANA 1 -->
-    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-1" aria-labelledby="ee-roadmap-tab-1">
+    <article class="ee-roadmap__week ee-roadmap__week--image" role="tabpanel" id="ee-roadmap-panel-1" aria-labelledby="ee-roadmap-tab-1">
       <div class="ee-roadmap__content">
         <h3 class="ee-roadmap__title">Descoberta do Negócio e Pesquisa de&nbsp;Mercado</h3>
         <p class="ee-roadmap__intro">Imersão no negócio do cliente, mapeamento de concorrentes e <strong>construção da base estratégica.</strong></p>
-        <ul class="ee-roadmap__list">
-          <li class="ee-roadmap__item">Análise de concorrente e SWOT estratégica.</li>
-          <li class="ee-roadmap__item">Auditoria de comunicação no digital.</li>
-          <li class="ee-roadmap__item">Persona e ICP.</li>
-          <li class="ee-roadmap__item">Arquitetura de presença digital.</li>
-          <li class="ee-roadmap__item">Pesquisa de mercado (TAM/SAM/SOM + marketshare).</li>
-          <li class="ee-roadmap__item">Reunião de apresentação.</li>
-        </ul>
       </div>
       <div class="ee-roadmap__media">
         <div class="ee-roadmap__media-inner" data-week="1">
-          <img src="assets/Semana1-entregas.webp" alt="Entregáveis da Semana 1: Descoberta do Negócio e Pesquisa de Mercado"/>
+          <img src="assets/Semana1-cronograma.png" alt="Entregáveis da Semana 1: Descoberta do Negócio e Pesquisa de Mercado"/>
         </div>
       </div>
     </article>
 
     <!-- SEMANA 2 -->
-    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-2" aria-labelledby="ee-roadmap-tab-2">
+    <article class="ee-roadmap__week ee-roadmap__week--image" role="tabpanel" id="ee-roadmap-panel-2" aria-labelledby="ee-roadmap-tab-2">
       <div class="ee-roadmap__content">
         <h3 class="ee-roadmap__title">Diagnóstico Digital e Posicionamento Estratégico</h3>
         <p class="ee-roadmap__intro">Análise profunda da operação digital atual e <strong>definição do posicionamento</strong> que vai sustentar a comunicação.</p>
-        <ul class="ee-roadmap__list">
-          <li class="ee-roadmap__item">Diagnóstico de mídia paga.</li>
-          <li class="ee-roadmap__item">Diagnóstico orgânico (redes sociais).</li>
-          <li class="ee-roadmap__item">Diagnóstico de criativos.</li>
-          <li class="ee-roadmap__item">Diagnóstico de maturidade digital.</li>
-          <li class="ee-roadmap__item">Posicionamento estratégico + PUV + taglines.</li>
-          <li class="ee-roadmap__item">Reunião de apresentação.</li>
-        </ul>
       </div>
       <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="2" role="img" aria-label="Imagem de apoio da Semana 2"></div>
+        <div class="ee-roadmap__media-inner" data-week="2">
+          <img src="assets/Semana2-cronograma.png" alt="Entregáveis da Semana 2: Diagnóstico Digital e Posicionamento Estratégico"/>
+        </div>
       </div>
     </article>
 
@@ -9381,20 +9574,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </article>
 
     <!-- SEMANA 4 -->
-    <article class="ee-roadmap__week" role="tabpanel" id="ee-roadmap-panel-4" aria-labelledby="ee-roadmap-tab-4">
+    <article class="ee-roadmap__week ee-roadmap__week--image" role="tabpanel" id="ee-roadmap-panel-4" aria-labelledby="ee-roadmap-tab-4">
       <div class="ee-roadmap__content">
         <h3 class="ee-roadmap__title">Identidade de Comunicação e Plano de&nbsp;Mídia</h3>
         <p class="ee-roadmap__intro">Consolidação da identidade da marca e elaboração do <strong>plano de mídia de 6 meses</strong>, pronto pra execução.</p>
-        <ul class="ee-roadmap__list">
-          <li class="ee-roadmap__item">Manual de marca unificado (brandbook + MIV).</li>
-          <li class="ee-roadmap__item">Banco de copy para anúncios.</li>
-          <li class="ee-roadmap__item">Briefing de criativos para produção.</li>
-          <li class="ee-roadmap__item">Forecast e elaboração de planejamento de mídia (6 meses).</li>
-          <li class="ee-roadmap__item">Reunião de apresentação.</li>
-        </ul>
       </div>
       <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="4" role="img" aria-label="Imagem de apoio da Semana 4"></div>
+        <div class="ee-roadmap__media-inner" data-week="4">
+          <img src="assets/Semana4-cronograma.png" alt="Entregáveis da Semana 4: Identidade de Comunicação e Plano de Mídia"/>
+        </div>
       </div>
     </article>
 
@@ -9408,6 +9596,35 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO — ATIVOS removida (redundante com #estrutura/#cronograma) -->
 
 <!-- ============================================================ -->
+<!-- SEÇÃO — RECAP (recapitulação dos entregáveis — placeholder)   -->
+<!-- ============================================================ -->
+<section id="recap" class="ee-recap" aria-label="Recapitulação dos entregáveis">
+  <div class="ee-recap__inner">
+    <div class="ee-recap__content">
+      <p class="ee-recap__eyebrow">Recap</p>
+      <h2 class="ee-recap__title">Tudo que <strong>você recebe</strong> na <strong>Estruturação Estratégica</strong>.</h2>
+      <p class="ee-recap__sub">A recapitulação completa de cada ativo entregue ao longo das 4 semanas — pronto pra colocar a operação pra rodar.</p>
+    </div>
+    <div class="ee-recap__media" aria-hidden="true">
+      <span class="ee-recap__media-label">Em definição</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — GARANTIA (30 dias money-back)                         -->
+<!-- ============================================================ -->
+<section id="garantia" class="ee-warranty" aria-label="Garantia de 30 dias">
+  <div class="ee-warranty__inner">
+    <div class="ee-warranty__card">
+      <p class="ee-warranty__badge">Garantia de 30 dias</p>
+      <h2 class="ee-warranty__title">Se em <strong>30 dias</strong> você não receber tudo que foi combinado, a gente <strong class="ee-warranty__hl">devolve seu dinheiro</strong>.</h2>
+      <p class="ee-warranty__sub">A Estruturação Estratégica é uma promessa firme — entregamos o que combinamos, sem letra miúda. Se algum item do escopo não chegar, você pede o reembolso integral.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SEÇÃO — HANDOFF (ancoragem EE → Executar, timeline contínua)   -->
 <!-- ============================================================ -->
 <section id="executar" class="ee-handoff" aria-label="A Estruturação Estratégica é o ponto de partida; o Executar é a operação contínua">
@@ -9418,6 +9635,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <p class="ee-handoff__sub">O Executar é a operação contínua que coloca a Estruturação Estratégica pra rodar — todo dia, sem reabrir diagnóstico, sem reaprender o negócio.</p>
     </header>
 
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — BENEFÍCIO (gancho pra contratação combinada)          -->
+<!-- ============================================================ -->
+<section id="beneficio" class="ee-bonus" aria-label="Benefício exclusivo da contratação combinada">
+  <div class="ee-bonus__inner">
+    <h2 class="ee-bonus__title">E tirando o plano do papel e colocando em execução, você recebe um <strong>benefício exclusivo</strong>.</h2>
   </div>
 </section>
 
