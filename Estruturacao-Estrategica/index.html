@@ -4534,7 +4534,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (min-width: 960px) {
   .ee-auth__inner {
-    grid-template-columns: 1.15fr 0.85fr; /* conteúdo | mapa */
+    grid-template-columns: 1fr 1fr; /* conteúdo | mapa */
   }
 }
 /* Coluna de conteúdo (esquerda) */
@@ -4563,23 +4563,38 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: block;
   width: 100%;
   height: auto;
-  max-width: 560px;
+  max-width: 720px;
 }
 
 /* Big numbers em uma única linha (4 colunas) no rodapé do conteúdo */
 .ee-auth__stats {
+  grid-column: 1 / -1;              /* faixa full-width abaixo da head + mapa */
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(20px, 2.4vw, 48px);
-  align-items: flex-end;
-  margin-top: clamp(8px, 1.6vh, 24px);
+  gap: 0;                          /* o respiro vem do padding + divisor */
+  align-items: stretch;
+  margin-top: 0;
 }
-.ee-auth__stat { position: relative; }
+.ee-auth__stat {
+  flex: 1 1 0;                     /* 4 colunas de largura igual ocupando a faixa toda */
+  min-width: 160px;               /* abaixo disso, quebra em 2 por linha (mobile) */
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6px, 1vw, 16px) clamp(20px, 2.4vw, 44px);
+}
+.ee-auth__stat:first-child { padding-left: 0; }
+/* Divisor vertical entre os big numbers */
+.ee-auth__stat + .ee-auth__stat {
+  border-left: 1px solid rgba(40, 0, 0, 0.18);
+}
 
 .ee-auth__stat-number {
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  font-size: clamp(48px, 5.4vw, 96px);
+  font-size: clamp(72px, 8.5vw, 156px);
   line-height: 0.86;
   letter-spacing: 0;
   color: #E50914;
@@ -4592,7 +4607,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-auth__stat-label {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1vw, 16px);
+  font-size: clamp(16px, 1.4vw, 22px);
   line-height: 1.4;
   color: #280000;
   margin: 0;
@@ -4619,7 +4634,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(18px, 1.4vw, 26px);
   line-height: 1.35;
   color: #280000;
-  margin: 0;
+  margin: clamp(-28px, -2vw, -12px) 0 0;
   letter-spacing: -0.01em;
 }
 .ee-auth__who-sub strong { font-weight: 700; }
@@ -6752,9 +6767,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 /* Painéis com imagem (Início, S1, S2, S4) — layout em coluna única: título + intro + imagem full-width */
 @media (min-width: 960px) {
-  .ee-roadmap__week--image { grid-template-columns: 1fr; }
+  /* coluna única + gap menor entre headline/intro e a imagem dos entregáveis */
+  .ee-roadmap__week--image { grid-template-columns: 1fr; gap: clamp(12px, 1.4vw, 22px); }
 }
 .ee-roadmap__week--image .ee-roadmap__media-inner { max-width: none; }
+/* o intro não precisa de margem extra embaixo: a imagem já vem logo abaixo */
+.ee-roadmap__week--image .ee-roadmap__intro { margin-bottom: 0; }
+
+/* Semana 3 (variantes por modelo de vendas) — exibe a imagem dos entregáveis
+   em largura cheia, igual às semanas com imagem */
+@media (min-width: 960px) {
+  .ee-roadmap__week--week3 { grid-template-columns: 1fr; }
+}
+.ee-roadmap__week--week3 .ee-roadmap__media-inner { max-width: none; }
+.ee-roadmap__week--week3 .ee-roadmap__intro { margin-bottom: clamp(12px, 1.4vw, 22px); }
 
 /* Variantes da Semana 3 (PDV / Inside Sales / E-commerce + fallback) */
 .ee-roadmap__week3-variant { display: none; }
@@ -8544,31 +8570,31 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <span>ASSESSORIA</span>
       </h2>
       <p class="ee-auth__who-sub">de Marketing da <strong>América Latina</strong></p>
-
-      <!-- Big numbers em linha -->
-      <div class="ee-auth__stats" role="list">
-        <div class="ee-auth__stat" role="listitem">
-          <p class="ee-auth__stat-number">+13</p>
-          <p class="ee-auth__stat-label">Anos de<br/>mercado</p>
-        </div>
-        <div class="ee-auth__stat" role="listitem">
-          <p class="ee-auth__stat-number">+260</p>
-          <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
-        </div>
-        <div class="ee-auth__stat" role="listitem">
-          <p class="ee-auth__stat-number">+16bi</p>
-          <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
-        </div>
-        <div class="ee-auth__stat" role="listitem">
-          <p class="ee-auth__stat-number">+8600</p>
-          <p class="ee-auth__stat-label">Clientes<br/>ativos</p>
-        </div>
-      </div>
     </div>
 
     <!-- Mapa (direita) -->
     <div class="ee-auth__map">
       <img src="assets/V4map.png" alt="Mapa do Brasil com a presença nacional da V4 Company" class="ee-auth__map-img"/>
+    </div>
+
+    <!-- Big numbers — faixa full-width abaixo da head + mapa -->
+    <div class="ee-auth__stats" role="list">
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+13</p>
+        <p class="ee-auth__stat-label">Anos de<br/>mercado</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+260</p>
+        <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+16bi</p>
+        <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+8600</p>
+        <p class="ee-auth__stat-label">Clientes<br/>ativos</p>
+      </div>
     </div>
 
   </div>
@@ -9445,6 +9471,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     </div>
   </div>
+
+  <!-- dica: arraste para girar o carrossel -->
+  <div class="ee-gallery__hint" aria-hidden="true">
+    <i data-lucide="hand" class="ee-gallery__hint-icon"></i>
+    <span>Arraste para girar</span>
+  </div>
+  <style>
+    .ee-gallery__hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:clamp(18px,2.6vh,36px);color:rgba(255,255,255,.6);font-family:'IBM Plex Sans',sans-serif;font-size:clamp(13px,1vw,15px);letter-spacing:-.005em}
+    .ee-gallery__hint-icon{width:22px;height:22px;color:rgba(255,255,255,.6);animation:ee-gallery-swipe 1.8s ease-in-out infinite}
+    @keyframes ee-gallery-swipe{0%,100%{transform:translateX(-7px) rotate(-10deg)}50%{transform:translateX(7px) rotate(10deg)}}
+    @media (prefers-reduced-motion:reduce){.ee-gallery__hint-icon{animation:none}}
+  </style>
 </section>
 
 <!-- ============================================================ -->
@@ -9526,50 +9564,35 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-roadmap__week3-variant" data-week3-variant="pdv">
           <h3 class="ee-roadmap__title">Estrutura da Operação — PDV / Loja Física</h3>
           <p class="ee-roadmap__intro">Sprint calibrado pra realidade comercial do <strong>varejo físico</strong>: base ativa, jornada de loja e ativação local.</p>
-          <ul class="ee-roadmap__list">
-            <li class="ee-roadmap__item">Diagnóstico da base ativa e controle de vendas (ERP/planilha/caixa).</li>
-            <li class="ee-roadmap__item">Diagnóstico de GMN (Google Meu Negócio / Perfil da Empresa).</li>
-            <li class="ee-roadmap__item">Diagnóstico ou implementação de landing page.</li>
-            <li class="ee-roadmap__item">Diagnóstico de experiência do PDV (remoto).</li>
-            <li class="ee-roadmap__item">Régua de WhatsApp para fluxo de loja (pré, durante, pós-visita).</li>
-            <li class="ee-roadmap__item">Reunião de apresentação.</li>
-          </ul>
+          <div class="ee-roadmap__media">
+            <div class="ee-roadmap__media-inner" data-week="3">
+              <img src="assets/Semana%203%20-%20Pdv.png" alt="Entregáveis da Semana 3 — Estrutura da Operação (PDV / Loja Física)"/>
+            </div>
+          </div>
         </div>
 
         <!-- Variante: Inside Sales -->
         <div class="ee-roadmap__week3-variant" data-week3-variant="inside-sales">
           <h3 class="ee-roadmap__title">Estrutura da Operação — Inside Sales</h3>
           <p class="ee-roadmap__intro">Sprint calibrado pra <strong>venda consultiva B2B</strong>: funil, pipeline e times de pré-venda.</p>
-          <ul class="ee-roadmap__list">
-            <li class="ee-roadmap__item">Diagnóstico de CRO (site/LP).</li>
-            <li class="ee-roadmap__item">Cliente oculto (avaliação do atendimento).</li>
-            <li class="ee-roadmap__item">Diagnóstico comercial e etapas do funil.</li>
-            <li class="ee-roadmap__item">Definição de métricas e critérios do funil.</li>
-            <li class="ee-roadmap__item">Pipeline comercial + réguas + script consultivo.</li>
-            <li class="ee-roadmap__item">Diagnóstico ou implementação de landing page.</li>
-            <li class="ee-roadmap__item">Implementação ou otimização de CRM.</li>
-            <li class="ee-roadmap__item">Scripts SDR AI-first (com fallback humano).</li>
-            <li class="ee-roadmap__item">Reunião de apresentação.</li>
-          </ul>
+          <div class="ee-roadmap__media">
+            <div class="ee-roadmap__media-inner" data-week="3">
+              <img src="assets/Semana%203%20-%20Inside%20Sales.png" alt="Entregáveis da Semana 3 — Estrutura da Operação (Inside Sales)"/>
+            </div>
+          </div>
         </div>
 
         <!-- Variante: E-commerce / Vendas Online -->
         <div class="ee-roadmap__week3-variant" data-week3-variant="e-commerce">
           <h3 class="ee-roadmap__title">Estrutura da Operação — E-commerce / Vendas Online</h3>
           <p class="ee-roadmap__intro">Sprint calibrado pra <strong>venda online</strong>: checkout, recuperação e régua pós-venda.</p>
-          <ul class="ee-roadmap__list">
-            <li class="ee-roadmap__item">Diagnóstico de CRO de e-commerce (checkout + PDP + carrinho).</li>
-            <li class="ee-roadmap__item">Diagnóstico do funil de vendas e-commerce.</li>
-            <li class="ee-roadmap__item">Diagnóstico de marketplace (se aplicável).</li>
-            <li class="ee-roadmap__item">Régua de relacionamento e CRM (e-mail + WhatsApp).</li>
-            <li class="ee-roadmap__item">Recuperação de carrinho e pós-venda.</li>
-            <li class="ee-roadmap__item">Reunião de apresentação.</li>
-          </ul>
+          <div class="ee-roadmap__media">
+            <div class="ee-roadmap__media-inner" data-week="3">
+              <img src="assets/Semana%203%20-%20Ecom.png" alt="Entregáveis da Semana 3 — Estrutura da Operação (E-commerce / Vendas Online)"/>
+            </div>
+          </div>
         </div>
 
-      </div>
-      <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="3" role="img" aria-label="Imagem de apoio da Semana 3"></div>
       </div>
     </article>
 
@@ -9619,7 +9642,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <div class="ee-warranty__card">
       <p class="ee-warranty__badge">Garantia de 30 dias</p>
       <h2 class="ee-warranty__title">Se em <strong>30 dias</strong> você não receber tudo que foi combinado, a gente <strong class="ee-warranty__hl">devolve seu dinheiro</strong>.</h2>
-      <p class="ee-warranty__sub">A Estruturação Estratégica é uma promessa firme — entregamos o que combinamos, sem letra miúda. Se algum item do escopo não chegar, você pede o reembolso integral.</p>
+      <p class="ee-warranty__sub">A Estruturação Estratégica é uma promessa firme — entregamos o que combinamos, sem letra miúda. Se algum item do escopo não chegar, você pode pedir o reembolso.</p>
     </div>
   </div>
 </section>
