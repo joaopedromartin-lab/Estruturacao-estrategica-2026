@@ -4673,8 +4673,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   max-width: 520px;
 }
 .ee-recognition__title strong {
-  color: #E50914;
   font-weight: 700;
+  background: linear-gradient(90deg, #E50914 0%, #FF3D47 45%, #280000 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 /* Container relativo pros badges flutuarem em posições absolutas */
 .ee-recognition__badges {
@@ -5912,6 +5916,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     radial-gradient(circle at 30% 20%, rgba(255, 100, 50, 0.25) 0%, transparent 55%),
     radial-gradient(circle at 80% 100%, rgba(229, 9, 20, 0.35) 0%, transparent 60%);
 }
+/* Imagem cobrindo o card inteiro (substitui ícone + info que existiam antes) */
+.ee-gallery__card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 .ee-gallery__card-icon {
   position: absolute;
   top: 38%;
@@ -6787,8 +6801,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-roadmap__week3-variant.is-shown { display: block; }
 
 /* === SEÇÃO HANDOFF — ancoragem EE → Executar (timeline contínua) === */
-/* === SEÇÃO RECAP (placeholder — recapitulação dos entregáveis) ===
-   Mesma cor do cronograma (#280000) pra fluir entre as seções. */
+/* === SEÇÃO RECAP (recapitulação dos entregáveis — 4 colunas por semana) === */
 .ee-recap {
   background: #280000;
   color: #FFFFFF;
@@ -6797,13 +6810,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap__inner {
   max-width: var(--ee-max-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(40px, 5vw, 80px);
-  align-items: center;
 }
-@media (min-width: 900px) {
-  .ee-recap__inner { grid-template-columns: 1fr 1fr; }
+.ee-recap__head {
+  margin-bottom: clamp(36px, 5vh, 64px);
+  max-width: 820px;
 }
 .ee-recap__eyebrow {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -6819,38 +6829,96 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
   color: #FFFFFF;
-  margin: 0 0 clamp(16px, 2vh, 28px);
+  margin: 0 0 clamp(14px, 1.6vh, 22px);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 .ee-recap__title strong { font-weight: 700; }
 .ee-recap__sub {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(16px, 1.3vw, 20px);
+  font-size: clamp(15px, 1.2vw, 19px);
   color: rgba(255, 255, 255, 0.72);
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.5;
   letter-spacing: -0.005em;
-  max-width: 520px;
+  max-width: 640px;
 }
-.ee-recap__media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: clamp(20px, 2vw, 32px);
-  background: linear-gradient(135deg, #3A0000 0%, #560303 60%, #280000 100%);
-  border: 1px dashed rgba(255, 255, 255, 0.18);
+/* Grid das 4 semanas */
+.ee-recap__weeks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 3vw, 48px);
+}
+@media (min-width: 720px)  { .ee-recap__weeks { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ee-recap__weeks { grid-template-columns: repeat(4, 1fr); } }
+.ee-recap__week {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+  padding-top: clamp(12px, 1.4vh, 20px);
+  border-top: 1px solid rgba(255, 215, 10, 0.4);
 }
-.ee-recap__media-label {
+.ee-recap__week-label {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 15px);
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.06em;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 400;
+  color: #FFD60A;
+  margin: 0;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.ee-recap__week-label strong { font-weight: 700; }
+.ee-recap__week-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(17px, 1.4vw, 22px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 clamp(6px, 0.6vh, 10px);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.ee-recap__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vh, 14px);
+}
+.ee-recap__items li {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1.05vw, 16px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  padding-left: 14px;
+  position: relative;
+}
+.ee-recap__items li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFD60A;
+}
+/* Prompt da Semana 3 sem modelo selecionado */
+.ee-recap__prompt {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.ee-recap__prompt strong { color: #FFFFFF; font-weight: 700; }
+/* Variantes da Semana 3 (toggle por modelo) */
+.ee-recap__week3-variant { display: none; }
+.ee-recap__week3-variant.is-shown { display: block; }
 
 /* === SEÇÃO GARANTIA (30 dias money-back — card centralizado) === */
 .ee-warranty {
@@ -9370,99 +9438,88 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-gallery" role="region" aria-label="Entregáveis do produto — carrossel 3D">
     <div class="ee-gallery__rotator" id="ee-gallery-rotator">
 
-      <article class="ee-gallery__card" style="--card-color: #560303">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="user-check" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/Persona ICP.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Persona + ICP</h3>
           <em class="ee-gallery__card-sub">Quem é seu cliente ideal</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #7A0A02">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="pie-chart" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/TAMSAMSOM.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">TAM / SAM / SOM</h3>
           <em class="ee-gallery__card-sub">Tamanho real do seu mercado</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #8B1205">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="crosshair" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/SWOT.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">SWOT + Concorrência</h3>
           <em class="ee-gallery__card-sub">Análise competitiva estratégica</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #C41E08">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="target" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/POSICIONAMENTO.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Posicionamento</h3>
           <em class="ee-gallery__card-sub">PUV, taglines e diferencial</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #7A0A02">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="megaphone" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/DIAGNMIDIA.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Diagnóstico de Mídia</h3>
           <em class="ee-gallery__card-sub">Onde o dinheiro está vazando</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #560303">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="image" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/DIAGCRIATIVOS.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Diagnóstico de Criativos</h3>
           <em class="ee-gallery__card-sub">Base pra produção que converte</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #8B1205">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="briefcase" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/OPERACAOCOMER.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Operação Comercial</h3>
           <em class="ee-gallery__card-sub">Pipeline + CRM + scripts</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #C41E08">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="mouse-pointer-click" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/CAPTURA DIGITAL.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Captura Digital</h3>
           <em class="ee-gallery__card-sub">LP, CRO e GMN otimizados</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #7A0A02">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="message-circle" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/REGUAS CRM.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Réguas de CRM</h3>
           <em class="ee-gallery__card-sub">WhatsApp + e-mail automatizados</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #560303">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="trending-up" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/FORECAST MIDIA.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Plano de Mídia 6 meses</h3>
           <em class="ee-gallery__card-sub">Forecast + canais + investimento</em>
         </div>
       </article>
 
-      <article class="ee-gallery__card" style="--card-color: #8B1205">
-        <div class="ee-gallery__card-bg"></div>
-        <div class="ee-gallery__card-icon"><i data-lucide="palette" aria-hidden="true"></i></div>
+      <article class="ee-gallery__card">
+        <img src="assets/IDV.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Identidade de Marca</h3>
           <em class="ee-gallery__card-sub">Brandbook + MIV + banco de copy</em>
@@ -9623,13 +9680,108 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <section id="recap" class="ee-recap" aria-label="Recapitulação dos entregáveis">
   <div class="ee-recap__inner">
-    <div class="ee-recap__content">
+
+    <header class="ee-recap__head">
       <p class="ee-recap__eyebrow">Recap</p>
       <h2 class="ee-recap__title">Tudo que <strong>você recebe</strong> na <strong>Estruturação Estratégica</strong>.</h2>
       <p class="ee-recap__sub">A recapitulação completa de cada ativo entregue ao longo das 4 semanas — pronto pra colocar a operação pra rodar.</p>
-    </div>
-    <div class="ee-recap__media" aria-hidden="true">
-      <span class="ee-recap__media-label">Em definição</span>
+    </header>
+
+    <div class="ee-recap__weeks" role="list">
+
+      <!-- SEMANA 01 -->
+      <article class="ee-recap__week" role="listitem">
+        <p class="ee-recap__week-label">Semana <strong>01</strong></p>
+        <h3 class="ee-recap__week-title">Descoberta do Negócio e Pesquisa de Mercado</h3>
+        <ul class="ee-recap__items">
+          <li>Criação de grupo com o cliente e boas-vindas.</li>
+          <li>Reunião para alinhamento de expectativas e cronograma.</li>
+          <li>Solicitação de acesso a todos os canais e ferramentas do cliente.</li>
+          <li>Análise de concorrente e SWOT estratégica.</li>
+          <li>Auditoria de comunicação no digital.</li>
+          <li>Persona e ICP.</li>
+          <li>Arquitetura de presença digital.</li>
+          <li>Pesquisa de mercado (TAM/SAM/SOM + marketshare).</li>
+          <li>Reunião de apresentação.</li>
+        </ul>
+      </article>
+
+      <!-- SEMANA 02 -->
+      <article class="ee-recap__week" role="listitem">
+        <p class="ee-recap__week-label">Semana <strong>02</strong></p>
+        <h3 class="ee-recap__week-title">Diagnóstico Digital e Posicionamento Estratégico</h3>
+        <ul class="ee-recap__items">
+          <li>Diagnóstico de mídia paga.</li>
+          <li>Diagnóstico orgânico (redes sociais).</li>
+          <li>Diagnóstico de criativos.</li>
+          <li>Diagnóstico de maturidade digital.</li>
+          <li>Posicionamento estratégico + PUV + taglines.</li>
+          <li>Reunião de apresentação.</li>
+        </ul>
+      </article>
+
+      <!-- SEMANA 03 — varia conforme o modelo de vendas -->
+      <article class="ee-recap__week ee-recap__week--week3" role="listitem">
+        <p class="ee-recap__week-label">Semana <strong>03</strong></p>
+
+        <div class="ee-recap__week3-variant is-shown" data-week3-variant="prompt">
+          <h3 class="ee-recap__week-title">Estrutura da Operação</h3>
+          <p class="ee-recap__prompt">Selecione seu <strong>modelo de vendas</strong> no topo da página pra ver os entregáveis personalizados desta semana.</p>
+        </div>
+
+        <div class="ee-recap__week3-variant" data-week3-variant="pdv">
+          <h3 class="ee-recap__week-title">Estrutura da Operação — PDV / Loja Física</h3>
+          <ul class="ee-recap__items">
+            <li>Diagnóstico da base ativa e controle de vendas (ERP/planilha/caixa).</li>
+            <li>Diagnóstico de GMN (Google Meu Negócio / Perfil da Empresa).</li>
+            <li>Diagnóstico ou implementação de landing page.</li>
+            <li>Diagnóstico de experiência do PDV (remoto).</li>
+            <li>Régua de WhatsApp para fluxo de loja (pré, durante, pós-visita).</li>
+            <li>Reunião de apresentação.</li>
+          </ul>
+        </div>
+
+        <div class="ee-recap__week3-variant" data-week3-variant="inside-sales">
+          <h3 class="ee-recap__week-title">Estrutura da Operação — Inside Sales</h3>
+          <ul class="ee-recap__items">
+            <li>Diagnóstico de CRO (site/LP).</li>
+            <li>Cliente oculto (avaliação do atendimento).</li>
+            <li>Diagnóstico comercial e etapas do funil.</li>
+            <li>Definição de métricas e critérios do funil.</li>
+            <li>Pipeline comercial + réguas + script consultivo.</li>
+            <li>Diagnóstico ou implementação de landing page.</li>
+            <li>Implementação ou otimização de CRM.</li>
+            <li>Scripts SDR AI-first (com fallback humano).</li>
+            <li>Reunião de apresentação.</li>
+          </ul>
+        </div>
+
+        <div class="ee-recap__week3-variant" data-week3-variant="e-commerce">
+          <h3 class="ee-recap__week-title">Estrutura da Operação — E-commerce / Vendas Online</h3>
+          <ul class="ee-recap__items">
+            <li>Diagnóstico de CRO de e-commerce (checkout + PDP + carrinho).</li>
+            <li>Diagnóstico do funil de vendas e-commerce.</li>
+            <li>Diagnóstico de marketplace (se aplicável).</li>
+            <li>Régua de relacionamento e CRM (e-mail + WhatsApp).</li>
+            <li>Recuperação de carrinho e pós-venda.</li>
+            <li>Reunião de apresentação.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- SEMANA 04 -->
+      <article class="ee-recap__week" role="listitem">
+        <p class="ee-recap__week-label">Semana <strong>04</strong></p>
+        <h3 class="ee-recap__week-title">Identidade de Comunicação e Plano de Mídia</h3>
+        <ul class="ee-recap__items">
+          <li>Manual de marca unificado (brandbook + MIV).</li>
+          <li>Banco de copy para anúncios.</li>
+          <li>Briefing de criativos para produção.</li>
+          <li>Forecast e elaboração de planejamento de mídia (6 meses).</li>
+          <li>Reunião de apresentação.</li>
+        </ul>
+      </article>
+
     </div>
   </div>
 </section>
@@ -10732,6 +10884,33 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     updateCronogramaWeek3();
     window.addEventListener('v4-sales-model-change', updateCronogramaWeek3);
+  });
+
+  // ── RECAP (#recap): Semana 3 sincronizada com V4SalesModel ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var variants = document.querySelectorAll('.ee-recap__week3-variant');
+    if (!variants.length) return;
+
+    function updateRecapWeek3() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var matched = false;
+      variants.forEach(function (el) {
+        var v = el.getAttribute('data-week3-variant');
+        var shouldShow = (v === model);
+        el.classList.toggle('is-shown', shouldShow);
+        if (shouldShow) matched = true;
+      });
+      if (!matched) {
+        var prompt = document.querySelector('.ee-recap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt) prompt.classList.add('is-shown');
+      } else {
+        var prompt2 = document.querySelector('.ee-recap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt2) prompt2.classList.remove('is-shown');
+      }
+    }
+
+    updateRecapWeek3();
+    window.addEventListener('v4-sales-model-change', updateRecapWeek3);
   });
 
   // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
