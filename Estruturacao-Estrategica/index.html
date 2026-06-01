@@ -4249,6 +4249,21 @@ body.bb-lightbox-open { overflow: hidden; }
     padding-top: var(--ee-pad-y-default);
     padding-bottom: var(--ee-pad-y-default);
   }
+  /* Reconhecimento + Clientes: fluem juntas em altura natural (NÃO são slides de
+     viewport cheio). Sem isso, cada uma reservava 100vh e centralizava o conteúdo,
+     somando meia-tela vazia embaixo dos badges + meia-tela vazia acima de "Quem
+     acredita na V4" = o espaço grande entre elas. */
+  #top > #reconhecimento,
+  #top > #clientes {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    display: block;
+  }
+  /* Gap entre os badges e "Quem acredita na V4". Precisa do seletor de ID pra
+     vencer a especificidade de "#top > section" (senão o padding da classe é ignorado). */
+  #top > #reconhecimento { padding-bottom: clamp(48px, 7vh, 96px); }
+  #top > #clientes { padding-top: clamp(48px, 7vh, 96px); }
   /* Simulador: preenche a viewport, mas NÃO é escalado (pro drag funcionar em px
      reais) e cresce se precisar, sem clipar o conteúdo. */
   #top > #simulador {
@@ -4648,6 +4663,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recognition {
   background: #FFFFFF;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  /* Aproxima da seção "Quem acredita na V4" logo abaixo */
+  padding-bottom: clamp(32px, 4.5vh, 64px);
 }
 .ee-recognition__inner {
   max-width: 1200px;
@@ -4680,43 +4697,58 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-/* Container relativo pros badges flutuarem em posições absolutas */
+/* Grade de badges: 2 colunas escalonadas (a 2ª desce um pouco), igual ao layout
+   de referência. Cards (Kommo/HubSpot/Google/Meta) + selos hexagonais (Tray/Facebook). */
 .ee-recognition__badges {
-  position: relative;
   width: 100%;
-  max-width: 520px;
-  aspect-ratio: 4 / 3;
+  max-width: 540px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.8vw, 28px);
+  align-items: start;
+  justify-items: center;
+}
+.ee-recognition__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 2.6vw, 40px);
+  width: 100%;
+}
+/* Escalona a 2ª coluna pra baixo (efeito masonry da referência) */
+.ee-recognition__col--offset {
+  margin-top: clamp(26px, 4vw, 56px);
 }
 .ee-recognition__badge {
-  position: absolute;
-  width: 62%;
+  width: 100%;
+  max-width: 200px;
   height: auto;
   display: block;
-  filter: drop-shadow(0 14px 36px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.14));
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
               filter    0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.ee-recognition__badge--google {
-  top: 0;
-  left: 4%;
-  z-index: 1;
-}
-.ee-recognition__badge--meta {
-  bottom: 0;
-  right: 4%;
-  z-index: 2;
+/* Selos hexagonais (sem moldura de card) — um pouco menores pra harmonizar */
+.ee-recognition__badge--hex {
+  max-width: 128px;
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.16));
 }
 .ee-recognition__badge:hover {
-  transform: translateY(-4px) scale(1.02);
-  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.26));
-  z-index: 3;
+  transform: translateY(-5px) scale(1.03);
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.24));
+}
+@media (max-width: 480px) {
+  .ee-recognition__badge { max-width: 168px; }
+  .ee-recognition__badge--hex { max-width: 112px; }
 }
 
 /* === SEÇÃO CLIENTES (marquee de logos, 2 linhas, direções opostas) === */
 .ee-clients {
   background: #FFFFFF;
   padding: var(--ee-pad-y-default) 0;
+  /* Aproxima da seção de reconhecimento (badges) logo acima */
+  padding-top: clamp(32px, 4.5vh, 64px);
   overflow: hidden;
 }
 .ee-clients__title {
@@ -4789,7 +4821,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
    Vive DENTRO da seção "Quem acredita na V4" (#clientes), abaixo das 2 faixas de logo.
    Sem fundo próprio (herda o branco da seção); só um gap das faixas acima. */
 .ee-affiliation {
-  margin-top: clamp(36px, 6vh, 72px);
+  margin-top: clamp(56px, 8vh, 110px);
   padding: 0 var(--ee-pad-x); /* #clientes tem padding lateral 0 (marquees full-bleed) */
 }
 .ee-affiliation__inner {
@@ -5967,6 +5999,41 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 
+/* === SEÇÃO — ESTRUTURA DAS 30 SOLUÇÕES (gráfico Alfinete → Foguete) ===
+   Fundo branco, head + gráfico centralizados. Vem logo antes do simulador.
+   Prefixo .ee-chart pra NÃO colidir com a seção .ee-structure (carrossel 3D). */
+.ee-chart {
+  background: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-chart__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(28px, 4.5vh, 56px);
+}
+.ee-chart__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  max-width: 900px;
+}
+.ee-chart__title strong { font-weight: 700; color: #E50914; }
+.ee-chart__img {
+  width: 100%;
+  max-width: 1040px;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+
 /* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
    Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
 .ee-sim {
@@ -6705,7 +6772,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(24px, 2.4vw, 38px);
   font-weight: 400;
   color: #FFFFFF;
-  margin: clamp(6px, 0.6vh, 12px) 0 0;
+  margin: 0; /* espaçamento head↔sub vem do gap do container (consistente em todas as semanas) */
   letter-spacing: -0.02em;
   line-height: 1.18;
   text-wrap: balance;
@@ -6715,7 +6782,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(15px, 1.15vw, 18px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 clamp(20px, 2.4vh, 32px);
+  margin: 0;
   line-height: 1.5;
   letter-spacing: -0.005em;
   max-width: 480px;
@@ -6794,11 +6861,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-roadmap__week--week3 { grid-template-columns: 1fr; }
 }
 .ee-roadmap__week--week3 .ee-roadmap__media-inner { max-width: none; }
-.ee-roadmap__week--week3 .ee-roadmap__intro { margin-bottom: clamp(12px, 1.4vw, 22px); }
 
 /* Variantes da Semana 3 (PDV / Inside Sales / E-commerce + fallback) */
 .ee-roadmap__week3-variant { display: none; }
-.ee-roadmap__week3-variant.is-shown { display: block; }
+/* Mesma coluna flex + gap do .ee-roadmap__content, pra que title↔intro↔mídia
+   tenham o MESMO ritmo das semanas 1 e 2 (onde title/intro são filhos diretos). */
+.ee-roadmap__week3-variant.is-shown {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 18px);
+}
 
 /* === SEÇÃO HANDOFF — ancoragem EE → Executar (timeline contínua) === */
 /* === SEÇÃO RECAP (recapitulação dos entregáveis — 4 colunas por semana) === */
@@ -6999,12 +7071,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-handoff__sub {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(15px, 1.2vw, 19px);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(18px, 1.7vw, 27px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.96);
   margin: 0;
-  max-width: 720px;
-  line-height: 1.55;
+  max-width: 760px;
+  line-height: 1.5;
   letter-spacing: -0.005em;
 }
 .ee-handoff__sub strong { font-weight: 700; color: #FFD60A; }
@@ -8605,8 +8677,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
       </div>
       <div class="ee-auth__stat" role="listitem">
-        <p class="ee-auth__stat-number">+8600</p>
-        <p class="ee-auth__stat-label">Clientes<br/>ativos</p>
+        <p class="ee-auth__stat-number">+30 mil</p>
+        <p class="ee-auth__stat-label">Projetos<br/>atendidos</p>
       </div>
     </div>
 
@@ -8620,8 +8692,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-recognition__inner">
     <h2 class="ee-recognition__title">Com reconhecimento das <strong>maiores plataformas</strong> de mídia do mundo.</h2>
     <div class="ee-recognition__badges">
-      <img class="ee-recognition__badge ee-recognition__badge--google" src="assets/GOOGLE PARTNER PREMIER 2022.png" alt="Google Partner Premier 2026"/>
-      <img class="ee-recognition__badge ee-recognition__badge--meta" src="assets/META CERTIFIED COMPANY.png" alt="Meta Business Partner — Certified Company"/>
+      <div class="ee-recognition__col">
+        <img class="ee-recognition__badge ee-recognition__badge--kommo" src="assets/kommoCrm.png" alt="Kommo Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--tray" src="assets/tray.svg" alt="Tray — Parceiro Diamante"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hubspot" src="assets/hubspot.png" alt="HubSpot Certified Partner"/>
+      </div>
+      <div class="ee-recognition__col ee-recognition__col--offset">
+        <img class="ee-recognition__badge ee-recognition__badge--google" src="assets/GOOGLE PARTNER PREMIER 2022.png" alt="Google Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--meta" src="assets/META CERTIFIED COMPANY.png" alt="Meta Business Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--facebook" src="assets/Facebook.svg" alt="Facebook Blueprint Certification"/>
+      </div>
     </div>
   </div>
 </section>
@@ -9108,6 +9188,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       </li>
     </ol>
 
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — ESTRUTURA DAS 30 SOLUÇÕES (gráfico Alfinete → Foguete)  -->
+<!-- ============================================================ -->
+<section id="estrutura-grafico" class="ee-chart" aria-label="Como estruturamos as 30 soluções digitais">
+  <div class="ee-chart__inner">
+    <h2 class="ee-chart__title">Como estruturamos todas as <strong>30 soluções digitais</strong></h2>
+    <img class="ee-chart__img" src="assets/Alfinete ao foguete.png" alt="Gráfico da evolução em quatro estágios — Saber, Ter, Executar e Potencializar — do alfinete ao foguete"/>
   </div>
 </section>
 
@@ -9769,7 +9859,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-pricing__panel is-active">
 
         <header class="ee-pricing__bundle-head">
-          <h3 class="ee-pricing__bundle-title">Bundle — Estruturação Estratégica + Executar</h3>
+          <h3 class="ee-pricing__bundle-title">Pacote — Estruturação Estratégica + Executar</h3>
           <p class="ee-pricing__bundle-desc">A Estruturação Estratégica monta o plano. O Pack do Executar coloca em operação. Contratando os dois juntos, com Executar por no mínimo 6 meses, <strong>você desbloqueia o desconto na contratação combinada.</strong></p>
         </header>
 
@@ -10163,26 +10253,57 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       show(selector, { opacity: 1, y: 0 });
     }
 
-    // Revela o "Bem vindo a V4" e libera o scroll (roda só uma vez)
+    // Revela o "Bem vindo a V4" e libera o scroll (roda só uma vez).
+    // Transição fluida: o prompt sai suave → o seletor desliza pra nova posição
+    // (FLIP, sem "pulo" do reflow) → título + visual entram em crossfade.
     var revealed = false;
     function revealWelcome() {
       if (revealed) return;
       revealed = true;
-      hero.setAttribute('data-hero-state', 'welcome');
-      document.documentElement.classList.remove('ee-scroll-lock');
 
-      if (hasGsap && !prefersReduce) {
-        var tlw = gsap.timeline();
-        if (visual) tlw.to(visual, { opacity: 1, scale: 1, duration: 1.0, ease: 'power3.out' }, 0);
-        if (titleSpans.length) tlw.to(titleSpans, { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out', stagger: 0.16 }, 0.15);
-      } else {
+      // Sem GSAP / motion reduzido: troca direta, sem animação
+      if (!hasGsap || prefersReduce) {
+        hero.setAttribute('data-hero-state', 'welcome');
+        document.documentElement.classList.remove('ee-scroll-lock');
         show(visual);
         [].forEach.call(titleSpans, function (s) { show(s); });
+        if (typeof ScrollTrigger !== 'undefined') {
+          requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+        }
+        return;
       }
 
-      // Recalcula os ScrollTriggers agora que o scroll foi liberado
-      if (typeof ScrollTrigger !== 'undefined') {
-        requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+      function enterWelcome() {
+        // FLIP: mede o seletor antes e depois do reflow de layout pra animar a
+        // mudança de posição (centralizado → coluna) sem corte seco.
+        var firstRect = selector ? selector.getBoundingClientRect() : null;
+        hero.setAttribute('data-hero-state', 'welcome');
+        document.documentElement.classList.remove('ee-scroll-lock');
+
+        if (selector && firstRect) {
+          var lastRect = selector.getBoundingClientRect();
+          gsap.fromTo(selector,
+            { x: firstRect.left - lastRect.left, y: firstRect.top - lastRect.top },
+            { x: 0, y: 0, duration: 0.85, ease: 'power3.out', clearProps: 'transform' });
+        }
+        if (visual) {
+          gsap.to(visual, { opacity: 1, scale: 1, duration: 1.05, ease: 'power3.out', delay: 0.1 });
+        }
+        if (titleSpans.length) {
+          gsap.to(titleSpans, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14, delay: 0.18 });
+        }
+
+        // Recalcula os ScrollTriggers agora que o scroll foi liberado
+        if (typeof ScrollTrigger !== 'undefined') {
+          requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+        }
+      }
+
+      // 1) Prompt sai suave; 2) ao terminar, entra o estado "welcome"
+      if (prompt) {
+        gsap.to(prompt, { opacity: 0, y: -16, duration: 0.5, ease: 'power2.inOut', onComplete: enterWelcome });
+      } else {
+        enterWelcome();
       }
     }
 
@@ -10204,7 +10325,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
