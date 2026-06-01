@@ -6028,7 +6028,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-chart__title strong { font-weight: 700; color: #E50914; }
 .ee-chart__img {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1340px;
   height: auto;
   display: block;
   border-radius: 16px;
@@ -6321,13 +6321,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 48%, transparent 78%);
           mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 48%, transparent 78%);
 }
-/* Palco centralizado no max-width da página (controla a largura do conteúdo) */
+/* Palco centralizado no max-width da página (controla a largura do conteúdo).
+   Texto (lead + título) empilhado e centralizado no meio da seção. */
 .ee-grow__inner {
   position: absolute;
   inset: 0;
   z-index: 1;
   max-width: var(--ee-max-width);
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(20px, 4vh, 48px);
+  padding: clamp(40px, 8vh, 110px) clamp(1rem, 2.5vw, 2.5rem);
 }
 .ee-grow__chart {
   position: absolute;
@@ -6365,11 +6373,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   100%     { opacity: 0; transform: scale(0.6); }  /* some conforme o cometa sai */
 }
 .ee-grow__lead {
-  position: absolute;
-  top: clamp(40px, 9vh, 110px);
-  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  position: relative;
   z-index: 3;
-  max-width: min(440px, 46%);
+  max-width: 640px;
   margin: 0;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
@@ -6379,19 +6385,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.015em;
 }
 .ee-grow__title {
-  position: absolute;
-  bottom: clamp(40px, 9vh, 110px);
-  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  position: relative;
   z-index: 3;
   margin: 0;
-  text-align: right;
+  text-align: center;
   font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(56px, 11vw, 200px);
-  line-height: 0.82;
+  font-size: clamp(34px, 9vw, 168px);
+  line-height: 0.9;
   letter-spacing: 0;
   color: #FFFFFF;
+  white-space: nowrap; /* mantém "Crescer com previsibilidade" em uma única linha */
 }
 /* "previsibilidade" com gradiente: branco (esquerda) → amarelo V4 (direita) */
 .ee-grow__title-em {
@@ -9414,7 +9419,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   </svg>
   <span class="ee-grow__dot" aria-hidden="true"></span>
   <p class="ee-grow__lead">Você já tem um negócio que funciona, e agora quer:</p>
-  <h2 class="ee-grow__title">Crescer com<br/><span class="ee-grow__title-em">previsibilidade</span></h2>
+  <h2 class="ee-grow__title">Crescer com <span class="ee-grow__title-em">previsibilidade</span></h2>
   </div>
 </section>
 
