@@ -5821,11 +5821,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-product__sub {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(15px, 1.2vw, 20px);
+  font-size: clamp(18px, 1.6vw, 26px);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.92);
   margin: 0;
-  max-width: 460px;
+  max-width: 540px;
   letter-spacing: -0.005em;
   padding-bottom: clamp(10px, 1.4vw, 20px); /* alinha visualmente com a base do logo */
 }
@@ -5897,13 +5897,48 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: pan-y; /* permite scroll vertical, captura horizontal pra drag */
 }
 .ee-gallery.is-dragging {
   cursor: grabbing;
+}
+/* Setas de navegação — carrossel gira só por clique nelas */
+.ee-gallery__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(44px, 4vw, 60px);
+  height: clamp(44px, 4vw, 60px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(20, 0, 0, 0.55);
+  color: #FFFFFF;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.ee-gallery__nav:hover {
+  background: #E50914;
+  border-color: #E50914;
+  transform: translateY(-50%) scale(1.08);
+}
+.ee-gallery__nav:active { transform: translateY(-50%) scale(0.96); }
+.ee-gallery__nav:focus-visible { outline: 2px solid #FFD60A; outline-offset: 3px; }
+.ee-gallery__nav svg,
+.ee-gallery__nav i { width: 48%; height: 48%; }
+/* Ancoradas ao centro, um pouco afastadas do card central (metade do card = 130px + gap) */
+.ee-gallery__nav--prev { right: 50%; margin-right: 210px; }
+.ee-gallery__nav--next { left: 50%;  margin-left: 210px; }
+@media (max-width: 760px) {
+  /* card central = 200px (metade 100px) */
+  .ee-gallery__nav--prev { margin-right: 156px; }
+  .ee-gallery__nav--next { margin-left: 156px; }
 }
 .ee-gallery__card img,
 .ee-gallery__card * {
@@ -5997,41 +6032,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 4px 0 0;
   font-style: italic;
   letter-spacing: -0.005em;
-}
-
-/* === SEÇÃO — ESTRUTURA DAS 30 SOLUÇÕES (gráfico Alfinete → Foguete) ===
-   Fundo branco, head + gráfico centralizados. Vem logo antes do simulador.
-   Prefixo .ee-chart pra NÃO colidir com a seção .ee-structure (carrossel 3D). */
-.ee-chart {
-  background: #FFFFFF;
-  padding: var(--ee-pad-y-default) var(--ee-pad-x);
-}
-.ee-chart__inner {
-  max-width: var(--ee-max-width);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: clamp(28px, 4.5vh, 56px);
-}
-.ee-chart__title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 3vw, 48px);
-  font-weight: 400;
-  color: #280000;
-  margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  max-width: 900px;
-}
-.ee-chart__title strong { font-weight: 700; color: #E50914; }
-.ee-chart__img {
-  width: 100%;
-  max-width: 1340px;
-  height: auto;
-  display: block;
-  border-radius: 16px;
 }
 
 /* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
@@ -9197,16 +9197,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SEÇÃO — ESTRUTURA DAS 30 SOLUÇÕES (gráfico Alfinete → Foguete)  -->
-<!-- ============================================================ -->
-<section id="estrutura-grafico" class="ee-chart" aria-label="Como estruturamos as 30 soluções digitais">
-  <div class="ee-chart__inner">
-    <h2 class="ee-chart__title">Como estruturamos todas as <strong>30 soluções digitais</strong></h2>
-    <img class="ee-chart__img" src="assets/Alfinete ao foguete.png" alt="Gráfico da evolução em quatro estágios — Saber, Ter, Executar e Potencializar — do alfinete ao foguete"/>
-  </div>
-</section>
-
-<!-- ============================================================ -->
 <!-- SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) -->
 <!-- ============================================================ -->
 <section id="simulador" class="ee-sim" aria-label="Por que saber antes de executar">
@@ -9476,6 +9466,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
   <!-- Carrossel 3D — entregáveis do produto -->
   <div class="ee-gallery" role="region" aria-label="Entregáveis do produto — carrossel 3D">
+    <button type="button" class="ee-gallery__nav ee-gallery__nav--prev" aria-label="Card anterior">
+      <i data-lucide="chevron-left" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="ee-gallery__nav ee-gallery__nav--next" aria-label="Próximo card">
+      <i data-lucide="chevron-right" aria-hidden="true"></i>
+    </button>
     <div class="ee-gallery__rotator" id="ee-gallery-rotator">
 
       <article class="ee-gallery__card">
@@ -9569,16 +9565,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </div>
   </div>
 
-  <!-- dica: arraste para girar o carrossel -->
+  <!-- dica: use as setas para navegar -->
   <div class="ee-gallery__hint" aria-hidden="true">
-    <i data-lucide="hand" class="ee-gallery__hint-icon"></i>
-    <span>Arraste para girar</span>
+    <span>Use as setas para navegar</span>
   </div>
   <style>
     .ee-gallery__hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:clamp(18px,2.6vh,36px);color:rgba(255,255,255,.6);font-family:'IBM Plex Sans',sans-serif;font-size:clamp(13px,1vw,15px);letter-spacing:-.005em}
-    .ee-gallery__hint-icon{width:22px;height:22px;color:rgba(255,255,255,.6);animation:ee-gallery-swipe 1.8s ease-in-out infinite}
-    @keyframes ee-gallery-swipe{0%,100%{transform:translateX(-7px) rotate(-10deg)}50%{transform:translateX(7px) rotate(10deg)}}
-    @media (prefers-reduced-motion:reduce){.ee-gallery__hint-icon{animation:none}}
   </style>
 </section>
 
@@ -10564,10 +10556,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var ITEM_COUNT     = cards.length;
     var ANGLE_PER_ITEM = 360 / ITEM_COUNT;
     var RADIUS         = 600;            // distância dos cards ao centro do rotator
-    var AUTO_SPEED     = 0.03;           // graus por frame quando não está scrollando (levemente mais rápido)
-    var SCROLL_IDLE_MS = 150;            // ms de inatividade pra voltar pro auto-rotate
-    var DRAG_IDLE_MS   = 800;            // ms após soltar o drag pra voltar pro auto-rotate
-    var DRAG_SENSITIVITY = 0.15;         // graus por pixel arrastado (drag bem mais suave)
 
     // Distribui cada card ao redor do círculo (eixo Y)
     cards.forEach(function (card, i) {
@@ -10576,10 +10564,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     });
 
     var rotation = 0;
-    var isScrolling = false;
-    var isDragging  = false;
-    var scrollTimer = null;
-    var dragIdleTimer = null;
 
     function updateOpacities() {
       var totalRotation = rotation % 360;
@@ -10597,67 +10581,43 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       updateOpacities();
     }
 
-    // Scroll desativado — carrossel só gira via auto-rotate + drag manual.
+    // Carrossel manual: gira SÓ ao clicar nas setas (sem auto-rotate, sem drag).
+    applyRotation(); // pinta o estado inicial uma vez
 
-    // Auto-rotação quando não está scrollando nem arrastando
-    function loop() {
-      if (!isScrolling && !isDragging) {
-        rotation += AUTO_SPEED;
+    // Anima a rotação até um alvo com easing (easeOutCubic), sem libs externas.
+    var animating = false;
+    function animateTo(target, duration) {
+      var startRot = rotation;
+      var change   = target - startRot;
+      var startTs  = null;
+      animating = true;
+      function step(ts) {
+        if (startTs === null) startTs = ts;
+        var t = Math.min(1, (ts - startTs) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        rotation = startRot + change * eased;
         applyRotation();
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          rotation = target;
+          applyRotation();
+          animating = false;
+        }
       }
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-
-    // ===== DRAG MANUAL (mouse + touch) =====
-    var dragStartX = 0;
-    var dragStartRotation = 0;
-
-    function getPointerX(e) {
-      if (e.touches && e.touches[0]) return e.touches[0].clientX;
-      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
-      return e.clientX;
+      requestAnimationFrame(step);
     }
 
-    function onDragStart(e) {
-      isDragging = true;
-      if (dragIdleTimer) clearTimeout(dragIdleTimer);
-      dragStartX = getPointerX(e);
-      dragStartRotation = rotation;
-      gallery.classList.add('is-dragging');
-      // Captura mouse mesmo se sair do elemento (usa document)
-      document.addEventListener('mousemove', onDragMove);
-      document.addEventListener('mouseup', onDragEnd);
-      document.addEventListener('touchmove', onDragMove, { passive: false });
-      document.addEventListener('touchend', onDragEnd);
-      document.addEventListener('touchcancel', onDragEnd);
+    // Gira exatamente 1 card por clique (ignora cliques durante a animação)
+    function rotateBy(delta) {
+      if (animating) return;
+      animateTo(rotation + delta, 520);
     }
 
-    function onDragMove(e) {
-      if (!isDragging) return;
-      var pointerX = getPointerX(e);
-      var deltaX = pointerX - dragStartX;
-      rotation = dragStartRotation + (deltaX * DRAG_SENSITIVITY);
-      applyRotation();
-      // Em touch, previne scroll horizontal acidental
-      if (e.touches && e.cancelable) e.preventDefault();
-    }
-
-    function onDragEnd() {
-      if (!isDragging) return;
-      gallery.classList.remove('is-dragging');
-      document.removeEventListener('mousemove', onDragMove);
-      document.removeEventListener('mouseup', onDragEnd);
-      document.removeEventListener('touchmove', onDragMove);
-      document.removeEventListener('touchend', onDragEnd);
-      document.removeEventListener('touchcancel', onDragEnd);
-      // Pequeno delay antes de voltar pro auto-rotate (não reativa imediato)
-      if (dragIdleTimer) clearTimeout(dragIdleTimer);
-      dragIdleTimer = setTimeout(function () { isDragging = false; }, DRAG_IDLE_MS);
-    }
-
-    gallery.addEventListener('mousedown', onDragStart);
-    gallery.addEventListener('touchstart', onDragStart, { passive: true });
+    var prevBtn = gallery.querySelector('.ee-gallery__nav--prev');
+    var nextBtn = gallery.querySelector('.ee-gallery__nav--next');
+    if (prevBtn) prevBtn.addEventListener('click', function () { rotateBy(+ANGLE_PER_ITEM); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { rotateBy(-ANGLE_PER_ITEM); });
   });
 
   // ── PRODUTO: zoom-in scroll-driven na imagem de fundo ──
