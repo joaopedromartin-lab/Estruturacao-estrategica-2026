@@ -925,7 +925,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   --ds-gradient-radial: radial-gradient(ellipse at 20% 80%, #FB2E0A 0%, #7A0A02 40%, #560303 100%);
   --ds-offwhite: #FAF9F7;
   /* Tokens de espaçamento vertical pra padronização entre seções */
-  --ee-pad-y-default: clamp(80px, 12vh, 160px);
+  --ee-pad-y-default: clamp(48px, 7vh, 96px);
   --ee-pad-y-compact: clamp(40px, 6vh, 80px);
   --ee-pad-x: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
   /* Largura máxima do conteúdo — reduzida pra centralizar melhor em telas compartilhadas */
@@ -6043,7 +6043,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   border-radius: 14px;
   overflow: hidden;
   min-height: clamp(54px, 8vh, 88px);
-  background: linear-gradient(90deg, #1a0000 0%, #280000 100%);
+  background: linear-gradient(90deg, #FFD9D2 0%, #FFC2B6 100%);
 }
 .ee-sim__fill {
   position: absolute;
@@ -6920,7 +6920,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap__week3-variant { display: none; }
 .ee-recap__week3-variant.is-shown { display: block; }
 
-/* === SEÇÃO GARANTIA (30 dias money-back — card centralizado) === */
+/* === SEÇÃO GARANTIA (30 dias money-back — headline à esquerda, imagem à direita) === */
 .ee-warranty {
   background: #280000;
   color: #FFFFFF;
@@ -6929,69 +6929,44 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-warranty__inner {
   max-width: var(--ee-max-width);
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 5vw, 64px);
   align-items: center;
-  justify-content: center;
 }
-.ee-warranty__card {
-  max-width: 880px;
-  width: 100%;
-  padding: clamp(36px, 5vw, 72px) clamp(24px, 4vw, 64px);
-  border-radius: clamp(20px, 2vw, 32px);
-  background:
-    radial-gradient(120% 100% at 50% 0%, rgba(251, 46, 10, 0.18) 0%, transparent 60%),
-    rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+@media (min-width: 900px) {
+  .ee-warranty__inner { grid-template-columns: 1.1fr 1fr; }
 }
-.ee-warranty__badge {
-  display: inline-block;
-  padding: 8px 20px;
-  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 100%);
-  color: #FFFFFF;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 15px);
-  font-weight: 700;
-  border-radius: 9999px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin: 0 0 clamp(20px, 2.4vh, 32px);
-  box-shadow: 0 0 24px rgba(251, 46, 10, 0.35);
-}
+.ee-warranty__content { min-width: 0; }
 .ee-warranty__title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(26px, 2.8vw, 44px);
   font-weight: 400;
   color: #FFFFFF;
-  margin: 0 0 clamp(16px, 2vh, 28px);
+  margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.2;
   text-wrap: balance;
 }
 .ee-warranty__title strong { font-weight: 700; }
 .ee-warranty__hl { color: #FFD60A; } /* só "devolve seu dinheiro" em amarelo */
-.ee-warranty__sub {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(15px, 1.2vw, 19px);
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 auto;
-  line-height: 1.55;
-  letter-spacing: -0.005em;
-  max-width: 640px;
+.ee-warranty__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ee-warranty__image {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
 }
 
 .ee-handoff {
   position: relative;
   background:
-    radial-gradient(ellipse 130% 110% at 50% 110%,
-      #FB2E0A 0%,
-      #C41E08 28%,
-      #7A0A02 52%,
-      #3A0000 78%,
-      #280000 100%
-    );
+    #280000 url('assets/Garantiaexecutar.png') center / cover no-repeat;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
 }
@@ -7032,6 +7007,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: 1.55;
   letter-spacing: -0.005em;
 }
+.ee-handoff__sub strong { font-weight: 700; color: #FFD60A; }
 
 /* Timeline contínua */
 .ee-handoff__timeline {
@@ -7262,37 +7238,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 
 /* === SEÇÃO PREÇOS (toggle E.E vs Bundle + painel detalhado) === */
-/* === SEÇÃO BENEFÍCIO (gancho pra contratação combinada — headline centralizada) ===
-   O fundo continua o radial do rodapé do Executar (mesma elipse/stops, centro deslocado
-   pra -10%) e termina em #280000, fluindo suave entre as duas seções. */
-.ee-bonus {
-  background:
-    #280000 url('assets/Garantiaexecutar.png') center / cover no-repeat;
-  color: #FFFFFF;
-  padding: var(--ee-pad-y-default) var(--ee-pad-x);
-}
-.ee-bonus__inner {
-  max-width: var(--ee-max-width);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 100%;
-}
-.ee-bonus__title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 3vw, 48px);
-  font-weight: 400;
-  color: #FFFFFF;
-  margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  max-width: 920px;
-  text-wrap: balance;
-}
-.ee-bonus__title strong { font-weight: 700; color: #FFD60A; }
-
 .ee-pricing {
   background: #FFFFFF;
   padding: var(--ee-pad-y-compact) var(--ee-pad-x);
@@ -9791,10 +9736,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <section id="garantia" class="ee-warranty" aria-label="Garantia de 30 dias">
   <div class="ee-warranty__inner">
-    <div class="ee-warranty__card">
-      <p class="ee-warranty__badge">Garantia de 30 dias</p>
+    <div class="ee-warranty__content">
       <h2 class="ee-warranty__title">Se em <strong>30 dias</strong> você não receber tudo que foi combinado, a gente <strong class="ee-warranty__hl">devolve seu dinheiro</strong>.</h2>
-      <p class="ee-warranty__sub">A Estruturação Estratégica é uma promessa firme — entregamos o que combinamos, sem letra miúda. Se algum item do escopo não chegar, você pode pedir o reembolso.</p>
+    </div>
+    <div class="ee-warranty__media">
+      <img src="assets/Garantiaimagem.png" alt="Selo de garantia de 30 dias" class="ee-warranty__image"/>
     </div>
   </div>
 </section>
@@ -9802,23 +9748,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO — HANDOFF (ancoragem EE → Executar, timeline contínua)   -->
 <!-- ============================================================ -->
-<section id="executar" class="ee-handoff" aria-label="A Estruturação Estratégica é o ponto de partida; o Executar é a operação contínua">
+<section id="executar" class="ee-handoff" aria-label="A V4 te ajuda na execução do plano — benefício exclusivo">
   <div class="ee-handoff__inner">
 
     <header class="ee-handoff__header">
       <h2 class="ee-handoff__title">Agora você tem o Plano, a V4 te ajuda na <strong>execução</strong>.</h2>
-      <p class="ee-handoff__sub">O Executar é a operação contínua que coloca a Estruturação Estratégica pra rodar — todo dia, sem reabrir diagnóstico, sem reaprender o negócio.</p>
+      <p class="ee-handoff__sub">E tirando o plano do papel e colocando em execução, você recebe um <strong>benefício exclusivo</strong>.</p>
     </header>
 
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SEÇÃO — BENEFÍCIO (gancho pra contratação combinada)          -->
-<!-- ============================================================ -->
-<section id="beneficio" class="ee-bonus" aria-label="Benefício exclusivo da contratação combinada">
-  <div class="ee-bonus__inner">
-    <h2 class="ee-bonus__title">E tirando o plano do papel e colocando em execução, você recebe um <strong>benefício exclusivo</strong>.</h2>
   </div>
 </section>
 
@@ -10267,7 +10204,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
