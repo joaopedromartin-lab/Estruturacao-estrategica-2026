@@ -2689,6 +2689,23 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0;
 }
 
+/* === SLIDE-UP REVEAL DOS TÍTULOS (IntersectionObserver) === */
+.ee-anim-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.18s,
+    transform 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.18s;
+  will-change: opacity, transform;
+}
+.ee-anim-up.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-anim-up { opacity: 1; transform: none; transition: none; }
+}
+
 /* === GSAP CHARACTER REVEAL === */
 /* Estado inicial dos chars antes do GSAP animar */
 .ee-reveal-chars .char {
@@ -3633,12 +3650,19 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 /* Tab ativo: gradient brand vermelho + texto branco, divisores adjacentes some */
 .ee-roadmap__tab.is-active {
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  color: #FFFFFF;
+  border-left-color: transparent;
+  box-shadow: 0 8px 24px rgba(251, 46, 10, 0.28);
+}
+.ee-roadmap__tab.is-active strong { color: #FFFFFF; }
+/* Exceção: a aba EXECUTAR fica AMARELA quando selecionada */
+#ee-roadmap-tab-5.is-active {
   background: #FFDD00;
   color: #280000;
-  border-left-color: transparent;
   box-shadow: 0 8px 24px rgba(255, 221, 0, 0.32);
 }
-.ee-roadmap__tab.is-active strong { color: #280000; }
+#ee-roadmap-tab-5.is-active strong { color: #280000; }
 .ee-roadmap__tab.is-active + .ee-roadmap__tab {
   border-left-color: transparent;
 }
@@ -6721,12 +6745,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     </div>
   </div>
 
-  <!-- dica: use as setas para navegar -->
-  <div class="ee-gallery__hint" aria-hidden="true">
-    <span>Use as setas para navegar</span>
-  </div>
+  <!-- dots de paginação — indicam o card atual do carrossel -->
+  <div class="ee-gallery__dots" id="ee-gallery-dots" role="tablist" aria-label="Posição do carrossel"></div>
   <style>
-    .ee-gallery__hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:clamp(18px,2.6vh,36px);color:rgba(255,255,255,.6);font-family:'IBM Plex Sans',sans-serif;font-size:clamp(13px,1vw,15px);letter-spacing:-.005em}
+    .ee-gallery__dots{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:clamp(18px,2.6vh,36px);flex-wrap:wrap}
+    .ee-gallery__dot{width:8px;height:8px;padding:0;border:none;border-radius:9999px;background:rgba(255,255,255,.28);cursor:pointer;transition:background .25s ease,transform .25s ease,width .25s ease}
+    .ee-gallery__dot:hover{background:rgba(255,255,255,.55)}
+    .ee-gallery__dot.is-active{background:#FFDD00;width:22px;transform:none}
+    .ee-gallery__dot:focus-visible{outline:2px solid rgba(255,221,0,.65);outline-offset:3px}
   </style>
 </section>
 
@@ -7672,6 +7698,34 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     var rotation = 0;
 
+    // ── Dots de paginação (1 por card) ──
+    var dotsWrap = document.getElementById('ee-gallery-dots');
+    var dots = [];
+    if (dotsWrap) {
+      cards.forEach(function (card, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'ee-gallery__dot';
+        d.setAttribute('role', 'tab');
+        d.setAttribute('aria-label', 'Ir para o card ' + (i + 1));
+        d.addEventListener('click', function () { goToIndex(i); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      });
+    }
+    function frontIndex() {
+      var raw = Math.round(-rotation / ANGLE_PER_ITEM);
+      return ((raw % ITEM_COUNT) + ITEM_COUNT) % ITEM_COUNT;
+    }
+    function updateDots() {
+      if (!dots.length) return;
+      var fi = frontIndex();
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === fi);
+        d.setAttribute('aria-selected', i === fi ? 'true' : 'false');
+      });
+    }
+
     function updateOpacities() {
       var totalRotation = rotation % 360;
       cards.forEach(function (card, i) {
@@ -7686,6 +7740,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     function applyRotation() {
       rotator.style.transform = 'rotateY(' + rotation + 'deg)';
       updateOpacities();
+      updateDots();
     }
 
     // Carrossel manual: gira SÓ ao clicar nas setas (sem auto-rotate, sem drag).
@@ -7719,6 +7774,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     function rotateBy(delta) {
       if (animating) return;
       animateTo(rotation + delta, 520);
+    }
+
+    // Gira até trazer o card `i` pra frente, pelo caminho mais curto
+    function goToIndex(i) {
+      if (animating) return;
+      var targetBase = -i * ANGLE_PER_ITEM;            // rotação que põe o card i na frente
+      var diff = ((targetBase - rotation) % 360 + 540) % 360 - 180; // menor delta [-180,180]
+      if (Math.abs(diff) < 0.5) return;                // já está na frente
+      animateTo(rotation + diff, 520);
     }
 
     var prevBtn = gallery.querySelector('.ee-gallery__nav--prev');
@@ -8531,6 +8595,39 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
     lucide.createIcons();
   }
+
+  // ── SLIDE-UP REVEAL DOS TÍTULOS (entrada na viewport) ──
+  (function titlesSlideUp() {
+    var SEL = [
+      '.ee-hero__title', '.ee-auth__who-title', '.ee-recognition__title',
+      '.ee-clients__title', '.ee-cases__heading', '.ee-mission__title',
+      '.ee-method__title', '.ee-structure__title', '.ee-foru__title',
+      '.ee-define__heading', '.ee-roadmap__heading', '.ee-grow__title',
+      '.ee-handoff__title', '.ee-sim__title', '.ee-warranty__title',
+      '.ee-ecosystem30__title'
+    ].join(',');
+    var titles = Array.prototype.slice.call(document.querySelectorAll(SEL));
+    if (!titles.length) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // CSS já mantém tudo visível
+
+    titles.forEach(function (el) { el.classList.add('ee-anim-up'); });
+
+    if (!('IntersectionObserver' in window)) {
+      titles.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    titles.forEach(function (el) { io.observe(el); });
+  })();
 
 
 });
