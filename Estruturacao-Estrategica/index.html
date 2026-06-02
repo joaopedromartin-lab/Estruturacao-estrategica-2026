@@ -2472,10 +2472,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-method__pillar-tools {
   list-style: none;
   padding: 0;
-  margin: clamp(20px, 2.4vh, 32px) 0 0;
+  margin: clamp(24px, 3vh, 40px) 0 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(14px, 1.8vh, 22px) clamp(10px, 1.2vw, 18px);
+  gap: clamp(28px, 3.4vh, 44px);
 }
 .ee-method__tool {
   display: flex;
@@ -4749,7 +4749,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   box-shadow: 0 12px 32px rgba(229, 9, 20, 0.16);
 }
 
-/* Cabeçalho: pill do pack + (opcional) Popular */
+/* Cabeçalho: tag de mídia + (opcional) Popular */
 .ee-packs__head {
   display: flex;
   align-items: center;
@@ -4757,20 +4757,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   gap: 8px;
   margin-bottom: clamp(14px, 1.4vw, 20px);
 }
-.ee-packs__badge {
+/* Tag de faixa de mídia no topo do card */
+.ee-packs__tag {
   display: inline-flex;
   align-items: center;
-  padding: 5px 14px;
+  padding: 6px 14px;
   border-radius: 9999px;
+  background: rgba(40, 0, 0, 0.05);
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(12px, 0.95vw, 14px);
-  font-weight: 700;
+  font-weight: 600;
+  color: rgba(5, 5, 5, 0.7);
   letter-spacing: -0.005em;
+  white-space: nowrap;
 }
-.ee-packs__badge--s  { background: #FFE7D6; color: #C2410C; }
-.ee-packs__badge--m  { background: #DBEAFE; color: #1D4ED8; }
-.ee-packs__badge--l  { background: #DCFCE7; color: #15803D; }
-.ee-packs__badge--xl { background: #EDE4FB; color: #7E22CE; }
 .ee-packs__popular {
   display: inline-flex;
   align-items: center;
@@ -4782,37 +4782,31 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(11px, 0.85vw, 13px);
   font-weight: 700;
   letter-spacing: 0.02em;
+  flex-shrink: 0;
 }
 
+/* Nome do pack — caixa alta + gradiente brand */
 .ee-packs__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(17px, 1.4vw, 21px);
+  font-size: clamp(28px, 2.6vw, 40px);
   font-weight: 700;
-  color: #280000;
-  margin: 0 0 clamp(8px, 0.9vw, 12px);
-  letter-spacing: -0.015em;
-  line-height: 1.2;
+  text-transform: uppercase;
+  margin: 0 0 clamp(10px, 1vw, 14px);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .ee-packs__desc {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(13px, 1.02vw, 15px);
   font-weight: 400;
   color: rgba(5, 5, 5, 0.6);
-  margin: 0 0 clamp(14px, 1.4vw, 20px);
+  margin: 0 0 clamp(16px, 1.6vw, 22px);
   line-height: 1.45;
-  letter-spacing: -0.005em;
-}
-.ee-packs__range {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 6px 14px;
-  background: rgba(40, 0, 0, 0.05);
-  border-radius: 8px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 14px);
-  font-weight: 500;
-  color: rgba(5, 5, 5, 0.7);
-  margin-bottom: clamp(12px, 1.2vw, 16px);
   letter-spacing: -0.005em;
 }
 .ee-packs__price {
@@ -6287,7 +6281,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/aquisicao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Aquisição</h3>
-        <p class="ee-method__pillar-body">O primeiro aspecto necessário a um projeto de Marketing Digital é ter fontes de Tráfego. Se seu público não conhecer o seu produto, será impossível gerar vendas.</p>
+        <p class="ee-method__pillar-body">Tudo começa atraindo as pessoas certas. Sem fontes de tráfego, seu público não conhece seu produto e não há venda.</p>
         <ul class="ee-method__pillar-tools">
           <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
           <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
@@ -6297,7 +6291,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/engagamento.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Engajamento</h3>
-        <p class="ee-method__pillar-body">Quando você consegue conquistar uma audiência, precisa fazer com que ela se apaixone pelo que você tem a oferecer. Há diversas estratégias para engajar seu público.</p>
+        <p class="ee-method__pillar-body">Conquistar a audiência é só o começo. É preciso fazer ela se apaixonar pelo que você oferece.</p>
         <ul class="ee-method__pillar-tools">
           <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
           <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
@@ -6306,7 +6300,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/monetizacao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Monetização</h3>
-        <p class="ee-method__pillar-body">Com uma audiência engajada, você está apto para transformar a atenção do seu público em vendas. Existem diversas táticas que podem colaborar para ampliar suas conversões.</p>
+        <p class="ee-method__pillar-body">Com a audiência engajada, você transforma a atenção do seu público em vendas e amplia suas conversões.</p>
         <ul class="ee-method__pillar-tools">
           <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
           <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
@@ -6316,7 +6310,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/retencao.svg" alt="" aria-hidden="true"/>
         <h3 class="ee-method__pillar-title">Retenção</h3>
-        <p class="ee-method__pillar-body">Após a conversão, é preciso encontrar maneiras de manter o cliente conectado com seu negócio e aumentar o consumo por usuário, reduzindo seus custos de aquisição de novos clientes.</p>
+        <p class="ee-method__pillar-body">Depois da venda, manter o cliente próximo aumenta o consumo por usuário e reduz seu custo de aquisição.</p>
         <ul class="ee-method__pillar-tools">
           <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
           <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
@@ -7017,12 +7011,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <!-- PACK S -->
           <article class="ee-packs__card ee-packs__card--featured">
             <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--s">Pack S</span>
+              <span class="ee-packs__tag">Mídia: R$ 2k – 5k/mês</span>
               <span class="ee-packs__popular">Popular</span>
             </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — S</h3>
+            <h3 class="ee-packs__title">PACK S</h3>
             <p class="ee-packs__desc">Para negócios em validação que querem estrutura profissional sem complexidade.</p>
-            <span class="ee-packs__range">Mídia: R$ 2k – 5k/mês</span>
             <p class="ee-packs__price">R$ 6.997,00 <span>/mês</span></p>
             <ul class="ee-packs__features">
               <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais (Meta e/ou Google)</li>
@@ -7037,11 +7030,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <!-- PACK M -->
           <article class="ee-packs__card">
             <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--m">Pack M</span>
+              <span class="ee-packs__tag">Mídia: R$ 5k – 15k/mês</span>
             </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — M</h3>
+            <h3 class="ee-packs__title">PACK M</h3>
             <p class="ee-packs__desc">Para quem validou o modelo e precisa escalar com controle.</p>
-            <span class="ee-packs__range">Mídia: R$ 5k – 15k/mês</span>
             <p class="ee-packs__price">R$ 9.997,00 <span>/mês</span></p>
             <ul class="ee-packs__features">
               <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais gerenciados</li>
@@ -7056,11 +7048,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <!-- PACK L -->
           <article class="ee-packs__card">
             <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--l">Pack L</span>
+              <span class="ee-packs__tag">Mídia: R$ 15k – 50k/mês</span>
             </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — L</h3>
+            <h3 class="ee-packs__title">PACK L</h3>
             <p class="ee-packs__desc">Para operações maduras que decidem com base em dados em tempo real.</p>
-            <span class="ee-packs__range">Mídia: R$ 15k – 50k/mês</span>
             <p class="ee-packs__price">R$ 16.997,00 <span>/mês</span></p>
             <ul class="ee-packs__features">
               <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
@@ -7075,11 +7066,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <!-- PACK XL -->
           <article class="ee-packs__card">
             <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--xl">Pack XL</span>
+              <span class="ee-packs__tag">Mídia: R$ 50k+/mês</span>
             </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — XL</h3>
+            <h3 class="ee-packs__title">PACK XL</h3>
             <p class="ee-packs__desc">Para operações onde ineficiência tem impacto direto no faturamento.</p>
-            <span class="ee-packs__range">Mídia: R$ 50k+/mês</span>
             <p class="ee-packs__price">R$ 25.497,00 <span>/mês</span></p>
             <ul class="ee-packs__features">
               <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
