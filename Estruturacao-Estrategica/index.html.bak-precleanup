@@ -1131,6 +1131,3050 @@ footer .wp-block-group.has-black-background-color {
   padding: 4px 14px;
 }
 
+/* === BRANDBOOK V4 — CONFIDENCE PILLS === */
+.bb-confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+  line-height: 1;
+}
+.bb-confidence::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.bb-confidence--high   { color: #0E8420; }
+.bb-confidence--medium { color: #FF6200; }
+.bb-confidence--low    { color: #C41E08; }
+.bb-confidence--none   { color: rgba(0,0,0,0.45); }
+/* On dark/gradient sections */
+.ds-bg-gradient .bb-confidence,
+.ds-bg-gradient-subtle .bb-confidence,
+.ds-bg-gradient-radial .bb-confidence {
+  background: rgba(0,0,0,0.18);
+}
+.ds-bg-gradient .bb-confidence--high,
+.ds-bg-gradient-subtle .bb-confidence--high,
+.ds-bg-gradient-radial .bb-confidence--high { color: #5CFFB1; }
+.ds-bg-gradient .bb-confidence--medium,
+.ds-bg-gradient-subtle .bb-confidence--medium,
+.ds-bg-gradient-radial .bb-confidence--medium { color: #FFB347; }
+.ds-bg-gradient .bb-confidence--low,
+.ds-bg-gradient-subtle .bb-confidence--low,
+.ds-bg-gradient-radial .bb-confidence--low { color: #FFD3CB; }
+.ds-bg-gradient .bb-confidence--none,
+.ds-bg-gradient-subtle .bb-confidence--none,
+.ds-bg-gradient-radial .bb-confidence--none { color: rgba(255,255,255,0.6); }
+
+/* === BRANDBOOK V4 — INSUFFICIENT SIGNAL BLOCK === */
+.bb-insufficient {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1px dashed var(--wp--preset--color--gray);
+  background: rgba(0,0,0,0.02);
+  margin: 16px 0;
+}
+.ds-bg-gradient .bb-insufficient,
+.ds-bg-gradient-subtle .bb-insufficient,
+.ds-bg-gradient-radial .bb-insufficient {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.25);
+}
+.bb-insufficient__label {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--gray);
+}
+.ds-bg-gradient .bb-insufficient__label,
+.ds-bg-gradient-subtle .bb-insufficient__label,
+.ds-bg-gradient-radial .bb-insufficient__label {
+  color: rgba(255,255,255,0.6);
+}
+.bb-insufficient__text {
+  font-size: var(--wp--preset--font-size--p-4);
+  margin: 0;
+  color: var(--wp--preset--color--gray);
+}
+
+/* === BRANDBOOK V4 — BRAND CARDS (attribute grid) === */
+.bb-attr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: var(--wp--preset--spacing--50);
+  margin-bottom: var(--wp--preset--spacing--60);
+}
+.bb-attr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 28px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #FFFFFF;
+}
+.ds-bg-gradient .bb-attr-card,
+.ds-bg-gradient-subtle .bb-attr-card,
+.ds-bg-gradient-radial .bb-attr-card {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+  color: #fff;
+}
+.bb-attr-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bb-attr-card__title {
+  font-size: var(--wp--preset--font-size--h-5);
+  font-weight: 700;
+  margin: 0;
+  color: inherit;
+}
+.bb-attr-card__body {
+  font-size: var(--wp--preset--font-size--p-3);
+  line-height: 1.4;
+  margin: 0;
+  color: inherit;
+  opacity: 0.85;
+}
+.bb-attr-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.bb-attr-card__tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--wp--preset--color--light-gray);
+  color: var(--wp--preset--color--gray);
+}
+.ds-bg-gradient .bb-attr-card__tag,
+.ds-bg-gradient-subtle .bb-attr-card__tag,
+.ds-bg-gradient-radial .bb-attr-card__tag {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.85);
+}
+
+/* === BRANDBOOK V4 — TWO-COL DO / DONT === */
+.bb-do-dont {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: var(--wp--preset--spacing--50);
+}
+@media (min-width: 760px) {
+  .bb-do-dont { grid-template-columns: 1fr 1fr; }
+}
+.bb-do-dont__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.bb-do-dont__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.bb-do-dont__title::before {
+  content: "";
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.bb-do-dont__col--do .bb-do-dont__title { color: #5CFFB1; }
+.bb-do-dont__col--do .bb-do-dont__title::before { background: #0E8420; }
+.bb-do-dont__col--dont .bb-do-dont__title { color: #FFD3CB; }
+.bb-do-dont__col--dont .bb-do-dont__title::before { background: #FB2E0A; }
+.bb-do-dont__item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: var(--wp--preset--font-size--p-3);
+  line-height: 1.4;
+  margin: 0;
+  color: rgba(255,255,255,0.85);
+}
+.bb-do-dont__item::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px 10px;
+}
+.bb-do-dont__col--do .bb-do-dont__item::before {
+  background-color: rgba(0,168,107,0.2);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CFFB1' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+}
+.bb-do-dont__col--dont .bb-do-dont__item::before {
+  background-color: rgba(251,46,10,0.2);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD3CB' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+}
+
+/* === BRANDBOOK V4 — STAT GRID / KEY FACTS === */
+.bb-fact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: var(--wp--preset--spacing--50);
+}
+.bb-fact-card {
+  padding: 24px;
+  border-radius: 18px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-bg-gradient .bb-fact-card,
+.ds-bg-gradient-subtle .bb-fact-card,
+.ds-bg-gradient-radial .bb-fact-card {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+}
+.bb-fact-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--gray);
+}
+.ds-bg-gradient .bb-fact-card__label,
+.ds-bg-gradient-subtle .bb-fact-card__label,
+.ds-bg-gradient-radial .bb-fact-card__label {
+  color: rgba(255,255,255,0.55);
+}
+.bb-fact-card__value {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: var(--wp--preset--font-size--h-5);
+  font-weight: 700;
+  color: var(--wp--preset--color--black);
+  line-height: 1.15;
+  margin: 0;
+}
+.ds-bg-gradient .bb-fact-card__value,
+.ds-bg-gradient-subtle .bb-fact-card__value,
+.ds-bg-gradient-radial .bb-fact-card__value {
+  color: #fff;
+}
+
+/* === BRANDBOOK V4 — VOICE PAIRS (instead of / always) === */
+.bb-voice-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.bb-voice-row:last-child { border-bottom: 0; }
+@media (min-width: 760px) {
+  .bb-voice-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+  .bb-voice-row > * { flex: 1; }
+}
+.bb-voice-row__instead {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.6);
+  text-decoration-thickness: 1.5px;
+  color: rgba(255,255,255,0.78) !important;
+  font-size: var(--wp--preset--font-size--p-3);
+  line-height: 1.4;
+}
+.bb-voice-row__always {
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: var(--wp--preset--font-size--p-3);
+  line-height: 1.4;
+}
+/* Override gradient-section global text color for voice rows */
+.ds-bg-gradient .bb-voice-row__instead,
+.ds-bg-gradient-subtle .bb-voice-row__instead,
+.ds-bg-gradient-radial .bb-voice-row__instead {
+  color: rgba(255,255,255,0.78) !important;
+}
+.ds-bg-gradient .bb-voice-row__always,
+.ds-bg-gradient-subtle .bb-voice-row__always,
+.ds-bg-gradient-radial .bb-voice-row__always {
+  color: #FFFFFF !important;
+}
+
+/* === BRANDBOOK V4 — MESSAGING / COPY EXAMPLES === */
+.bb-copy-card {
+  padding: 28px 32px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+.bb-copy-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wp--preset--color--gray);
+  margin-bottom: 8px;
+}
+.bb-copy-card__line {
+  font-size: var(--wp--preset--font-size--h-5);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--wp--preset--color--black);
+  margin: 0;
+}
+.bb-copy-card__note {
+  font-size: var(--wp--preset--font-size--p-4);
+  color: var(--wp--preset--color--gray);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* === BRANDBOOK V4 — LOGO SHOWCASE === */
+.bb-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: var(--wp--preset--spacing--50);
+}
+.bb-logo-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 32px;
+  border-radius: 20px;
+  min-height: 180px;
+  border: 1px solid rgba(255,255,255,0.12);
+  position: relative;
+}
+.bb-logo-tile img { max-width: 70%; max-height: 64px; height: auto; }
+.bb-logo-tile__caption {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+/* === BRANDBOOK V4 — STRATEGIC SUMMARY === */
+.bb-summary-card {
+  padding: var(--wp--preset--spacing--70) var(--wp--preset--spacing--60);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #560303 0%, #7A0A02 40%, #FB2E0A 100%);
+  color: #fff;
+  margin-top: var(--wp--preset--spacing--50);
+}
+.bb-summary-card h3 { color: #fff; }
+.bb-summary-card p { color: rgba(255,255,255,0.85); }
+.bb-summary-card__pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: var(--wp--preset--spacing--50);
+}
+.bb-summary-card__pillar {
+  padding: 20px;
+  background: rgba(0,0,0,0.18);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.bb-summary-card__pillar-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 6px;
+}
+.bb-summary-card__pillar-value {
+  font-size: var(--wp--preset--font-size--p-2);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+}
+
+/* === BRANDBOOK V4 — COLOR PALETTE (stacked cards) === */
+.bb-color { position: relative; background: #FFFFFF; }
+.bb-color__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 4vh, 56px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(96px, 14vh, 180px);
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+}
+.bb-color__card--primary { background: #E50914; color: #FFFFFF; }
+.bb-color__card--secondary,
+.bb-color__card--cta,
+.bb-color__card--digital,
+.bb-color__card--print,
+.bb-color__card--proportion,
+.bb-color__card--system { background: #FFFFFF; color: #050505; }
+
+/* Sistema cromático: grid com vermelho (full), 3 secundárias (linha do meio) e amarelo (faixa inferior) */
+.bb-color__system {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: minmax(220px, 38vh) minmax(140px, 22vh) minmax(40px, 6vh);
+  gap: clamp(8px, 0.8vw, 12px);
+  width: 100%;
+  flex: 1;
+}
+.bb-color__system-cell {
+  position: relative;
+  border: 0;
+  border-radius: 4px;
+  padding: clamp(10px, 1vw, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  transition: filter 0.2s ease;
+}
+.bb-color__system-cell:hover { filter: brightness(0.96); }
+.bb-color__system-cell--primary { grid-column: 1 / -1; grid-row: 1; }
+.bb-color__system-cell--white { grid-column: 1; grid-row: 2; border: 1px solid rgba(0,0,0,0.08); }
+.bb-color__system-cell--gray-light { grid-column: 2; grid-row: 2; border: 1px solid rgba(0,0,0,0.08); }
+.bb-color__system-cell--gray-dark { grid-column: 3; grid-row: 2; }
+.bb-color__system-cell--brown { grid-column: 4; grid-row: 2; }
+.bb-color__system-cell--yellow { grid-column: 1 / -1; grid-row: 3; }
+.bb-color__system-hex {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+.bb-color__system-hex--dark { color: #050505; }
+
+/* Proporção card: horizontal bar + legends */
+.bb-color__proportion-wrap { display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); flex: 1; }
+.bb-color__proportion-bar {
+  display: flex;
+  width: 100%;
+  height: clamp(280px, 38vh, 420px);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bb-color__proportion-bar > * { transition: filter 0.2s ease; }
+.bb-color__proportion-bar > .bb-color-copy:hover { filter: brightness(0.94); }
+.bb-color__proportion-stop {
+  height: 100%;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+.bb-color__proportion-legends {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+}
+.bb-color__proportion-legend {
+  position: relative;
+  padding-top: 18px;
+  padding-right: clamp(8px, 1.4vw, 18px);
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  line-height: 1.5;
+  color: rgba(5,5,5,0.78);
+}
+.bb-color__proportion-legend::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: clamp(8px, 1.4vw, 18px);
+  height: 1px;
+  background: rgba(5,5,5,0.6);
+}
+.bb-color__proportion-legend::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 10px;
+  background: rgba(5,5,5,0.6);
+}
+.bb-color__proportion-legend strong {
+  display: block;
+  font-weight: 700;
+  color: #050505;
+  margin-bottom: 4px;
+}
+.bb-color__proportion-legend-name {
+  display: block;
+  font-weight: 600;
+  color: #050505;
+  margin-bottom: 10px;
+}
+
+/* CTA card: yellow + green blocks on right */
+.bb-color__cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.4vw, 22px);
+  width: 100%;
+  max-width: clamp(640px, 72vw, 1040px);
+  align-items: stretch;
+}
+@media (min-width: 720px) {
+  .bb-color__cta-grid { grid-template-columns: 1fr 1fr; }
+}
+.bb-color__cta-block,
+.bb-color__cta-block.bb-color-copy {
+  position: relative;
+  width: 100%;
+  background: #FFDD00;
+  border: 0;
+  border-radius: 4px;
+  padding: clamp(14px, 1.5vw, 20px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: clamp(20px, 2.4vw, 32px);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: #050505;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.bb-color__cta-block--green,
+.bb-color__cta-block--green.bb-color-copy {
+  background: #0E8420;
+  color: #FFFFFF;
+}
+.bb-color__cta-block:hover,
+.bb-color__cta-block.bb-color-copy:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.98);
+  opacity: 1;
+}
+.bb-color__cta-block--green .bb-color__cta-codes { color: #FFFFFF; }
+.bb-color__cta-label {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.8vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.bb-color__cta-block--green .bb-color__cta-label { opacity: 0.85; }
+.bb-color__cta-codes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #050505;
+}
+.bb-color__cta-codes div { display: flex; gap: 8px; }
+.bb-color__cta-codes strong { font-weight: 600; }
+
+.bb-color__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  padding-bottom: 10px;
+  margin-bottom: clamp(28px, 5vh, 56px);
+}
+.bb-color__card--primary .bb-color__topbar {
+  color: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+}
+.bb-color__card:not(.bb-color__card--primary) .bb-color__topbar {
+  color: rgba(5,5,5,0.6);
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+}
+.bb-color__topbar-meta { display: flex; gap: clamp(24px, 4vw, 64px); }
+
+.bb-color__title { margin: 0 0 clamp(36px, 6vh, 64px); color: inherit; text-align: left; }
+.bb-color__card--primary .bb-color__title { color: #FFFFFF !important; }
+.bb-color__title-main {
+  display: block;
+  width: fit-content;
+  font-size: clamp(26px, 2.4vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 2px;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-color__card--primary .bb-color__title-main {
+  background: none;
+  -webkit-text-fill-color: #FFFFFF;
+  color: #FFFFFF;
+}
+.bb-color__title-sub {
+  display: block;
+  font-size: clamp(16px, 1.3vw, 22px);
+  font-weight: 400;
+  line-height: 1.1;
+  opacity: 0.85;
+}
+
+/* Card Primary: big statement + info card, vertically centered */
+.bb-color__primary-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+  text-align: left;
+}
+@media (min-width: 960px) {
+  .bb-color__primary-body { grid-template-columns: 1.5fr 1fr; gap: clamp(40px, 5vw, 96px); align-items: center; }
+}
+.bb-color__statement {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(56px, 8.5vw, 168px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0;
+  color: #FFFFFF;
+  text-align: left;
+}
+.bb-color__statement span { display: block; }
+.bb-color__info {
+  border: 1px solid rgba(255,255,255,0.55);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  width: 100%;
+}
+.bb-color__info-body { padding: clamp(24px, 2.4vw, 36px); display: flex; flex-direction: column; gap: 18px; }
+.bb-color__info-body p {
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.55;
+  margin: 0;
+  color: #FFFFFF;
+}
+.bb-color__info-codes {
+  background: #FFFFFF;
+  padding: 18px clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bb-color-copy {
+  position: relative;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  color: #E50914;
+  width: 100%;
+  transition: opacity 0.15s;
+}
+.bb-color-copy:hover { opacity: 0.65; }
+.bb-color-copy strong { font-weight: 700; margin-right: 10px; }
+.bb-color-copy::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  -webkit-mask: url('assets/content_copy_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg') center / contain no-repeat;
+  mask: url('assets/content_copy_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg') center / contain no-repeat;
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.bb-color-copy:hover::after { opacity: 0.9; }
+
+/* Cards 2/3/4 split layout */
+.bb-color__split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  flex: 1;
+}
+@media (min-width: 960px) {
+  .bb-color__split {
+    grid-template-columns: 0.7fr 2.6fr;
+    gap: clamp(40px, 5vw, 96px);
+    align-items: stretch;
+  }
+}
+.bb-color__desc {
+  font-size: clamp(17px, 1.3vw, 22px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.85);
+  max-width: 360px;
+}
+.bb-color__desc p { margin: 0 0 14px; }
+.bb-color__desc p:last-child { margin-bottom: 0; }
+.bb-color__alert {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 32px;
+  color: #E50914;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.bb-color__alert-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #E50914;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* Secondary card: 3 solid color columns */
+.bb-color__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px;
+  flex: 1;
+  min-height: 460px;
+}
+/* Variant: 4 colors in a 2x2 grid */
+.bb-color__cols--four {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: clamp(240px, 36vh, 360px);
+  gap: clamp(14px, 1.4vw, 22px);
+  min-height: 0;
+  max-width: clamp(480px, 52vw, 760px);
+}
+.bb-color__cols--four .bb-color__col { padding: 20px; min-height: 0; }
+.bb-color__cols--four .bb-color__col-codes { font-size: 13px; }
+.bb-color__col {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.bb-color__col:hover { filter: brightness(0.96); }
+.bb-color__col-codes {
+  font-size: 13px;
+  line-height: 1.55;
+}
+.bb-color__col-codes div { margin-bottom: 2px; }
+.bb-color__col-codes strong { font-weight: 700; margin-right: 6px; }
+
+/* Gradient cards: vertical gradient columns with copyable stops */
+.bb-color__gradients {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4px;
+  flex: 1;
+  min-height: 540px;
+}
+.bb-color__gradient {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 540px;
+}
+.bb-color__gradient-stop {
+  padding: 18px 22px;
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+.bb-color__gradient-stop-btn {
+  background: transparent;
+  border: 0;
+  padding: 2px 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  transition: filter 0.2s, opacity 0.2s;
+}
+.bb-color__gradient-stop-btn:hover { filter: brightness(0.8); opacity: 0.85; }
+.bb-color__gradient-stop-btn strong { font-weight: 700; }
+.bb-color__gradient-stop--dark { color: #FFFFFF; }
+.bb-color__gradient-stop--light { color: rgba(5,5,5,0.85); }
+
+/* Toast for copy feedback */
+.bb-color-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #050505;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+.bb-color-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* === BRANDBOOK V4 — TONE OF VOICE (white, featured + 4 cols) === */
+.bb-tov {
+  background: #FFFFFF;
+  color: #050505;
+  padding-top: clamp(40px, 5vh, 64px);
+  padding-bottom: clamp(80px, 12vh, 160px);
+}
+.bb-tov__inner {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.bb-tov__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 14px;
+}
+.bb-tov__topbar-label { color: #050505; }
+.bb-tov__topbar-meta {
+  display: flex;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.bb-tov__divider {
+  height: 1px;
+  background: #050505;
+  border: 0;
+  margin: 0 0 clamp(24px, 4vw, 56px);
+}
+.bb-tov__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(28px, 2.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0 0 clamp(56px, 9vh, 112px);
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-tov__hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding-bottom: clamp(40px, 6vh, 72px);
+}
+@media (min-width: 960px) {
+  .bb-tov__hero {
+    grid-template-columns: 1.1fr 1fr 1.4fr;
+    gap: clamp(32px, 4vw, 72px);
+    align-items: start;
+  }
+}
+.bb-tov__hero-title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(56px, 6.8vw, 132px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  color: #E50914;
+  margin: 0;
+}
+.bb-tov__hero-title span { display: block; }
+.bb-tov__hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.55;
+  color: #050505;
+}
+.bb-tov__hero-bullets li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 4px;
+}
+.bb-tov__hero-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #050505;
+}
+.bb-tov__hero-copy {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.78);
+  margin: 0;
+  max-width: 420px;
+}
+.bb-tov__rule {
+  height: 1px;
+  background: rgba(5,5,5,0.5);
+  border: 0;
+  margin: 0;
+}
+.bb-tov__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding-top: clamp(28px, 4vh, 48px);
+}
+@media (min-width: 760px) {
+  .bb-tov__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1080px) {
+  .bb-tov__grid { grid-template-columns: repeat(4, 1fr); gap: 0; }
+}
+.bb-tov__col {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+}
+@media (min-width: 1080px) {
+  .bb-tov__col {
+    padding: 0 clamp(20px, 2vw, 40px);
+    border-right: 1px solid rgba(5,5,5,0.15);
+  }
+  .bb-tov__col:first-child { padding-left: 0; }
+  .bb-tov__col:last-child { padding-right: 0; border-right: 0; }
+}
+.bb-tov__col h3 {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 600;
+  color: #050505;
+  margin: 0 0 22px;
+  letter-spacing: -0.01em;
+}
+.bb-tov__col p {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.78);
+  margin: 0 0 16px;
+}
+.bb-tov__col p:last-child { margin-bottom: 0; }
+.bb-tov__col p strong {
+  color: #050505;
+  font-weight: 600;
+}
+
+/* === BRANDBOOK V4 — PERSONALITY (sticky-stack 3 cards) === */
+.bb-perso {
+  background: #FFFFFF;
+  position: relative;
+}
+.bb-perso__card {
+  position: relative;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(28px, 4vh, 56px);
+  padding-bottom: clamp(80px, 12vh, 140px);
+  padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.bb-perso__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.6);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(122,10,2,0.3);
+  margin-bottom: clamp(28px, 5vh, 64px);
+}
+.bb-perso__topbar-meta {
+  display: flex;
+  gap: clamp(24px, 4vw, 64px);
+}
+.bb-perso__topbar-num {
+  color: rgba(5,5,5,0.55);
+}
+.bb-perso__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  flex: 1;
+  align-items: stretch;
+}
+@media (min-width: 960px) {
+  .bb-perso__grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(40px, 5vw, 96px);
+  }
+}
+.bb-perso__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.bb-perso__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.bb-perso__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: clamp(12px, 2vh, 32px);
+  max-width: 560px;
+}
+.bb-perso__label {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(22px, 1.8vw, 28px);
+  font-weight: 500;
+  color: #050505;
+  margin: 0 0 14px;
+}
+.bb-perso__divider {
+  height: 1px;
+  background: rgba(122,10,2,0.45);
+  border: 0;
+  margin: 0 0 clamp(28px, 4vh, 48px);
+}
+.bb-perso__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(72px, 9.6vw, 180px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.9;
+  color: #7A0A02;
+  margin: 0 0 clamp(24px, 3vh, 40px);
+}
+.bb-perso__title > span {
+  display: block;
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-perso__copy {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.5;
+  color: rgba(5,5,5,0.78);
+  margin: 0;
+  max-width: 420px;
+}
+
+/* === BRANDBOOK V4 — VALUE PROPOSITION (white, divider + 2-col) === */
+.bb-vp {
+  background: #FFFFFF;
+  padding-top: clamp(40px, 5vh, 64px);
+  padding-bottom: clamp(80px, 12vh, 160px);
+  color: #050505;
+}
+.bb-vp__inner {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.bb-vp__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 14px;
+}
+.bb-vp__header > .bb-vp__header-label {
+  color: #050505;
+}
+.bb-vp__header-meta {
+  display: flex;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.bb-vp__divider {
+  height: 1px;
+  background: #050505;
+  border: 0;
+  margin: 0 0 clamp(24px, 4vw, 56px);
+}
+.bb-vp__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(24px, 2.2vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0 0 clamp(40px, 6vh, 80px);
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-vp__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+@media (min-width: 960px) {
+  .bb-vp__grid {
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(48px, 7vw, 120px);
+    align-items: start;
+  }
+}
+.bb-vp__statement {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(28px, 3.4vw, 56px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #050505;
+  margin: 0;
+}
+.bb-vp__statement em {
+  font-style: normal;
+  color: #E50914;
+}
+.bb-vp__pills {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+}
+.bb-vp__pill {
+  display: block;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #560303 0%, #7A0A02 35%, #C41E08 75%, #FB2E0A 100%);
+  border-radius: 10px;
+  padding: 18px 24px;
+  box-shadow: 0 8px 24px rgba(86,3,3,0.22);
+}
+.bb-vp__caption {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(5,5,5,0.55);
+  margin: 28px 0 0;
+  max-width: 460px;
+}
+
+/* === BRANDBOOK V4 — COLOR PALETTE (stacked cards) === */
+.bb-color { position: relative; }
+.bb-color__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 4vh, 56px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(96px, 14vh, 180px);
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  color: #050505;
+}
+.bb-color__card--principal { background: #E50914; color: #FFFFFF; }
+.bb-color__card--secundaria,
+.bb-color__card--digital,
+.bb-color__card--impresso { background: #FFFFFF; }
+.bb-color__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(5,5,5,0.18);
+  margin-bottom: clamp(28px, 5vh, 56px);
+}
+.bb-color__card--principal .bb-color__topbar {
+  color: rgba(255,255,255,0.75);
+  border-bottom-color: rgba(255,255,255,0.35);
+}
+.bb-color__topbar-meta {
+  display: flex;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.bb-color__label { margin: 0 0 clamp(28px, 4vh, 56px); }
+.bb-color__label-main {
+  display: block;
+  font-size: clamp(28px, 2.4vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.bb-color__label-sub {
+  display: block;
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 400;
+  color: currentColor;
+  opacity: 0.85;
+}
+.bb-color__principal-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  flex: 1;
+  align-items: stretch;
+}
+@media (min-width: 960px) {
+  .bb-color__principal-grid {
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(48px, 6vw, 96px);
+  }
+}
+.bb-color__hero-title {
+  font-size: clamp(48px, 7vw, 132px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: #FFFFFF;
+  margin: 0;
+  align-self: end;
+}
+.bb-color__hero-title span { display: block; }
+.bb-color__info-card {
+  align-self: end;
+  max-width: 460px;
+  width: 100%;
+  margin-left: auto;
+}
+.bb-color__info-card-body {
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: clamp(24px, 3vw, 36px);
+  color: #FFFFFF;
+}
+.bb-color__info-card-body p {
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  margin: 0 0 14px;
+  color: #FFFFFF;
+}
+.bb-color__info-card-body p:last-child { margin-bottom: 0; }
+.bb-color__info-card-codes {
+  background: #FFFFFF;
+  padding: clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 36px);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.bb-color__info-card-codes:hover { transform: translateY(-2px); }
+.bb-color__info-card-codes p {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.6;
+  margin: 0;
+  color: #E50914;
+  font-weight: 500;
+}
+.bb-color__info-card-codes p strong { font-weight: 700; }
+.bb-color__copy-toast {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background: rgba(5,5,5,0.85);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.bb-color__info-card-codes.is-copied .bb-color__copy-toast,
+.bb-color__swatch.is-copied .bb-color__copy-toast { opacity: 1; }
+.bb-color__split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  flex: 1;
+}
+@media (min-width: 960px) {
+  .bb-color__split {
+    grid-template-columns: 1fr 2.2fr;
+    gap: clamp(40px, 5vw, 80px);
+  }
+}
+.bb-color__desc {
+  font-size: clamp(17px, 1.3vw, 22px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.85);
+  max-width: 360px;
+}
+.bb-color__desc p { margin: 0 0 1.1em; }
+.bb-color__desc p:last-child { margin-bottom: 0; }
+.bb-color__help {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(20px, 2.4vw, 28px);
+  padding: 8px 14px;
+  border: 1px solid rgba(5,5,5,0.2);
+  border-radius: 999px;
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 500;
+  color: rgba(5,5,5,0.7);
+  background: rgba(5,5,5,0.03);
+}
+.bb-color__help::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23050505' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='9' width='13' height='13' rx='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>");
+  opacity: 0.7;
+}
+/* Help text on the red Primary card (white version) */
+.bb-color__card--primary .bb-color__help {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.08);
+}
+.bb-color__card--primary .bb-color__help::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='9' width='13' height='13' rx='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>");
+  opacity: 0.95;
+}
+.bb-color__swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  min-height: 480px;
+}
+.bb-color__swatches--four { grid-template-columns: repeat(4, 1fr); }
+.bb-color__swatch {
+  position: relative;
+  padding: clamp(18px, 1.8vw, 28px);
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 480px;
+}
+.bb-color__swatch:hover { filter: brightness(1.05); }
+.bb-color__swatch--light { border: 1px solid rgba(5,5,5,0.12); }
+.bb-color__swatch-stop {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.35;
+  font-weight: 400;
+}
+.bb-color__swatch-stop-mark {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  margin-top: 4px;
+  border: 1px solid currentColor;
+}
+.bb-color__swatch-stop strong { font-weight: 700; display: block; margin-bottom: 2px; }
+.bb-color__swatch-stop-spacer { flex: 1; min-height: 24px; }
+.bb-color__swatch--dark .bb-color__swatch-stop { color: #FFFFFF; }
+.bb-color__swatch--dark .bb-color__swatch-stop-mark { border-color: rgba(255,255,255,0.85); }
+.bb-color__swatch--light .bb-color__swatch-stop { color: #050505; }
+.bb-color__swatch--red .bb-color__swatch-stop { color: #FFFFFF; }
+.bb-color__swatch--red .bb-color__swatch-stop-mark { border-color: #FFFFFF; }
+
+/* === BRANDBOOK V4 — LOGO APPLICATIONS FULL-BLEED === */
+.bb-logo-apps {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+.bb-logo-apps__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+.bb-logo-apps__title {
+  position: absolute;
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  bottom: clamp(40px, 6vh, 96px);
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(60px, 8.5vw, 156px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+/* === BRANDBOOK V4 — TYPOGRAPHY (white, 2-col, red panel) === */
+.bb-type {
+  background: #FFFFFF;
+  color: #050505;
+  padding: clamp(40px, 5vh, 64px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 140px);
+}
+.bb-type__inner { max-width: 1720px; margin: 0 auto; }
+.bb-type__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+.bb-type__topbar-label { color: #050505; }
+.bb-type__topbar-meta { display: flex; gap: clamp(24px, 4vw, 64px); align-items: center; }
+.bb-type__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(28px, 2.6vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: #050505;
+  margin: 0 0 clamp(40px, 6vh, 80px);
+}
+.bb-type__title span {
+  display: block;
+  width: fit-content;
+  font-weight: 600;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-type--red .bb-type__title span {
+  background: none;
+  -webkit-text-fill-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.bb-type__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 960px) {
+  .bb-type__grid {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: clamp(40px, 5vw, 96px);
+    align-items: start;
+  }
+}
+.bb-type__desc {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.82);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 44px);
+}
+.bb-type__desc p { margin: 0; }
+.bb-type__download-label {
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(5,5,5,0.82);
+  margin: 0 0 clamp(56px, 6vw, 88px);
+}
+.bb-type__download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: var(--wp--preset--font-size--p-4);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #050505;
+  background: #FFDD00;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  border-radius: 9999px;
+  padding: clamp(14px, 1vw, 18px) clamp(22px, 2.4vw, 32px);
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.bb-type__download-btn:focus,
+.bb-type__download-btn:focus-visible {
+  outline: 2px solid #050505;
+  outline-offset: 3px;
+}
+.bb-type__download-btn:hover {
+  background: #E50914;
+  color: #FFFFFF;
+}
+.bb-type__download-btn:hover::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><polyline points='7 10 12 15 17 10'/><line x1='12' y1='15' x2='12' y2='3'/></svg>");
+}
+.bb-type__download-btn:active { background: #C20810; color: #FFFFFF; }
+
+/* External link variant — arrow-up-right instead of download arrow */
+.bb-type__download-btn--external::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23050505' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><line x1='7' y1='17' x2='17' y2='7'/><polyline points='7 7 17 7 17 17'/></svg>");
+}
+.bb-type__download-btn--external:hover::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><line x1='7' y1='17' x2='17' y2='7'/><polyline points='7 7 17 7 17 17'/></svg>");
+  transform: none;
+}
+.bb-type__download-btn--external:hover { transform: translateY(-1px); }
+.bb-type__download-btn--external:hover::after { transform: translate(2px, -2px); }
+
+.bb-type__download-btn::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23050505' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><polyline points='7 10 12 15 17 10'/><line x1='12' y1='15' x2='12' y2='3'/></svg>");
+  transition: transform 0.2s ease;
+}
+.bb-type__download-btn:hover::after { transform: translateY(2px); }
+
+/* Copy variant — copy icon instead of download arrow (declarado após o
+   base pra vencer a cascata com a mesma especificidade) */
+.bb-prompt-copy::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23050505' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='9' width='13' height='13' rx='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>");
+}
+.bb-prompt-copy:hover::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='9' width='13' height='13' rx='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>");
+  transform: none;
+}
+
+.bb-type__panel {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 95% 5%, rgba(255,200,170,0.85) 0%, rgba(255,140,80,0.4) 22%, rgba(255,140,80,0) 50%),
+    linear-gradient(135deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+  border-radius: 4px;
+  padding: clamp(28px, 3vw, 48px);
+  aspect-ratio: 16 / 9;
+  min-height: clamp(360px, 44vh, 540px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+.bb-type__panel-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+.bb-type__panel-title-main {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(22px, 1.9vw, 32px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: #FFFFFF;
+}
+.bb-type__panel-title-sub {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+.bb-type__charset {
+  display: flex;
+  flex-direction: column;
+}
+.bb-type__charset-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  gap: clamp(20px, 3vw, 56px);
+  align-items: center;
+  padding: clamp(14px, 1.6vw, 22px) 0;
+  border-top: 1px solid rgba(255,255,255,0.7);
+}
+.bb-type__charset-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.7); }
+.bb-type__charset-label {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+.bb-type__charset-sample {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* === BRANDBOOK V4 — TYPOGRAPHY MORGANITE (impact / display) === */
+.bb-type__panel-headline--morganite {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(80px, 12vw, 200px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0;
+  color: #FFFFFF;
+  -webkit-text-stroke: 1.5px #FFFFFF;
+  text-stroke: 1.5px #FFFFFF;
+}
+.bb-type__panel-headline--morganite span { display: block; }
+.bb-type__panel-headline--plex {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(40px, 4.6vw, 80px);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  margin: 0;
+  color: #FFFFFF;
+}
+.bb-type__panel-headline--plex span { display: block; }
+.bb-type__panel-divider {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.6);
+  margin: 0 0 clamp(14px, 1.4vw, 20px);
+}
+.bb-type__panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: clamp(16px, 2vw, 32px);
+  color: #FFFFFF;
+}
+.bb-type__panel-foot-left--plex,
+.bb-type__panel-foot-right--plex {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.05vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0;
+}
+.bb-type__panel-foot-left--morganite,
+.bb-type__panel-foot-right--morganite {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 600;
+  font-size: clamp(26px, 2.6vw, 44px);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.bb-type__charset-sample--morganite {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(22px, 2.2vw, 36px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+/* Full-red variant (impact font character set page) */
+.bb-type--red {
+  background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+  color: #FFFFFF;
+}
+.bb-type--red .bb-type__topbar {
+  color: rgba(255,255,255,0.75);
+  border-bottom-color: rgba(255,255,255,0.45);
+}
+.bb-type--red .bb-type__topbar-label { color: #FFFFFF; }
+.bb-type--red .bb-type__title { color: #FFFFFF; }
+.bb-type--red .bb-type__panel-title-main { font-family: 'Morganite', 'Anton', sans-serif; font-weight: 700; font-size: clamp(44px, 4.2vw, 72px); letter-spacing: 0.01em; text-transform: uppercase; }
+.bb-type--red .bb-type__charset-row { border-top-color: rgba(255,255,255,0.7); }
+.bb-type--red .bb-type__charset-row:last-child { border-bottom-color: rgba(255,255,255,0.7); }
+.bb-type--red .bb-type__charset-label { color: rgba(255,255,255,0.85); font-family: 'Morganite', 'Anton', sans-serif; font-weight: 500; letter-spacing: 0.08em; font-size: clamp(15px, 1.2vw, 18px); text-transform: uppercase; }
+.bb-type--red .bb-type__charset-sample { color: #FFFFFF; }
+
+/* === BRANDBOOK V4 — PHOTOGRAPHY GUIDELINES (white, 2-col, model card) === */
+.bb-photo-guide {
+  background: #FFFFFF;
+  color: #050505;
+  padding: clamp(40px, 5vh, 64px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 140px);
+}
+.bb-photo-guide__inner { max-width: 1720px; margin: 0 auto; }
+.bb-photo-guide__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+.bb-photo-guide__topbar-label { color: #050505; }
+.bb-photo-guide__topbar-meta { display: flex; gap: clamp(24px, 4vw, 64px); align-items: center; }
+.bb-photo-guide__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(28px, 2.6vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  margin: 0 0 clamp(40px, 6vh, 72px);
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-photo-guide__title-main,
+.bb-photo-guide__title-sub { display: block; }
+.bb-photo-guide__title-sub {
+  font-weight: 400;
+  -webkit-text-fill-color: rgba(5,5,5,0.78);
+  color: rgba(5,5,5,0.78);
+  margin-top: 4px;
+}
+.bb-photo-guide__official-shots {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(24px, 3vw, 56px);
+  width: 100%;
+  min-height: clamp(360px, 60vh, 640px);
+}
+.bb-photo-guide__official-shot {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+.bb-photo-guide__official-shot--big {
+  width: clamp(220px, 34vw, 480px);
+  height: auto;
+}
+.bb-photo-guide__official-shot--mini {
+  width: clamp(110px, 16vw, 220px);
+  height: auto;
+}
+.bb-photo-guide__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 960px) {
+  .bb-photo-guide__grid {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: clamp(40px, 5vw, 96px);
+    align-items: start;
+  }
+}
+.bb-photo-guide__desc {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.82);
+}
+.bb-photo-guide__desc p { margin: 0; }
+.bb-photo-guide__desc { display: flex; flex-direction: column; gap: clamp(16px, 1.6vw, 24px); }
+.bb-photo-guide__spec {
+  display: block;
+  width: clamp(200px, 22vw, 320px);
+  flex-shrink: 0;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+}
+.bb-photo-guide__model {
+  position: relative;
+  min-height: clamp(460px, 68vh, 720px);
+  background: transparent;
+  overflow: visible;
+}
+.bb-photo-guide__model-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 86%;
+  background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+  border-radius: 4px;
+  z-index: 1;
+}
+.bb-photo-guide__model-img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: 78%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 2;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25));
+}
+
+/* === BRANDBOOK V4 — PHOTOGRAPHY TABS (Luz / Figurino / Acting) === */
+.bb-photo-tabs {
+  background: #FFFFFF;
+  color: #050505;
+  padding: clamp(40px, 5vh, 64px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 140px);
+}
+.bb-photo-tabs__inner { max-width: 1720px; margin: 0 auto; }
+.bb-photo-tabs__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+.bb-photo-tabs__topbar-label { color: #050505; }
+.bb-photo-tabs__topbar-meta { display: flex; gap: clamp(24px, 4vw, 64px); align-items: center; }
+
+.bb-photo-tabs__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 24px);
+  margin-bottom: clamp(40px, 6vh, 80px);
+  padding-bottom: clamp(20px, 3vh, 36px);
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+}
+.bb-photo-tabs__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(36px, 2.8vw, 44px);
+  height: clamp(36px, 2.8vw, 44px);
+  border-radius: 50%;
+  border: 1px solid rgba(5,5,5,0.25);
+  background: transparent;
+  cursor: pointer;
+  color: #050505;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.bb-photo-tabs__arrow:hover {
+  background: #050505;
+  border-color: #050505;
+  color: #FFFFFF;
+}
+.bb-photo-tabs__arrow:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 2px;
+}
+.bb-photo-tabs__arrow svg { width: 16px; height: 16px; display: block; }
+.bb-photo-tabs__tabs-group { display: flex; align-items: center; }
+.bb-photo-tabs__tab {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 500;
+  color: rgba(5,5,5,0.45);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px clamp(18px, 2.4vw, 36px);
+  transition: color 0.25s ease;
+  position: relative;
+}
+.bb-photo-tabs__tab:hover { color: rgba(5,5,5,0.75); }
+.bb-photo-tabs__tab.is-active { color: #050505; font-weight: 600; }
+.bb-photo-tabs__tab + .bb-photo-tabs__tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 18px;
+  background: rgba(5,5,5,0.25);
+}
+
+.bb-photo-tabs__panels {
+  position: relative;
+  min-height: clamp(460px, 68vh, 760px);
+}
+@media (min-width: 960px) {
+  .bb-photo-tabs__panels {
+    margin-right: calc(-1 * max(clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem), (100vw - 1720px) / 2));
+  }
+  .bb-photo-tabs__media { border-radius: 4px 0 0 4px; }
+}
+.bb-photo-tabs__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0.5s;
+}
+.bb-photo-tabs__panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0s;
+}
+@media (min-width: 960px) {
+  .bb-photo-tabs__panel {
+    grid-template-columns: minmax(200px, 280px) 1fr;
+    gap: clamp(32px, 4vw, 72px);
+    align-items: start;
+  }
+}
+.bb-photo-tabs__content { display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 32px); }
+.bb-photo-tabs__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(36px, 4vw, 64px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-photo-tabs__desc {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.82);
+  margin: 0;
+}
+.bb-photo-tabs__media {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f4f4f2;
+  aspect-ratio: 16 / 10;
+  min-height: clamp(420px, 64vh, 720px);
+}
+.bb-photo-tabs__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* === BRANDBOOK V4 — GRAFISMOS GLASS GUIDE (white, 2-col with red panel) === */
+.bb-glass {
+  background: #FFFFFF;
+  color: #050505;
+  padding: clamp(40px, 5vh, 64px) clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem) clamp(80px, 12vh, 140px);
+}
+.bb-glass__inner { max-width: 1720px; margin: 0 auto; }
+.bb-glass__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(5,5,5,0.55);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(5,5,5,0.2);
+  margin-bottom: clamp(24px, 4vw, 48px);
+}
+.bb-glass__topbar-label { color: #050505; }
+.bb-glass__topbar-meta { display: flex; gap: clamp(24px, 4vw, 64px); align-items: center; }
+
+/* Oculta os números de página nos topbars das seções */
+.bb-glass__topbar-meta span:nth-child(2),
+.bb-type__topbar-meta span:nth-child(2),
+.bb-photo-guide__topbar-meta span:nth-child(2),
+.bb-photo-tabs__topbar-meta span:nth-child(2),
+.bb-tov__topbar-meta span:nth-child(2),
+.bb-vp__header-meta span:nth-child(2),
+.bb-color__topbar > span:last-child,
+.bb-perso__topbar-num {
+  display: none;
+}
+.bb-glass__title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(28px, 2.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  padding-bottom: 0.12em;
+  margin: 0 0 clamp(40px, 6vh, 72px);
+  width: fit-content;
+}
+.bb-glass__title:not(:has(> span)),
+.bb-glass__title > span:first-child {
+  width: fit-content;
+  background: linear-gradient(to left, #FB2E0A 0%, #E50914 25%, #7A0A02 70%, #560303 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.bb-glass__title > span:nth-child(n+2) {
+  -webkit-text-fill-color: rgba(5,5,5,0.78);
+  color: rgba(5,5,5,0.78);
+}
+.bb-glass__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 960px) {
+  .bb-glass__grid {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: clamp(40px, 5vw, 96px);
+    align-items: start;
+  }
+}
+.bb-glass__desc {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: rgba(5,5,5,0.82);
+}
+.bb-glass__desc p { margin: 0 0 14px; }
+.bb-glass__desc p:last-child { margin-bottom: 0; }
+
+.bb-glass__panel {
+  position: relative;
+  background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+  border-radius: 4px;
+  padding: clamp(32px, 3.4vw, 56px) clamp(28px, 3vw, 48px);
+  min-height: clamp(520px, 72vh, 780px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+@media (min-width: 760px) {
+  .bb-glass__panel {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: clamp(28px, 3.4vw, 56px);
+    align-items: start;
+  }
+}
+.bb-glass__figma {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.bb-glass__figma-numbers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 18%;
+  padding-bottom: 4%;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+.bb-glass__figma-numbers span { display: block; }
+.bb-glass__figma-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 4px;
+  background: #FFFFFF;
+}
+.bb-glass__effects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 2.8vw, 40px) clamp(24px, 3vw, 48px);
+}
+@media (min-width: 760px) {
+  .bb-glass__effects { grid-template-columns: 1fr 1fr; }
+}
+.bb-glass__effect-title {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 12px;
+  letter-spacing: -0.005em;
+}
+.bb-glass__effect-list {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.88);
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+.bb-glass__effect-list li { margin: 0; }
+
+/* Variant: panel as full-cover image (Reverberação) */
+.bb-glass__panel--image {
+  display: block;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+}
+.bb-glass__panel-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(420px, 64vh, 720px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+}
+
+/* Variant: image background with overlay card (AI prompt guidance) */
+.bb-glass__panel--image-card {
+  display: block;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  position: relative;
+  min-height: clamp(480px, 70vh, 760px);
+}
+.bb-glass__panel--image-card .bb-glass__panel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.bb-glass__overlay-card {
+  position: absolute;
+  right: clamp(20px, 2.4vw, 36px);
+  bottom: clamp(20px, 2.4vw, 36px);
+  max-width: 540px;
+  width: calc(100% - clamp(40px, 4.8vw, 72px));
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  padding: clamp(20px, 2.2vw, 32px);
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.55;
+  color: #050505;
+}
+.bb-glass__overlay-card-title {
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #050505;
+  margin: 0 0 clamp(14px, 1.6vw, 22px);
+}
+.bb-glass__overlay-card-group { margin: 0 0 clamp(12px, 1.4vw, 18px); }
+.bb-glass__overlay-card-group:last-child { margin-bottom: 0; }
+.bb-glass__overlay-card-group strong {
+  display: block;
+  font-weight: 700;
+  color: #050505;
+  margin-bottom: 4px;
+}
+.bb-glass__overlay-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bb-glass__overlay-card-list li { margin: 0; color: rgba(5,5,5,0.85); }
+
+/* Texto sobre fundo panel — wider image, narrower description */
+#text_on_background .bb-glass__grid {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 960px) {
+  #text_on_background .bb-glass__grid {
+    grid-template-columns: minmax(180px, 240px) 1fr;
+    gap: clamp(28px, 3vw, 56px);
+  }
+}
+.bb-text-bg__panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 1.8vw, 24px);
+  min-height: auto;
+  width: 100%;
+}
+.bb-text-bg__headers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2vw, 32px);
+}
+.bb-text-bg__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(5,5,5,0.85);
+}
+.bb-text-bg__img {
+  position: static !important;
+  min-height: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* Contrast guide legend (Cores — Guia de contraste) */
+.bb-glass__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: clamp(28px, 3.4vw, 48px);
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(5,5,5,0.78);
+  line-height: 1.35;
+}
+.bb-glass__legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.bb-glass__legend-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid currentColor;
+  font-size: 12px;
+  font-weight: 700;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+}
+.bb-glass__legend-icon--ok {
+  color: #0E8420;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E8420' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+}
+.bb-glass__legend-icon--warn { color: #FF8A00; }
+.bb-glass__legend-icon--ko {
+  color: #E50914;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+}
+
+/* Variant: image inside a bordered box, white bg (Logo usos indevidos) */
+.bb-glass__panel--bordered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 4vw, 80px);
+  background: transparent;
+  overflow: hidden;
+  border: 1px solid rgba(5,5,5,0.45);
+  border-radius: 0;
+  min-height: clamp(360px, 56vh, 560px);
+}
+.bb-glass__panel--bordered .bb-glass__panel-img {
+  position: static;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Variant: image panel with dark background (Ícones) */
+.bb-glass__panel--dark-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 4vw, 80px);
+  background: #1a0303;
+  overflow: hidden;
+  position: relative;
+  min-height: clamp(460px, 70vh, 760px);
+}
+.bb-glass__panel--dark-image .bb-glass__panel-img {
+  position: static;
+  inset: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+/* Compact variant — used in the Ícones Sistema section */
+.bb-glass__panel--compact {
+  min-height: clamp(320px, 48vh, 520px);
+}
+
+/* Inspirational alert (used in AI section) */
+.bb-glass__alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: clamp(20px, 2.4vw, 32px);
+  font-size: clamp(12px, 0.9vw, 13px);
+  line-height: 1.5;
+  color: #E50914;
+}
+.bb-glass__alert-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid #E50914;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 12px;
+  color: #E50914;
+}
+
+/* Desc with internal h4 subtitles (used in AI section) */
+.bb-glass__desc h4 {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 700;
+  color: #050505;
+  margin: 0 0 6px;
+  letter-spacing: -0.005em;
+}
+.bb-glass__desc-block { margin-bottom: clamp(18px, 2vw, 28px); }
+.bb-glass__desc-block:last-of-type { margin-bottom: 0; }
+.bb-glass__desc-block p { margin: 0; }
+
+/* === BRANDBOOK V4 — GRAFISMOS FULL-BLEED === */
+.bb-graphics-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050505;
+  margin: 0;
+  padding: 0;
+}
+.bb-graphics-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+.bb-graphics-hero__title {
+  position: absolute;
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  bottom: clamp(40px, 6vh, 96px);
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(52px, 8.6vw, 156px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+/* === BRANDBOOK V4 — PHOTOGRAPHY FULL-BLEED === */
+.bb-photo-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050505;
+  margin: 0;
+  padding: 0;
+}
+.bb-photo-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+.bb-photo-hero__caption {
+  position: absolute;
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  bottom: clamp(40px, 6vh, 96px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(14px, 1.6vw, 22px);
+  z-index: 2;
+}
+.bb-photo-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.bb-photo-hero__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(52px, 8.6vw, 156px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+
+/* === BRANDBOOK V4 — VISUAL IDENTITY FULL-BLEED === */
+.bb-vi-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050505;
+  margin: 0;
+  padding: 0;
+}
+.bb-vi-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+.bb-vi-hero__title {
+  position: absolute;
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  bottom: clamp(40px, 6vh, 96px);
+  max-width: 1500px;
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(52px, 8.6vw, 156px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+/* === BRANDBOOK V4 — POSITIONING FULL-BLEED === */
+.bb-positioning-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050505;
+  margin: 0;
+  padding: 0;
+}
+.bb-positioning-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+.bb-positioning-hero__title {
+  position: absolute;
+  left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  bottom: clamp(40px, 6vh, 96px);
+  max-width: 1720px;
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(72px, 12vw, 240px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.9;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+.bb-positioning-hero__title > span {
+  display: block;
+  margin-bottom: 0.12em;
+}
+.bb-positioning-hero__title > span:last-child {
+  margin-bottom: 0;
+}
+.bb-positioning-hero__logo {
+  position: absolute;
+  top: clamp(28px, 4vh, 56px);
+  right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  width: clamp(48px, 4.5vw, 80px);
+  height: auto;
+  display: block;
+  z-index: 2;
+}
+
+/* === BRANDBOOK V4 — HERO CTA BUTTON (yellow, overrides WP defaults) === */
+.bb-hero-cta-wrap { --hover-color: #E50914; }
+.wp-block-button .bb-hero-cta,
+.wp-block-button .bb-hero-cta.wp-element-button {
+  background: #FFDD00 !important;
+  background-color: #FFDD00 !important;
+  color: #050505 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.wp-block-button .bb-hero-cta:hover,
+.wp-block-button .bb-hero-cta.wp-element-button:hover,
+.wp-block-button:hover .bb-hero-cta {
+  background: #E50914 !important;
+  background-color: #E50914 !important;
+  color: #FFFFFF !important;
+}
+.wp-block-button .bb-hero-cta:active,
+.wp-block-button .bb-hero-cta.wp-element-button:active {
+  background: #C20810 !important;
+  background-color: #C20810 !important;
+  color: #FFFFFF !important;
+}
+/* Neutralize the orange circle-wipe on hero CTA */
+.wp-block-button .bb-hero-cta::after { display: none !important; }
+
+/* === BRANDBOOK V4 — HERO FULL-BLEED IMAGE === */
+.bb-brand-hero-image {
+  background-image: url('assets/Fueto.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* === BRANDBOOK V4 — HEADLINE SCRAMBLE (count-up de letras) === */
+.bb-headline-scramble,
+.bb-scramble { visibility: hidden; }
+.bb-headline-scramble.is-ready,
+.bb-scramble.is-ready { visibility: visible; }
+.bb-scramble-char {
+  display: inline-block;
+  white-space: pre;
+  color: #FDFF87;
+  -webkit-text-fill-color: #FDFF87;
+  opacity: 0.65;
+  transform: translateY(0.04em);
+  transition: color .18s ease, opacity .18s ease, transform .25s ease, text-shadow .25s ease;
+  will-change: contents, color, opacity, transform;
+}
+.bb-scramble-char--locked {
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+  opacity: 1;
+  transform: translateY(0);
+  text-shadow: 0 0 0 transparent;
+  animation: bbScrambleLockFlash .32s ease-out;
+}
+@keyframes bbScrambleLockFlash {
+  0%   { text-shadow: 0 0 14px rgba(253,255,135,0.85); }
+  60%  { text-shadow: 0 0 6px  rgba(253,255,135,0.35); }
+  100% { text-shadow: 0 0 0    rgba(253,255,135,0);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bb-scramble-char { color: inherit; -webkit-text-fill-color: inherit; opacity: 1; transform: none; transition: none; }
+  .bb-scramble-char--locked { animation: none; }
+}
+
+/* === BRANDBOOK V4 — BRAND STATEMENT === */
+.bb-manifesto {
+  background: #DD0913;
+  padding-top: clamp(72px, 10vh, 140px);
+  padding-bottom: clamp(72px, 10vh, 140px);
+  overflow: hidden;
+  position: relative;
+}
+.bb-manifesto__inner {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 960px) {
+  .bb-manifesto__inner {
+    grid-template-columns: 1.45fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+}
+.bb-manifesto__label {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  margin: 0 0 clamp(20px, 3vw, 36px);
+}
+.bb-manifesto__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-size: clamp(72px, 12vw, 220px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.9;
+  color: #7A0A02;
+  margin: 0;
+}
+.bb-manifesto__title span {
+  display: block;
+  margin-bottom: 0.18em;
+}
+.bb-manifesto__title span:last-child {
+  margin-bottom: 0;
+}
+.bb-manifesto__title em {
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+.bb-manifesto__title-img {
+  display: block;
+  width: 100%;
+  max-width: clamp(320px, 60vw, 720px);
+  height: auto;
+  margin: 0;
+}
+
+/* Centered variant — only the logo, perfectly centered */
+.bb-manifesto--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+}
+.bb-manifesto--centered .bb-manifesto__title-img {
+  width: auto;
+  max-width: min(1200px, 80vw);
+  max-height: 60vh;
+  margin: 0 auto;
+}
+.bb-manifesto__body {
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-size: clamp(18px, 1.4vw, 24px);
+  line-height: 1.5;
+  color: #FFFFFF;
+  padding-top: clamp(8px, 1.2vw, 18px);
+}
+.bb-manifesto__body p {
+  margin: 0 0 1.3em;
+}
+.bb-manifesto__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* =====================================================================
+   BRANDBOOK V4 — MOBILE OVERRIDES (max-width: 720px)
+   1) Color cards: desativa sticky-stack + reordena (título → cores → texto)
+   2) Quebra-de-seção: encolhe full-bleed hero pra caber no viewport mobile
+   3) Imagens verticais (grafismos, ícones, logo indevido, contraste):
+      vira proporção horizontal (aspect-ratio 4/3) ao invés de vertical longa
+   4) Hint de cursor pra indicar que a imagem amplia no tap
+   ===================================================================== */
+@media (max-width: 720px) {
+  /* ── COR (color palette) — sem sticky no mobile ── */
+  .bb-color__card {
+    position: static;
+    min-height: 0;
+    padding: clamp(28px, 4vh, 48px) clamp(1.25rem, 5vw, 1.75rem) clamp(40px, 6vh, 64px);
+  }
+  .bb-color__title { margin-bottom: clamp(20px, 3vh, 28px); }
+
+  /* Reordena split: título já vem fora do split (acima); dentro do split,
+     bloco de cor primeiro, descrição depois */
+  .bb-color__split {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 28px);
+  }
+  .bb-color__split > .bb-color__desc { order: 2; }
+  .bb-color__split > .bb-color__cols,
+  .bb-color__split > .bb-color__cta-grid,
+  .bb-color__split > .bb-color__gradients,
+  .bb-color__split > .bb-color__proportion-wrap,
+  .bb-color__split > .bb-color__system { order: 1; }
+
+  /* Sistema cromático no mobile — alturas reduzidas pra caber */
+  .bb-color__system {
+    grid-template-rows: minmax(180px, 30vh) minmax(100px, 16vh) minmax(32px, 5vh);
+  }
+
+  /* CTA blocks (verde + amarelo) — mantém lado a lado pra ver os dois sem rolar */
+  .bb-color__cta-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bb-color__cta-block,
+  .bb-color__cta-block.bb-color-copy {
+    min-height: 0;
+    padding: clamp(14px, 4vw, 20px);
+  }
+  .bb-color__cta-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-bottom: clamp(12px, 2vw, 18px);
+  }
+  .bb-color__cta-codes {
+    font-size: clamp(11px, 3vw, 13px);
+    gap: 4px;
+  }
+  .bb-color__cta-codes div { gap: 4px; flex-wrap: wrap; }
+
+  /* Cores secundárias (4 colunas) viram grid 2x2 mais legível */
+  .bb-color__cols--four { grid-template-columns: 1fr 1fr; }
+  .bb-color__col { min-height: clamp(160px, 26vh, 220px); }
+
+  /* Card primário (vermelho V4): ajusta tamanho do statement pra caber */
+  .bb-color__primary-body { gap: 28px; }
+  .bb-color__statement { font-size: clamp(56px, 14vw, 80px); }
+
+  /* Proporção: barra mais curta e legendas empilhadas */
+  .bb-color__proportion-bar { height: clamp(180px, 30vh, 240px); }
+  .bb-color__proportion-legends { flex-direction: column; gap: 12px; }
+  .bb-color__proportion-legend { padding-top: 14px; }
+
+  /* ── QUEBRA DE SEÇÃO (full-bleed heros) — caber no viewport mobile ── */
+  .bb-graphics-hero,
+  .bb-photo-hero,
+  .bb-vi-hero,
+  .bb-positioning-hero,
+  .bb-logo-apps {
+    min-height: 56vh;
+  }
+  .bb-graphics-hero__img,
+  .bb-photo-hero__img,
+  .bb-vi-hero__img,
+  .bb-positioning-hero__img,
+  .bb-logo-apps__img {
+    min-height: 56vh;
+    height: 56vh;
+  }
+  /* Logo aplicações: usa contain pra mostrar a composição inteira (não cortar) */
+  .bb-logo-apps { background: #050505; }
+  .bb-logo-apps__img { object-fit: contain; }
+
+  /* ── IMAGENS VERTICAIS DOS PAINÉIS GLASS (grafismos, ícones, logo indevido, contraste) ── */
+  .bb-glass__panel--image,
+  .bb-glass__panel--dark-image,
+  .bb-glass__panel--bordered {
+    min-height: 0;
+    padding: 0;
+  }
+  .bb-glass__panel--image .bb-glass__panel-img,
+  .bb-glass__panel--dark-image .bb-glass__panel-img,
+  .bb-glass__panel--bordered .bb-glass__panel-img {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
+  /* Texto sobre fundo: mantém o aspecto que já funcionou no mobile */
+  #text_on_background .bb-glass__panel--image .bb-glass__panel-img {
+    aspect-ratio: auto;
+    height: auto;
+  }
+  /* Painel "image-card" (IA Liquid Glass) — overlay vira full width */
+  .bb-glass__panel--image-card { min-height: 0; aspect-ratio: 4 / 5; }
+  .bb-glass__overlay-card {
+    position: static;
+    inset: auto;
+    width: 100%;
+    max-width: none;
+    margin-top: clamp(16px, 3vw, 24px);
+  }
+
+  /* ── HINT visual: imagem amplia no tap ── */
+  .bb-glass__panel-img,
+  .bb-glass__figma-img,
+  .bb-graphics-hero__img,
+  .bb-photo-hero__img,
+  .bb-vi-hero__img,
+  .bb-positioning-hero__img,
+  .bb-logo-apps__img,
+  .bb-perso__media img {
+    cursor: zoom-in;
+  }
+
+  /* ── ORDEM MOBILE: imagem antes do texto em TODOS os painéis ──
+     Padrão definido pelo usuário (ref. bb-perso que ficou bom): visual primeiro,
+     texto + botão depois. Aplica em todas as seções de glass, tipografia,
+     fotografia (guidelines + tabs) e logo. ──── */
+
+  /* Glass panels (grafismos, ícones, logo indevido, logo principal,
+     guia de contraste, texto sobre fundo) */
+  .bb-glass__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 4vw, 36px);
+  }
+  .bb-glass__grid > .bb-glass__desc { order: 2; }
+  .bb-glass__grid > .bb-glass__panel { order: 1; }
+
+  /* Tipografia (IBM Plex + Morganite) */
+  .bb-type__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 4vw, 36px);
+  }
+  .bb-type__grid > .bb-type__desc { order: 2; }
+  .bb-type__grid > .bb-type__panel { order: 1; }
+  /* Painel de tipografia mais curto no mobile pra não dominar a tela */
+  .bb-type__panel { min-height: clamp(360px, 56vh, 520px); padding: clamp(24px, 6vw, 36px); }
+
+  /* Photography guidelines (Diretrizes — model em fundo gradiente) */
+  .bb-photo-guide__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 4vw, 36px);
+  }
+  .bb-photo-guide__grid > .bb-photo-guide__desc { order: 2; }
+  .bb-photo-guide__grid > .bb-photo-guide__model,
+  .bb-photo-guide__grid > .bb-photo-guide__official-shots { order: 1; }
+  .bb-photo-guide__model { min-height: clamp(380px, 56vh, 480px); }
+  .bb-photo-guide__official-shots {
+    min-height: 0;
+    gap: clamp(16px, 4vw, 28px);
+    justify-content: center;
+  }
+  .bb-photo-guide__official-shot--big { width: clamp(220px, 60vw, 360px); }
+  .bb-photo-guide__official-shot--mini { width: clamp(80px, 22vw, 140px); }
+
+  /* Photography tabs (Luz / Figurino / Acting) — abandona o absolute
+     no mobile pra (a) não estourar o min-height e grudar na próxima seção,
+     (b) permitir reordenar com order. Apenas o painel ativo aparece. */
+  .bb-photo-tabs__panels { min-height: 0; }
+  .bb-photo-tabs__panel {
+    position: relative;
+    display: none;
+    transform: none;
+    transition: none;
+  }
+  .bb-photo-tabs__panel.is-active {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 4vw, 32px);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+  .bb-photo-tabs__panel > .bb-photo-tabs__content { order: 2; }
+  .bb-photo-tabs__panel > .bb-photo-tabs__media { order: 1; }
+  .bb-photo-tabs__media {
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    height: auto;
+  }
+  /* Gap extra entre tabs de fotografia e o próximo bloco (grafismos),
+     evitando o "colado" reportado pelo usuário */
+  .bb-photo-tabs { padding-bottom: clamp(64px, 12vh, 96px); }
+}
+
+/* =====================================================================
+   BRANDBOOK V4 — MOBILE IMAGE LIGHTBOX (tap to zoom)
+   Overlay full-screen acionado pelo JS bbMobileLightbox().
+   Visível em qualquer breakpoint — JS só ativa o handler em mobile.
+   ===================================================================== */
+.bb-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.94);
+  z-index: 10001;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.bb-lightbox.is-open { display: flex; opacity: 1; }
+.bb-lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.bb-lightbox__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  border-radius: 9999px;
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: var(--wp--preset--font-family--pp-telegraf);
+  font-weight: 400;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.bb-lightbox__close:hover { background: rgba(255, 255, 255, 0.28); }
+body.bb-lightbox-open { overflow: hidden; }
+
 /* === FOOTER MINIMALISTA — Inimigos da Inércia em itálico === */
 .ee-footer {
   background: #000000;
@@ -3576,7 +6620,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   overflow: visible; /* sticky precisa de ancestral sem overflow:hidden */
 }
 .ee-roadmap__inner {
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 .ee-roadmap__heading {
@@ -3596,25 +6640,17 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   gap: 0;
   align-items: stretch;
-  justify-content: stretch;
-  flex-wrap: nowrap;
-  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
   margin: 0 0 clamp(64px, 8vh, 110px);
-  overflow-x: auto;            /* mobile: rola horizontal em vez de quebrar */
-  scrollbar-width: none;        /* Firefox */
 }
-.ee-roadmap__tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 .ee-roadmap__tab {
-  flex: 1 1 0;                  /* cada tab cresce igual pra preencher a largura */
-  min-width: max-content;       /* não encolhe além do texto */
-  text-align: center;
-  white-space: nowrap;
   background: transparent;
   border: none;
   border-radius: 12px;
-  padding: clamp(12px, 1.6vh, 20px) clamp(16px, 2vw, 32px);
+  padding: clamp(14px, 1.8vh, 22px) clamp(24px, 3vw, 44px);
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(15px, 1.3vw, 20px);
+  font-size: clamp(16px, 1.5vw, 22px);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   letter-spacing: -0.01em;
@@ -3633,12 +6669,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 /* Tab ativo: gradient brand vermelho + texto branco, divisores adjacentes some */
 .ee-roadmap__tab.is-active {
-  background: #FFDD00;
-  color: #280000;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  color: #FFFFFF;
   border-left-color: transparent;
-  box-shadow: 0 8px 24px rgba(255, 221, 0, 0.32);
+  box-shadow: 0 8px 24px rgba(251, 46, 10, 0.28);
 }
-.ee-roadmap__tab.is-active strong { color: #280000; }
+.ee-roadmap__tab.is-active strong { color: #FFFFFF; }
 .ee-roadmap__tab.is-active + .ee-roadmap__tab {
   border-left-color: transparent;
 }
@@ -3650,7 +6686,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Setas de navegação (← / →) */
 .ee-roadmap__arrow {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   width: clamp(38px, 3vw, 46px);
@@ -3820,65 +6855,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 @media (min-width: 960px) {
   /* coluna única + gap menor entre headline/intro e a imagem dos entregáveis */
   .ee-roadmap__week--image { grid-template-columns: 1fr; gap: clamp(12px, 1.4vw, 22px); }
-  /* Painel EXECUTAR: 2 colunas — texto à esquerda, imagem à direita */
-  #ee-roadmap-panel-5.ee-roadmap__week--image {
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(28px, 4vw, 64px);
-    align-items: center;
-  }
-  #ee-roadmap-panel-5 .ee-roadmap__intro {
-    margin-bottom: 0;
-    font-size: clamp(18px, 1.7vw, 26px);
-    max-width: 560px;
-    line-height: 1.45;
-  }
 }
 .ee-roadmap__week--image .ee-roadmap__media-inner { max-width: none; }
 /* o intro não precisa de margem extra embaixo: a imagem já vem logo abaixo */
 .ee-roadmap__week--image .ee-roadmap__intro { margin-bottom: 0; }
-/* Executar: imagem limitada em altura pra não dominar o painel */
-#ee-roadmap-panel-5 .ee-roadmap__media-inner img {
-  border-radius: 14px;
-  max-height: 60vh;
-  object-fit: cover;
-}
-/* Executar: título em destaque — Morganite, caixa alta, grande */
-.ee-roadmap__title--exec {
-  font-family: 'Morganite', 'Anton', sans-serif;
-  font-weight: 700;
-  font-size: clamp(64px, 9vw, 140px);
-  line-height: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  color: #FFFFFF;
-  margin: 0 0 clamp(14px, 1.6vh, 22px);
-}
-/* Lista de pilares do Executar (bullets com check) */
-.ee-roadmap__exec-list {
-  list-style: none;
-  margin: clamp(20px, 2.4vh, 32px) 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 1.4vh, 18px);
-}
-.ee-roadmap__exec-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(16px, 1.4vw, 22px);
-  font-weight: 600;
-  color: #FFFFFF;
-  letter-spacing: -0.01em;
-}
-.ee-roadmap__exec-list svg {
-  flex-shrink: 0;
-  width: clamp(20px, 1.6vw, 24px);
-  height: clamp(20px, 1.6vw, 24px);
-  stroke-width: 2;
-  color: #FB2E0A;
-}
 
 /* Semana 3 (variantes por modelo de vendas) — exibe a imagem dos entregáveis
    em largura cheia, igual às semanas com imagem */
@@ -4139,7 +7119,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   isolation: isolate;
   overflow: hidden;
 }
-.ee-handoff__phase--executar > * {
+/* Camada 1 — blur leve do que está atrás (efeito vidro fosco) */
+.ee-glass-distort {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+          backdrop-filter: blur(16px) saturate(160%);
+}
+/* Camada 2 — "casca" de vidro com 9 box-shadows (8 inset brancos + 1 externo) */
+.ee-glass-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.03),
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.09),
+    inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
+    inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
+    0 0 12px rgba(0, 0, 0, 0.15);
+}
+/* Camada 3 — conteúdo (z-index acima das camadas de glass) */
+.ee-handoff__phase--executar > *:not(.ee-glass-distort):not(.ee-glass-shell) {
   position: relative;
   z-index: 1;
 }
@@ -4717,141 +7726,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   object-fit: contain;
   object-position: left center;
   margin: 0 0 0 -60px; /* compensa o padding transparente embutido no PNG */
-}
-
-/* === 4 PRICE CARDS (Pack S / M / L / XL) lado a lado === */
-.ee-packs {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(16px, 1.6vw, 24px);
-  align-items: stretch;
-}
-@media (min-width: 680px)  { .ee-packs { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1080px) { .ee-packs { grid-template-columns: repeat(4, 1fr); } }
-
-.ee-packs__card {
-  display: flex;
-  flex-direction: column;
-  background: #FFFFFF;
-  border: 1px solid rgba(40, 0, 0, 0.1);
-  border-radius: 20px;
-  padding: clamp(20px, 1.8vw, 28px);
-  position: relative;
-}
-/* Card em destaque (Pack S — "Popular") */
-.ee-packs__card--featured {
-  border-color: rgba(229, 9, 20, 0.5);
-  box-shadow: 0 12px 32px rgba(229, 9, 20, 0.12);
-}
-
-/* Cabeçalho: pill do pack + (opcional) Popular */
-.ee-packs__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: clamp(14px, 1.4vw, 20px);
-}
-.ee-packs__badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 14px;
-  border-radius: 9999px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 14px);
-  font-weight: 700;
-  letter-spacing: -0.005em;
-}
-.ee-packs__badge--s  { background: #FFE7D6; color: #C2410C; }
-.ee-packs__badge--m  { background: #DBEAFE; color: #1D4ED8; }
-.ee-packs__badge--l  { background: #DCFCE7; color: #15803D; }
-.ee-packs__badge--xl { background: #EDE4FB; color: #7E22CE; }
-.ee-packs__popular {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
-  color: #FFFFFF;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(11px, 0.85vw, 13px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.ee-packs__title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(17px, 1.4vw, 21px);
-  font-weight: 700;
-  color: #280000;
-  margin: 0 0 clamp(8px, 0.9vw, 12px);
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-}
-.ee-packs__desc {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 1.02vw, 15px);
-  font-weight: 400;
-  color: rgba(5, 5, 5, 0.6);
-  margin: 0 0 clamp(14px, 1.4vw, 20px);
-  line-height: 1.45;
-  letter-spacing: -0.005em;
-}
-.ee-packs__range {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 6px 14px;
-  background: rgba(40, 0, 0, 0.05);
-  border-radius: 8px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(12px, 0.95vw, 14px);
-  font-weight: 500;
-  color: rgba(5, 5, 5, 0.7);
-  margin-bottom: clamp(12px, 1.2vw, 16px);
-  letter-spacing: -0.005em;
-}
-.ee-packs__price {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(26px, 2.4vw, 36px);
-  font-weight: 700;
-  color: #280000;
-  margin: 0 0 clamp(18px, 1.8vw, 26px);
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-.ee-packs__price span {
-  font-size: clamp(13px, 1vw, 15px);
-  font-weight: 400;
-  color: rgba(5, 5, 5, 0.5);
-  letter-spacing: -0.005em;
-}
-.ee-packs__features {
-  list-style: none;
-  margin: 0;
-  padding: clamp(16px, 1.6vw, 22px) 0 0;
-  border-top: 1px solid rgba(40, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 1.2vw, 16px);
-}
-.ee-packs__features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 1.02vw, 15px);
-  font-weight: 400;
-  color: rgba(5, 5, 5, 0.82);
-  line-height: 1.4;
-  letter-spacing: -0.005em;
-}
-.ee-packs__features svg {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  stroke-width: 2;
-  color: #E50914;
-  margin-top: 1px;
 }
 
 /* E.E sozinho não é bundle → esconde o header e o rodapé (Social Media + CTA) do bundle */
@@ -6828,19 +9702,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <!-- EXECUTAR (fase contínua após as 4 semanas) -->
     <article class="ee-roadmap__week ee-roadmap__week--image" role="tabpanel" id="ee-roadmap-panel-5" aria-labelledby="ee-roadmap-tab-5">
       <div class="ee-roadmap__content">
-        <h3 class="ee-roadmap__title ee-roadmap__title--exec">EXECUTAR</h3>
-        <p class="ee-roadmap__intro">A operação contínua que <strong>coloca o seu Setup pra rodar</strong> — todos os dias, sem reabrir diagnóstico nem reaprender o negócio.</p>
-        <ul class="ee-roadmap__exec-list">
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Gestão de mídia</li>
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos</li>
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Dashboards</li>
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Time dedicado</li>
-        </ul>
-      </div>
-      <div class="ee-roadmap__media">
-        <div class="ee-roadmap__media-inner" data-week="5">
-          <img src="assets/Garantiaexecutar.png" alt="Executar — operação contínua da V4 após a Estruturação Estratégica"/>
-        </div>
+        <h3 class="ee-roadmap__title">Executar</h3>
+        <p class="ee-roadmap__intro">A operação contínua que coloca o plano da Estruturação Estratégica pra rodar — <strong>gestão de mídia, criativos, dashboards e time dedicado</strong>, todos os dias.</p>
       </div>
     </article>
 
@@ -7006,98 +9869,100 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <p class="ee-pricing__bundle-desc">A Estruturação Estratégica monta o plano. O Pack do Executar coloca em operação. Contratando os dois juntos, com Executar por no mínimo 6 meses, <strong>você desbloqueia o desconto na contratação combinada.</strong></p>
         </header>
 
-        <!-- 4 price cards (Pack S / M / L / XL) lado a lado -->
-        <div class="ee-packs">
+        <!-- Layout horizontal: sidebar de soluções à esquerda, detalhes à direita -->
+        <div class="ee-pricing__pack-layout">
 
-          <!-- PACK S -->
-          <article class="ee-packs__card ee-packs__card--featured">
-            <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--s">Pack S</span>
-              <span class="ee-packs__popular">Popular</span>
+        <!-- Seletor: E.E (sozinho) + os 4 packs do bundle (S / M / L / XL) -->
+        <div class="ee-pricing__pack-tabs" role="tablist" aria-label="Soluções disponíveis">
+          <button type="button" role="tab" class="ee-pricing__pack-tab ee-pricing__pack-tab--ee" data-pack-size="ee" aria-selected="false" aria-controls="ee-pack-detail-ee" id="ee-pack-tab-ee" tabindex="-1">E.E</button>
+          <button type="button" role="tab" class="ee-pricing__pack-tab is-active" data-pack-size="s" aria-selected="true" aria-controls="ee-pack-detail-s" id="ee-pack-tab-s">Pack S</button>
+          <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="m" aria-selected="false" aria-controls="ee-pack-detail-m" id="ee-pack-tab-m" tabindex="-1">Pack M</button>
+          <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="l" aria-selected="false" aria-controls="ee-pack-detail-l" id="ee-pack-tab-l" tabindex="-1">Pack L</button>
+          <button type="button" role="tab" class="ee-pricing__pack-tab" data-pack-size="xl" aria-selected="false" aria-controls="ee-pack-detail-xl" id="ee-pack-tab-xl" tabindex="-1">Pack XL</button>
+        </div>
+
+        <!-- Detalhes da solução selecionada -->
+        <div class="ee-pricing__pack-details">
+
+          <!-- DETALHE: E.E (sozinho) — lista das 4 semanas + CTA -->
+          <article role="tabpanel" id="ee-pack-detail-ee" class="ee-pricing__pack-detail ee-pricing__pack-detail--ee" aria-labelledby="ee-pack-tab-ee">
+            <header class="ee-pricing__head">
+              <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__title-img"/>
+            </header>
+            <article class="ee-pricing__card">
+              <p class="ee-pricing__card-label">O que vai estar incluso:</p>
+              <ul class="ee-pricing__list">
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 01</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Descoberta do Negócio e Pesquisa de Mercado</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 02</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Diagnóstico Digital e Posicionamento Estratégico</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 03</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Estrutura da Operação</span>
+                </li>
+                <li class="ee-pricing__item">
+                  <span class="ee-pricing__week">Semana 04</span>
+                  <span class="ee-pricing__check" aria-hidden="true"></span>
+                  <span class="ee-pricing__text">Identidade de Comunicação e Plano de Mídia</span>
+                </li>
+              </ul>
+            </article>
+            <div class="ee-pricing__cta-wrap">
+              <button type="button" class="ee-pricing__cta" data-pack-cta="ee">
+                Seguir com essa solução
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </button>
             </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — S</h3>
-            <p class="ee-packs__desc">Para negócios em validação que querem estrutura profissional sem complexidade.</p>
-            <span class="ee-packs__range">Mídia: R$ 2k – 5k/mês</span>
-            <p class="ee-packs__price">R$ 6.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais (Meta e/ou Google)</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>10 estáticas + 2 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Landing Page de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário, semanal e mensal</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 24h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião mensal (1h)</li>
-            </ul>
           </article>
 
-          <!-- PACK M -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--m">Pack M</span>
-            </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — M</h3>
-            <p class="ee-packs__desc">Para quem validou o modelo e precisa escalar com controle.</p>
-            <span class="ee-packs__range">Mídia: R$ 5k – 15k/mês</span>
-            <p class="ee-packs__price">R$ 9.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>12 estáticas + 3 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Landing Page de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatório diário + semanal + mensal</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 8h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal op. + mensal est.</li>
-            </ul>
+          <article role="tabpanel" id="ee-pack-detail-s" class="ee-pricing__pack-detail is-active" aria-labelledby="ee-pack-tab-s">
+            <img src="assets/packS.png" alt="Bundle com Pack S — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
           </article>
 
-          <!-- PACK L -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--l">Pack L</span>
-            </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — L</h3>
-            <p class="ee-packs__desc">Para operações maduras que decidem com base em dados em tempo real.</p>
-            <span class="ee-packs__range">Mídia: R$ 15k – 50k/mês</span>
-            <p class="ee-packs__price">R$ 16.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>16 estáticas + 4 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>2 Landing Pages de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Analista de BI dedicado</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 8h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal op. + quinzenal est.</li>
-            </ul>
+          <article role="tabpanel" id="ee-pack-detail-m" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-m">
+            <img src="assets/packm.png" alt="Bundle com Pack M — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
           </article>
 
-          <!-- PACK XL -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__badge ee-packs__badge--xl">Pack XL</span>
-            </div>
-            <h3 class="ee-packs__title">Gestão de Mídia e Performance — XL</h3>
-            <p class="ee-packs__desc">Para operações onde ineficiência tem impacto direto no faturamento.</p>
-            <span class="ee-packs__range">Mídia: R$ 50k+/mês</span>
-            <p class="ee-packs__price">R$ 25.497,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>28+ estáticas + produção sob demanda</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>2 Landing Pages de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>BI dedicado + gestão intensiva</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 4h úteis — time sênior</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal com time completo</li>
-            </ul>
+          <article role="tabpanel" id="ee-pack-detail-l" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-l">
+            <img src="assets/packL.png" alt="Bundle com Pack L — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
           </article>
 
-        </div><!-- /.ee-packs -->
+          <article role="tabpanel" id="ee-pack-detail-xl" class="ee-pricing__pack-detail" aria-labelledby="ee-pack-tab-xl">
+            <img src="assets/packXl.png" alt="Bundle com Pack XL — Estruturação Estratégica + Executar, conteúdo e desconto da contratação combinada"/>
+          </article>
+
+        </div><!-- /.ee-pricing__pack-details -->
+
+        </div><!-- /.ee-pricing__pack-layout -->
 
         <!-- Rodapé do bundle: Social Media (Leve também) + CTA único, ANTES de seguir -->
         <!-- Some quando E.E está ativo (E.E tem CTA próprio e não leva add-on) -->
         <div class="ee-pricing__bundle-footer">
           <div class="ee-proposal__addon-section">
             <h3 class="ee-proposal__addon-heading">Leve também</h3>
-            <div class="ee-proposal__addon" data-addon="socialMedia">
+            <div class="ee-proposal__addon" data-addon="socialMedia" data-checked="false">
+              <input type="checkbox" class="ee-proposal__addon-input" hidden/>
               <div class="ee-proposal__addon-card">
                 <img src="assets/SocialMediaBanner.png" alt="Pacote Social Media — gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões" class="ee-proposal__addon-banner"/>
               </div>
+              <button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
+                <span class="ee-proposal__addon-check" aria-hidden="true"></span>
+                <span class="ee-proposal__addon-action">Adicionar este pacote</span>
+              </button>
             </div>
+          </div>
+          <div class="ee-pricing__cta-wrap">
+            <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-s" id="ee-bundle-cta">
+              Seguir com essa solução
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
 
@@ -7108,10 +9973,73 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   </div>
 </section>
 
-<!-- SEÇÃO 12 — PROPOSTA removida (arquivada em _arquivo-proposta-e-ctas.html) -->
+<!-- ============================================================ -->
+<!-- SEÇÃO 12 — PROPOSTA (orçamento dinâmico montado pelas escolhas)-->
+<!-- ============================================================ -->
+<section id="proposta" class="ee-proposal" data-state="empty" aria-label="Sua proposta personalizada" aria-live="polite">
+  <div class="ee-proposal__inner">
+
+    <p class="ee-proposal__eyebrow">Sua proposta</p>
+    <h2 class="ee-proposal__heading" id="ee-proposal-heading">Monte sua proposta personalizada</h2>
+
+    <!-- Estado vazio: prompt -->
+    <div class="ee-proposal__empty">
+      <strong>Escolha uma solução acima</strong> e clique em "Seguir com essa solução" pra montarmos aqui sua proposta personalizada — com base no seu modelo de vendas e nos pacotes que você selecionou.
+    </div>
+
+    <!-- Estado preenchido: gerado/atualizado dinamicamente via JS -->
+    <div class="ee-proposal__filled">
+
+      <!-- Card com escolha + lista de entregáveis (preenchido por JS) -->
+      <div class="ee-proposal__card">
+        <header class="ee-proposal__card-head">
+          <h3 class="ee-proposal__card-title" id="ee-proposal-pack-title">—</h3>
+          <p class="ee-proposal__card-meta" id="ee-proposal-pack-meta">—</p>
+        </header>
+
+        <p class="ee-proposal__receive-label">O que vai estar incluso:</p>
+
+        <!-- Grupo: Estruturação Estratégica (sempre) -->
+        <div class="ee-proposal__group" id="ee-proposal-group-ee">
+          <header class="ee-proposal__group-head">
+            <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-proposal__group-logo"/>
+            <p class="ee-proposal__group-sub">Sprint de 4 semanas</p>
+          </header>
+          <div class="ee-proposal__weeks" id="ee-proposal-list-ee"></div>
+        </div>
+
+        <!-- Grupo: Executar (só quando bundle) -->
+        <div class="ee-proposal__group" id="ee-proposal-group-executar" hidden>
+          <header class="ee-proposal__group-head">
+            <h4 class="ee-proposal__group-title">Executar — <span id="ee-proposal-pack-label">Pack X</span></h4>
+            <p class="ee-proposal__group-sub">Operação contínua (mínimo 6 meses)</p>
+          </header>
+          <ul class="ee-proposal__list" id="ee-proposal-list-executar"></ul>
+        </div>
+      </div>
+
+      <!-- Total + CTA finalizar -->
+      <div class="ee-proposal__total">
+        <div class="ee-proposal__total-body">
+          <p class="ee-proposal__total-label">Total da proposta</p>
+          <p class="ee-proposal__total-value" id="ee-proposal-total">R$ XX.XXX</p>
+          <p class="ee-proposal__total-installment" id="ee-proposal-installment">Ou em até 6x sem juros · valores a serem confirmados</p>
+        </div>
+        <button type="button" class="ee-proposal__finalize">
+          Quero esta proposta
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
 </main>
 
+<!-- Toast global para copy-to-clipboard (usado pelos scripts bbColorCopy, ds-copyable) -->
+<div class="bb-color-toast" id="bb-color-toast" role="status" aria-live="polite">Copiado!</div>
 
 <!-- ============================================================ -->
 <!-- ESTRUTURAÇÃO ESTRATÉGICA — SCRIPTS DA PÁGINA                 -->
@@ -8506,6 +11434,924 @@ document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
   }
 
+  // ── BrandBook color copy-to-clipboard ──
+  (function bbColorCopy(){
+    var toast = document.getElementById('bb-color-toast');
+    var toastTimer;
+    function showToast(value){
+      if (!toast) return;
+      toast.textContent = 'Copiado · ' + value;
+      toast.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){
+        toast.classList.remove('is-visible');
+      }, 1800);
+    }
+    function copy(value){
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function(){ showToast(value); }, function(){ fallbackCopy(value); });
+      } else {
+        fallbackCopy(value);
+      }
+    }
+    function fallbackCopy(value){
+      var ta = document.createElement('textarea');
+      ta.value = value;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(value); } catch(e){}
+      document.body.removeChild(ta);
+    }
+    document.addEventListener('click', function(e){
+      var target = e.target.closest('.bb-color-copy');
+      if (!target) return;
+      var value = target.getAttribute('data-copy');
+      if (!value) return;
+      e.preventDefault();
+      copy(value);
+    });
+  })();
+
+  // ── COPIAR PROMPT BASE (Liquid Glass — IA) ──
+  (function bbPromptCopy(){
+    var trigger = document.querySelector('.bb-glass__prompt-copy');
+    if (!trigger) return;
+    var toast = document.getElementById('bb-color-toast');
+    var toastTimer;
+
+    var prompt = `Crie um render 3D hiper-realista de {ELEMENTO PRINCIPAL}, com estética premium, abstrata e sofisticada.
+
+O elemento principal deve ser {DESCRIÇÃO DO ELEMENTO}, com aparência limpa, elegante e futurista. Ele deve ser feito de {MATERIAL PRINCIPAL}, priorizando um material translúcido em tons de vermelho, com aparência de vidro ou acrílico, superfície brilhante e polida, detalhes foscos difusos e estética de liquid glass.
+
+O material deve destacar transparência, profundidade, refração e difusão da luz. A luz deve atravessar o objeto, criando refração translúcida, leve distorção óptica, brilho interno suave, reflexos delicados, sombras sutis e sensação realista de passagem de luz pelo material.
+
+A imagem deve seguir uma linguagem visual inspirada em glassmorphism, com modelagem 3D refinada, curvas suaves, bordas polidas, reflexos realistas e acabamento visual premium.
+
+Composição: {TIPO DE COMPOSIÇÃO}, com {ÂNGULO DA CÂMERA}, {ENQUADRAMENTO} e foco visual forte no elemento principal. O fundo deve ser {TIPO DE FUNDO}, preferencialmente limpo, neutro, em gradiente suave ou com aparência de estúdio, permitindo que o material vermelho translúcido se destaque.
+
+Iluminação: luz suave de estúdio, difusa e controlada, com aparência de fotografia premium de produto, reflexos sutis, sombras realistas, highlights limpos e contraste elegante.
+
+Direção de cor: predominância de tons vermelhos translúcidos, com variações suaves de vermelho, rosa e reflexos quentes, mantendo uma paleta minimalista, sofisticada e consistente.
+
+Palavras-chave visuais: vidro translúcido vermelho, acrílico translúcido, superfície vítrea brilhante, vidro fosco difuso, transparência, refração da luz, difusão da luz, liquid glass, glassmorphism, render 3D, render hiper-realista, fundo de estúdio premium, composição limpa e minimalista.
+
+Evitar: ilustração chapada, estilo cartoon, plástico opaco, excesso de textura, reflexos sujos, sombras muito duras, baixa qualidade de renderização, poluição visual, textos, logotipos, ícones, pessoas e excesso de cores.`;
+
+    function showToast(){
+      if (!toast) return;
+      toast.textContent = 'Prompt copiado';
+      toast.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('is-visible'); }, 1800);
+    }
+    function fallbackCopy(){
+      var ta = document.createElement('textarea');
+      ta.value = prompt;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+    trigger.addEventListener('click', function(){
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(prompt).then(showToast, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    });
+  })();
+
+  // ── COPIAR PROMPT BASE (Diretrizes de fotografia) ──
+  (function bbPhotoPromptCopy(){
+    var trigger = document.querySelector('.bb-photo-guide__prompt-copy');
+    if (!trigger) return;
+    var toast = document.getElementById('bb-color-toast');
+    var toastTimer;
+
+    var prompt = `Crie um retrato fotográfico realista e profissional de {PERSONAGEM}, em estilo editorial corporativo premium. A pessoa deve estar em {POSE}, com {EXPRESSÃO}, transmitindo autoridade, confiança e presença. O enquadramento deve ser em {TIPO DE ENQUADRAMENTO}, mostrando a parte superior do corpo.
+
+A composição deve posicionar o personagem levemente deslocado para a direita da imagem, com espaço negativo à esquerda, mantendo uma leitura visual limpa, sofisticada e institucional.
+
+O fundo deve ser totalmente liso, limpo e minimalista, sem textura, sem ruído, sem manchas, sem formas, sem objetos e sem qualquer elemento adicional. A composição deve mostrar apenas um gradiente suave e uniforme em tons de vermelho. Esse gradiente deve fazer uma transição diagonal: partindo de um vermelho mais escuro, profundo e levemente bordô no canto inferior esquerdo, passando por vermelhos médios e vivos no centro, e chegando a um vermelho mais claro, intenso e levemente puxado para o vermelho-alaranjado no canto superior direito. O gradiente deve ser extremamente suave, homogêneo e sofisticado, sem divisões bruscas, sem contraste agressivo e sem aparência escura demais. O resultado deve parecer um fundo de estúdio premium, moderno e elegante, com aparência limpa e refinada.
+
+A iluminação deve ser suave e natural, com uma luz principal difusa iluminando o rosto com realismo e uma luz vermelha de apoio incidindo sobre a pele e a roupa, criando contraste visual elegante. O vermelho deve refletir de forma controlada no rosto, pescoço e vestimenta, gerando profundidade, identidade visual forte e aparência sofisticada. As sombras devem ser suaves, o contraste equilibrado e a textura da pele preservada de forma natural.
+
+A roupa deve ser {ROUPA}, nas cores {CORES DA ROUPA}. Aparência visual: {DETALHES VISUAIS}. O resultado final deve parecer uma fotografia publicitária feita em estúdio, com estética minimalista, premium, moderna e institucional.
+
+Direção visual: retrato corporativo em estúdio, fundo com gradiente vermelho liso e uniforme, transição diagonal do vermelho escuro no canto inferior esquerdo para vermelho mais claro e levemente alaranjado no canto superior direito, iluminação suave com preenchimento vermelho sobre a pele, composição limpa e visual premium.
+
+Evitar: fundo poluído, textura no fundo, manchas no gradiente, ruído, transições bruscas, objetos extras, luz dura demais, neon exagerado, excesso de saturação, pele plastificada, baixa qualidade, estilo ilustrado ou cartoon.`;
+
+    function showToast(){
+      if (!toast) return;
+      toast.textContent = 'Prompt copiado';
+      toast.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('is-visible'); }, 1800);
+    }
+    function fallbackCopy(){
+      var ta = document.createElement('textarea');
+      ta.value = prompt;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+    trigger.addEventListener('click', function(){
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(prompt).then(showToast, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    });
+  })();
+
+  // ── SCROLL TEXT REVEAL (GSAP + Splitting.js) ──
+  if (typeof Splitting !== 'undefined' && typeof gsap !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    Splitting();
+    document.querySelectorAll('.ds-reveal-text').forEach(el => {
+      const chars = el.querySelectorAll('.char');
+      if (!chars.length) return;
+      gsap.fromTo(chars,
+        { opacity: 0.1 },
+        {
+          opacity: 1,
+          stagger: 0.03,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            end: 'bottom 30%',
+            scrub: 1
+          }
+        }
+      );
+    });
+  }
+
+  // ── COPY-TO-CLIPBOARD ON SWATCHES ──
+  document.querySelectorAll('.ds-copyable').forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      const value = swatch.getAttribute('data-copy');
+      navigator.clipboard.writeText(value).then(() => {
+        swatch.classList.add('is-copied');
+        setTimeout(() => swatch.classList.remove('is-copied'), 1200);
+      });
+    });
+  });
+
+  // ── COPY-TO-CLIPBOARD ON COLOR PALETTE (bb-color-copy + bb-color-toast) ──
+  (function() {
+    const toast = document.getElementById('bb-color-toast');
+    let toastTimer;
+    document.querySelectorAll('.bb-color-copy').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const value = btn.getAttribute('data-copy');
+        if (!value) return;
+        navigator.clipboard.writeText(value).then(() => {
+          if (toast) {
+            toast.textContent = 'Copiado · ' + value;
+            toast.classList.add('is-visible');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1400);
+          }
+        });
+      });
+    });
+  })();
+
+  // ── DOWNLOAD GLASS COMPONENT (standalone HTML) ──
+  (function() {
+    const trigger = document.querySelector('.bb-glass__download-trigger');
+    if (!trigger) return;
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V4 — Efeito Glass (componente)</title>
+<style>
+  /*
+    V4 Brand Book — Componente Glass
+    Replicação em CSS dos 6 efeitos do Effect Style do Figma:
+      01 · Inner shadow — overlay, blur 150, FFFFFF 100%
+      02 · Inner shadow — overlay, blur 10,  FFFFFF 100%
+      03 · Inner shadow — overlay, blur 10,  FFFFFF 100%
+      04 · Inner shadow — overlay, blur 100, FFFFFF 100%
+      05 · Glass         — light -45° 80%, refraction 92, depth 23, dispersion 100, frost 5
+      06 · Drop shadow   — normal, X-5 Y5, blur 20, 000000 10%
+  */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+  }
+  .v4-glass {
+    position: relative;
+    width: clamp(240px, 36vw, 420px);
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    box-shadow:
+      /* 06 — drop shadow externo */
+      -5px 5px 20px rgba(0, 0, 0, 0.10),
+      /* 01 — inner shadow grande (preenche o interior com brilho) */
+      inset 0 0 150px rgba(255, 255, 255, 0.18),
+      /* 04 — inner shadow médio */
+      inset 0 0 100px rgba(255, 255, 255, 0.16),
+      /* 02 — inner shadow pequeno (define borda interna) */
+      inset 0 0 10px rgba(255, 255, 255, 0.45),
+      /* 03 — inner shadow pequeno (reforça borda) */
+      inset 0 0 10px rgba(255, 255, 255, 0.45);
+  }
+  /* 05 — Glass: simula refração + dispersão via gradiente sutil em ::before */
+  .v4-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.10) 100%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  /* Borda fina branca opcional para reforçar contorno */
+  .v4-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="v4-glass" role="presentation"></div>
+</body>
+</html>`;
+
+    trigger.addEventListener('click', () => {
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'v4-glass-effect.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  })();
+
+  // ── TABS (Fotografia + Reverberação) — escopo por seção ──
+  (function() {
+    // Cada .bb-photo-tabs__nav define um grupo independente de abas;
+    // o escopo é o elemento pai do nav (o __inner da seção).
+    document.querySelectorAll('.bb-photo-tabs__nav').forEach(nav => {
+      const scope = nav.parentElement;
+      if (!scope) return;
+      const tabs = Array.from(scope.querySelectorAll('.bb-photo-tabs__tab'));
+      const panels = scope.querySelectorAll('.bb-photo-tabs__panel');
+      const arrows = scope.querySelectorAll('.bb-photo-tabs__arrow');
+      if (!tabs.length) return;
+
+      function activate(target) {
+        tabs.forEach(t => {
+          const active = t.getAttribute('data-tab') === target;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          p.classList.toggle('is-active', p.getAttribute('data-panel') === target);
+        });
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => activate(tab.getAttribute('data-tab')));
+      });
+
+      arrows.forEach(arrow => {
+        arrow.addEventListener('click', () => {
+          const dir = arrow.getAttribute('data-direction');
+          const currentIdx = tabs.findIndex(t => t.classList.contains('is-active'));
+          const total = tabs.length;
+          const nextIdx = dir === 'prev'
+            ? (currentIdx - 1 + total) % total
+            : (currentIdx + 1) % total;
+          activate(tabs[nextIdx].getAttribute('data-tab'));
+        });
+      });
+    });
+  })();
+
+  // ── DOWNLOAD GLASS EFFECT HTML COMPONENT ──
+  (function() {
+    const trigger = document.querySelector('.bb-glass__download-trigger');
+    if (!trigger) return;
+
+    const glassHTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V4 — Glass Effect Component</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    V4 GLASS EFFECT — versão CSS dos parâmetros do BrandBook
+    Mapeamento direto das 6 camadas do Figma Effect Style:
+      01 Inner shadow — blur 150, white overlay
+      02 Inner shadow — blur 10,  white overlay
+      03 Inner shadow — blur 10,  white overlay
+      04 Inner shadow — blur 100, white overlay
+      05 Glass        — backdrop blur + saturação
+      06 Drop shadow  — X-5 Y5 blur 20, black 10%
+    O efeito real depende do que está atrás do componente (use sobre vermelho V4).
+  */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  /* ===== V4 GLASS COMPONENT ===== */
+  .v4-glass {
+    position: relative;
+    width: clamp(220px, 32vw, 360px);
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+
+    /* 05 Glass — base transparente + backdrop-filter */
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+    /* 01-04 Inner shadows white overlay + 06 Drop shadow externo */
+    box-shadow:
+      /* 01 Inner shadow — blur 150 */
+      inset 0 0 150px rgba(255, 255, 255, 0.18),
+      /* 02 Inner shadow — blur 10 */
+      inset 0 0 10px rgba(255, 255, 255, 0.45),
+      /* 03 Inner shadow — blur 10 (reforço da borda) */
+      inset 0 0 10px rgba(255, 255, 255, 0.45),
+      /* 04 Inner shadow — blur 100 */
+      inset 0 0 100px rgba(255, 255, 255, 0.22),
+      /* 06 Drop shadow — X-5 Y5 blur 20 */
+      -5px 5px 20px rgba(0, 0, 0, 0.10);
+
+    /* Light edge — simula a borda iluminada do Glass do Figma */
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  /* Para múltiplos componentes glass, manter cada um em seu próprio
+     "frame" (container) para a interação com o fundo acontecer
+     individualmente — mesmo princípio do Figma. */
+  .v4-stage {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .v4-meta {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>
+</head>
+<body>
+  <div class="v4-stage">
+    <div class="v4-glass"><span class="v4-meta">V4 · Glass 01</span></div>
+    <div class="v4-glass"><span class="v4-meta">V4 · Glass 02</span></div>
+  </div>
+</body>
+</html>`;
+
+    trigger.addEventListener('click', () => {
+      const blob = new Blob([glassHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'v4-glass-effect.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  })();
+
+  // ── DOWNLOAD REVERB EFFECT HTML COMPONENT ──
+  (function() {
+    const trigger = document.querySelector('.bb-reverb__download-trigger');
+    if (!trigger) return;
+
+    const reverbHTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V4 — Reverberação (Glass Stack)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    V4 REVERBERAÇÃO — 3 camadas Liquid Glass concêntricas
+    Cada camada herda o mesmo Effect Style do Liquid Glass:
+      01 Inner shadow — blur 150, white overlay
+      02 Inner shadow — blur 10,  white overlay
+      03 Inner shadow — blur 10,  white overlay
+      04 Inner shadow — blur 100, white overlay
+      05 Glass        — backdrop blur + saturação
+      06 Drop shadow  — X-5 Y5 blur 20, black 10%
+
+    Princípio: a camada externa é a maior; cada camada interna fica menor
+    e centralizada dentro da anterior. As 3 camadas geram a sensação de
+    reverberação visual, expandindo o grafismo central para fora.
+  */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(120deg, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  /* ===== V4 GLASS BASE (replica do Liquid Glass) ===== */
+  .v4-glass {
+    position: relative;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+      inset 0 0 150px rgba(255, 255, 255, 0.18),
+      inset 0 0 10px  rgba(255, 255, 255, 0.45),
+      inset 0 0 10px  rgba(255, 255, 255, 0.45),
+      inset 0 0 100px rgba(255, 255, 255, 0.22),
+      -5px 5px 20px   rgba(0, 0, 0, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== V4 REVERBERAÇÃO — 3 camadas aninhadas ===== */
+  /* Cada camada interna é menor que a anterior (80% / 60% / 40%).
+     A camada externa funciona como o "frame" da maior; as internas
+     vivem dentro do espaço da anterior. */
+  .v4-reverb--outer {
+    width: clamp(320px, 64vw, 880px);
+    aspect-ratio: 16 / 9;
+    padding: clamp(24px, 3vw, 56px);
+  }
+  .v4-reverb--mid {
+    width: 78%;
+    aspect-ratio: 16 / 9;
+    padding: clamp(20px, 2.4vw, 44px);
+  }
+  .v4-reverb--inner {
+    width: 76%;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Meta label opcional, mostra o nome do componente */
+  .v4-meta {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>
+</head>
+<body>
+  <div class="v4-glass v4-reverb--outer">
+    <div class="v4-glass v4-reverb--mid">
+      <div class="v4-glass v4-reverb--inner">
+        <span class="v4-meta">V4 · Reverberação</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    trigger.addEventListener('click', () => {
+      const blob = new Blob([reverbHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'v4-reverb-effect.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  })();
+
+  // ── DOWNLOAD REVERB GRADIENTE HTML COMPONENT ──
+  (function() {
+    const trigger = document.querySelector('.bb-reverb-grad__download-trigger');
+    if (!trigger) return;
+
+    const reverbGradHTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V4 — Reverberação (Gradiente)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    V4 REVERBERAÇÃO — GRADIENTE
+    Variação do grafismo de reverberação: em vez do efeito glass, cada
+    retângulo é preenchido com o gradiente V4 (esquerda -> direita).
+    O gradiente usa background-attachment: fixed, então todas as camadas
+    revelam o MESMO gradiente na MESMA posição — como janelas sobre um
+    único plano cromático contínuo.
+    A camada de trás é a maior; cada camada interna fica menor e
+    centralizada, gerando a sensação de reverberação/propagação.
+  */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: #1A0202;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  /* ===== V4 REVERBERAÇÃO GRADIENTE — base ===== */
+  /* O gradiente V4 fixo na viewport garante que cada camada mostre
+     o mesmo trecho do gradiente, alinhado esquerda -> direita. */
+  .v4-reverb-grad {
+    position: relative;
+    border-radius: 24px;
+    background-image: linear-gradient(to right, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Camadas aninhadas: a externa é a maior; cada interna fica menor
+     e centralizada dentro da anterior. */
+  .v4-reverb-grad--l1 {
+    width: clamp(320px, 66vw, 900px);
+    aspect-ratio: 16 / 9;
+    padding: clamp(20px, 3.4vw, 64px);
+  }
+  .v4-reverb-grad--l2 { width: 100%; height: 100%; padding: clamp(18px, 2.8vw, 52px); }
+  .v4-reverb-grad--l3 { width: 100%; height: 100%; padding: clamp(16px, 2.2vw, 40px); }
+  .v4-reverb-grad--l4 { width: 100%; height: 100%; }
+
+  .v4-meta {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>
+</head>
+<body>
+  <div class="v4-reverb-grad v4-reverb-grad--l1">
+    <div class="v4-reverb-grad v4-reverb-grad--l2">
+      <div class="v4-reverb-grad v4-reverb-grad--l3">
+        <div class="v4-reverb-grad v4-reverb-grad--l4">
+          <span class="v4-meta">V4 · Reverberação Gradiente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    trigger.addEventListener('click', () => {
+      const blob = new Blob([reverbGradHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'v4-reverb-gradiente.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  })();
+
+  // ── DOWNLOAD REVERB LINHAS HTML COMPONENT ──
+  (function() {
+    const trigger = document.querySelector('.bb-reverb-line__download-trigger');
+    if (!trigger) return;
+
+    const reverbLineHTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V4 — Reverberação (Linhas)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    V4 REVERBERAÇÃO — LINHAS (outline)
+    Variação do grafismo de reverberação em estilo outline: cada retângulo
+    é apenas o contorno (sem preenchimento), enfatizando a estrutura e a
+    propagação das formas. As camadas alternam traço contínuo e pontilhado.
+    No traço pontilhado o valor de Dash acompanha o de Gap (espaçamento
+    uniforme). A camada de trás é a maior; cada interna fica menor e
+    centralizada, gerando a sensação de reverberação.
+  */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to right, #7A0A02 0%, #C41E08 35%, #E50914 65%, #FB2E0A 100%);
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  /* ===== V4 REVERBERAÇÃO LINHAS — base outline ===== */
+  .v4-reverb-line {
+    position: relative;
+    border-radius: 22px;
+    border: 1.5px solid rgba(255, 255, 255, 0.92);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Traço pontilhado — Dash = Gap (espaçamento uniforme) */
+  .v4-reverb-line--dashed {
+    border-style: dashed;
+  }
+  /* Camada interna preenchida (núcleo do grafismo) */
+  .v4-reverb-line--fill {
+    background: rgba(255, 255, 255, 0.10);
+  }
+
+  /* Camadas aninhadas: externa = maior; cada interna menor e centralizada */
+  .v4-reverb-line--l1 {
+    width: clamp(320px, 66vw, 900px);
+    aspect-ratio: 16 / 9;
+    padding: clamp(14px, 2.2vw, 40px);
+  }
+  .v4-reverb-line--l2 { width: 100%; height: 100%; padding: clamp(14px, 2.2vw, 40px); }
+  .v4-reverb-line--l3 { width: 100%; height: 100%; padding: clamp(14px, 2.2vw, 40px); }
+  .v4-reverb-line--l4 { width: 100%; height: 100%; padding: clamp(14px, 2.2vw, 40px); }
+  .v4-reverb-line--l5 { width: 100%; height: 100%; }
+
+  .v4-meta {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>
+</head>
+<body>
+  <div class="v4-reverb-line v4-reverb-line--l1">
+    <div class="v4-reverb-line v4-reverb-line--l2 v4-reverb-line--dashed">
+      <div class="v4-reverb-line v4-reverb-line--l3">
+        <div class="v4-reverb-line v4-reverb-line--l4 v4-reverb-line--dashed">
+          <div class="v4-reverb-line v4-reverb-line--l5 v4-reverb-line--fill">
+            <span class="v4-meta">V4 · Reverberação Linhas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    trigger.addEventListener('click', () => {
+      const blob = new Blob([reverbLineHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'v4-reverb-linhas.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  })();
+
+
+
+  // === BRANDBOOK V4 — HEADLINE SCRAMBLE / COUNT-UP DE LETRAS ===
+  (function bbHeadlineScramble() {
+    const targets = document.querySelectorAll('.bb-headline-scramble, .bb-scramble');
+    if (!targets.length) return;
+
+    const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pool = '!<>-_/\\[]{}=+*^?#$%ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const rnd = () => pool[Math.floor(Math.random() * pool.length)];
+
+    // Constrói os spans de letra. Se o título tiver <span> filhos (linhas),
+    // cada um é tratado como uma linha; senão o próprio elemento.
+    function setup(el) {
+      const childEls = Array.from(el.children);
+      const lines = childEls.length ? childEls : [el];
+      const letters = [];
+
+      lines.forEach(line => {
+        const text = line.textContent;
+        line.textContent = '';
+        for (let i = 0; i < text.length; i++) {
+          const ch = text[i];
+          const span = document.createElement('span');
+          span.style.whiteSpace = 'pre';
+          if (ch === ' ') {
+            span.textContent = ' ';
+            line.appendChild(span);
+            continue;
+          }
+          span.className = 'bb-scramble-char';
+          span.textContent = prefersReduce ? ch : rnd();
+          line.appendChild(span);
+          letters.push({ span, final: ch, locked: prefersReduce });
+        }
+      });
+      el.classList.add('is-ready');
+      return letters;
+    }
+
+    function animate(letters) {
+      if (prefersReduce) {
+        letters.forEach(L => {
+          L.span.textContent = L.final;
+          L.span.classList.add('bb-scramble-char--locked');
+        });
+        return;
+      }
+
+      const startDelay   = 220;  // respiro antes de começar
+      // títulos longos recebem stagger menor pra não arrastar demais
+      const stagger      = letters.length > 18 ? Math.max(30, 1100 / letters.length) : 95;
+      const scrambleDur  = 620;  // duração do scramble por letra
+      const tickInterval = 45;   // velocidade de troca dos caracteres aleatórios
+
+      const t0 = performance.now();
+      let lastTick = 0;
+
+      function tick(now) {
+        const elapsed = now - t0;
+        const shouldTick = (now - lastTick) > tickInterval;
+        if (shouldTick) lastTick = now;
+
+        let pending = false;
+        for (let i = 0; i < letters.length; i++) {
+          const L = letters[i];
+          if (L.locked) continue;
+          const start = startDelay + i * stagger;
+          const end   = start + scrambleDur;
+          if (elapsed >= end) {
+            L.span.textContent = L.final;
+            L.span.classList.add('bb-scramble-char--locked');
+            L.locked = true;
+          } else if (elapsed >= start) {
+            if (shouldTick) L.span.textContent = rnd();
+            pending = true;
+          } else {
+            pending = true;
+          }
+        }
+        if (pending) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Dispara cada título quando entra na viewport (uma única vez).
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animate(entry.target._bbLetters);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    targets.forEach(el => {
+      el._bbLetters = setup(el);
+      io.observe(el);
+    });
+  })();
+
+  // ── BrandBook mobile image lightbox (tap to zoom) ──
+  (function bbMobileLightbox(){
+    var mobileQuery = window.matchMedia('(max-width: 900px)');
+    var SELECTOR = [
+      '.bb-glass__panel-img',
+      '.bb-glass__figma-img',
+      '.bb-graphics-hero__img',
+      '.bb-photo-hero__img',
+      '.bb-vi-hero__img',
+      '.bb-positioning-hero__img',
+      '.bb-logo-apps__img',
+      '.bb-perso__media img'
+    ].join(',');
+
+    var overlay = document.createElement('div');
+    overlay.className = 'bb-lightbox';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Imagem ampliada');
+    overlay.innerHTML =
+      '<button class="bb-lightbox__close" type="button" aria-label="Fechar imagem">×</button>' +
+      '<img class="bb-lightbox__img" alt=""/>';
+    document.body.appendChild(overlay);
+
+    var lightImg = overlay.querySelector('.bb-lightbox__img');
+    var closeBtn = overlay.querySelector('.bb-lightbox__close');
+
+    function open(src, alt){
+      lightImg.src = src;
+      lightImg.alt = alt || '';
+      overlay.classList.add('is-open');
+      document.body.classList.add('bb-lightbox-open');
+    }
+    function close(){
+      overlay.classList.remove('is-open');
+      document.body.classList.remove('bb-lightbox-open');
+      // limpa src depois da transição pra liberar memória
+      setTimeout(function(){
+        if (!overlay.classList.contains('is-open')) lightImg.src = '';
+      }, 220);
+    }
+
+    document.addEventListener('click', function(e){
+      if (!mobileQuery.matches) return;
+      // ignora clicks dentro do próprio lightbox (são tratados abaixo)
+      if (e.target.closest('.bb-lightbox')) return;
+      var target = e.target.closest(SELECTOR);
+      if (!target) return;
+      e.preventDefault();
+      open(target.currentSrc || target.src, target.alt);
+    });
+
+    overlay.addEventListener('click', function(e){
+      // clique fora da imagem fecha; clique no botão fecha
+      if (e.target === overlay || e.target === closeBtn) close();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+  })();
 
 });
 </script>

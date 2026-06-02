@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3)",
+      "Bash(awk 'NR>=144 && NR<=4196 && /\\\\/\\\\* ===/{print NR\": \"$0}' index.html)",
+      "Bash(awk 'NR>=8601 && NR<=10042 && /wp-block-button|wp-element-button/{c++} END{print \\(c+0\\)\" ocorrências\"}' index.html)",
+      "Bash(awk 'NR>=8601 && NR<=10042 && /ee-footer|<footer/{print NR\": \"$0}' index.html)",
+      "Bash(awk 'NR>=11400 && \\(/\\\\/\\\\/ ──|\\\\/\\\\/ ===|\\\\\\(function [a-zA-Z]|function [a-z][a-zA-Z]*\\\\\\(\\\\\\)\\\\{|<script|<\\\\/script>/\\){print NR\": \"$0}' index.html)"
+    ]
+  }
+}
