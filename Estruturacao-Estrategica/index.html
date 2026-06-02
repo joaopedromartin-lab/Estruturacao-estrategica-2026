@@ -3970,18 +3970,44 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(17px, 1.4vw, 22px);
   font-weight: 700;
   color: #FFFFFF;
-  margin: 0 0 clamp(6px, 0.6vh, 10px);
+  margin: 0;
   letter-spacing: -0.015em;
   line-height: 1.25;
   text-wrap: balance;
 }
+/* Em 4 colunas: trava 2 linhas de altura pra os cards alinharem entre as colunas */
+@media (min-width: 1080px) {
+  .ee-recap__week-title { min-height: calc(2 * 1.25em); }
+}
 .ee-recap__items {
   list-style: none;
-  padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1vh, 14px);
+  gap: clamp(10px, 1.2vh, 16px);
+  /* Card: fundo transparente + traçado em gradiente brand */
+  position: relative;
+  padding: clamp(20px, 1.8vw, 28px);
+  border-radius: 16px;
+  background: transparent;
+  flex: 1 1 auto;        /* estica pra preencher a altura da coluna → cards alinhados */
+}
+.ee-recap__items::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(160deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
 }
 .ee-recap__items li {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -4015,7 +4041,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap__prompt strong { color: #FFFFFF; font-weight: 700; }
 /* Variantes da Semana 3 (toggle por modelo) */
 .ee-recap__week3-variant { display: none; }
-.ee-recap__week3-variant.is-shown { display: block; }
+.ee-recap__week3-variant.is-shown {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+  flex: 1 1 auto;        /* a variante ativa preenche a coluna; o card interno estica */
+}
 
 /* === SEÇÃO GARANTIA (30 dias money-back — headline à esquerda, imagem à direita) === */
 .ee-warranty {
