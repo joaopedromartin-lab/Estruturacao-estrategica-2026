@@ -4733,15 +4733,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  border: 1px solid rgba(40, 0, 0, 0.1);
+  border: 2px solid transparent;
   border-radius: 20px;
   padding: clamp(20px, 1.8vw, 28px);
   position: relative;
+  /* Traçado em gradiente brand: fundo branco no padding-box + gradiente no border-box */
+  background-image:
+    linear-gradient(#FFFFFF, #FFFFFF),
+    linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 /* Card em destaque (Pack S — "Popular") */
 .ee-packs__card--featured {
-  border-color: rgba(229, 9, 20, 0.5);
-  box-shadow: 0 12px 32px rgba(229, 9, 20, 0.12);
+  box-shadow: 0 12px 32px rgba(229, 9, 20, 0.16);
 }
 
 /* Cabeçalho: pill do pack + (opcional) Popular */
