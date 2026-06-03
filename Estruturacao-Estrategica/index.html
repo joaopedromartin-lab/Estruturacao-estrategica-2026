@@ -9194,6 +9194,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var MODEL_LABEL = { 'pdv': 'PDV / Loja Física', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce / Vendas Online' };
 
+  // Valores (investimento)
+  var EE_PRICE = 'R$ 20.000,00';            // Estruturação Estratégica (setup, pagamento único)
+  var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
+  var SOCIAL_PRICE_NUM = 4000;              // Social Media (mensal)
+
+  // Escopo (entregáveis) do adicional Social Media — entra só quando selecionado
+  var SOCIAL_ITEMS = [
+    { strong: 'Gestão de canais:',                 text: 'gestão de 2 redes sociais · calendário editorial mensal · publicações diárias.' },
+    { strong: 'Produção de conteúdo:',             text: '12 posts/mês (estáticos + carrossel) + 4 reels/mês · copy + design incluídos.' },
+    { strong: 'Ambientes:',                        text: 'gestão de perfis (bio, destaques, links) · atualizações sob demanda.' },
+    { strong: 'Relatórios e inteligência:',        text: 'report semanal de engajamento · relatório mensal de crescimento e alcance.' },
+    { strong: 'Atendimento e gestão de projeto:',  text: 'Social Media dedicado + coordenação · moderação de comentários/DMs em dias úteis.' },
+    { strong: 'Reuniões:',                         text: '1 reunião mensal de resultados + alinhamento de pauta (1h).' }
+  ];
+
+  // SLA do adicional Social Media (entra só quando selecionado)
+  var SOCIAL_SLA = [
+    ['Calendário / publicação', 'calendário aprovado até dia 25 do mês anterior · publicação conforme cronograma'],
+    ['Produção de conteúdo', 'lote entregue em até 5 dias úteis após briefing aprovado'],
+    ['Atualizações', 'em até 2 dias úteis'],
+    ['Relatórios', 'semanal: toda segunda-feira · mensal: até 5º dia útil'],
+    ['Atendimento / moderação', 'respostas ao cliente em até 24h úteis · moderação: 1× ao dia'],
+    ['Reuniões', 'reunião até dia 20 · pauta 48h antes · ata em 24h']
+  ];
+
   // ===== Helpers =====
   function esc(s) {
     return String(s == null ? '' : s)
@@ -9201,6 +9226,10 @@ document.addEventListener('DOMContentLoaded', function() {
       .replace(/"/g, '&quot;');
   }
   function packSizeFromSolution(key) { return key ? key.replace('bundle-', '') : null; }
+  function formatBRL(n) {
+    try { return 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    catch (e) { return 'R$ ' + n; }
+  }
   function todayBR() {
     try {
       return new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
@@ -9234,23 +9263,29 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>' +
       '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Executar — ' + esc(pack.label) + '</h3><p>' + esc(pack.desc) + ' Faixa de mídia: ' + esc(pack.media) + '.</p></div>' +
       (social
-        ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões. <em>Escopo e investimento sob consulta.</em></p></div>'
+        ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação. <em>Investimento sob consulta.</em></p></div>'
         : '');
 
     // Tabela SLA
     var slaRows = pack.sla.map(function (r) {
       return '<tr><td>' + esc(r[0]) + '</td><td class="sla-v">' + esc(r[1]) + '</td></tr>';
     }).join('');
+    var socialSlaRows = social ? SOCIAL_SLA.map(function (r) {
+      return '<tr><td>' + esc(r[0]) + '</td><td class="sla-v">' + esc(r[1]) + '</td></tr>';
+    }).join('') : '';
 
     // Investimento (Setup editável; Executar fixo; Social se houver)
+    var monthlyTotal = (PACK_PRICE_NUM[size] || 0) + (social ? SOCIAL_PRICE_NUM : 0);
     var invRows =
       '<tr><td><strong>Setup — Estruturação Estratégica</strong><br><span class="muted">Pagamento único · sprint de 30 dias</span></td>' +
-      '<td class="inv-v"><span class="edit" contenteditable="true">R$ 0.000,00</span></td></tr>' +
+      '<td class="inv-v">' + esc(EE_PRICE) + '</td></tr>' +
       '<tr><td><strong>Executar — ' + esc(pack.label) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
       '<td class="inv-v">' + esc(pack.price) + '<span class="per">/mês</span></td></tr>' +
       (social
-        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Adicional</span></td><td class="inv-v"><span class="edit" contenteditable="true">sob consulta</span></td></tr>'
-        : '');
+        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
+        : '') +
+      '<tr class="inv-total"><td><strong>Total mensal</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + ' (não inclui o setup)</span></td>' +
+      '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
 
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
@@ -9297,6 +9332,8 @@ document.addEventListener('DOMContentLoaded', function() {
 'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
 '.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
 '.inv-v { font-size: 18px; color: #E50914; }' +
+'.inv-total td { border-top: 2px solid rgba(229,9,20,.35); border-bottom: none; padding-top: 16px; }' +
+'.inv-total .inv-v { font-size: 23px; }' +
 '.inv-v .per { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
 '.muted { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
 '.edit { border-bottom: 1.5px dashed rgba(229,9,20,.5); padding: 0 4px; min-width: 90px; display: inline-block; }' +
@@ -9326,12 +9363,14 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
     '<section><h2>Entregáveis — Executar (' + esc(pack.label) + ')</h2><ul class="dl">' + liList(pack.items) + '</ul></section>' +
-    '<section><h2>SLA — Acordo de nível de serviço</h2><table>' + slaRows + '</table></section>' +
+    (social ? '<section><h2>Entregáveis — Social Media</h2><ul class="dl">' + liList(SOCIAL_ITEMS) + '</ul></section>' : '') +
+    '<section><h2>SLA — Executar (' + esc(pack.label) + ')</h2><table>' + slaRows + '</table></section>' +
+    (social ? '<section><h2>SLA — Social Media</h2><table>' + socialSlaRows + '</table></section>' : '') +
     '<section><h2>Investimento</h2><table>' + invRows + '</table>' +
-      '<p class="note"><span class="edit" contenteditable="true">Executar por no mínimo 6 meses. Desconto desbloqueado na contratação combinada (Estruturação Estratégica + Executar). Formas de pagamento: à vista, cartão ou boleto — condições a confirmar.</span></p>' +
+      '<p class="note"><span class="edit" contenteditable="true">Executar por no mínimo 6 meses. Desconto desbloqueado na contratação combinada (Estruturação Estratégica + Executar). Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
       '<p class="hint">Os campos com sublinhado tracejado são editáveis: clique e ajuste valores/condições antes de salvar o PDF.</p>' +
     '</section>' +
-    '<section><h2>Garantia</h2><div class="guarantee">Se em <strong>30 dias</strong> você não receber tudo que foi combinado na Estruturação Estratégica, <strong>devolvemos seu dinheiro</strong>.</div></section>' +
+    '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica — <strong>ou se você não ficar satisfeito</strong> com o que recebeu —, é só pedir o reembolso e <strong>devolvemos 100% do seu dinheiro</strong>.</div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
       '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>' +
       '<li>Assinatura do contrato.</li>' +
