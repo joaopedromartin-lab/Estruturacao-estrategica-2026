@@ -9550,34 +9550,158 @@ document.addEventListener('DOMContentLoaded', function() {
     'e-commerce':   { s: 6772.44, m: 9833.38, l: 16937.50, xl: 25068.13 }
   };
   // Componentes (linhas da tabela), comuns aos 3 modelos
-  var COMBO_COMPONENTS = ['Aquisição', 'Criativos', 'Conversão', 'Reativação da base', 'Relatórios', 'Reuniões'];
-  // Escopo (entregáveis) por modelo + tier — na ordem dos COMBO_COMPONENTS
-  var COMBO_SCOPE = {
+  // Subtítulo (tagline) por modelo
+  var MODEL_TAGLINE = {
+    'pdv': 'Geração de movimento para a loja + retorno de clientes, com mensuração na ponta',
+    'inside-sales': 'Geração de demanda qualificada + venda para a base ativa',
+    'e-commerce': 'Geração de vendas online (ROAS) + recompra e recuperação de carrinho'
+  };
+  // 7 componentes com Objetivo + Premissa (constantes por modelo; não mudam por tier)
+  var COMBO_META = {
+    'pdv': [
+      { c: 'Gestão de mídia',                 o: 'Gerar movimento qualificado à loja ao melhor custo por visita', p: 'PDV operante, Google Perfil e WhatsApp Business ativos' },
+      { c: 'Produção de criativos',           o: 'Sustentar a geração de visita com criativo fresco',            p: 'Oferta e identidade local aprovadas' },
+      { c: 'Ambientes / Captura',             o: 'Ligar a campanha à venda no balcão e gerar visita',            p: 'Capacidade de registrar visita/contato e conciliar cupom no balcão' },
+      { c: 'Base ativa',                      o: 'Trazer cliente de volta à loja a um CAC menor',                p: 'Base de clientes (ERP/planilha) acessível e autorizada' },
+      { c: 'Relatórios e inteligência',       o: 'Dar leitura do que a mídia gera de venda na ponta',            p: 'Proxies (visitas/cliques/mensagens) e registro de cupom disponíveis' },
+      { c: 'Atendimento e gestão de projeto', o: 'Manter execução fluida e o balcão usando os mecanismos',       p: 'Ponto focal e equipe de balcão engajados' },
+      { c: 'Reuniões',                        o: 'Direcionar a operação por retorno real na loja',               p: 'Conciliação de proxies/cupons disponível para a reunião' }
+    ],
+    'inside-sales': [
+      { c: 'Gestão de mídia',                 o: 'Gerar volume previsível de leads qualificados ao melhor CPLq', p: 'Conta de mídia ativa há 3+ meses, pixel instalado e CPL conhecido' },
+      { c: 'Produção de criativos',           o: 'Sustentar a captação com criativo fresco antes da saturação',  p: 'Briefing e oferta aprovados; acesso à marca' },
+      { c: 'Ambientes / Captura',             o: 'Maximizar conversão visitante→lead com baixa fricção',         p: 'Domínio/subdomínio e CRM com funil disponíveis para integração' },
+      { c: 'Base ativa',                      o: 'Gerar nova venda na base ativa a um CAC menor',                p: 'Base de clientes acessível e autorizada (LGPD)' },
+      { c: 'Relatórios e inteligência',       o: 'Dar leitura de volume e qualidade do lead para decisão',       p: 'Eventos de conversão e origem rastreados (CRM/UTM)' },
+      { c: 'Atendimento e gestão de projeto', o: 'Manter execução fluida e aprovações no prazo',                 p: 'Ponto focal definido do lado do cliente' },
+      { c: 'Reuniões',                        o: 'Direcionar a operação por previsibilidade de pipeline',        p: 'Dados de funil disponíveis para a reunião' }
+    ],
+    'e-commerce': [
+      { c: 'Gestão de mídia',                 o: 'Escalar faturamento mantendo ROAS eficiente por produto',      p: 'Loja operante, pixel/CAPI rastreando e ROAS conhecido' },
+      { c: 'Produção de criativos',           o: 'Sustentar a venda com criativo de conversão sempre fresco',    p: 'Catálogo, fotos e oferta aprovados' },
+      { c: 'Ambientes / Captura',             o: 'Medir o funil de venda e habilitar otimização por ROAS',       p: 'Plataforma com pixel/CAPI e eventos de e-commerce instrumentáveis' },
+      { c: 'Base ativa',                      o: 'Elevar recompra e recuperar carrinho a um CAC menor',          p: 'Base de compradores e canal de CRM/e-mail/WhatsApp ativos' },
+      { c: 'Relatórios e inteligência',       o: 'Dar leitura de margem e recompra para decisão',                p: 'Eventos de compra com valor e atribuição configurados' },
+      { c: 'Atendimento e gestão de projeto', o: 'Manter execução fluida e aprovações no prazo',                 p: 'Ponto focal definido do lado do cliente' },
+      { c: 'Reuniões',                        o: 'Direcionar a operação por margem e LTV',                       p: 'Dados de venda e coorte disponíveis para a reunião' }
+    ]
+  };
+  // Entrega + SLA por modelo + tier (mesma ordem dos 7 componentes do COMBO_META)
+  var COMBO_DELIV = {
     'pdv': {
-      s:  ['Visita à loja física via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Mensal de Resultados'],
-      m:  ['Visita à loja física via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Quinzenal de Resultados + mensal de Estratégia'],
-      l:  ['Visita à loja física via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Semanal de Resultados + mensal de Estratégia'],
-      xl: ['Visita à loja física via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Retenção e expansão por perfil (RFM) e LTV', 'Diário, semanal e mensal', 'Semanal de Resultados + quinzenal de Estratégia']
+      s: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 2–3×/semana — mídia local para gerar visita ao PDV', s: 'Otimização em até 24h após desvio' },
+        { e: '8 estáticos + 2 vídeos/motion ≤30s · design + copy — criativos de oferta/visita com chamada local', s: 'Entrega em até 7 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — instrumentação da ponta: cupom/código + WhatsApp + agendamento', s: 'Ajustes simples em até 3 dias úteis' },
+        { e: 'Remarketing + régua simples de reativação/recompra — reativação por Pareto/RFM com retorno à loja', s: 'Revisão mensal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — proxies digitais + conciliação cupom/balcão por unidade', s: 'Diário até 9h do dia útil seguinte · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com a equipe de loja', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião mensal de resultados (1h) · pauta prévia · ata com ações — leitura de custo por visita e venda na ponta', s: 'Agendada até dia 20 · pauta 48h antes · ata em até 24h' }
+      ],
+      m: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 3–4×/semana — mídia local para gerar visita ao PDV', s: 'Otimização em até 24h após desvio' },
+        { e: '14 estáticos + 3 vídeos/motion · design + copy — criativos de oferta/visita com chamada local', s: 'Entrega em até 6 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — instrumentação da ponta: cupom/código + WhatsApp + agendamento', s: 'Ajustes em até 2 dias úteis' },
+        { e: 'Remarketing + lookalike + réguas segmentadas de recompra/reativação — reativação por Pareto/RFM com retorno à loja', s: 'Revisão quinzenal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — proxies digitais + conciliação cupom/balcão por unidade', s: 'Diário até 9h · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com a equipe de loja', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião semanal operacional (30min) + 1 mensal estratégica (1h) — leitura de custo por visita e venda na ponta', s: 'Check-in quinzenal · pauta 48h antes' }
+      ],
+      l: [
+        { e: 'Até 4 canais · monitoramento diário + otimizações diárias — mídia local para gerar visita ao PDV', s: 'Otimização em até 12h após desvio' },
+        { e: '20 estáticos + 4 vídeos/motion · 2 rodadas de revisão · design + copy — criativos de oferta/visita com chamada local', s: 'Entrega em até 5 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — instrumentação da ponta: cupom/código + WhatsApp + agendamento', s: 'Ajustes em até 1 dia útil' },
+        { e: 'Estratégia de retenção/expansão · segmentação RFM · réguas multicanal — reativação por Pareto/RFM com retorno à loja', s: 'Revisão semanal da base' },
+        { e: 'Report diário + dashboard operacional + executivo mensal — proxies digitais + conciliação cupom/balcão por unidade', s: 'Diário 9h · quinzenal até 5º dia útil · mensal até 3º dia útil' },
+        { e: 'Gestor de projetos + envolvimento operacional da coordenação — alinhamento com a equipe de loja', s: 'Resposta em até 4h úteis' },
+        { e: '1 reunião semanal operacional (45min) + 1 quinzenal estratégica (1h) — leitura de custo por visita e venda na ponta', s: 'Pauta 48h antes · ata em 24h' }
+      ],
+      xl: [
+        { e: 'Canais ilimitados · equipe + monitoramento em tempo real — mídia local para gerar visita ao PDV', s: 'Otimização em tempo real · campanha parada comunicada em até 1h' },
+        { e: '28+ estáticos + vídeos sob demanda · equipe criativa dedicada · revisões ilimitadas — criativos de oferta/visita com chamada local', s: 'Entrega em até 4 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — instrumentação da ponta: cupom/código + WhatsApp + agendamento', s: 'Ajustes em até 4h úteis' },
+        { e: 'Estratégia completa de retenção/expansão · LTV · coortes · réguas avançadas — reativação por Pareto/RFM com retorno à loja', s: 'Acompanhamento contínuo da base' },
+        { e: 'Dashboard em tempo real + executivo mensal + análise trimestral — proxies digitais + conciliação cupom/balcão por unidade', s: 'Dashboard tempo real · executivo até 1º dia útil do mês' },
+        { e: 'Gestor de projetos + coordenador + gerente — alinhamento com a equipe de loja', s: 'Resposta em até 4h úteis · urgências: imediato (horário comercial)' },
+        { e: '1 reunião semanal operacional (1h) + 1 semanal estratégica (1h) — leitura de custo por visita e venda na ponta', s: 'Pauta 48h antes · ata em 12h' }
+      ]
     },
     'inside-sales': {
-      s:  ['Geração de demanda via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Captação: página, formulário ou WhatsApp', 'Remarketing e recompra na carteira',                       'Diário, semanal e mensal', 'Mensal de Resultados'],
-      m:  ['Geração de demanda via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Captação: página, formulário ou WhatsApp', 'Remarketing, públicos semelhantes e réguas de recompra',  'Diário, semanal e mensal', 'Quinzenal de Resultados + mensal de Estratégia'],
-      l:  ['Geração de demanda via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Captação: página, formulário ou WhatsApp', 'Retenção e expansão por perfil, réguas multicanal',      'Diário, semanal e mensal', 'Semanal de Resultados + mensal de Estratégia'],
-      xl: ['Geração de demanda via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Captação: página, formulário ou WhatsApp', 'Retenção completa, LTV e cohortes',               'Diário, semanal e mensal', 'Semanal de Resultados + quinzenal de Estratégia']
+      s: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 2–3×/semana — voltada à geração de lead qualificado', s: 'Otimização em até 24h após desvio' },
+        { e: '8 estáticos + 2 vídeos/motion ≤30s · design + copy — ângulos de oferta/dor para captar lead', s: 'Entrega em até 7 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — captura: LP + formulário nativo + WhatsApp', s: 'Ajustes simples em até 3 dias úteis' },
+        { e: 'Remarketing + régua simples de reativação/recompra — remarketing e réguas para a base de clientes', s: 'Revisão mensal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — leads, CPL e qualidade do lead por origem', s: 'Diário até 9h do dia útil seguinte · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com o comercial', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião mensal de resultados (1h) · pauta prévia · ata com ações — leitura de pipeline e CPLq', s: 'Agendada até dia 20 · pauta 48h antes · ata em até 24h' }
+      ],
+      m: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 3–4×/semana — voltada à geração de lead qualificado', s: 'Otimização em até 24h após desvio' },
+        { e: '14 estáticos + 3 vídeos/motion · design + copy — ângulos de oferta/dor para captar lead', s: 'Entrega em até 6 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — captura: LP + formulário nativo + WhatsApp', s: 'Ajustes em até 2 dias úteis' },
+        { e: 'Remarketing + lookalike + réguas segmentadas de recompra/reativação — remarketing e réguas para a base de clientes', s: 'Revisão quinzenal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — leads, CPL e qualidade do lead por origem', s: 'Diário até 9h · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com o comercial', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião semanal operacional (30min) + 1 mensal estratégica (1h) — leitura de pipeline e CPLq', s: 'Check-in quinzenal · pauta 48h antes' }
+      ],
+      l: [
+        { e: 'Até 4 canais · monitoramento diário + otimizações diárias — voltada à geração de lead qualificado', s: 'Otimização em até 12h após desvio' },
+        { e: '20 estáticos + 4 vídeos/motion · 2 rodadas de revisão · design + copy — ângulos de oferta/dor para captar lead', s: 'Entrega em até 5 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — captura: LP + formulário nativo + WhatsApp', s: 'Ajustes em até 1 dia útil' },
+        { e: 'Estratégia de retenção/expansão · segmentação RFM · réguas multicanal — remarketing e réguas para a base de clientes', s: 'Revisão semanal da base' },
+        { e: 'Report diário + dashboard operacional + executivo mensal — leads, CPL e qualidade do lead por origem', s: 'Diário 9h · quinzenal até 5º dia útil · mensal até 3º dia útil' },
+        { e: 'Gestor de projetos + envolvimento operacional da coordenação — alinhamento com o comercial', s: 'Resposta em até 4h úteis' },
+        { e: '1 reunião semanal operacional (45min) + 1 quinzenal estratégica (1h) — leitura de pipeline e CPLq', s: 'Pauta 48h antes · ata em 24h' }
+      ],
+      xl: [
+        { e: 'Canais ilimitados · equipe + monitoramento em tempo real — voltada à geração de lead qualificado', s: 'Otimização em tempo real · campanha parada comunicada em até 1h' },
+        { e: '28+ estáticos + vídeos sob demanda · equipe criativa dedicada · revisões ilimitadas — ângulos de oferta/dor para captar lead', s: 'Entrega em até 4 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — captura: LP + formulário nativo + WhatsApp', s: 'Ajustes em até 4h úteis' },
+        { e: 'Estratégia completa de retenção/expansão · LTV · coortes · réguas avançadas — remarketing e réguas para a base de clientes', s: 'Acompanhamento contínuo da base' },
+        { e: 'Dashboard em tempo real + executivo mensal + análise trimestral — leads, CPL e qualidade do lead por origem', s: 'Dashboard tempo real · executivo até 1º dia útil do mês' },
+        { e: 'Gestor de projetos + coordenador + gerente — alinhamento com o comercial', s: 'Resposta em até 4h úteis · urgências: imediato (horário comercial)' },
+        { e: '1 reunião semanal operacional (1h) + 1 semanal estratégica (1h) — leitura de pipeline e CPLq', s: 'Pauta 48h antes · ata em 12h' }
+      ]
     },
     'e-commerce': {
-      s:  ['Venda direta via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Recompra e carrinho abandonado', 'Base inativa',                       'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Mensal de Resultados'],
-      m:  ['Venda direta via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Recompra e carrinho abandonado', 'Base inativa e remarketing',         'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Quinzenal de Resultados + mensal de Estratégia'],
-      l:  ['Venda direta via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Recompra e carrinho abandonado', 'Base inativa e expansão por perfil', 'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Semanal de Resultados + mensal de Estratégia'],
-      xl: ['Venda direta via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Recompra e carrinho abandonado', 'LTV, cohortes e réguas multicanal', 'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Semanal de Resultados + quinzenal de Estratégia']
+      s: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 2–3×/semana — voltada à venda direta na loja (ROAS)', s: 'Otimização em até 24h após desvio' },
+        { e: '8 estáticos + 2 vídeos/motion ≤30s · design + copy — criativos de produto/oferta para conversão', s: 'Entrega em até 7 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — tracking de e-commerce (eventos de compra)', s: 'Ajustes simples em até 3 dias úteis' },
+        { e: 'Remarketing + régua simples de reativação/recompra — recompra (RFM) + recuperação de carrinho', s: 'Revisão mensal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — ROAS por produto/coorte e recompra', s: 'Diário até 9h do dia útil seguinte · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com operação/logística', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião mensal de resultados (1h) · pauta prévia · ata com ações — leitura de ROAS, coorte e recompra', s: 'Agendada até dia 20 · pauta 48h antes · ata em até 24h' }
+      ],
+      m: [
+        { e: 'Até 2 canais (Meta/Google) · monitoramento diário + otimizações 3–4×/semana — voltada à venda direta na loja (ROAS)', s: 'Otimização em até 24h após desvio' },
+        { e: '14 estáticos + 3 vídeos/motion · design + copy — criativos de produto/oferta para conversão', s: 'Entrega em até 6 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — tracking de e-commerce (eventos de compra)', s: 'Ajustes em até 2 dias úteis' },
+        { e: 'Remarketing + lookalike + réguas segmentadas de recompra/reativação — recompra (RFM) + recuperação de carrinho', s: 'Revisão quinzenal da base' },
+        { e: 'Report diário automatizado · semanal por e-mail · mensal completo — ROAS por produto/coorte e recompra', s: 'Diário até 9h · semanal segunda · mensal até 5º dia útil' },
+        { e: 'Gestor de projetos compartilhado · dúvidas e aprovações via grupo/e-mail — alinhamento com operação/logística', s: 'Resposta em até 24h úteis' },
+        { e: '1 reunião semanal operacional (30min) + 1 mensal estratégica (1h) — leitura de ROAS, coorte e recompra', s: 'Check-in quinzenal · pauta 48h antes' }
+      ],
+      l: [
+        { e: 'Até 4 canais · monitoramento diário + otimizações diárias — voltada à venda direta na loja (ROAS)', s: 'Otimização em até 12h após desvio' },
+        { e: '20 estáticos + 4 vídeos/motion · 2 rodadas de revisão · design + copy — criativos de produto/oferta para conversão', s: 'Entrega em até 5 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — tracking de e-commerce (eventos de compra)', s: 'Ajustes em até 1 dia útil' },
+        { e: 'Estratégia de retenção/expansão · segmentação RFM · réguas multicanal — recompra (RFM) + recuperação de carrinho', s: 'Revisão semanal da base' },
+        { e: 'Report diário + dashboard operacional + executivo mensal — ROAS por produto/coorte e recompra', s: 'Diário 9h · quinzenal até 5º dia útil · mensal até 3º dia útil' },
+        { e: 'Gestor de projetos + envolvimento operacional da coordenação — alinhamento com operação/logística', s: 'Resposta em até 4h úteis' },
+        { e: '1 reunião semanal operacional (45min) + 1 quinzenal estratégica (1h) — leitura de ROAS, coorte e recompra', s: 'Pauta 48h antes · ata em 24h' }
+      ],
+      xl: [
+        { e: 'Canais ilimitados · equipe + monitoramento em tempo real — voltada à venda direta na loja (ROAS)', s: 'Otimização em tempo real · campanha parada comunicada em até 1h' },
+        { e: '28+ estáticos + vídeos sob demanda · equipe criativa dedicada · revisões ilimitadas — criativos de produto/oferta para conversão', s: 'Entrega em até 4 dias corridos após aprovação do briefing' },
+        { e: '1 LP de conversão · até 2 ajustes/mês (copy, CTA, imagem) — tracking de e-commerce (eventos de compra)', s: 'Ajustes em até 4h úteis' },
+        { e: 'Estratégia completa de retenção/expansão · LTV · coortes · réguas avançadas — recompra (RFM) + recuperação de carrinho', s: 'Acompanhamento contínuo da base' },
+        { e: 'Dashboard em tempo real + executivo mensal + análise trimestral — ROAS por produto/coorte e recompra', s: 'Dashboard tempo real · executivo até 1º dia útil do mês' },
+        { e: 'Gestor de projetos + coordenador + gerente — alinhamento com operação/logística', s: 'Resposta em até 4h úteis · urgências: imediato (horário comercial)' },
+        { e: '1 reunião semanal operacional (1h) + 1 semanal estratégica (1h) — leitura de ROAS, coorte e recompra', s: 'Pauta 48h antes · ata em 12h' }
+      ]
     }
-  };
-  // SLA por tier (reaproveita os SLAs já aprovados; "Reativação" autorado), na ordem dos COMBO_COMPONENTS
-  var COMBO_SLA = {
-    s:  ['Otimizações de mídia em até 24h após desvio', 'Entrega em até 7 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 3 dias úteis', 'Réguas e automações ativas em até 5 dias úteis após setup', 'Diário (dias úteis) até 9h do dia seguinte · semanal toda segunda · mensal até 5º dia útil', 'Agendada até dia 20 · pauta 48h antes · ata em até 24h'],
-    m:  ['Otimizações de mídia em até 24h após desvio', 'Entrega em até 6 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 2 dias úteis', 'Réguas e automações ativas em até 4 dias úteis após setup', 'Diário até 9h do dia seguinte · semanal toda segunda · mensal até 5º dia útil', 'Check-in quinzenal · pauta 48h antes · ata em até 24h'],
-    l:  ['Otimizações de mídia em até 12h após desvio', 'Entrega em até 5 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 1 dia útil', 'Réguas e automações ativas em até 3 dias úteis após setup', 'Diário 9h · quinzenal até 5º dia útil · mensal até 3º dia útil', 'Pauta 48h antes · ata em 24h após reunião'],
-    xl: ['Otimizações em tempo real · campanha parada: aviso em até 1h', 'Entrega em até 4 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 4h úteis', 'Réguas e automações ativas em até 2 dias úteis após setup', 'Dashboard em tempo real · executivo até 1º dia útil do mês', 'Pauta 48h antes · ata em 12h após reunião']
   };
 
   // ===== Helpers =====
@@ -9607,17 +9731,23 @@ document.addEventListener('DOMContentLoaded', function() {
   function weekBlock(week) {
     return '<div class="ee-week"><h4>' + esc(week.title) + '</h4><ul class="dl">' + liList(week.items) + '</ul></div>';
   }
-  // Tabela 3 colunas (Componente | Escopo | SLA) — estilo da imagem de referência, em vermelho
-  function comboTable(title, rows) {
+  // Tabela genérica (Componente | ... | SLA | ...) — estilo da imagem de referência, em vermelho.
+  // headers: array de títulos; rows: array de arrays de células (mesma ordem dos headers).
+  // Coluna 0 = componente (destaque); coluna 2 = SLA (muted); colunas 3+ = extra (muted menor).
+  function comboTable(title, headers, rows) {
+    var head = headers.map(function (h) { return '<th class="ctab-h">' + esc(h) + '</th>'; }).join('');
     var body = rows.map(function (r) {
-      return '<tr><td class="c-comp">' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td class="c-sla">' + esc(r[2]) + '</td></tr>';
+      return '<tr>' + r.map(function (cell, ci) {
+        var cls = ci === 0 ? ' class="c-comp"' : (ci === 2 ? ' class="c-sla"' : (ci >= 3 ? ' class="c-extra"' : ''));
+        return '<td' + cls + '>' + esc(cell) + '</td>';
+      }).join('') + '</tr>';
     }).join('');
-    return '<table class="ctab">' +
+    return '<div class="ctab-wrap"><table class="ctab">' +
       '<thead>' +
-        '<tr><th class="ctab-title" colspan="3">' + esc(title) + '</th></tr>' +
-        '<tr><th class="ctab-h">Componente</th><th class="ctab-h">Escopo</th><th class="ctab-h">SLA</th></tr>' +
+        '<tr><th class="ctab-title" colspan="' + headers.length + '">' + esc(title) + '</th></tr>' +
+        '<tr>' + head + '</tr>' +
       '</thead>' +
-      '<tbody>' + body + '</tbody></table>';
+      '<tbody>' + body + '</tbody></table></div>';
   }
 
   // ===== Monta o HTML do documento =====
@@ -9644,12 +9774,14 @@ document.addEventListener('DOMContentLoaded', function() {
         ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
         : '');
 
-    // Tabela Componente | Escopo | SLA do Combo Performance (escopo por modelo+tier; SLA por tier)
-    var comboScope = (COMBO_SCOPE[model] && COMBO_SCOPE[model][size]) || [];
-    var comboSla   = COMBO_SLA[size] || [];
-    var comboRows  = COMBO_COMPONENTS.map(function (comp, i) {
-      return [comp, comboScope[i] || '', comboSla[i] || ''];
+    // Tabela 5 colunas (Componente | Entrega | SLA | Objetivo | Premissa) do Combo Performance
+    var comboMeta  = COMBO_META[model] || [];
+    var comboDeliv = (COMBO_DELIV[model] && COMBO_DELIV[model][size]) || [];
+    var comboRows  = comboMeta.map(function (m, i) {
+      var d = comboDeliv[i] || {};
+      return [m.c, d.e || '', d.s || '', m.o || '', m.p || ''];
     });
+    var comboTagline = MODEL_TAGLINE[model] || '';
     // Tabela Componente | Escopo | SLA do Social Media (alinha SOCIAL_ITEMS[i] com SOCIAL_SLA[i])
     var socialRows = SOCIAL_ITEMS.map(function (it, i) {
       return [String(it.strong).replace(/:\s*$/, ''), it.text, (SOCIAL_SLA[i] || [])[1] || ''];
@@ -9715,13 +9847,16 @@ document.addEventListener('DOMContentLoaded', function() {
 'table { width: 100%; border-collapse: collapse; }' +
 'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
 /* Tabela Componente | Escopo | SLA (estilo da referência, em vermelho V4) */
-'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 12px; overflow: hidden; }' +
-'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:11px 12px; }' +
-'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; text-align:left; padding:9px 12px; }' +
-'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:11px 12px; font-size:12.5px; vertical-align:top; color:rgba(40,0,0,.85); }' +
+/* Wrapper que estoura o padding do corpo pra a tabela (5 colunas) usar a largura cheia da página */
+'.ctab-wrap { margin: 0 -34px; }' +
+'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 10px; overflow: hidden; table-layout: auto; }' +
+'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:9px 10px; }' +
+'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:8.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; text-align:left; padding:7px 9px; }' +
+'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:7px 9px; font-size:9.5px; line-height:1.32; vertical-align:top; color:rgba(40,0,0,.85); }' +
 'table.ctab tbody tr:nth-child(even) td { background: rgba(229,9,20,.035); }' +
-'table.ctab td.c-comp { font-weight:700; color:#C41E08; white-space:nowrap; }' +
-'table.ctab td.c-sla { color: rgba(40,0,0,.62); }' +
+'table.ctab td.c-comp { font-weight:700; color:#C41E08; }' +
+'table.ctab td.c-sla { color: rgba(40,0,0,.6); }' +
+'table.ctab td.c-extra { color: rgba(40,0,0,.58); font-size:9px; }' +
 '.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
 '.inv-v { font-size: 18px; color: #E50914; }' +
 '.inv-group { margin-bottom: 16px; break-inside: avoid; }' +
@@ -9756,8 +9891,8 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
-    '<section><h2>Combo Performance — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · ' + modelLabel, comboRows) + '</section>' +
-    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', socialRows) + '</section>' : '') +
+    '<section><h2>Combo Performance — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Combo Performance · ' + modelLabel, ['Componente', 'Entrega', 'SLA', 'Objetivo', 'Premissa'], comboRows) + '</section>' +
+    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table></div>' +
