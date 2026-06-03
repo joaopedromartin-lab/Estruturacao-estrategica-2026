@@ -10,7 +10,10 @@
       "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")",
       "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const g=s.match\\(/<script id=\\\\\"v4-proposal-generate-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(g[1]\\);console.log\\('generate-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}\")",
       "Bash(sed -n '/\\\\.ee-warranty {/,/^}/p' index.html)",
-      "Bash(sed -n '/=== SEÇÃO ANCORAGEM/,/^\\\\.ee-anchor__inner/p' index.html)"
+      "Bash(sed -n '/=== SEÇÃO ANCORAGEM/,/^\\\\.ee-anchor__inner/p' index.html)",
+      "Bash(sed -n '/\\\\.ee-pricing__bundle-desc {/,/^}/p' index.html)",
+      "Bash(sed -n '/\\\\.ee-pricing__bundle-logo {/,/^}/p' index.html)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const g=s.match\\(/<script id=\\\\\"v4-proposal-generate-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(g[1]\\);console.log\\('generate-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")"
     ]
   }
 }
