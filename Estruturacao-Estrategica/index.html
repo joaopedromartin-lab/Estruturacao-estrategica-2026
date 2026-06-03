@@ -9225,8 +9225,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var social = !!(state.addons && state.addons.socialMedia);
     var model = form.model && EE_WEEK3[form.model] ? form.model : 'e-commerce';
     var date = todayBR();
-    var fileBase = (form.empresa || form.cliente || 'V4').replace(/[\\/:*?"<>|]+/g, '').trim() || 'V4';
-    var fileName = 'Proposta - ' + fileBase + '.pdf';
 
     // Entregáveis EE (com Semana 03 conforme modelo)
     var eeBlocks = EE_WEEKS.map(weekBlock).join('') + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4);
@@ -9264,7 +9262,9 @@ document.addEventListener('DOMContentLoaded', function() {
 '@page { size: A4; margin: 14mm; }' +
 '* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
 'body { margin: 0; font-family: "IBM Plex Sans", Arial, sans-serif; color: #280000; background: #f3f0ee; line-height: 1.5; }' +
-'.toolbar { position: sticky; top: 0; z-index: 10; display: flex; gap: 12px; justify-content: center; padding: 14px; background: #1a0000; }' +
+'.toolbar { position: sticky; top: 0; z-index: 10; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 14px; background: #1a0000; }' +
+'.toolbar .tip { color: rgba(255,255,255,.7); font-size: 12.5px; }' +
+'.toolbar .tip strong { color: #fff; }' +
 '.toolbar button { font: inherit; font-weight: 700; cursor: pointer; border: none; border-radius: 9999px; padding: 12px 26px; }' +
 '.toolbar .pdf { background: linear-gradient(135deg,#FB2E0A,#C41E08 55%,#7A0A02); color: #fff; }' +
 '.toolbar .close { background: rgba(255,255,255,.12); color: #fff; }' +
@@ -9309,9 +9309,9 @@ document.addEventListener('DOMContentLoaded', function() {
 '.foot { padding: 22px 40px; background: #1a0000; color: #fff; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }' +
 '.foot .r { opacity: .7; }' +
 '.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
-'@media print { .toolbar, .hint { display: none !important; } body { background: #fff; } .page { box-shadow: none; margin: 0; max-width: none; } }' +
+'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
-'<div class="toolbar"><button class="pdf" id="v4-dl" onclick="v4DownloadPDF()">Baixar PDF</button><button class="close" onclick="window.print()">Imprimir</button><button class="close" onclick="window.close()">Fechar</button></div>' +
+'<div class="toolbar"><button class="pdf" onclick="window.print()">Salvar como PDF</button><button class="close" onclick="window.close()">Fechar</button><span class="tip">No destino da impressão, escolha <strong>“Salvar como PDF”</strong></span></div>' +
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
@@ -9342,22 +9342,6 @@ document.addEventListener('DOMContentLoaded', function() {
   '</div>' +
   '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
 '</div>' +
-'<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"><\/script>' +
-'<script>' +
-'var FILENAME=' + JSON.stringify(fileName) + ';' +
-'function v4DownloadPDF(){' +
-  'var btn=document.getElementById("v4-dl");' +
-  'if(typeof html2pdf==="undefined"){window.print();return;}' +
-  'var el=document.querySelector(".page");' +
-  'if(btn){btn.disabled=true;btn.textContent="Gerando PDF...";}' +
-  'var prevBodyW=document.body.style.width,prevBodyM=document.body.style.margin;' +
-  'document.body.style.width="794px";document.body.style.margin="0";' +
-  'var opt={margin:0,filename:FILENAME,image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",width:794,windowWidth:794,scrollX:0,scrollY:0},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".ee-week","section",".pillar",".guarantee","table","ol.steps",".meta"]}};' +
-  'function done(){document.body.style.width=prevBodyW;document.body.style.margin=prevBodyM;if(btn){btn.disabled=false;btn.textContent="Baixar PDF";}}' +
-  'function ready(cb){if(document.fonts&&document.fonts.ready){document.fonts.ready.then(cb);}else{cb();}}' +
-  'ready(function(){html2pdf().set(opt).from(el).save().then(done).catch(function(){done();window.print();});});' +
-'}' +
-'<\/script>' +
 '</body></html>';
   }
 
