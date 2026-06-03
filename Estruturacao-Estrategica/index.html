@@ -9225,6 +9225,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var social = !!(state.addons && state.addons.socialMedia);
     var model = form.model && EE_WEEK3[form.model] ? form.model : 'e-commerce';
     var date = todayBR();
+    var fileBase = (form.empresa || form.cliente || 'V4').replace(/[\\/:*?"<>|]+/g, '').trim() || 'V4';
+    var fileName = 'Proposta - ' + fileBase + '.pdf';
 
     // Entregáveis EE (com Semana 03 conforme modelo)
     var eeBlocks = EE_WEEKS.map(weekBlock).join('') + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4);
@@ -9256,6 +9258,8 @@ document.addEventListener('DOMContentLoaded', function() {
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
 '<meta name="viewport" content="width=device-width, initial-scale=1">' +
 '<title>Proposta — ' + esc(form.empresa || form.cliente || 'V4 Company') + '</title>' +
+'<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+'<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&family=Anton&display=swap" rel="stylesheet">' +
 '<style>' +
 '@page { size: A4; margin: 14mm; }' +
 '* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
@@ -9307,7 +9311,7 @@ document.addEventListener('DOMContentLoaded', function() {
 '.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
 '@media print { .toolbar, .hint { display: none !important; } body { background: #fff; } .page { box-shadow: none; margin: 0; max-width: none; } }' +
 '</style></head><body>' +
-'<div class="toolbar"><button class="pdf" onclick="window.print()">Baixar PDF (imprimir)</button><button class="close" onclick="window.close()">Fechar</button></div>' +
+'<div class="toolbar"><button class="pdf" id="v4-dl" onclick="v4DownloadPDF()">Baixar PDF</button><button class="close" onclick="window.print()">Imprimir</button><button class="close" onclick="window.close()">Fechar</button></div>' +
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
@@ -9337,7 +9341,22 @@ document.addEventListener('DOMContentLoaded', function() {
     '</ol></section>' +
   '</div>' +
   '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
-'</div></body></html>';
+'</div>' +
+'<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"><\/script>' +
+'<script>' +
+'var FILENAME=' + JSON.stringify(fileName) + ';' +
+'function v4DownloadPDF(){' +
+  'var btn=document.getElementById("v4-dl");' +
+  'if(typeof html2pdf==="undefined"){window.print();return;}' +
+  'var el=document.querySelector(".page");' +
+  'if(btn){btn.disabled=true;btn.textContent="Gerando PDF...";}' +
+  'var opt={margin:0,filename:FILENAME,image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",windowWidth:el.scrollWidth},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".ee-week","section",".pillar",".guarantee","table","ol.steps",".meta"]}};' +
+  'function done(){if(btn){btn.disabled=false;btn.textContent="Baixar PDF";}}' +
+  'function ready(cb){if(document.fonts&&document.fonts.ready){document.fonts.ready.then(cb);}else{cb();}}' +
+  'ready(function(){html2pdf().set(opt).from(el).save().then(done).catch(function(){done();window.print();});});' +
+'}' +
+'<\/script>' +
+'</body></html>';
   }
 
   function generate(form, state) {
