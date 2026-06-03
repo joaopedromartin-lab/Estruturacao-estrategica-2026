@@ -1224,8 +1224,8 @@ footer .wp-block-group.has-black-background-color {
      Sem isso, cada uma reservava 100vh e o gap entre elas ficava enorme. */
   #top > #garantia,
   #top > #ancoragem { height: auto; min-height: 0; max-height: none; }
-  #top > #garantia  { padding-top: clamp(40px, 7vh, 96px); padding-bottom: clamp(12px, 1.8vh, 26px); }
-  #top > #ancoragem { padding-top: clamp(12px, 1.8vh, 26px); padding-bottom: clamp(40px, 7vh, 96px); }
+  #top > #garantia  { padding-top: clamp(40px, 7vh, 96px); padding-bottom: clamp(24px, 3.4vh, 44px); }
+  #top > #ancoragem { padding-top: clamp(24px, 3.4vh, 44px); padding-bottom: clamp(40px, 7vh, 96px); }
   /* Simulador: preenche a viewport, mas NÃO é escalado (pro drag funcionar em px
      reais) e cresce se precisar, sem clipar o conteúdo. */
   #top > #simulador {
@@ -2375,9 +2375,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 /* === SEÇÃO MÉTODO (header central + 4 cards didáticos) === */
 .ee-method {
-  /* continuação do gradiente da #missao: começa no vermelho quente (onde a missão termina)
-     e desce pro preto, emendando as duas seções sem corte */
-  background: linear-gradient(180deg, #D2120A 0%, #B41208 38%, #7A0A04 66%, #3D0202 86%, #000000 100%);
+  background: #FFFFFF;
   padding: clamp(64px, 9vh, 120px) var(--ee-pad-x);
 }
 .ee-method__inner {
@@ -2388,15 +2386,19 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   gap: clamp(48px, 6vh, 88px);
 }
 
-/* Header centralizado: headline + sub */
+/* Header em 2 colunas: headline (esquerda) + sub (direita) */
 .ee-method__head {
-  text-align: center;
-  max-width: 780px;
+  text-align: left;
+  max-width: var(--ee-max-width);
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(18px, 2.2vh, 30px);
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(28px, 5vw, 88px);
+}
+@media (max-width: 860px) {
+  .ee-method__head { flex-direction: column; gap: clamp(16px, 3vh, 28px); }
 }
 .ee-method__title {
   font-family: 'Morganite', 'Anton', sans-serif;
@@ -2405,33 +2407,23 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: 0.9;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #280000;
   margin: 0;
-  position: relative;
-  padding-bottom: clamp(18px, 2vh, 28px);
 }
 .ee-method__title strong { font-weight: 700; color: #FB2E0A; }
-.ee-method__title::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: clamp(64px, 6vw, 100px);
-  height: 3px;
-  border-radius: 2px;
-  background: #E50914;
-}
 .ee-method__sub {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
   font-size: clamp(15px, 1.2vw, 19px);
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(40, 0, 0, 0.7);
   margin: 0;
+  max-width: 540px;             /* limita a sub na coluna da direita */
   letter-spacing: -0.005em;
+  flex: 0 1 540px;
 }
-.ee-method__sub strong { color: #FFFFFF; font-weight: 700; }
+@media (max-width: 860px) { .ee-method__sub { max-width: none; flex: 1 1 auto; } }
+.ee-method__sub strong { color: #280000; font-weight: 700; }
 
 /* Grid dos 4 pilares */
 .ee-method__pillars {
@@ -2465,15 +2457,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   align-items: center;
   gap: clamp(22px, 2.6vh, 36px);
   padding: clamp(24px, 2.2vw, 38px) clamp(16px, 1.6vw, 26px);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(40, 0, 0, 0.025);
+  border: 1px solid rgba(40, 0, 0, 0.12);
   border-radius: 18px;
 }
 .ee-method__pillar-title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(19px, 1.6vw, 26px);
   font-weight: 500;
-  color: #FFFFFF;
+  color: #280000;
   margin: 0;
   text-align: center;
   letter-spacing: -0.015em;
@@ -2509,7 +2501,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(13px, 1vw, 16px);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(40, 0, 0, 0.8);
   letter-spacing: -0.005em;
   line-height: 1.3;
 }
@@ -3025,8 +3017,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
    Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
 .ee-sim {
-  background: linear-gradient(180deg, #000000 0%, #240606 50%, #050000 100%);  /* gradiente sutil (emenda com #metodo e #produto pretos) */
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #280000;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-sim__inner {
@@ -3039,7 +3031,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
-  color: #FFFFFF;
+  color: #280000;
   margin: 0 0 clamp(12px, 1.6vh, 20px);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -3049,7 +3041,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(16px, 1.3vw, 20px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(40, 0, 0, 0.62);
   margin: 0;
   line-height: 1.5;
   letter-spacing: -0.005em;
@@ -3074,7 +3066,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   justify-content: center;
   border-radius: 14px;
   background: transparent;
-  color: #FFFFFF;
+  color: #280000;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
   font-size: clamp(20px, 2.4vw, 34px);
@@ -3098,12 +3090,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   border-radius: 14px;
   overflow: hidden;
   min-height: clamp(54px, 8vh, 88px);
-  /* track menos claro (rosa mais suave/menos brilhante) */
-  background: linear-gradient(90deg, #E7B7AE 0%, #DCA89C 100%);
-  /* stroke suave branco */
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  /* glow externo levemente alaranjado */
-  box-shadow: 0 0 28px rgba(255, 98, 0, 0.28), 0 0 60px rgba(255, 60, 10, 0.14);
+  /* track (parte vazia) em rosa claro sobre o fundo branco */
+  background: linear-gradient(90deg, #F3D9D3 0%, #EBC8BF 100%);
+  /* stroke sutil escuro pra definir a barra no branco */
+  border: 1px solid rgba(40, 0, 0, 0.12);
+  /* sombra suave (vermelho discreto) pra dar profundidade no branco */
+  box-shadow: 0 6px 18px rgba(196, 30, 8, 0.12);
 }
 .ee-sim__fill {
   position: absolute;
@@ -3158,7 +3150,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(20px, 2.2vw, 34px);
   font-weight: 400;
-  color: #FFFFFF;
+  color: #280000;
   letter-spacing: -0.015em;
   line-height: 1.3;
 }
@@ -3993,6 +3985,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (min-width: 720px)  { .ee-recap__weeks { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .ee-recap__weeks { grid-template-columns: repeat(5, 1fr); } }
+/* Rótulos de grupo (retângulo com gradiente) acima das colunas */
+.ee-recap__group {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(10px, 1.1vw, 16px) clamp(12px, 1.4vw, 22px);
+  border-radius: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: clamp(13px, 1.05vw, 17px);
+  text-align: center;
+  line-height: 1.1;
+}
+.ee-recap__group--ee {
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  color: #FFFFFF;
+}
+.ee-recap__group--exec {
+  display: none;   /* só aparece no desktop (5 colunas) */
+  background: linear-gradient(135deg, #FFE45C 0%, #FFDD00 50%, #C9A800 100%);
+  color: #280000;
+}
+@media (min-width: 1080px) {
+  .ee-recap__group--ee   { grid-column: 1 / 5; grid-row: 1; }
+  .ee-recap__group--exec { display: flex; grid-column: 5 / 6; grid-row: 1; }
+  .ee-recap__week        { grid-row: 2; }
+}
 .ee-recap__week {
   display: flex;
   flex-direction: column;
@@ -7365,10 +7387,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <header class="ee-recap__head">
       <p class="ee-recap__eyebrow">Recap</p>
       <h2 class="ee-recap__title">Tudo que <strong>você recebe</strong> na <strong>Estruturação Estratégica</strong>.</h2>
-      <p class="ee-recap__sub">A recapitulação completa de cada ativo entregue ao longo das 4 semanas — pronto pra colocar a operação pra rodar.</p>
     </header>
 
     <div class="ee-recap__weeks" role="list">
+
+      <!-- Rótulos de grupo: EE (cobre as 4 semanas) + Executar -->
+      <div class="ee-recap__group ee-recap__group--ee">Estruturação Estratégica</div>
+      <div class="ee-recap__group ee-recap__group--exec">Executar</div>
 
       <!-- SEMANA 01 -->
       <article class="ee-recap__week" role="listitem">
