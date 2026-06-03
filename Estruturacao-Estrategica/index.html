@@ -1240,30 +1240,42 @@ footer .wp-block-group.has-black-background-color {
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
+}
+/* Imagem full-bleed de fundo */
+.ee-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+/* Overlay sutil pra dar legibilidade ao texto (mais escuro embaixo/esquerda) */
+.ee-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 42%, transparent 70%);
 }
 .ee-hero__inner {
   width: 100%;
   max-width: var(--ee-max-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(40px, 5vw, 80px);
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   position: relative;
   z-index: 2;
-}
-@media (min-width: 900px) {
-  .ee-hero__inner {
-    grid-template-columns: 1.05fr 1fr;
-  }
 }
 .ee-hero__content {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 4vw, 56px);
+  gap: clamp(28px, 4vw, 48px);
 }
 .ee-hero__title {
   font-family: 'Morganite', 'Anton', sans-serif;
@@ -1320,24 +1332,54 @@ footer .wp-block-group.has-black-background-color {
 }
 .ee-hero__select-prompt strong { font-weight: 700; color: #FFFFFF; }
 
+/* ESTADO SELECT (inicial): prompt + seletor centralizados no meio da tela */
 .ee-hero[data-hero-state="select"] {
-  /* Garante centralização vertical mesmo no mobile (sobrescreve min-height:auto) */
   min-height: 100vh;
 }
 .ee-hero[data-hero-state="select"] .ee-hero__inner {
-  grid-template-columns: 1fr;
-  justify-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .ee-hero[data-hero-state="select"] .ee-hero__content {
   align-items: center;
   text-align: center;
 }
-.ee-hero[data-hero-state="select"] .ee-hero__title,
-.ee-hero[data-hero-state="select"] .ee-hero__visual {
+.ee-hero[data-hero-state="select"] .ee-hero__title {
   display: none;
 }
-/* No estado welcome o prompt some e o layout normal volta */
-.ee-hero[data-hero-state="welcome"] .ee-hero__select-prompt {
+
+/* ESTADO WELCOME (após escolher): título no canto inferior esquerdo,
+   seletor e prompt escondidos. Referência: head assentada na base,
+   imagem respirando acima (estilo "MATERIAIS V4"). */
+/* O inner cobre toda a área útil da hero (inset = padding), virando um
+   containing block de altura cheia. Assim o conteúdo ancorado embaixo é
+   determinístico, sem depender de flex-stretch. */
+.ee-hero[data-hero-state="welcome"] .ee-hero__inner {
+  position: absolute;
+  inset: var(--ee-pad-y-default) var(--ee-pad-x);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  justify-content: flex-end;   /* empurra o conteúdo pra base */
+  align-items: flex-start;     /* alinhado à esquerda */
+}
+.ee-hero[data-hero-state="welcome"] .ee-hero__content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  align-items: flex-start;
+  text-align: left;
+  margin: 0;
+}
+/* Head grande no canto inferior, em uma única linha (bloco único) */
+.ee-hero[data-hero-state="welcome"] .ee-hero__title {
+  white-space: nowrap;
+}
+.ee-hero[data-hero-state="welcome"] .ee-hero__title span {
+  font-size: clamp(44px, 10.5vw, 168px);
+}
+.ee-hero[data-hero-state="welcome"] .ee-hero__select-prompt,
+.ee-hero[data-hero-state="welcome"] .ee-model-selector {
   display: none;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1348,35 +1390,6 @@ footer .wp-block-group.has-black-background-color {
 html.ee-scroll-lock,
 html.ee-scroll-lock body {
   overflow: hidden;
-}
-
-.ee-hero__visual {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 0.88;
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  isolation: isolate; /* cria stacking context próprio pra z-index do logo/frames funcionar */
-}
-.ee-hero__frames {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 1;
-  filter: brightness(0) invert(1);
-  z-index: 1;
-}
-.ee-hero__logo {
-  position: relative;
-  width: 26%;
-  height: auto;
-  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.35));
-  z-index: 5; /* sobe pra garantir que fica claramente na frente dos frames */
 }
 
 /* === SALES MODEL SELECTOR === */
@@ -2253,22 +2266,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-mission {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; /* trava na proporção nativa do asset (1920×1080) */
-  min-height: 560px;    /* não fica baixo demais em telas estreitas */
-  max-height: 1080px;   /* cap em monitores 4K — imagem nunca é stretched além do original */
+  min-height: clamp(480px, 68vh, 760px);
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #560303; /* fallback caso a imagem não carregue */
-}
-.ee-mission__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  z-index: 0;
+  /* vertical (escuro → vivo) terminando na MESMA cor em que o método começa,
+     pra costura discreta entre as seções */
+  background: linear-gradient(180deg, #4A0202 0%, #8B1004 50%, #C41E08 100%);
 }
 .ee-mission__inner {
   position: relative;
@@ -2331,11 +2335,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-mission__num { font-weight: 700; }
 
-/* Mobile: conteúdo ocupa tudo, imagem fade out à direita */
+/* Mobile: conteúdo ocupa tudo */
 @media (max-width: 900px) {
-  .ee-mission { min-height: 88vh; }
+  .ee-mission { min-height: auto; }
   .ee-mission__content { max-width: 100%; }
-  .ee-mission__bg { opacity: 0.45; object-position: 75% center; }
 }
 
 /* Estado inicial da animação GSAP — entram quando o GSAP rodar */
@@ -2360,9 +2363,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   }
 }
 
-/* === SEÇÃO MÉTODO (svg + headline + 4 pilares com divisores marrons) === */
+/* === SEÇÃO MÉTODO (header central + 4 cards didáticos) === */
 .ee-method {
-  background: #FFFFFF;
+  /* continuação do gradiente da #missao: começa no vermelho quente (onde a missão termina)
+     e desce pro preto, emendando as duas seções sem corte */
+  background: linear-gradient(180deg, #C41E08 0%, #5A0503 26%, #2A0101 50%, #120000 74%, #000000 100%);
   padding: clamp(64px, 9vh, 120px) var(--ee-pad-x);
 }
 .ee-method__inner {
@@ -2370,131 +2375,131 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2vh, 28px);
+  gap: clamp(48px, 6vh, 88px);
 }
 
-/* Topo: SVG + headline */
-.ee-method__top {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 3vw, 48px);
-  align-items: center;
-}
-@media (min-width: 900px) {
-  .ee-method__top { grid-template-columns: 1.5fr 1fr; }
-}
-.ee-method__visual {
-  width: 100%;
-  max-width: 620px;
+/* Header centralizado: headline + sub */
+.ee-method__head {
+  text-align: center;
+  max-width: 780px;
   margin: 0 auto;
-}
-.ee-method__visual img {
-  display: block;
-  width: 100%;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 2.2vh, 30px);
 }
 .ee-method__title {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
-  font-size: clamp(26px, 2.8vw, 42px);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #280000;
-  margin: 0;
-  max-width: 520px;
-}
-.ee-method__title strong {
+  font-family: 'Morganite', 'Anton', sans-serif;
   font-weight: 700;
-  background: linear-gradient(135deg, #560303 0%, #E50914 55%, #FB2E0A 100%);
-  -webkit-background-clip: text;
-          background-clip: text;
-  color: transparent;
-}
-
-/* Pilares (4 colunas com divisores marrom V4 = #280000) */
-.ee-method__pillars {
-  list-style: none;
-  padding: clamp(14px, 2vh, 24px) 0 0;
+  font-size: clamp(56px, 7vw, 110px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #FFFFFF;
   margin: 0;
-  border-top: 1px solid rgba(40, 0, 0, 0.18);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 2.4vw, 36px);
-}
-@media (min-width: 760px) {
-  .ee-method__pillars { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1100px) {
-  .ee-method__pillars {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-  }
-}
-.ee-method__pillar {
-  padding: 0 clamp(0px, 1.5vw, 24px);
   position: relative;
+  padding-bottom: clamp(18px, 2vh, 28px);
 }
-@media (min-width: 1100px) {
-  .ee-method__pillar + .ee-method__pillar {
-    border-left: 1px solid rgba(40, 0, 0, 0.18);
-    padding-left: clamp(24px, 2.4vw, 40px);
-  }
-  .ee-method__pillar:not(:last-child) {
-    padding-right: clamp(24px, 2.4vw, 40px);
-  }
-  .ee-method__pillar:first-child { padding-left: 0; }
-  .ee-method__pillar:last-child  { padding-right: 0; }
+.ee-method__title strong { font-weight: 700; color: #FB2E0A; }
+.ee-method__title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: clamp(64px, 6vw, 100px);
+  height: 3px;
+  border-radius: 2px;
+  background: #E50914;
 }
-.ee-method__pillar-icon {
-  display: block;
-  width: clamp(48px, 4.6vw, 72px);
-  height: auto;
-  margin: 0 0 clamp(12px, 1.4vw, 20px);
-}
-.ee-method__pillar-title {
+.ee-method__sub {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(18px, 1.5vw, 26px);
   font-weight: 400;
-  color: #280000;
-  margin: 0 0 clamp(10px, 1.1vw, 18px);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-.ee-method__pillar-body {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-size: clamp(15px, 1.2vw, 19px);
   line-height: 1.55;
-  color: rgba(5, 5, 5, 0.68);
+  color: rgba(255, 255, 255, 0.75);
   margin: 0;
   letter-spacing: -0.005em;
 }
-/* Ferramentas de cada pilar (Meta Ads, Google Ads, etc.) — grid 2 col */
+.ee-method__sub strong { color: #FFFFFF; font-weight: 700; }
+
+/* Grid dos 4 pilares */
+.ee-method__pillars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 3vw, 56px);
+}
+@media (min-width: 680px)  { .ee-method__pillars { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ee-method__pillars { grid-template-columns: repeat(4, 1fr); } }
+
+/* Pilar: ícone (acima) + card */
+.ee-method__pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 1.4vw, 20px);
+}
+.ee-method__pillar-icon {
+  display: block;
+  width: clamp(44px, 3.6vw, 60px);
+  height: auto;
+}
+.ee-method__pillar-card {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 2.6vh, 36px);
+  padding: clamp(24px, 2.2vw, 38px) clamp(16px, 1.6vw, 26px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+}
+.ee-method__pillar-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(19px, 1.6vw, 26px);
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+/* Ferramentas — empilhadas, centralizadas */
 .ee-method__pillar-tools {
   list-style: none;
   padding: 0;
-  margin: clamp(24px, 3vh, 40px) 0 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(28px, 3.4vh, 44px);
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 2.4vh, 32px);
 }
 .ee-method__tool {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
 }
-.ee-method__tool img {
+.ee-method__tool img,
+.ee-method__tool svg {
   display: block;
-  width: clamp(40px, 3.6vw, 56px);
-  height: clamp(40px, 3.6vw, 56px);
+  width: clamp(34px, 3vw, 46px);
+  height: clamp(34px, 3vw, 46px);
   object-fit: contain;
-  object-position: left center;
 }
+.ee-method__tool svg { color: #E50914; stroke-width: 1.75; }
 .ee-method__tool-label {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-size: clamp(13px, 1vw, 16px);
   font-weight: 500;
-  color: rgba(5, 5, 5, 0.78);
+  color: rgba(255, 255, 255, 0.82);
   letter-spacing: -0.005em;
   line-height: 1.3;
 }
@@ -3010,8 +3015,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
    Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
 .ee-sim {
-  background: #FFFFFF;
-  color: #280000;
+  background: #000000;  /* emenda com #metodo (acaba preto) e #produto (começa preto) */
+  color: #FFFFFF;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-sim__inner {
@@ -3024,17 +3029,17 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
-  color: #280000;
+  color: #FFFFFF;
   margin: 0 0 clamp(12px, 1.6vh, 20px);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
-.ee-sim__title strong { font-weight: 700; color: #E50914; }
+.ee-sim__title strong { font-weight: 700; color: #FB2E0A; }
 .ee-sim__sub {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(16px, 1.3vw, 20px);
   font-weight: 400;
-  color: #555555;
+  color: rgba(255, 255, 255, 0.65);
   margin: 0;
   line-height: 1.5;
   letter-spacing: -0.005em;
@@ -3059,7 +3064,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   justify-content: center;
   border-radius: 14px;
   background: transparent;
-  color: #E50914;
+  color: #FFFFFF;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
   font-size: clamp(20px, 2.4vw, 34px);
@@ -3083,7 +3088,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   border-radius: 14px;
   overflow: hidden;
   min-height: clamp(54px, 8vh, 88px);
-  background: linear-gradient(90deg, #FFD9D2 0%, #FFC2B6 100%);
+  /* track menos claro (rosa mais suave/menos brilhante) */
+  background: linear-gradient(90deg, #E7B7AE 0%, #DCA89C 100%);
+  /* stroke suave branco */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  /* glow externo levemente alaranjado */
+  box-shadow: 0 0 28px rgba(255, 98, 0, 0.28), 0 0 60px rgba(255, 60, 10, 0.14);
 }
 .ee-sim__fill {
   position: absolute;
@@ -3124,7 +3134,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: clamp(15px, 1.3vw, 20px);
-  color: #E50914;
+  color: #FB2E0A;
   letter-spacing: -0.005em;
   opacity: 0;
   transform: translateY(6px);
@@ -3138,12 +3148,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(20px, 2.2vw, 34px);
   font-weight: 400;
-  color: #280000;
+  color: #FFFFFF;
   letter-spacing: -0.015em;
   line-height: 1.3;
 }
 .ee-sim__hook strong { font-weight: 700; }
-.ee-sim__hook-dots { color: #E50914; font-weight: 700; }
+.ee-sim__hook-dots { color: #FB2E0A; font-weight: 700; }
 
 /* === SEÇÃO — PRA QUEM (6 dores em grid com divisores edge-to-edge) === */
 .ee-foru {
@@ -3926,10 +3936,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap {
   background: #280000;
   color: #FFFFFF;
-  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  /* padding lateral enxuto → seção quase full-width, colunas bem largas */
+  padding: var(--ee-pad-y-default) clamp(1rem, 2vw, 2.5rem);
 }
 .ee-recap__inner {
-  max-width: var(--ee-max-width);
+  max-width: 2240px;   /* bem mais largo que o padrão (1720) → cards e textos grandes */
   margin: 0 auto;
 }
 .ee-recap__head {
@@ -3964,14 +3975,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
   max-width: 640px;
 }
-/* Grid das 4 semanas */
+/* Grid das colunas (5 no desktop) — gap enxuto pra os cards ganharem largura */
 .ee-recap__weeks {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(28px, 3vw, 48px);
+  gap: clamp(14px, 1.3vw, 24px);
 }
 @media (min-width: 720px)  { .ee-recap__weeks { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1080px) { .ee-recap__weeks { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1080px) { .ee-recap__weeks { grid-template-columns: repeat(5, 1fr); } }
 .ee-recap__week {
   display: flex;
   flex-direction: column;
@@ -3991,7 +4002,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap__week-label strong { font-weight: 700; }
 .ee-recap__week-title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(17px, 1.4vw, 22px);
+  font-size: clamp(18px, 1.55vw, 25px);
   font-weight: 700;
   color: #FFFFFF;
   margin: 0;
@@ -4011,7 +4022,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   gap: clamp(10px, 1.2vh, 16px);
   /* Card: fundo transparente + traçado em gradiente brand */
   position: relative;
-  padding: clamp(20px, 1.8vw, 28px);
+  padding: clamp(16px, 1.2vw, 22px);
   border-radius: 16px;
   background: transparent;
   flex: 1 1 auto;        /* estica pra preencher a altura da coluna → cards alinhados */
@@ -4035,7 +4046,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-recap__items li {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(13px, 1.05vw, 16px);
+  font-size: clamp(15px, 1.2vw, 19px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.45;
@@ -4063,6 +4074,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.005em;
 }
 .ee-recap__prompt strong { color: #FFFFFF; font-weight: 700; }
+/* Coluna Executar — fase contínua pós-EE, destacada em amarelo (como no resto da página) */
+.ee-recap__week--executar { border-top-color: #FFDD00; }
+.ee-recap__week--executar .ee-recap__items::before {
+  background: linear-gradient(160deg, #FFE45C 0%, #FFDD00 50%, #C9A800 100%);
+}
+
 /* Variantes da Semana 3 (toggle por modelo) */
 .ee-recap__week3-variant { display: none; }
 .ee-recap__week3-variant.is-shown {
@@ -4113,6 +4130,32 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   max-width: 520px;
   height: auto;
   object-fit: contain;
+}
+
+/* === SEÇÃO ANCORAGEM (placeholder: texto único, bem ao centro) === */
+.ee-anchor {
+  background: #280000;          /* mesmo tom da garantia e do handoff → flui sem corte */
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  min-height: clamp(320px, 50vh, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ee-anchor__inner {
+  max-width: var(--ee-max-width);
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.ee-anchor__text {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(64px, 12vw, 220px);
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin: 0;
 }
 
 .ee-handoff {
@@ -4651,6 +4694,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.015em;
   line-height: 1.2;
 }
+/* Rótulo do modelo de vendas no título (dinâmico) — peso menor, em vermelho da marca */
+.ee-pricing__bundle-model {
+  font-weight: 600;
+  color: #C41E08;
+}
 .ee-pricing__bundle-desc {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(15px, 1.2vw, 19px);
@@ -4784,6 +4832,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 @media (min-width: 680px)  { .ee-packs { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .ee-packs { grid-template-columns: repeat(4, 1fr); } }
 
+/* Variantes por modelo de vendas — só a ativa aparece (trocada pelo seletor da hero) */
+.ee-packs__variant { display: none; }
+.ee-packs__variant.is-shown { display: block; }
+
 .ee-packs__card {
   display: flex;
   flex-direction: column;
@@ -4843,12 +4895,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Nome do pack — caixa alta + gradiente brand */
 .ee-packs__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(28px, 2.6vw, 40px);
+  font-size: clamp(22px, 1.9vw, 30px);
   font-weight: 700;
   text-transform: uppercase;
   margin: 0 0 clamp(10px, 1vw, 14px);
   letter-spacing: -0.01em;
-  line-height: 1;
+  line-height: 1.05;
   background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
   -webkit-background-clip: text;
           background-clip: text;
@@ -6071,12 +6123,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO 01 — HERO                                               -->
 <!-- ============================================================ -->
 <section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
+  <img src="assets/Herofullbleed.png" alt="" class="ee-hero__bg" aria-hidden="true"/>
   <div class="ee-hero__inner">
     <div class="ee-hero__content">
       <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
       <h1 class="ee-hero__title">
-        <span>Bem vindo a</span>
-        <span>V4 Company</span>
+        <span>Bem vindo a V4 Company</span>
       </h1>
 
       <div class="ee-model-selector" data-state="closed">
@@ -6096,10 +6148,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
         </ul>
       </div>
-    </div>
-
-    <div class="ee-hero__visual" aria-hidden="true">
-      <img src="assets/ImagemHero.png" alt="" class="ee-hero__frames"/>
     </div>
   </div>
 </section>
@@ -6576,7 +6624,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO 04 — MISSÃO (full-bleed bg + conteúdo à esquerda)       -->
 <!-- ============================================================ -->
 <section id="missao" class="ee-mission" aria-label="Nossa missão: vender">
-  <img src="assets/sectionVender.png" alt="" class="ee-mission__bg" aria-hidden="true"/>
   <div class="ee-mission__inner">
     <div class="ee-mission__content">
       <p class="ee-mission__eyebrow">Mas qual é a <strong>NOSSA MISSÃO?</strong></p>
@@ -6599,53 +6646,60 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <section id="metodo" class="ee-method" aria-label="Nosso método científico">
   <div class="ee-method__inner">
 
-    <!-- Topo: SVG à esquerda + headline à direita -->
-    <div class="ee-method__top">
-      <div class="ee-method__visual">
-        <img src="assets/a-planta-de-receita.svg.svg" alt="Diagrama do método: Aquisição, Engajamento, Monetização e Retenção em ciclo contínuo"/>
-      </div>
-      <h2 class="ee-method__title">Existe um método científico para que sua empresa <strong>nunca pare de vender</strong></h2>
-    </div>
+    <!-- Header centralizado -->
+    <header class="ee-method__head">
+      <h2 class="ee-method__title">Método <strong>V4</strong></h2>
+      <p class="ee-method__sub">O Método V4 é uma estratégia utilizada para impulsionar as vendas dos clientes. É composto por quatro pilares: <strong>aquisição, engajamento, monetização e retenção.</strong> Ao contrário do funil de vendas tradicional, essas etapas se conectam e a conversão pode ocorrer em qualquer momento do processo de vendas.</p>
+    </header>
 
-    <!-- 4 pilares com divisores marrom -->
+    <!-- 4 cards: ícone do pilar acima + ferramentas dentro -->
     <ol class="ee-method__pillars">
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/aquisicao.svg" alt="" aria-hidden="true"/>
-        <h3 class="ee-method__pillar-title">Aquisição</h3>
-        <p class="ee-method__pillar-body">Tudo começa atraindo as pessoas certas. Sem fontes de tráfego, seu público não conhece seu produto e não há venda.</p>
-        <ul class="ee-method__pillar-tools">
-          <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
-          <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
-          <li class="ee-method__tool"><img src="assets/Tiktokads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">TikTok Ads</span></li>
-        </ul>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Aquisição</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Tiktokads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">TikTok Ads</span></li>
+            <li class="ee-method__tool"><i data-lucide="search" aria-hidden="true"></i><span class="ee-method__tool-label">S.E.O.</span></li>
+          </ul>
+        </div>
       </li>
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/engagamento.svg" alt="" aria-hidden="true"/>
-        <h3 class="ee-method__pillar-title">Engajamento</h3>
-        <p class="ee-method__pillar-body">Conquistar a audiência é só o começo. É preciso fazer ela se apaixonar pelo que você oferece.</p>
-        <ul class="ee-method__pillar-tools">
-          <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
-          <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
-        </ul>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Engajamento</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
+            <li class="ee-method__tool"><i data-lucide="shopping-cart" aria-hidden="true"></i><span class="ee-method__tool-label">Sales Pages</span></li>
+            <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
+            <li class="ee-method__tool"><i data-lucide="file-text" aria-hidden="true"></i><span class="ee-method__tool-label">Conteúdo</span></li>
+          </ul>
+        </div>
       </li>
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/monetizacao.svg" alt="" aria-hidden="true"/>
-        <h3 class="ee-method__pillar-title">Monetização</h3>
-        <p class="ee-method__pillar-body">Com a audiência engajada, você transforma a atenção do seu público em vendas e amplia suas conversões.</p>
-        <ul class="ee-method__pillar-tools">
-          <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
-          <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
-          <li class="ee-method__tool"><img src="assets/inbound.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inbound</span></li>
-        </ul>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Monetização</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><i data-lucide="store" aria-hidden="true"></i><span class="ee-method__tool-label">E-commerce</span></li>
+            <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
+            <li class="ee-method__tool"><img src="assets/inbound.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inbound</span></li>
+            <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
+          </ul>
+        </div>
       </li>
       <li class="ee-method__pillar">
         <img class="ee-method__pillar-icon" src="assets/retencao.svg" alt="" aria-hidden="true"/>
-        <h3 class="ee-method__pillar-title">Retenção</h3>
-        <p class="ee-method__pillar-body">Depois da venda, manter o cliente próximo aumenta o consumo por usuário e reduz seu custo de aquisição.</p>
-        <ul class="ee-method__pillar-tools">
-          <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
-          <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
-        </ul>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Retenção</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
+            <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
+            <li class="ee-method__tool"><img src="assets/crm.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">CRM: RFM, LTV</span></li>
+          </ul>
+        </div>
       </li>
     </ol>
 
@@ -6735,8 +6789,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-product__bg-overlay" aria-hidden="true"></div>
 
   <div class="ee-product__content">
-    <img src="assets/eelogo.svg" alt="Estruturação Estratégica" class="ee-product__logo"/>
-    <p class="ee-product__sub"><strong>O setup estratégico em sprint de 4 semanas.</strong> Da estratégia ao plano de mídia, com a operação já dimensionada pra começar a rodar.</p>
+    <img src="assets/Eelogo3.png" alt="Estruturação Estratégica" class="ee-product__logo"/>
+    <p class="ee-product__sub"><strong>O setup estratégico completo da sua empresa em 30 dias</strong></p>
   </div>
 
   <!-- Carrossel de logos (24 logos, invertidos pra branco via filter) -->
@@ -7164,8 +7218,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <ul class="ee-roadmap__exec-list">
           <li><i data-lucide="circle-check" aria-hidden="true"></i>Gestão de mídia</li>
           <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos</li>
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Dashboards</li>
-          <li><i data-lucide="circle-check" aria-hidden="true"></i>Time dedicado</li>
         </ul>
       </div>
       <div class="ee-roadmap__media">
@@ -7291,6 +7343,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </ul>
       </article>
 
+      <!-- EXECUTAR — fase contínua após a EE (destaque amarelo) -->
+      <article class="ee-recap__week ee-recap__week--executar" role="listitem">
+        <p class="ee-recap__week-label"><strong>Executar</strong></p>
+        <h3 class="ee-recap__week-title">Operação contínua</h3>
+        <ul class="ee-recap__items">
+          <li>Gestão de mídia paga.</li>
+          <li>Produção de criativos.</li>
+          <li>Otimização contínua de campanhas.</li>
+          <li>Reuniões periódicas de performance.</li>
+        </ul>
+      </article>
+
     </div>
   </div>
 </section>
@@ -7301,11 +7365,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <section id="garantia" class="ee-warranty" aria-label="Garantia de 30 dias">
   <div class="ee-warranty__inner">
     <div class="ee-warranty__content">
-      <h2 class="ee-warranty__title">Se em <strong>30 dias</strong> você não receber tudo que foi combinado, a gente <strong class="ee-warranty__hl">devolve seu dinheiro</strong>.</h2>
+      <h2 class="ee-warranty__title">Se em <strong>30 dias</strong> você não receber tudo o que foi combinado da Estruturação Estratégica, a gente <strong class="ee-warranty__hl">devolve seu dinheiro</strong>.</h2>
     </div>
     <div class="ee-warranty__media">
       <img src="assets/Garantiaimagem.png" alt="Selo de garantia de 30 dias" class="ee-warranty__image"/>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — ANCORAGEM (placeholder: texto único centralizado)     -->
+<!-- ============================================================ -->
+<section id="ancoragem" class="ee-anchor" aria-label="Ancoragem">
+  <div class="ee-anchor__inner">
+    <h2 class="ee-anchor__text">Ancoragem</h2>
   </div>
 </section>
 
@@ -7333,103 +7406,275 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-pricing__panel is-active">
 
         <header class="ee-pricing__bundle-head">
-          <h3 class="ee-pricing__bundle-title">Pacote — Estruturação Estratégica + Executar</h3>
-          <p class="ee-pricing__bundle-desc">A Estruturação Estratégica monta o plano. O Pack do Executar coloca em operação. Contratando os dois juntos, com Executar por no mínimo 6 meses, <strong>você desbloqueia o desconto na contratação combinada.</strong></p>
+          <h3 class="ee-pricing__bundle-title">Combo Performance <span class="ee-pricing__bundle-model" data-combo-model>· PDV</span></h3>
+          <p class="ee-pricing__bundle-desc">A operação contínua que coloca o seu plano pra rodar. Escolha a faixa de investimento em mídia ideal pro momento do seu negócio. <strong>Os entregáveis e o valor se adaptam ao seu modelo de vendas.</strong></p>
         </header>
 
-        <!-- 4 price cards (Pack S / M / L / XL) lado a lado -->
-        <div class="ee-packs">
+        <!-- Combos Performance — 4 tiers por modelo de vendas (variantes trocadas pelo seletor) -->
+        <div class="ee-packs-models">
 
-          <!-- PACK S -->
-          <article class="ee-packs__card ee-packs__card--featured">
-            <div class="ee-packs__head">
-              <span class="ee-packs__tag">Mídia: R$ 2k – 5k/mês</span>
-              <span class="ee-packs__popular">Popular</span>
+          <!-- ===== MODELO: PDV ===== -->
+          <div class="ee-packs__variant is-shown" data-pack-variant="pdv">
+            <div class="ee-packs">
+              <!-- PDV · 2–5K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 2k–5k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 6.656,61 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 8 artes + 2 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Campanhas: cupom/código, WhatsApp e agendamento</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: conectada à venda no balcão</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião mensal de Resultados</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-s">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- PDV · 5–15K (Popular) -->
+              <article class="ee-packs__card ee-packs__card--featured">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 5k–15k/mês</span>
+                  <span class="ee-packs__popular">Popular</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 9.781,44 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 14 artes + 3 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Campanhas: cupom/código, WhatsApp e agendamento</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: conectada à venda no balcão</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião quinzenal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-m">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- PDV · 15–50K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 15k–50k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 16.850,00 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 20 artes + 4 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Campanhas: cupom/código, WhatsApp e agendamento</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: conectada à venda no balcão</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-l">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- PDV · 50K+ -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 50k+/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 24.923,75 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 28+ artes + vídeos sob demanda</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Campanhas: cupom/código, WhatsApp e agendamento</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: retenção e expansão por perfil (RFM) e LTV</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e quinzenal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-xl">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
             </div>
-            <h3 class="ee-packs__title">PACK S</h3>
-            <p class="ee-packs__desc">Para negócios em validação que querem estrutura profissional sem complexidade.</p>
-            <p class="ee-packs__price">R$ 6.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais (Meta e/ou Google)</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>10 estáticas + 2 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Landing Page de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário, semanal e mensal</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 24h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião mensal (1h)</li>
-            </ul>
-            <button type="button" class="ee-packs__select" data-pack-cta="bundle-s">
-              <span class="ee-packs__select-label">Selecionar este pacote</span>
-              <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
-            </button>
-          </article>
+          </div>
 
-          <!-- PACK M -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__tag">Mídia: R$ 5k – 15k/mês</span>
+          <!-- ===== MODELO: INSIDE SALES ===== -->
+          <div class="ee-packs__variant" data-pack-variant="inside-sales">
+            <div class="ee-packs">
+              <!-- Inside Sales · 2–5K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 2k–5k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 6.926,88 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 8 artes + 2 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Captação de demanda: página, formulário ou WhatsApp</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: remarketing e recompra na carteira</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião mensal de Resultados</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-s">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- Inside Sales · 5–15K (Popular) -->
+              <article class="ee-packs__card ee-packs__card--featured">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 5k–15k/mês</span>
+                  <span class="ee-packs__popular">Popular</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 9.937,25 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 14 artes + 3 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Captação de demanda: página, formulário ou WhatsApp</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: remarketing, públicos semelhantes e réguas de recompra</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião quinzenal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-m">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- Inside Sales · 15–50K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 15k–50k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 17.112,50 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 20 artes + 4 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Captação de demanda: página, formulário ou WhatsApp</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: retenção e expansão por perfil, réguas multicanal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-l">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- Inside Sales · 50K+ -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 50k+/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 25.356,88 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 28+ artes + vídeos sob demanda</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Captação de demanda: página, formulário ou WhatsApp</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: retenção completa, LTV e cohortes</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios diário/semanal/mensal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e quinzenal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-xl">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
             </div>
-            <h3 class="ee-packs__title">PACK M</h3>
-            <p class="ee-packs__desc">Para quem validou o modelo e precisa escalar com controle.</p>
-            <p class="ee-packs__price">R$ 9.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 2 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>12 estáticas + 3 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Landing Page de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatório diário + semanal + mensal</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 8h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal op. + mensal est.</li>
-            </ul>
-            <button type="button" class="ee-packs__select" data-pack-cta="bundle-m">
-              <span class="ee-packs__select-label">Selecionar este pacote</span>
-              <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
-            </button>
-          </article>
+          </div>
 
-          <!-- PACK L -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__tag">Mídia: R$ 15k – 50k/mês</span>
+          <!-- ===== MODELO: E-COMMERCE ===== -->
+          <div class="ee-packs__variant" data-pack-variant="e-commerce">
+            <div class="ee-packs">
+              <!-- E-commerce · 2–5K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 2k–5k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 6.772,44 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 8 artes + 2 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Estratégia de recompra e carrinho abandonado</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base inativa</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios: vendas, ROAS e recompra (diário/semanal/mensal)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião mensal de Resultados</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-s">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- E-commerce · 5–15K (Popular) -->
+              <article class="ee-packs__card ee-packs__card--featured">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 5k–15k/mês</span>
+                  <span class="ee-packs__popular">Popular</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 9.833,38 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 14 artes + 3 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Estratégia de recompra e carrinho abandonado</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base inativa e remarketing</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios: vendas, ROAS e recompra (diário/semanal/mensal)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião quinzenal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-m">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- E-commerce · 15–50K -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 15k–50k/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 16.937,50 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 20 artes + 4 vídeos/mês</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Estratégia de recompra e carrinho abandonado</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base inativa e expansão por perfil</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios: vendas, ROAS e recompra (diário/semanal/mensal)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e mensal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-l">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
+              <!-- E-commerce · 50K+ -->
+              <article class="ee-packs__card">
+                <div class="ee-packs__head">
+                  <span class="ee-packs__tag">Mídia R$ 50k+/mês</span>
+                </div>
+                <h3 class="ee-packs__title">Combo Performance</h3>
+                <p class="ee-packs__price">R$ 25.068,13 <span>/mês</span></p>
+                <ul class="ee-packs__features">
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Criativos: 28+ artes + vídeos sob demanda</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Estratégia de recompra e carrinho abandonado</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reativação da base: LTV, cohortes e réguas multicanal</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Relatórios: vendas, ROAS e recompra (diário/semanal/mensal)</li>
+                  <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal de Resultados e quinzenal de Estratégia</li>
+                </ul>
+                <button type="button" class="ee-packs__select" data-pack-cta="bundle-xl">
+                  <span class="ee-packs__select-label">Selecionar este pacote</span>
+                  <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
+                </button>
+              </article>
             </div>
-            <h3 class="ee-packs__title">PACK L</h3>
-            <p class="ee-packs__desc">Para operações maduras que decidem com base em dados em tempo real.</p>
-            <p class="ee-packs__price">R$ 16.997,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>16 estáticas + 4 vídeos/mês</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>2 Landing Pages de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Analista de BI dedicado</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 8h úteis</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal op. + quinzenal est.</li>
-            </ul>
-            <button type="button" class="ee-packs__select" data-pack-cta="bundle-l">
-              <span class="ee-packs__select-label">Selecionar este pacote</span>
-              <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
-            </button>
-          </article>
+          </div>
 
-          <!-- PACK XL -->
-          <article class="ee-packs__card">
-            <div class="ee-packs__head">
-              <span class="ee-packs__tag">Mídia: R$ 50k+/mês</span>
-            </div>
-            <h3 class="ee-packs__title">PACK XL</h3>
-            <p class="ee-packs__desc">Para operações onde ineficiência tem impacto direto no faturamento.</p>
-            <p class="ee-packs__price">R$ 25.497,00 <span>/mês</span></p>
-            <ul class="ee-packs__features">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Até 3 canais gerenciados</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>28+ estáticas + produção sob demanda</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>2 Landing Pages de conversão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>BI dedicado + gestão intensiva</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>SLA 4h úteis — time sênior</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Reunião semanal com time completo</li>
-            </ul>
-            <button type="button" class="ee-packs__select" data-pack-cta="bundle-xl">
-              <span class="ee-packs__select-label">Selecionar este pacote</span>
-              <i data-lucide="check" class="ee-packs__select-check" aria-hidden="true"></i>
-            </button>
-          </article>
-
-        </div><!-- /.ee-packs -->
+        </div><!-- /.ee-packs-models -->
 
         <!-- Rodapé do bundle: Social Media (Leve também) + CTA único, ANTES de seguir -->
         <!-- Some quando E.E está ativo (E.E tem CTA próprio e não leva add-on) -->
@@ -8402,6 +8647,26 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     window.addEventListener('v4-sales-model-change', updateRecapWeek3);
   });
 
+  // ── COMBOS PERFORMANCE (#precos): troca o conjunto de packs conforme o modelo ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var variants = document.querySelectorAll('.ee-packs__variant');
+    if (!variants.length) return;
+    var modelLabelEl = document.querySelector('[data-combo-model]');
+    var LABELS = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+
+    function updateCombos() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
+      if (!LABELS[model]) model = 'pdv';
+      variants.forEach(function (el) {
+        el.classList.toggle('is-shown', el.getAttribute('data-pack-variant') === model);
+      });
+      if (modelLabelEl) modelLabelEl.textContent = '· ' + LABELS[model];
+    }
+
+    updateCombos();
+    window.addEventListener('v4-sales-model-change', updateCombos);
+  });
+
   // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
   (function () {
     // ===== Dados base (textos completos das semanas + packs) =====
@@ -8894,12 +9159,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── SLIDE-UP REVEAL DOS TÍTULOS (entrada na viewport) ──
   (function titlesSlideUp() {
     var SEL = [
-      '.ee-hero__title', '.ee-auth__who-title', '.ee-recognition__title',
+      '.ee-auth__who-title', '.ee-recognition__title',
       '.ee-clients__title', '.ee-cases__heading', '.ee-mission__title',
       '.ee-method__title', '.ee-structure__title', '.ee-foru__title',
       '.ee-define__heading', '.ee-roadmap__heading', '.ee-grow__title',
       '.ee-handoff__title', '.ee-sim__title', '.ee-warranty__title',
-      '.ee-ecosystem30__title'
+      '.ee-ecosystem30__title', '.ee-anchor__text'
     ].join(',');
     var titles = Array.prototype.slice.call(document.querySelectorAll(SEL));
     if (!titles.length) return;
@@ -8985,7 +9250,13 @@ document.addEventListener('DOMContentLoaded', function() {
       var social = !!(state.addons && state.addons.socialMedia);
 
       if (hasPack) {
-        var txt = 'Estruturação Estratégica + Executar · ' + info.name + ' (' + info.monthly + ')';
+        // lê o preço do card visível (reflete o valor por modelo de vendas)
+        var shown = document.querySelector('.ee-packs__variant.is-shown') || document;
+        var selBtn = shown.querySelector('[data-pack-cta="' + state.solution + '"]');
+        var selCard = selBtn && selBtn.closest('.ee-packs__card');
+        var priceEl = selCard && selCard.querySelector('.ee-packs__price');
+        var priceTxt = priceEl ? priceEl.textContent.replace(/\s+/g, ' ').trim() : info.monthly;
+        var txt = 'Estruturação Estratégica + Combo Performance · ' + priceTxt;
         if (social) txt += '  +  Social Media';
         itemsEl.textContent = txt;
       } else if (social) {
@@ -9219,6 +9490,49 @@ document.addEventListener('DOMContentLoaded', function() {
     ['Reuniões', 'reunião até dia 20 · pauta 48h antes · ata em 24h']
   ];
 
+  // ===== COMBO PERFORMANCE — dados por modelo de vendas + tier =====
+  // Preço (varia por modelo E por tier) — armazenado no PDF conforme o modelo escolhido
+  var COMBO_PRICE = {
+    'pdv':          { s: 'R$ 6.656,61', m: 'R$ 9.781,44', l: 'R$ 16.850,00', xl: 'R$ 24.923,75' },
+    'inside-sales': { s: 'R$ 6.926,88', m: 'R$ 9.937,25', l: 'R$ 17.112,50', xl: 'R$ 25.356,88' },
+    'e-commerce':   { s: 'R$ 6.772,44', m: 'R$ 9.833,38', l: 'R$ 16.937,50', xl: 'R$ 25.068,13' }
+  };
+  var COMBO_PRICE_NUM = {
+    'pdv':          { s: 6656.61, m: 9781.44, l: 16850.00, xl: 24923.75 },
+    'inside-sales': { s: 6926.88, m: 9937.25, l: 17112.50, xl: 25356.88 },
+    'e-commerce':   { s: 6772.44, m: 9833.38, l: 16937.50, xl: 25068.13 }
+  };
+  // Componentes (linhas da tabela), comuns aos 3 modelos
+  var COMBO_COMPONENTS = ['Aquisição', 'Criativos', 'Conversão', 'Reativação da base', 'Relatórios', 'Reuniões'];
+  // Escopo (entregáveis) por modelo + tier — na ordem dos COMBO_COMPONENTS
+  var COMBO_SCOPE = {
+    'pdv': {
+      s:  ['Visita à loja física via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Mensal de Resultados'],
+      m:  ['Visita à loja física via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Quinzenal de Resultados + mensal de Estratégia'],
+      l:  ['Visita à loja física via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Conectada à venda no balcão',           'Diário, semanal e mensal', 'Semanal de Resultados + mensal de Estratégia'],
+      xl: ['Visita à loja física via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Campanhas: cupom/código, WhatsApp e agendamento', 'Retenção e expansão por perfil (RFM) e LTV', 'Diário, semanal e mensal', 'Semanal de Resultados + quinzenal de Estratégia']
+    },
+    'inside-sales': {
+      s:  ['Geração de demanda via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Captação: página, formulário ou WhatsApp', 'Remarketing e recompra na carteira',                       'Diário, semanal e mensal', 'Mensal de Resultados'],
+      m:  ['Geração de demanda via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Captação: página, formulário ou WhatsApp', 'Remarketing, públicos semelhantes e réguas de recompra',  'Diário, semanal e mensal', 'Quinzenal de Resultados + mensal de Estratégia'],
+      l:  ['Geração de demanda via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Captação: página, formulário ou WhatsApp', 'Retenção e expansão por perfil, réguas multicanal',      'Diário, semanal e mensal', 'Semanal de Resultados + mensal de Estratégia'],
+      xl: ['Geração de demanda via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Captação: página, formulário ou WhatsApp', 'Retenção completa, LTV e cohortes',               'Diário, semanal e mensal', 'Semanal de Resultados + quinzenal de Estratégia']
+    },
+    'e-commerce': {
+      s:  ['Venda direta via tráfego (Meta/Google/etc)', '8 artes + 2 vídeos/mês',  'Recompra e carrinho abandonado', 'Base inativa',                       'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Mensal de Resultados'],
+      m:  ['Venda direta via tráfego (Meta/Google/etc)', '14 artes + 3 vídeos/mês', 'Recompra e carrinho abandonado', 'Base inativa e remarketing',         'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Quinzenal de Resultados + mensal de Estratégia'],
+      l:  ['Venda direta via tráfego (Meta/Google/etc)', '20 artes + 4 vídeos/mês', 'Recompra e carrinho abandonado', 'Base inativa e expansão por perfil', 'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Semanal de Resultados + mensal de Estratégia'],
+      xl: ['Venda direta via tráfego (Meta/Google/etc)', '28+ artes + vídeos sob demanda', 'Recompra e carrinho abandonado', 'LTV, cohortes e réguas multicanal', 'Vendas, ROAS e recompra (diário/semanal/mensal)', 'Semanal de Resultados + quinzenal de Estratégia']
+    }
+  };
+  // SLA por tier (reaproveita os SLAs já aprovados; "Reativação" autorado), na ordem dos COMBO_COMPONENTS
+  var COMBO_SLA = {
+    s:  ['Otimizações de mídia em até 24h após desvio', 'Entrega em até 7 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 3 dias úteis', 'Réguas e automações ativas em até 5 dias úteis após setup', 'Diário (dias úteis) até 9h do dia seguinte · semanal toda segunda · mensal até 5º dia útil', 'Agendada até dia 20 · pauta 48h antes · ata em até 24h'],
+    m:  ['Otimizações de mídia em até 24h após desvio', 'Entrega em até 6 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 2 dias úteis', 'Réguas e automações ativas em até 4 dias úteis após setup', 'Diário até 9h do dia seguinte · semanal toda segunda · mensal até 5º dia útil', 'Check-in quinzenal · pauta 48h antes · ata em até 24h'],
+    l:  ['Otimizações de mídia em até 12h após desvio', 'Entrega em até 5 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 1 dia útil', 'Réguas e automações ativas em até 3 dias úteis após setup', 'Diário 9h · quinzenal até 5º dia útil · mensal até 3º dia útil', 'Pauta 48h antes · ata em 24h após reunião'],
+    xl: ['Otimizações em tempo real · campanha parada: aviso em até 1h', 'Entrega em até 4 dias corridos após aprovação do briefing', 'Setup/ajustes de conversão em até 4h úteis', 'Réguas e automações ativas em até 2 dias úteis após setup', 'Dashboard em tempo real · executivo até 1º dia útil do mês', 'Pauta 48h antes · ata em 12h após reunião']
+  };
+
   // ===== Helpers =====
   function esc(s) {
     return String(s == null ? '' : s)
@@ -9246,6 +9560,18 @@ document.addEventListener('DOMContentLoaded', function() {
   function weekBlock(week) {
     return '<div class="ee-week"><h4>' + esc(week.title) + '</h4><ul class="dl">' + liList(week.items) + '</ul></div>';
   }
+  // Tabela 3 colunas (Componente | Escopo | SLA) — estilo da imagem de referência, em vermelho
+  function comboTable(title, rows) {
+    var body = rows.map(function (r) {
+      return '<tr><td class="c-comp">' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td class="c-sla">' + esc(r[2]) + '</td></tr>';
+    }).join('');
+    return '<table class="ctab">' +
+      '<thead>' +
+        '<tr><th class="ctab-title" colspan="3">' + esc(title) + '</th></tr>' +
+        '<tr><th class="ctab-h">Componente</th><th class="ctab-h">Escopo</th><th class="ctab-h">SLA</th></tr>' +
+      '</thead>' +
+      '<tbody>' + body + '</tbody></table>';
+  }
 
   // ===== Monta o HTML do documento =====
   function buildProposalHTML(form, state) {
@@ -9258,33 +9584,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Entregáveis EE (com Semana 03 conforme modelo)
     var eeBlocks = EE_WEEKS.map(weekBlock).join('') + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4);
 
+    // Preço do Combo Performance conforme modelo + tier (armazenado no PDF)
+    var comboPrice    = (COMBO_PRICE[model] && COMBO_PRICE[model][size]) || pack.price;
+    var comboPriceNum = (COMBO_PRICE_NUM[model] && COMBO_PRICE_NUM[model][size]) || (PACK_PRICE_NUM[size] || 0);
+    var modelLabel    = MODEL_LABEL[model] || MODEL_LABEL['e-commerce'];
+
     // Pilares da oferta
     var pillars =
       '<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>' +
-      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Executar — ' + esc(pack.label) + '</h3><p>' + esc(pack.desc) + ' Faixa de mídia: ' + esc(pack.media) + '.</p></div>' +
+      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Combo Performance</h3><p>' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + '. A operação contínua que coloca o plano pra rodar.</p></div>' +
       (social
-        ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação. <em>Investimento sob consulta.</em></p></div>'
+        ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
         : '');
 
-    // Tabela SLA
-    var slaRows = pack.sla.map(function (r) {
-      return '<tr><td>' + esc(r[0]) + '</td><td class="sla-v">' + esc(r[1]) + '</td></tr>';
-    }).join('');
-    var socialSlaRows = social ? SOCIAL_SLA.map(function (r) {
-      return '<tr><td>' + esc(r[0]) + '</td><td class="sla-v">' + esc(r[1]) + '</td></tr>';
-    }).join('') : '';
+    // Tabela Componente | Escopo | SLA do Combo Performance (escopo por modelo+tier; SLA por tier)
+    var comboScope = (COMBO_SCOPE[model] && COMBO_SCOPE[model][size]) || [];
+    var comboSla   = COMBO_SLA[size] || [];
+    var comboRows  = COMBO_COMPONENTS.map(function (comp, i) {
+      return [comp, comboScope[i] || '', comboSla[i] || ''];
+    });
+    // Tabela Componente | Escopo | SLA do Social Media (alinha SOCIAL_ITEMS[i] com SOCIAL_SLA[i])
+    var socialRows = SOCIAL_ITEMS.map(function (it, i) {
+      return [String(it.strong).replace(/:\s*$/, ''), it.text, (SOCIAL_SLA[i] || [])[1] || ''];
+    });
 
-    // Investimento (Setup editável; Executar fixo; Social se houver)
-    var monthlyTotal = (PACK_PRICE_NUM[size] || 0) + (social ? SOCIAL_PRICE_NUM : 0);
+    // Investimento: EE = pagamento único (à parte, não soma); Combo + Social = mensal (somam)
+    var monthlyTotal = comboPriceNum + (social ? SOCIAL_PRICE_NUM : 0);
     var invRows =
-      '<tr><td><strong>Setup — Estruturação Estratégica</strong><br><span class="muted">Pagamento único · sprint de 30 dias</span></td>' +
-      '<td class="inv-v">' + esc(EE_PRICE) + '</td></tr>' +
-      '<tr><td><strong>Executar — ' + esc(pack.label) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
-      '<td class="inv-v">' + esc(pack.price) + '<span class="per">/mês</span></td></tr>' +
+      '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · pagamento único (não recorrente)</span></td>' +
+      '<td class="inv-v">' + esc(EE_PRICE) + '<span class="per"> à vista</span></td></tr>' +
+      '<tr><td><strong>Combo Performance — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
+      '<td class="inv-v">' + esc(comboPrice) + '<span class="per">/mês</span></td></tr>' +
       (social
         ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
         : '') +
-      '<tr class="inv-total"><td><strong>Total mensal</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + ' (não inclui o setup)</span></td>' +
+      '<tr class="inv-total"><td><strong>Total mensal</strong><br><span class="muted">Combo Performance' + (social ? ' + Social Media' : '') + ' · o setup da Estruturação Estratégica é cobrado à parte</span></td>' +
       '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
 
     return '' +
@@ -9330,6 +9664,14 @@ document.addEventListener('DOMContentLoaded', function() {
 'ul.dl li strong { color: #280000; }' +
 'table { width: 100%; border-collapse: collapse; }' +
 'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
+/* Tabela Componente | Escopo | SLA (estilo da referência, em vermelho V4) */
+'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 12px; overflow: hidden; }' +
+'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:11px 12px; }' +
+'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; text-align:left; padding:9px 12px; }' +
+'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:11px 12px; font-size:12.5px; vertical-align:top; color:rgba(40,0,0,.85); }' +
+'table.ctab tbody tr:nth-child(even) td { background: rgba(229,9,20,.035); }' +
+'table.ctab td.c-comp { font-weight:700; color:#C41E08; white-space:nowrap; }' +
+'table.ctab td.c-sla { color: rgba(40,0,0,.62); }' +
 '.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
 '.inv-v { font-size: 18px; color: #E50914; }' +
 '.inv-total td { border-top: 2px solid rgba(229,9,20,.35); border-bottom: none; padding-top: 16px; }' +
@@ -9352,8 +9694,8 @@ document.addEventListener('DOMContentLoaded', function() {
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
-    '<h1>Estruturação Estratégica + Executar</h1>' +
-    '<p class="subtitle">' + esc(pack.label) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
+    '<h1>Estruturação Estratégica + Combo Performance</h1>' +
+    '<p class="subtitle">Combo Performance · ' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
       '<div><span>Empresa</span><strong>' + esc(form.empresa || '—') + '</strong></div>' +
@@ -9362,12 +9704,10 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
-    '<section><h2>Entregáveis — Executar (' + esc(pack.label) + ')</h2><ul class="dl">' + liList(pack.items) + '</ul></section>' +
-    (social ? '<section><h2>Entregáveis — Social Media</h2><ul class="dl">' + liList(SOCIAL_ITEMS) + '</ul></section>' : '') +
-    '<section><h2>SLA — Executar (' + esc(pack.label) + ')</h2><table>' + slaRows + '</table></section>' +
-    (social ? '<section><h2>SLA — Social Media</h2><table>' + socialSlaRows + '</table></section>' : '') +
+    '<section><h2>Combo Performance — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · ' + modelLabel, comboRows) + '</section>' +
+    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2><table>' + invRows + '</table>' +
-      '<p class="note"><span class="edit" contenteditable="true">Executar por no mínimo 6 meses. Desconto desbloqueado na contratação combinada (Estruturação Estratégica + Executar). Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
+      '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um setup de pagamento único, cobrado à parte. O Combo Performance é mensal, com fidelidade mínima de 6 meses. Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
       '<p class="hint">Os campos com sublinhado tracejado são editáveis: clique e ajuste valores/condições antes de salvar o PDF.</p>' +
     '</section>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica — <strong>ou se você não ficar satisfeito</strong> com o que recebeu —, é só pedir o reembolso e <strong>devolvemos 100% do seu dinheiro</strong>.</div></section>' +
@@ -9441,11 +9781,14 @@ document.addEventListener('DOMContentLoaded', function() {
   window.V4GenerateProposal = function (state) {
     if (!state || !state.solution || !PACK_DATA[packSizeFromSolution(state.solution)]) return;
     buildModal();
-    var pack = PACK_DATA[packSizeFromSolution(state.solution)];
+    var size = packSizeFromSolution(state.solution);
+    var pack = PACK_DATA[size];
     var social = state.addons && state.addons.socialMedia;
     var pageModel = window.V4SalesModel && window.V4SalesModel.value;
-    var modelLabel = (pageModel && MODEL_LABEL[pageModel]) ? MODEL_LABEL[pageModel] : MODEL_LABEL['e-commerce'];
-    refs.summary.innerHTML = '<strong>Estruturação Estratégica + Executar</strong><br>' + esc(pack.label) + ' — ' + esc(pack.price) + '/mês' + (social ? '<br>+ Social Media (sob consulta)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    var modelKey = (pageModel && MODEL_LABEL[pageModel]) ? pageModel : 'e-commerce';
+    var modelLabel = MODEL_LABEL[modelKey];
+    var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
+    refs.summary.innerHTML = '<strong>Estruturação Estratégica + Combo Performance</strong><br>Combo Performance · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
     // e-mail padrão do responsável
     if (!refs.email.value) refs.email.value = 'conteudo@v4company.com';
     modal.classList.add('is-open');
