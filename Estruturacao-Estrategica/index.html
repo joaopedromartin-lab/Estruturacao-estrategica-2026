@@ -2276,7 +2276,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   overflow: hidden;
   /* vermelho no meio (atrás do VENDER) escurecendo até a base, terminando na MESMA
      cor escura em que o método começa — sem pico de brilho na emenda (fluxo contínuo) */
-  background: linear-gradient(180deg, #4A0202 0%, #8B1004 48%, #560303 100%);
+  background: linear-gradient(180deg, #FF3D0A 0%, #F0200C 52%, #D2120A 100%);
 }
 .ee-mission__inner {
   position: relative;
@@ -2371,7 +2371,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-method {
   /* continuação do gradiente da #missao: começa no vermelho quente (onde a missão termina)
      e desce pro preto, emendando as duas seções sem corte */
-  background: linear-gradient(180deg, #560303 0%, #3D0202 22%, #2A0101 46%, #120000 74%, #000000 100%);
+  background: linear-gradient(180deg, #D2120A 0%, #6E0803 15%, #2A0101 48%, #000000 100%);
   padding: clamp(64px, 9vh, 120px) var(--ee-pad-x);
 }
 .ee-method__inner {
@@ -3019,7 +3019,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
    Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
 .ee-sim {
-  background: #000000;  /* emenda com #metodo (acaba preto) e #produto (começa preto) */
+  background: linear-gradient(180deg, #000000 0%, #240606 50%, #050000 100%);  /* gradiente sutil (emenda com #metodo e #produto pretos) */
   color: #FFFFFF;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
@@ -4748,7 +4748,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(22px, 1.8vw, 32px);
   font-weight: 700;
   color: #280000;
-  margin: 0 0 clamp(14px, 1.6vw, 22px);
+  margin: 0 0 clamp(4px, 0.6vw, 8px);
   letter-spacing: -0.015em;
   line-height: 1.2;
 }
@@ -4756,6 +4756,27 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-pricing__bundle-model {
   font-weight: 600;
   color: #C41E08;
+}
+/* "a operação contínua" logo abaixo do título */
+.ee-pricing__bundle-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 19px);
+  font-weight: 400;
+  color: rgba(5, 5, 5, 0.6);
+  margin: 0 0 clamp(14px, 1.6vw, 20px);
+  letter-spacing: -0.005em;
+}
+/* Destaque do desconto (R$ 5.000) */
+.ee-pricing__bundle-hl { color: #C41E08; font-weight: 700; }
+/* Logo da E.E inline no texto do desconto */
+.ee-pricing__bundle-logo {
+  height: clamp(20px, 1.9vw, 30px);
+  width: auto;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 4px;
+  position: relative;
+  top: -1px;
 }
 .ee-pricing__bundle-desc {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -4899,8 +4920,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   flex-direction: column;
   background: #FFFFFF;
   border: 2px solid transparent;
-  border-radius: 20px;
-  padding: clamp(20px, 1.8vw, 28px);
+  border-radius: 18px;
+  padding: clamp(15px, 1.3vw, 20px);
   position: relative;
   /* Traçado em gradiente brand: fundo branco no padding-box + gradiente no border-box */
   background-image:
@@ -4914,13 +4935,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   box-shadow: 0 12px 32px rgba(229, 9, 20, 0.16);
 }
 
-/* Cabeçalho: tag de mídia + (opcional) Popular */
+/* Ordem dentro do card: título primeiro, tag de mídia embaixo, depois preço */
+.ee-packs__title    { order: 1; }
+.ee-packs__head     { order: 2; }
+.ee-packs__price    { order: 3; }
+.ee-packs__features { order: 4; }
+.ee-packs__select   { order: 5; }
+
+/* "Cabeçalho" agora só carrega a tag de mídia (+ Popular) — abaixo do título */
 .ee-packs__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: clamp(14px, 1.4vw, 20px);
+  margin-bottom: clamp(12px, 1.2vw, 16px);
 }
 /* Tag de faixa de mídia no topo do card */
 .ee-packs__tag {
@@ -4953,12 +4981,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Nome do pack — caixa alta + gradiente brand */
 .ee-packs__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(22px, 1.9vw, 30px);
+  font-size: clamp(17px, 1.5vw, 23px);
   font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 clamp(10px, 1vw, 14px);
+  margin: 0 0 clamp(7px, 0.7vw, 10px);
   letter-spacing: -0.01em;
-  line-height: 1.05;
+  line-height: 1.1;
   background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
   -webkit-background-clip: text;
           background-clip: text;
@@ -4976,12 +5004,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-packs__price {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(26px, 2.4vw, 36px);
+  font-size: clamp(18px, 1.65vw, 24px);
   font-weight: 700;
   color: #280000;
-  margin: 0 0 clamp(18px, 1.8vw, 26px);
+  margin: 0 0 clamp(14px, 1.4vw, 20px);
   letter-spacing: -0.02em;
   line-height: 1;
+  white-space: nowrap;          /* "R$ X /mês" nunca quebra */
 }
 .ee-packs__price span {
   font-size: clamp(13px, 1vw, 15px);
@@ -7498,7 +7527,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
         <header class="ee-pricing__bundle-head">
           <h3 class="ee-pricing__bundle-title">Combo Performance <span class="ee-pricing__bundle-model" data-combo-model>· PDV</span></h3>
-          <p class="ee-pricing__bundle-desc">A operação contínua que coloca o seu plano pra rodar. Escolha a faixa de investimento em mídia ideal pro momento do seu negócio. <strong>Os entregáveis e o valor se adaptam ao seu modelo de vendas.</strong></p>
+          <p class="ee-pricing__bundle-sub">A operação contínua que coloca o seu plano pra rodar.</p>
+          <p class="ee-pricing__bundle-desc">Contratando a <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-pricing__bundle-logo"/> <strong>+ Executar</strong>, você ganha <strong class="ee-pricing__bundle-hl">R$ 5.000 de desconto</strong> em qualquer pacote.</p>
         </header>
 
         <!-- Combos Performance — 4 tiers por modelo de vendas (variantes trocadas pelo seletor) -->
@@ -9384,6 +9414,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
+    // Social Media (mensal) — mesmo valor usado no gerador de PDF
+    var SOCIAL_PRICE_NUM = 4000;
+    function parseBRL(txt) {
+      var n = String(txt).replace(/[^0-9.,]/g, '').replace(/\./g, '').replace(',', '.');
+      return parseFloat(n) || 0;
+    }
+    function fmtBRL(n) {
+      try { return 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      catch (e) { return 'R$ ' + n; }
+    }
+
     // Barra de resumo
     function renderBar(state) {
       var info = state.solution && PACK_INFO[state.solution];
@@ -9397,8 +9438,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var selCard = selBtn && selBtn.closest('.ee-packs__card');
         var priceEl = selCard && selCard.querySelector('.ee-packs__price');
         var priceTxt = priceEl ? priceEl.textContent.replace(/\s+/g, ' ').trim() : info.monthly;
-        var txt = 'Combo Performance (Estruturação Estratégica + Executar) · ' + priceTxt;
-        if (social) txt += '  +  Social Media';
+        var comboNum = parseBRL(priceTxt);
+        var txt;
+        if (social) {
+          var total = comboNum + SOCIAL_PRICE_NUM;
+          txt = 'Combo Performance ' + fmtBRL(comboNum) + '/mês   +   Social Media ' + fmtBRL(SOCIAL_PRICE_NUM) + '/mês   =   Total ' + fmtBRL(total) + '/mês';
+        } else {
+          txt = 'Combo Performance (Estruturação Estratégica + Executar) · ' + fmtBRL(comboNum) + '/mês';
+        }
         itemsEl.textContent = txt;
       } else if (social) {
         itemsEl.textContent = 'Social Media selecionado — escolha um pacote para gerar a proposta';
@@ -9868,12 +9915,12 @@ document.addEventListener('DOMContentLoaded', function() {
         ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
         : '');
 
-    // Tabela 5 colunas (Componente | Entrega | SLA | Objetivo | Premissa) do Combo Performance
+    // Tabela 3 colunas (Componente | Entrega | SLA) do Combo Performance
     var comboMeta  = COMBO_META[model] || [];
     var comboDeliv = (COMBO_DELIV[model] && COMBO_DELIV[model][size]) || [];
     var comboRows  = comboMeta.map(function (m, i) {
       var d = comboDeliv[i] || {};
-      return [m.c, d.e || '', d.s || '', m.o || '', m.p || ''];
+      return [m.c, d.e || '', d.s || ''];
     });
     var comboTagline = MODEL_TAGLINE[model] || '';
     // Tabela Componente | Escopo | SLA do Social Media (alinha SOCIAL_ITEMS[i] com SOCIAL_SLA[i])
@@ -9942,11 +9989,11 @@ document.addEventListener('DOMContentLoaded', function() {
 'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
 /* Tabela Componente | Escopo | SLA (estilo da referência, em vermelho V4) */
 /* Wrapper que estoura o padding do corpo pra a tabela (5 colunas) usar a largura cheia da página */
-'.ctab-wrap { margin: 0 -34px; }' +
+'.ctab-wrap { margin: 0; }' +
 'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 10px; overflow: hidden; table-layout: auto; }' +
-'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:9px 10px; }' +
-'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:8.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; text-align:left; padding:7px 9px; }' +
-'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:7px 9px; font-size:9.5px; line-height:1.32; vertical-align:top; color:rgba(40,0,0,.85); }' +
+'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:10px 12px; }' +
+'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:left; padding:8px 11px; }' +
+'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:9px 11px; font-size:11.5px; line-height:1.4; vertical-align:top; color:rgba(40,0,0,.85); }' +
 'table.ctab tbody tr:nth-child(even) td { background: rgba(229,9,20,.035); }' +
 'table.ctab td.c-comp { font-weight:700; color:#C41E08; }' +
 'table.ctab td.c-sla { color: rgba(40,0,0,.6); }' +
@@ -9986,7 +10033,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
-    '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA', 'Objetivo', 'Premissa'], comboRows) + '</section>' +
+    '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
