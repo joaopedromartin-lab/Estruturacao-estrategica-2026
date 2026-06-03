@@ -1220,6 +1220,12 @@ footer .wp-block-group.has-black-background-color {
      vencer a especificidade de "#top > section" (senão o padding da classe é ignorado). */
   #top > #reconhecimento { padding-bottom: clamp(48px, 7vh, 96px); }
   #top > #clientes { padding-top: clamp(48px, 7vh, 96px); }
+  /* Garantia + Ancoragem: altura natural (não são slides de viewport cheio).
+     Sem isso, cada uma reservava 100vh e o gap entre elas ficava enorme. */
+  #top > #garantia,
+  #top > #ancoragem { height: auto; min-height: 0; max-height: none; }
+  #top > #garantia  { padding-top: clamp(40px, 7vh, 96px); padding-bottom: clamp(12px, 1.8vh, 26px); }
+  #top > #ancoragem { padding-top: clamp(12px, 1.8vh, 26px); padding-bottom: clamp(40px, 7vh, 96px); }
   /* Simulador: preenche a viewport, mas NÃO é escalado (pro drag funcionar em px
      reais) e cresce se precisar, sem clipar o conteúdo. */
   #top > #simulador {
@@ -4097,7 +4103,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-warranty {
   background: #280000;
   color: #FFFFFF;
-  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  /* base reduzida — diminui o gap pra seção de ancoragem logo abaixo */
+  padding: var(--ee-pad-y-default) var(--ee-pad-x) clamp(14px, 2vh, 28px);
 }
 .ee-warranty__inner {
   max-width: var(--ee-max-width);
@@ -4131,7 +4138,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-warranty__image {
   display: block;
   width: 100%;
-  max-width: 520px;
+  max-width: 400px;
   height: auto;
   object-fit: contain;
 }
@@ -4139,7 +4146,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* === SEÇÃO ANCORAGEM (carrossel de precificação: antes → depois, por modelo) === */
 .ee-anchor {
   background: #280000;          /* mesmo tom da garantia e do handoff → flui sem corte */
-  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  /* topo reduzido — diminui o gap pra seção de garantia logo acima */
+  padding: clamp(14px, 2vh, 28px) var(--ee-pad-x) var(--ee-pad-y-default);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5002,6 +5010,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: 1.45;
   letter-spacing: -0.005em;
 }
+/* Nível do pacote (S/M/L/XL) acrescentado ao título por posição do card */
+.ee-packs > .ee-packs__card:nth-child(1) .ee-packs__title::after { content: " · S"; }
+.ee-packs > .ee-packs__card:nth-child(2) .ee-packs__title::after { content: " · M"; }
+.ee-packs > .ee-packs__card:nth-child(3) .ee-packs__title::after { content: " · L"; }
+.ee-packs > .ee-packs__card:nth-child(4) .ee-packs__title::after { content: " · XL"; }
 .ee-packs__price {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(18px, 1.65vw, 24px);
@@ -8131,7 +8144,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
@@ -9973,12 +9986,15 @@ document.addEventListener('DOMContentLoaded', function() {
 '.meta div strong { font-size: 15px; }' +
 'section { margin-bottom: 34px; }' +
 'h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E50914; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(229,9,20,.18); }' +
-'.pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 14px; }' +
-'.pillar { border: 1.5px solid rgba(229,9,20,.2); border-radius: 14px; padding: 16px 18px; }' +
-'.pillar--add { border-style: dashed; }' +
-'.pillar__tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #E50914; background: rgba(229,9,20,.08); border-radius: 9999px; padding: 4px 10px; margin-bottom: 8px; }' +
-'.pillar h3 { font-size: 17px; margin: 0 0 6px; }' +
-'.pillar p { font-size: 13px; color: rgba(40,0,0,.7); margin: 0; }' +
+'.pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 16px; }' +
+/* Cards escuros com gradiente da marca + faixa de destaque no topo (identidade V4) */
+'.pillar { position: relative; overflow: hidden; border: none; border-radius: 16px; padding: 22px 20px 20px; color: #fff; background: linear-gradient(158deg, #4A0303 0%, #2A0101 52%, #120000 100%); box-shadow: 0 10px 26px rgba(40,0,0,.28); }' +
+'.pillar::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%); }' +
+'.pillar--add { background: linear-gradient(158deg, #2A0101 0%, #160000 100%); box-shadow: none; }' +
+'.pillar--add::before { background: repeating-linear-gradient(90deg, #FB2E0A 0 14px, transparent 14px 24px); }' +
+'.pillar__tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 60%, #7A0A02 100%); border-radius: 9999px; padding: 5px 12px; margin-bottom: 12px; }' +
+'.pillar h3 { font-size: 19px; font-weight: 800; margin: 0 0 8px; letter-spacing: -.01em; color: #fff; }' +
+'.pillar p { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.74); margin: 0; }' +
 '.ee-week { margin-bottom: 16px; break-inside: avoid; }' +
 '.ee-week h4 { font-size: 14px; margin: 0 0 8px; color: #7A0A02; }' +
 'ul.dl { list-style: none; margin: 0; padding: 0; }' +

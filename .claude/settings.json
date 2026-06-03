@@ -7,7 +7,10 @@
       "Bash(awk 'NR>=8601 && NR<=10042 && /ee-footer|<footer/{print NR\": \"$0}' index.html)",
       "Bash(awk 'NR>=11400 && \\(/\\\\/\\\\/ ──|\\\\/\\\\/ ===|\\\\\\(function [a-zA-Z]|function [a-z][a-zA-Z]*\\\\\\(\\\\\\)\\\\{|<script|<\\\\/script>/\\){print NR\": \"$0}' index.html)",
       "Bash(awk -F: '$1>6280 && $1<6400')",
-      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")"
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const g=s.match\\(/<script id=\\\\\"v4-proposal-generate-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(g[1]\\);console.log\\('generate-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}\")",
+      "Bash(sed -n '/\\\\.ee-warranty {/,/^}/p' index.html)",
+      "Bash(sed -n '/=== SEÇÃO ANCORAGEM/,/^\\\\.ee-anchor__inner/p' index.html)"
     ]
   }
 }
