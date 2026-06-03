@@ -2301,9 +2301,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex;
   align-items: center;
   overflow: hidden;
-  /* vertical (escuro → vivo) terminando na MESMA cor em que o método começa,
-     pra costura discreta entre as seções */
-  background: linear-gradient(180deg, #4A0202 0%, #8B1004 50%, #C41E08 100%);
+  /* vermelho no meio (atrás do VENDER) escurecendo até a base, terminando na MESMA
+     cor escura em que o método começa — sem pico de brilho na emenda (fluxo contínuo) */
+  background: linear-gradient(180deg, #4A0202 0%, #8B1004 48%, #560303 100%);
 }
 .ee-mission__inner {
   position: relative;
@@ -2398,7 +2398,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-method {
   /* continuação do gradiente da #missao: começa no vermelho quente (onde a missão termina)
      e desce pro preto, emendando as duas seções sem corte */
-  background: linear-gradient(180deg, #C41E08 0%, #5A0503 26%, #2A0101 50%, #120000 74%, #000000 100%);
+  background: linear-gradient(180deg, #560303 0%, #3D0202 22%, #2A0101 46%, #120000 74%, #000000 100%);
   padding: clamp(64px, 9vh, 120px) var(--ee-pad-x);
 }
 .ee-method__inner {
@@ -3317,7 +3317,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
    de gradiente que percorre a linha (efeito "tracing"). */
 .ee-grow {
   position: relative;
-  min-height: 100vh;
+  min-height: clamp(300px, 38vh, 430px);
   background: #000000;
   overflow: hidden;
 }
@@ -3348,8 +3348,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: clamp(20px, 4vh, 48px);
-  padding: clamp(40px, 8vh, 110px) clamp(1rem, 2.5vw, 2.5rem);
+  gap: clamp(16px, 2.4vh, 32px);
+  padding: clamp(24px, 4vh, 56px) clamp(1rem, 2.5vw, 2.5rem);
 }
 .ee-grow__chart {
   position: absolute;
@@ -9303,7 +9303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var selCard = selBtn && selBtn.closest('.ee-packs__card');
         var priceEl = selCard && selCard.querySelector('.ee-packs__price');
         var priceTxt = priceEl ? priceEl.textContent.replace(/\s+/g, ' ').trim() : info.monthly;
-        var txt = 'Estruturação Estratégica + Combo Performance · ' + priceTxt;
+        var txt = 'Combo Performance (Estruturação Estratégica + Executar) · ' + priceTxt;
         if (social) txt += '  +  Social Media';
         itemsEl.textContent = txt;
       } else if (social) {
@@ -9769,7 +9769,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Pilares da oferta
     var pillars =
       '<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>' +
-      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Combo Performance</h3><p>' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + '. A operação contínua que coloca o plano pra rodar.</p></div>' +
+      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Executar</h3><p>' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + '. A operação contínua que coloca o plano pra rodar.</p></div>' +
       (social
         ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
         : '');
@@ -9795,12 +9795,12 @@ document.addEventListener('DOMContentLoaded', function() {
       '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · sprint de 30 dias</span></td>' +
       '<td class="inv-v">' + esc(EE_PRICE) + '<span class="per"> à vista</span></td></tr>';
     var invRecorrenteRows =
-      '<tr><td><strong>Combo Performance — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
+      '<tr><td><strong>Executar — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
       '<td class="inv-v">' + esc(comboPrice) + '<span class="per">/mês</span></td></tr>' +
       (social
         ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
         : '') +
-      '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Combo Performance' + (social ? ' + Social Media' : '') + '</span></td>' +
+      '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + '</span></td>' +
       '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
 
     return '' +
@@ -9882,8 +9882,8 @@ document.addEventListener('DOMContentLoaded', function() {
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
-    '<h1>Estruturação Estratégica + Combo Performance</h1>' +
-    '<p class="subtitle">Combo Performance · ' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
+    '<h1>Combo Performance</h1>' +
+    '<p class="subtitle"><strong>Estruturação Estratégica + Executar</strong> · ' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
       '<div><span>Empresa</span><strong>' + esc(form.empresa || '—') + '</strong></div>' +
@@ -9892,7 +9892,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
-    '<section><h2>Combo Performance — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Combo Performance · ' + modelLabel, ['Componente', 'Entrega', 'SLA', 'Objetivo', 'Premissa'], comboRows) + '</section>' +
+    '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA', 'Objetivo', 'Premissa'], comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
@@ -9978,7 +9978,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var modelKey = (pageModel && MODEL_LABEL[pageModel]) ? pageModel : 'e-commerce';
     var modelLabel = MODEL_LABEL[modelKey];
     var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
-    refs.summary.innerHTML = '<strong>Estruturação Estratégica + Combo Performance</strong><br>Combo Performance · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    refs.summary.innerHTML = '<strong>Combo Performance</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
     // e-mail padrão do responsável
     if (!refs.email.value) refs.email.value = 'conteudo@v4company.com';
     modal.classList.add('is-open');
