@@ -1243,8 +1243,10 @@ footer .wp-block-group.has-black-background-color {
   align-items: stretch;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
+  /* Fundo gradiente da marca — visível no estado de seleção (antes da imagem entrar) */
+  background: radial-gradient(125% 120% at 50% 24%, #8B1004 0%, #4A0202 44%, #1a0000 100%);
 }
-/* Imagem full-bleed de fundo */
+/* Imagem full-bleed de fundo — fica escondida no select; quem a revela é o wipe (minhoca) */
 .ee-hero__bg {
   position: absolute;
   inset: 0;
@@ -1253,15 +1255,44 @@ footer .wp-block-group.has-black-background-color {
   object-fit: cover;
   object-position: center;
   z-index: 0;
+  opacity: 0;
 }
-/* Overlay sutil pra dar legibilidade ao texto (mais escuro embaixo/esquerda) */
+/* Welcome: imagem presente (aparece instantânea, escondida atrás do wipe; o wipe a revela) */
+.ee-hero[data-hero-state="welcome"] .ee-hero__bg {
+  opacity: 1;
+}
+/* Wipe "minhoca": retângulo que cobre de baixo pra cima e depois encolhe pro topo.
+   Controlado pelo GSAP (scaleY em 2 fases). z-index acima de tudo na hero. */
+.ee-hero__wipe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 5;
+  background: #120000;             /* near-black da marca (troque por #fff se quiser branco) */
+  transform: scaleY(0);
+  transform-origin: 50% 100%;      /* fixado na base */
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Overlay sutil pra dar legibilidade ao texto (mais escuro embaixo/esquerda).
+   Some no estado select pra o gradiente ficar limpo; entra junto com a imagem. */
 .ee-hero::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease 0.15s;
   background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 42%, transparent 70%);
+}
+.ee-hero[data-hero-state="select"]::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ee-hero__bg { transition: none; }
+  .ee-hero[data-hero-state="welcome"] .ee-hero__bg { opacity: 1; transform: none; }
+  .ee-hero::after { transition: none; }
 }
 .ee-hero__inner {
   width: 100%;
@@ -6124,6 +6155,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
   <img src="assets/Herofullbleed.png" alt="" class="ee-hero__bg" aria-hidden="true"/>
+  <div class="ee-hero__wipe" aria-hidden="true"></div>
   <div class="ee-hero__inner">
     <div class="ee-hero__content">
       <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
@@ -7901,6 +7933,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var selector   = document.querySelector('.ee-hero .ee-model-selector');
     var titleSpans = document.querySelectorAll('.ee-hero__title span');
     var visual     = document.querySelector('.ee-hero__visual');
+    var wipe       = document.querySelector('.ee-hero__wipe');
     if (!hero) return;
 
     var hasGsap       = typeof gsap !== 'undefined';
@@ -7944,28 +7977,42 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       }
 
       function enterWelcome() {
-        // FLIP: mede o seletor antes e depois do reflow de layout pra animar a
-        // mudança de posição (centralizado → coluna) sem corte seco.
-        var firstRect = selector ? selector.getBoundingClientRect() : null;
-        hero.setAttribute('data-hero-state', 'welcome');
-        document.documentElement.classList.remove('ee-scroll-lock');
+        var refresh = function () {
+          if (typeof ScrollTrigger !== 'undefined') {
+            requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+          }
+        };
+        var goWelcome = function () {
+          hero.setAttribute('data-hero-state', 'welcome');
+          document.documentElement.classList.remove('ee-scroll-lock');
+        };
 
-        if (selector && firstRect) {
-          var lastRect = selector.getBoundingClientRect();
-          gsap.fromTo(selector,
-            { x: firstRect.left - lastRect.left, y: firstRect.top - lastRect.top },
-            { x: 0, y: 0, duration: 0.85, ease: 'power3.out', clearProps: 'transform' });
+        // título começa escondido; entra depois que o wipe revelar a hero
+        if (titleSpans.length) gsap.set(titleSpans, { opacity: 0, y: 40 });
+
+        if (!wipe) {
+          // sem o painel: troca direta + revela
+          goWelcome();
+          if (titleSpans.length) gsap.to(titleSpans, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 });
+          refresh();
+          return;
         }
-        if (visual) {
-          gsap.to(visual, { opacity: 1, scale: 1, duration: 1.05, ease: 'power3.out', delay: 0.1 });
-        }
+
+        // === WIPE "MINHOCA" ===
+        // Fase 1: o retângulo nasce fixado na base e cresce até o topo (cobre a seção).
+        // Com a seção coberta, troca pro estado welcome (seletor some, imagem aparece) — escondido.
+        // Fase 2: fixa no topo e encolhe de baixo pra cima (a "cauda" segue a "cabeça", com leve
+        // delay), revelando a hero já montada embaixo.
+        var tl = gsap.timeline({ onComplete: refresh });
+        tl.set(wipe, { visibility: 'visible', scaleY: 0, transformOrigin: '50% 100%' });
+        tl.to(wipe, { scaleY: 1, duration: 0.5, ease: 'power2.inOut' });
+        tl.add(goWelcome);                                           // troca escondida atrás do painel
+        tl.set(wipe, { transformOrigin: '50% 0%' });                 // fixa no topo
+        tl.to(wipe, { scaleY: 0, duration: 0.62, ease: 'power3.inOut' }, '+=0.06');
+        tl.set(wipe, { visibility: 'hidden' });
+        // headline entra na hero já revelada (sobrepõe levemente o fim do wipe)
         if (titleSpans.length) {
-          gsap.to(titleSpans, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14, delay: 0.18 });
-        }
-
-        // Recalcula os ScrollTriggers agora que o scroll foi liberado
-        if (typeof ScrollTrigger !== 'undefined') {
-          requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+          tl.to(titleSpans, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, '-=0.32');
         }
       }
 
@@ -9608,17 +9655,20 @@ document.addEventListener('DOMContentLoaded', function() {
       return [String(it.strong).replace(/:\s*$/, ''), it.text, (SOCIAL_SLA[i] || [])[1] || ''];
     });
 
-    // Investimento: EE = pagamento único (à parte, não soma); Combo + Social = mensal (somam)
+    // Investimento dividido em dois tópicos:
+    //  • Pontual (não recorrente): só a Estruturação Estratégica
+    //  • Recorrente (mensal): Combo Performance + Social Media (quando houver), com total próprio
     var monthlyTotal = comboPriceNum + (social ? SOCIAL_PRICE_NUM : 0);
-    var invRows =
-      '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · pagamento único (não recorrente)</span></td>' +
-      '<td class="inv-v">' + esc(EE_PRICE) + '<span class="per"> à vista</span></td></tr>' +
+    var invPontualRows =
+      '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · sprint de 30 dias</span></td>' +
+      '<td class="inv-v">' + esc(EE_PRICE) + '<span class="per"> à vista</span></td></tr>';
+    var invRecorrenteRows =
       '<tr><td><strong>Combo Performance — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
       '<td class="inv-v">' + esc(comboPrice) + '<span class="per">/mês</span></td></tr>' +
       (social
         ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
         : '') +
-      '<tr class="inv-total"><td><strong>Total mensal</strong><br><span class="muted">Combo Performance' + (social ? ' + Social Media' : '') + ' · o setup da Estruturação Estratégica é cobrado à parte</span></td>' +
+      '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Combo Performance' + (social ? ' + Social Media' : '') + '</span></td>' +
       '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
 
     return '' +
@@ -9674,6 +9724,8 @@ document.addEventListener('DOMContentLoaded', function() {
 'table.ctab td.c-sla { color: rgba(40,0,0,.62); }' +
 '.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
 '.inv-v { font-size: 18px; color: #E50914; }' +
+'.inv-group { margin-bottom: 16px; break-inside: avoid; }' +
+'.inv-group-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7A0A02; margin: 0 0 2px; padding: 8px 10px; background: rgba(229,9,20,.06); border-left: 3px solid #C41E08; border-radius: 4px; }' +
 '.inv-total td { border-top: 2px solid rgba(229,9,20,.35); border-bottom: none; padding-top: 16px; }' +
 '.inv-total .inv-v { font-size: 23px; }' +
 '.inv-v .per { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
@@ -9706,8 +9758,10 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
     '<section><h2>Combo Performance — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · ' + modelLabel, comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', socialRows) + '</section>' : '') +
-    '<section><h2>Investimento</h2><table>' + invRows + '</table>' +
-      '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um setup de pagamento único, cobrado à parte. O Combo Performance é mensal, com fidelidade mínima de 6 meses. Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
+    '<section><h2>Investimento</h2>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table></div>' +
+      '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses. Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
       '<p class="hint">Os campos com sublinhado tracejado são editáveis: clique e ajuste valores/condições antes de salvar o PDF.</p>' +
     '</section>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica — <strong>ou se você não ficar satisfeito</strong> com o que recebeu —, é só pedir o reembolso e <strong>devolvemos 100% do seu dinheiro</strong>.</div></section>' +
