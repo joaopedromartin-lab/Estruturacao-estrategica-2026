@@ -1246,54 +1246,21 @@ footer .wp-block-group.has-black-background-color {
   /* Fundo gradiente da marca — visível no estado de seleção (antes da imagem entrar) */
   background: radial-gradient(125% 120% at 50% 24%, #8B1004 0%, #4A0202 44%, #1a0000 100%);
 }
-/* Imagem full-bleed de fundo — fica escondida no select; quem a revela é o wipe (minhoca) */
-.ee-hero__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-  opacity: 0;
-}
-/* Welcome: imagem presente (aparece instantânea, escondida atrás do wipe; o wipe a revela) */
-.ee-hero[data-hero-state="welcome"] .ee-hero__bg {
-  opacity: 1;
-}
-/* Wipe "minhoca": retângulo que cobre de baixo pra cima e depois encolhe pro topo.
-   Controlado pelo GSAP (scaleY em 2 fases). z-index acima de tudo na hero. */
+/* Wipe "minhoca" (mantido): cobre de baixo→topo e encolhe pro topo na transição. */
 .ee-hero__wipe {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   height: 100%;
-  z-index: 5;
-  background: #120000;             /* near-black da marca (troque por #fff se quiser branco) */
+  z-index: 6;
+  background: #120000;
   transform: scaleY(0);
-  transform-origin: 50% 100%;      /* fixado na base */
+  transform-origin: 50% 100%;
   visibility: hidden;
   pointer-events: none;
 }
-/* Overlay sutil pra dar legibilidade ao texto (mais escuro embaixo/esquerda).
-   Some no estado select pra o gradiente ficar limpo; entra junto com a imagem. */
-.ee-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.6s ease 0.15s;
-  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 42%, transparent 70%);
-}
-.ee-hero[data-hero-state="select"]::after { opacity: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .ee-hero__bg { transition: none; }
-  .ee-hero[data-hero-state="welcome"] .ee-hero__bg { opacity: 1; transform: none; }
-  .ee-hero::after { transition: none; }
-}
+/* SELECT: prompt + seletor centralizados sobre o gradiente (inalterado) */
 .ee-hero__inner {
   width: 100%;
   max-width: var(--ee-max-width);
@@ -1308,47 +1275,11 @@ footer .wp-block-group.has-black-background-color {
   flex-direction: column;
   gap: clamp(28px, 4vw, 48px);
 }
-.ee-hero__title {
-  font-family: 'Morganite', 'Anton', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 0.88;
-  letter-spacing: 0;
-  color: #FFFFFF;
-  margin: 0;
-}
-.ee-hero__title span {
-  display: block;
-  font-size: clamp(84px, 12vw, 220px);
-  /* Estado inicial — GSAP anima no load */
-  opacity: 0;
-  transform: translateY(60px);
-  will-change: opacity, transform;
-}
-/* Estado inicial do selector e do visual (animados pelo GSAP no load) */
 .ee-hero .ee-model-selector {
   opacity: 0;
   transform: translateY(24px);
   will-change: opacity, transform;
 }
-.ee-hero__visual {
-  opacity: 0;
-  transform: scale(0.92);
-  will-change: opacity, transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ee-hero__title span,
-  .ee-hero .ee-model-selector,
-  .ee-hero__visual {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* === HERO — FLUXO DE SELEÇÃO ===
-   Estado "select" (inicial): mostra só o pré-selecionador, centralizado no meio
-   da tela, pra forçar o vendedor a escolher o modelo de vendas antes de seguir.
-   Quando um modelo é escolhido, vira "welcome" e revela o "Bem vindo a V4". */
 .ee-hero__select-prompt {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(18px, 1.6vw, 26px);
@@ -1356,17 +1287,13 @@ footer .wp-block-group.has-black-background-color {
   color: rgba(255, 255, 255, 0.92);
   letter-spacing: -0.01em;
   margin: 0;
-  /* Estado inicial — GSAP anima no load */
   opacity: 0;
   transform: translateY(24px);
   will-change: opacity, transform;
 }
 .ee-hero__select-prompt strong { font-weight: 700; color: #FFFFFF; }
 
-/* ESTADO SELECT (inicial): prompt + seletor centralizados no meio da tela */
-.ee-hero[data-hero-state="select"] {
-  min-height: 100vh;
-}
+.ee-hero[data-hero-state="select"] { min-height: 100vh; }
 .ee-hero[data-hero-state="select"] .ee-hero__inner {
   justify-content: center;
   align-items: center;
@@ -1375,45 +1302,91 @@ footer .wp-block-group.has-black-background-color {
   align-items: center;
   text-align: center;
 }
-.ee-hero[data-hero-state="select"] .ee-hero__title {
-  display: none;
-}
 
-/* ESTADO WELCOME (após escolher): título no canto inferior esquerdo,
-   seletor e prompt escondidos. Referência: head assentada na base,
-   imagem respirando acima (estilo "MATERIAIS V4"). */
-/* O inner cobre toda a área útil da hero (inset = padding), virando um
-   containing block de altura cheia. Assim o conteúdo ancorado embaixo é
-   determinístico, sem depender de flex-stretch. */
-.ee-hero[data-hero-state="welcome"] .ee-hero__inner {
+/* === ESTADO WELCOME — split-screen: painel branco (esquerda) + imagem full-height (direita) === */
+.ee-hero__welcome {
   position: absolute;
-  inset: var(--ee-pad-y-default) var(--ee-pad-x);
-  width: auto;
-  max-width: none;
-  margin: 0;
-  justify-content: flex-end;   /* empurra o conteúdo pra base */
-  align-items: flex-start;     /* alinhado à esquerda */
-}
-.ee-hero[data-hero-state="welcome"] .ee-hero__content {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  align-items: flex-start;
-  text-align: left;
-  margin: 0;
-}
-/* Head grande no canto inferior, em uma única linha (bloco único) */
-.ee-hero[data-hero-state="welcome"] .ee-hero__title {
-  white-space: nowrap;
-}
-.ee-hero[data-hero-state="welcome"] .ee-hero__title span {
-  font-size: clamp(44px, 10.5vw, 168px);
-}
-.ee-hero[data-hero-state="welcome"] .ee-hero__select-prompt,
-.ee-hero[data-hero-state="welcome"] .ee-model-selector {
+  inset: 0;
+  z-index: 3;
   display: none;
+  grid-template-columns: 1.05fr 1fr;
+}
+.ee-hero[data-hero-state="welcome"] .ee-hero__welcome { display: grid; }
+.ee-hero[data-hero-state="welcome"] .ee-hero__inner { display: none; }
+.ee-hero__panel {
+  position: relative;
+  background: #FFFFFF;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(56px, 7vw, 120px) clamp(36px, 4.5vw, 88px);
+}
+.ee-hero__photo {
+  position: relative;
+  overflow: hidden;
+  background: #C1130B;
+}
+.ee-hero__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* Anotações nos cantos do painel branco */
+.ee-hero__note {
+  position: absolute;
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 17px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  /* gradiente escuro → vermelho em TODO o texto da anotação */
+  background: linear-gradient(90deg, #280000 0%, #7A0A02 52%, #FB2E0A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ee-hero__note strong { font-weight: 700; }
+.ee-hero__note em { font-style: italic; font-weight: 600; }
+.ee-hero__note--tl { top: clamp(26px, 3.6vw, 52px); left: clamp(36px, 4.5vw, 88px); }
+.ee-hero__note--tr { top: clamp(26px, 3.6vw, 52px); right: clamp(28px, 3.4vw, 64px); }
+.ee-hero__note--bl { bottom: clamp(26px, 3.6vw, 52px); left: clamp(36px, 4.5vw, 88px); }
+.ee-hero__note--br { bottom: clamp(26px, 3.6vw, 52px); right: clamp(28px, 3.4vw, 64px); }
+/* Bloco de boas-vindas */
+.ee-hero__welcome-lead {
+  display: block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;            /* light */
+  font-size: clamp(26px, 3.2vw, 54px);
+  color: #280000;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  margin: 0 0 clamp(2px, 0.5vw, 10px);
+}
+.ee-hero__welcome-title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;            /* Bold = peso mais forte disponível (não há Black self-hosted) */
+  text-transform: uppercase;
+  font-size: clamp(88px, 13vw, 240px);
+  line-height: 0.82;
+  letter-spacing: 0;
+  margin: 0;
+  /* gradiente escuro (esquerda) → vermelho (direita), como na referência */
+  background: linear-gradient(90deg, #160000 0%, #280000 24%, #9A1004 62%, #FB2E0A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+/* Mobile: empilha painel em cima, imagem embaixo */
+@media (max-width: 860px) {
+  .ee-hero__welcome { grid-template-columns: 1fr; grid-template-rows: auto 42vh; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ee-hero .ee-model-selector,
   .ee-hero__select-prompt { opacity: 1; transform: none; }
 }
 
@@ -4163,31 +4136,85 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   object-fit: contain;
 }
 
-/* === SEÇÃO ANCORAGEM (placeholder: texto único, bem ao centro) === */
+/* === SEÇÃO ANCORAGEM (carrossel de precificação: antes → depois, por modelo) === */
 .ee-anchor {
   background: #280000;          /* mesmo tom da garantia e do handoff → flui sem corte */
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
-  min-height: clamp(320px, 50vh, 560px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .ee-anchor__inner {
-  max-width: var(--ee-max-width);
+  max-width: 1280px;            /* setas ficam fora da imagem; largura extra compensa */
   width: 100%;
   margin: 0 auto;
-  text-align: center;
 }
-.ee-anchor__text {
-  font-family: 'Morganite', 'Anton', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: clamp(64px, 12vw, 220px);
-  line-height: 0.9;
-  letter-spacing: 0;
+/* Grid de 3 colunas: seta · imagem · seta. Nunca quebra → setas SEMPRE ao lado.
+   A coluna do meio (minmax 0..cap) limita e encolhe a imagem; bolinhas na 2ª linha. */
+.ee-anchor__carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, clamp(360px, 76vw, 980px)) auto;
+  align-items: center;
+  justify-content: center;
+  column-gap: clamp(8px, 1.6vw, 20px);
+  row-gap: clamp(16px, 2vw, 24px);
+}
+.ee-anchor__viewport {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+}
+.ee-anchor__track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ee-anchor__slide { flex: 0 0 100%; min-width: 0; }
+.ee-anchor__slide img { display: block; width: 100%; height: auto; }
+/* Setas de navegação — ao lado da imagem (fora do quadro) */
+.ee-anchor__nav {
+  flex: 0 0 auto;
+  width: clamp(40px, 3.4vw, 54px);
+  height: clamp(40px, 3.4vw, 54px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: rgba(20, 0, 0, 0.55);
   color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.ee-anchor__nav:hover { background: #C41E08; border-color: #C41E08; transform: scale(1.06); }
+.ee-anchor__nav--prev { grid-column: 1; grid-row: 1; }
+.ee-anchor__nav--next { grid-column: 3; grid-row: 1; }
+/* Bolinhas (antes / agora) — 2ª linha, ocupando as 3 colunas */
+.ee-anchor__dots {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
   margin: 0;
 }
+.ee-anchor__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.ee-anchor__dot.is-active { background: #FB2E0A; transform: scale(1.25); }
 
 .ee-handoff {
   position: relative;
@@ -6154,14 +6181,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- SEÇÃO 01 — HERO                                               -->
 <!-- ============================================================ -->
 <section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
-  <img src="assets/Herofullbleed.png" alt="" class="ee-hero__bg" aria-hidden="true"/>
   <div class="ee-hero__wipe" aria-hidden="true"></div>
+
+  <!-- ESTADO SELECT: prompt + seletor de modelo (centralizado sobre o gradiente) -->
   <div class="ee-hero__inner">
     <div class="ee-hero__content">
       <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
-      <h1 class="ee-hero__title">
-        <span>Bem vindo a V4 Company</span>
-      </h1>
 
       <div class="ee-model-selector" data-state="closed">
         <button type="button"
@@ -6180,6 +6205,23 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
         </ul>
       </div>
+    </div>
+  </div>
+
+  <!-- ESTADO WELCOME: split-screen (painel branco à esquerda + imagem full-height à direita) -->
+  <div class="ee-hero__welcome">
+    <div class="ee-hero__panel">
+      <p class="ee-hero__note ee-hero__note--tl">Somos <strong>Cientistas</strong></p>
+      <p class="ee-hero__note ee-hero__note--tr">Inimigos da <em>Inércia</em></p>
+      <div class="ee-hero__welcome-block">
+        <span class="ee-hero__welcome-lead">Bem-Vindo à</span>
+        <h1 class="ee-hero__welcome-title">V4 Company</h1>
+      </div>
+      <p class="ee-hero__note ee-hero__note--bl">Nosso negócio é vender o seu</p>
+      <p class="ee-hero__note ee-hero__note--br">#GoToIPO2030</p>
+    </div>
+    <div class="ee-hero__photo">
+      <img src="assets/imgherose.webp" alt="Mão segurando o cubo translúcido da V4 Company"/>
     </div>
   </div>
 </section>
@@ -7408,9 +7450,26 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO — ANCORAGEM (placeholder: texto único centralizado)     -->
 <!-- ============================================================ -->
-<section id="ancoragem" class="ee-anchor" aria-label="Ancoragem">
+<section id="ancoragem" class="ee-anchor" aria-label="Seu investimento: antes e agora">
   <div class="ee-anchor__inner">
-    <h2 class="ee-anchor__text">Ancoragem</h2>
+    <div class="ee-anchor__carousel">
+      <div class="ee-anchor__viewport">
+        <div class="ee-anchor__track">
+          <div class="ee-anchor__slide">
+            <img class="ee-anchor__img" data-anchor="before" src="assets/ancoragem_ee_pdv.webp" alt="Quanto a Estruturação Estratégica normalmente custaria"/>
+          </div>
+          <div class="ee-anchor__slide">
+            <img class="ee-anchor__img" data-anchor="after" src="assets/ancoragem_ee_real_pdv.webp" alt="Seu investimento com a condição exclusiva"/>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="ee-anchor__nav ee-anchor__nav--prev" aria-label="Imagem anterior">&#8249;</button>
+      <button type="button" class="ee-anchor__nav ee-anchor__nav--next" aria-label="Próxima imagem">&#8250;</button>
+      <div class="ee-anchor__dots" role="tablist" aria-label="Antes e agora">
+        <button type="button" class="ee-anchor__dot is-active" data-go="0" aria-label="Antes"></button>
+        <button type="button" class="ee-anchor__dot" data-go="1" aria-label="Agora"></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -7931,7 +7990,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var hero       = document.getElementById('hero');
     var prompt     = document.querySelector('.ee-hero__select-prompt');
     var selector   = document.querySelector('.ee-hero .ee-model-selector');
-    var titleSpans = document.querySelectorAll('.ee-hero__title span');
+    var revealEls  = document.querySelectorAll('.ee-hero__welcome-lead, .ee-hero__welcome-title, .ee-hero__note');
     var visual     = document.querySelector('.ee-hero__visual');
     var wipe       = document.querySelector('.ee-hero__wipe');
     if (!hero) return;
@@ -7969,7 +8028,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         hero.setAttribute('data-hero-state', 'welcome');
         document.documentElement.classList.remove('ee-scroll-lock');
         show(visual);
-        [].forEach.call(titleSpans, function (s) { show(s); });
+        [].forEach.call(revealEls, function (s) { show(s); });
         if (typeof ScrollTrigger !== 'undefined') {
           requestAnimationFrame(function () { ScrollTrigger.refresh(); });
         }
@@ -7988,12 +8047,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         };
 
         // título começa escondido; entra depois que o wipe revelar a hero
-        if (titleSpans.length) gsap.set(titleSpans, { opacity: 0, y: 40 });
+        if (revealEls.length) gsap.set(revealEls, { opacity: 0, y: 40 });
 
         if (!wipe) {
           // sem o painel: troca direta + revela
           goWelcome();
-          if (titleSpans.length) gsap.to(titleSpans, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 });
+          if (revealEls.length) gsap.to(revealEls, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 });
           refresh();
           return;
         }
@@ -8011,8 +8070,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         tl.to(wipe, { scaleY: 0, duration: 0.62, ease: 'power3.inOut' }, '+=0.06');
         tl.set(wipe, { visibility: 'hidden' });
         // headline entra na hero já revelada (sobrepõe levemente o fim do wipe)
-        if (titleSpans.length) {
-          tl.to(titleSpans, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, '-=0.32');
+        if (revealEls.length) {
+          tl.to(revealEls, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, '-=0.32');
         }
       }
 
@@ -8042,7 +8101,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
@@ -8714,6 +8773,41 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     window.addEventListener('v4-sales-model-change', updateCombos);
   });
 
+  // ── ANCORAGEM (#ancoragem): carrossel "antes → depois" por modelo de vendas ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.getElementById('ancoragem');
+    if (!section) return;
+    var track     = section.querySelector('.ee-anchor__track');
+    var imgBefore = section.querySelector('[data-anchor="before"]');
+    var imgAfter  = section.querySelector('[data-anchor="after"]');
+    var dots      = section.querySelectorAll('.ee-anchor__dot');
+    var prevBtn   = section.querySelector('.ee-anchor__nav--prev');
+    var nextBtn   = section.querySelector('.ee-anchor__nav--next');
+    var FILE_KEY  = { 'pdv': 'pdv', 'inside-sales': 'inside', 'e-commerce': 'ecommerce' };
+    var slide = 0;
+
+    function go(i) {
+      slide = (i + 2) % 2;
+      if (track) track.style.transform = 'translateX(' + (-100 * slide) + '%)';
+      [].forEach.call(dots, function (d, di) { d.classList.toggle('is-active', di === slide); });
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function () { go(slide - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { go(slide + 1); });
+    [].forEach.call(dots, function (d) {
+      d.addEventListener('click', function () { go(parseInt(d.getAttribute('data-go'), 10) || 0); });
+    });
+
+    function updateModel() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
+      var key = FILE_KEY[model] || 'pdv';
+      if (imgBefore) imgBefore.src = 'assets/ancoragem_ee_' + key + '.webp';
+      if (imgAfter)  imgAfter.src  = 'assets/ancoragem_ee_real_' + key + '.webp';
+      go(0); // ao trocar de modelo, volta pro "antes"
+    }
+    updateModel();
+    window.addEventListener('v4-sales-model-change', updateModel);
+  });
+
   // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
   (function () {
     // ===== Dados base (textos completos das semanas + packs) =====
@@ -9211,7 +9305,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '.ee-method__title', '.ee-structure__title', '.ee-foru__title',
       '.ee-define__heading', '.ee-roadmap__heading', '.ee-grow__title',
       '.ee-handoff__title', '.ee-sim__title', '.ee-warranty__title',
-      '.ee-ecosystem30__title', '.ee-anchor__text'
+      '.ee-ecosystem30__title'
     ].join(',');
     var titles = Array.prototype.slice.call(document.querySelectorAll(SEL));
     if (!titles.length) return;
