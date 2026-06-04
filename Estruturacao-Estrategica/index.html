@@ -1938,7 +1938,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.42) 48%, rgba(0,0,0,0.22) 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.66) 45%, rgba(0,0,0,0.46) 100%);
 }
 /* Tint uniforme: card começa "meio escuro" e ACENDE no hover (o tint some) */
 .ee-cases__card::after {
@@ -1946,7 +1946,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.42);
+  background: rgba(0, 0, 0, 0.52);
   transition: opacity 0.45s ease;
   pointer-events: none;
 }
@@ -1996,23 +1996,33 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   letter-spacing: -0.015em;
   line-height: 1.1;
 }
+.ee-cases__brand-text { display: flex; flex-direction: column; gap: 2px; }
+.ee-cases__type {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
 .ee-cases__challenge {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(14px, 1.1vw, 17px);
+  font-size: clamp(13px, 1.05vw, 16px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
   line-height: 1.45;
-  max-width: 460px;
+  max-width: 480px;
   letter-spacing: -0.005em;
 }
 .ee-cases__nums {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(20px, 2.4vw, 40px);
+  align-items: flex-end;
+  gap: clamp(12px, 1.6vh, 18px) clamp(20px, 2.4vw, 38px);
   margin-top: clamp(4px, 1vh, 10px);
 }
-.ee-cases__num { display: flex; flex-direction: column; gap: 5px; }
+.ee-cases__num { display: flex; flex-direction: column; gap: 4px; }
 .ee-cases__num-label {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(11px, 0.9vw, 13px);
@@ -2023,12 +2033,52 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-cases__num-val {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(19px, 1.9vw, 28px);
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: -0.02em;
   line-height: 1;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+}
+/* antes (apagado / menor)  →  depois (destacado / maior) */
+.ee-cases__num-before {
+  font-size: clamp(13px, 1.2vw, 17px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: -0.01em;
+}
+.ee-cases__num-before::after {
+  content: "→";
+  margin: 0 0.42em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+.ee-cases__num-after {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+/* herói — o big number em destaque (linha inteira, bem maior) */
+.ee-cases__num--hero { flex-basis: 100%; gap: 5px; }
+.ee-cases__num--hero .ee-cases__num-after { font-size: clamp(34px, 4.2vw, 60px); }
+.ee-cases__num--hero .ee-cases__num-before { font-size: clamp(16px, 1.7vw, 24px); }
+.ee-cases__num-note {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(11px, 0.95vw, 13px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0;
+}
+.ee-cases__quote {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: rgba(255, 255, 255, 0.92);
+  margin: clamp(6px, 1.2vh, 12px) 0 0;
+  line-height: 1.4;
+  max-width: 480px;
+  padding-left: 13px;
+  border-left: 3px solid #FB2E0A;
 }
 
 /* Slider de cases dentro de cada grupo */
@@ -6810,25 +6860,32 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <article class="ee-cases__card" style="background-image:url('assets/preventimagem.png')">
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
-            <span class="ee-cases__logo"><img src="assets/Preventlogo.png" alt="Prevent"/></span>
-            <span class="ee-cases__name">Prevent</span>
+            <span class="ee-cases__logo"><img src="assets/Preventlogo.png" alt="Óticas Prevent"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Óticas Prevent</span><span class="ee-cases__type">Varejo de óticas</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">Rede gigante batendo no teto do Google e do Meta (CPM/CPL subindo, eficiência caindo). Reposicionamos TikTok Ads e Kwai como pilar de aquisição local, com criativos nativos e segmentação por município, e trocamos a métrica de "custo do clique" para agendamento, comparecimento e fechamento na loja.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">10x</span><span class="ee-cases__num-after">13,83x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 5,06M</span></span></div>
           </div>
+          <p class="ee-cases__quote">Canal saturado não pede mais verba; pede o canal certo e a métrica certa.</p>
         </div>
       </article>
       <article class="ee-cases__card" style="background-image:url('assets/valecimagem.png')">
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
             <span class="ee-cases__logo"><img src="assets/valeclogo.png" alt="Valec Renault"/></span>
-            <span class="ee-cases__name">Valec Renault</span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Valec Renault</span><span class="ee-cases__type">Concessionária</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">Gerava leads, mas vivia a "ilusão do tráfego": o gargalo era o comercial não converter na loja. Conectamos o marketing ao CRM e retroalimentamos as campanhas toda semana com base em quem comprava, focando em oferta direta e lead com intenção real.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 392,5K</span><span class="ee-cases__num-after">R$ 1,69M</span></span><span class="ee-cases__num-note">4,3x em receita</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Vendas</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5</span><span class="ee-cases__num-after">16</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 3.600</span><span class="ee-cases__num-after">R$ 1.588</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Ticket</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 90K</span><span class="ee-cases__num-after">R$ 180K</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">4,55%</span><span class="ee-cases__num-after">6,99%</span></span></div>
           </div>
+          <p class="ee-cases__quote">Marketing sem comercial é só tráfego. No CRM, vira venda.</p>
         </div>
       </article>
     </div>
@@ -6838,25 +6895,32 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <article class="ee-cases__card" style="background-image:url('assets/cvcimagem.png')">
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
-            <span class="ee-cases__logo"><img src="assets/cvclogo.png" alt="CVC"/></span>
-            <span class="ee-cases__name">CVC</span>
+            <span class="ee-cases__logo"><img src="assets/cvclogo.png" alt="CVC Corp"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Experimento Intercâmbio</span><span class="ee-cases__type">Turismo / Educação · CVC Corp</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">Venda consultiva de ciclo longo, com leads desqualificados, volume baixo e CAC alto (R$ 1.250). Plugamos a mídia no e-mail/CRM, passamos a analisar cohort respeitando o ciclo de decisão e fizemos os criativos atuarem como filtro, entregando MQL real ao vendedor.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 91,6M</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 1.250</span><span class="ee-cases__num-after">R$ 544</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">12x</span><span class="ee-cases__num-after">21x</span></span></div>
           </div>
+          <p class="ee-cases__quote">Em venda consultiva, criativo bom não gera mais lead; gera o lead certo.</p>
         </div>
       </article>
       <article class="ee-cases__card" style="background-image:url('assets/medfuturaimagem.png')">
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
             <span class="ee-cases__logo"><img src="assets/medfuturalogo.png" alt="Medfutura"/></span>
-            <span class="ee-cases__name">Medfutura</span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Medfutura</span><span class="ee-cases__type">Distribuidora B2B / Medicamentos</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">B2B de saúde com alto custo de mídia e nenhuma conversão proporcional: fuga na landing page, anúncio saturado, comercial no escuro. Como em B2B volume não é qualidade, reestruturamos o Google Ads por intenção de compra e produto rentável, com mensuração e rotina de otimização orientada ao comercial.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">82,52x</span></span><span class="ee-cases__num-note">com R$ 8,9K de investimento</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CPL</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 11,51</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão LP</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">25,26%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 734K</span></span></div>
           </div>
+          <p class="ee-cases__quote">B2B escala com precisão cirúrgica, não com volume bruto.</p>
         </div>
       </article>
     </div>
@@ -6867,24 +6931,32 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
             <span class="ee-cases__logo"><img src="assets/uvlinelogo.png" alt="UV Line"/></span>
-            <span class="ee-cases__name">UV Line</span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">UV Line</span><span class="ee-cases__type">E-commerce / Proteção solar</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">E-commerce maduro com verba alta, mas conversão baixa (1,11%) e ROAS travado nos 7x, sem escalar sem perder margem. Escalamos por diversificação + sazonalidade: além de Google e Meta, entramos com Pinterest e TikTok, mantendo o grosso da verba no motor principal e cortando rápido todo teste sem performance.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 10,8M</span></span><span class="ee-cases__num-note">~R$ 1M em um dia</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">7,94x</span><span class="ee-cases__num-after">14,56x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">1,11%</span><span class="ee-cases__num-after">4,03%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 21</span></span></div>
           </div>
+          <p class="ee-cases__quote">Escala não é só mais verba; é o canal certo na hora certa.</p>
         </div>
       </article>
       <article class="ee-cases__card" style="background-image:url('assets/totalarteimagem.png')">
         <div class="ee-cases__card-body">
           <div class="ee-cases__brand">
-            <span class="ee-cases__logo"><img src="assets/totalartelogo.png" alt="Total Art"/></span>
-            <span class="ee-cases__name">Total Art</span>
+            <span class="ee-cases__logo"><img src="assets/totalartelogo.png" alt="Total Arte"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Total Arte</span><span class="ee-cases__type">E-commerce / Bens de consumo</span></span>
           </div>
-          <p class="ee-cases__challenge">Dados do case em breve.</p>
+          <p class="ee-cases__challenge">Marca gigante no offline apanhando no digital: CAC estourando a margem (R$ 40,21), site convertendo só 2,24% e dados ruins demais pra saber onde estava o problema. Arrumamos a casa: faxina no rastreamento do GA4 e landing pages de apoio pra não perder venda enquanto o site era ajustado.</p>
           <div class="ee-cases__nums">
-            <div class="ee-cases__num"><span class="ee-cases__num-label">Resultado</span><span class="ee-cases__num-val">XX → XXX</span></div>
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">2,24%</span><span class="ee-cases__num-after">5,88%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5,76x</span><span class="ee-cases__num-after">12,12x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 22</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 1,16M</span></span></div>
           </div>
+          <p class="ee-cases__quote">Às vezes o problema não é o anúncio; é a casa.</p>
         </div>
       </article>
     </div>
@@ -9915,18 +9987,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Valores (investimento)
   var EE_PRICE = 'R$ 20.000,00';            // fallback Estruturação Estratégica (setup, pagamento único)
-  // Valor de FACE da Estruturação Estratégica por modelo de vendas (sem desconto — desconto vem das condições de pagamento)
+  // Valor de FACE da Estruturação Estratégica por modelo de vendas (string p/ exibir + número p/ calcular)
   var EE_PRICE_BY_MODEL = {
     'pdv':          'R$ 19.639,26',
     'inside-sales': 'R$ 20.878,28',
     'e-commerce':   'R$ 19.647,70'
   };
-  // Condições de pagamento (premissas) — desconto sobre a Estruturação Estratégica
-  var PAY_TERMS = [
-    ['À vista — Pix, boleto ou cartão (1×)', '30% de desconto'],
-    ['Cartão parcelado em 12×',              '20% de desconto'],
-    ['Cheque em 2×',                         '25% de desconto'],
-    ['Cheque em 6×',                         '15% de desconto']
+  var EE_PRICE_NUM_BY_MODEL = {
+    'pdv':          19639.26,
+    'inside-sales': 20878.28,
+    'e-commerce':   19647.70
+  };
+  // Condições de pagamento do RECORRENTE — [rótulo, % de desconto aplicado sobre o Executar]
+  var REC_TERMS = [
+    ['À vista — Pix, boleto ou cartão (1×)', 30],
+    ['Cartão parcelado em 12×',              20],
+    ['Cheque em 2×',                         25],
+    ['Cheque em 6×',                         15]
   ];
   var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
   var SOCIAL_PRICE_NUM = 4000;              // Social Media (mensal)
@@ -10205,22 +10282,24 @@ document.addEventListener('DOMContentLoaded', function() {
     //  • Pontual (não recorrente): só a Estruturação Estratégica
     //  • Recorrente (mensal): Combo Performance + Social Media (quando houver), com total próprio
     var monthlyTotal = comboPriceNum + (social ? SOCIAL_PRICE_NUM : 0);
-    var eePrice = EE_PRICE_BY_MODEL[model] || EE_PRICE;   // valor de face da E.E conforme o modelo
+    var eePrice = EE_PRICE_BY_MODEL[model] || EE_PRICE;        // face (string) da E.E conforme o modelo
+    var eeNum   = EE_PRICE_NUM_BY_MODEL[model] || 0;           // face (número) da E.E p/ o cálculo do benefício
     var invPontualRows =
       '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · sprint de 30 dias</span></td>' +
-      '<td class="inv-v">' + esc(eePrice) + '</td></tr>';
+      '<td class="inv-v"><span id="inv-ee-val">' + esc(eePrice) + '</span></td></tr>';
     var invRecorrenteRows =
       '<tr><td><strong>Executar — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
-      '<td class="inv-v">' + esc(comboPrice) + '<span class="per">/mês</span></td></tr>' +
+      '<td class="inv-v"><span id="inv-combo-val">' + esc(comboPrice) + '</span><span class="per">/mês</span></td></tr>' +
       (social
-        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
+        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v"><span id="inv-social-val">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '</span><span class="per">/mês</span></td></tr>'
         : '') +
       '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + '</span></td>' +
-      '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
-    // Linhas da tabela de condições de pagamento (premissas — sem recalcular valores)
-    var payTermsRows = PAY_TERMS.map(function (t) {
-      return '<tr><td>' + esc(t[0]) + '</td><td class="inv-v">' + esc(t[1]) + '</td></tr>';
-    }).join('');
+      '<td class="inv-v"><span id="inv-total-val">' + esc(formatBRL(monthlyTotal)) + '</span><span class="per">/mês</span></td></tr>';
+    // Opções do seletor de forma de pagamento do RECORRENTE (aplica desconto sobre o Executar)
+    var recOptions = '<option value="0">Selecione a forma de pagamento...</option>' +
+      REC_TERMS.map(function (t) {
+        return '<option value="' + t[1] + '">' + esc(t[0]) + ' · ' + t[1] + '% off</option>';
+      }).join('');
 
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
@@ -10298,7 +10377,15 @@ document.addEventListener('DOMContentLoaded', function() {
 '.foot { padding: 22px 40px; background: #1a0000; color: #fff; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }' +
 '.foot .r { opacity: .7; }' +
 '.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
-'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
+'.pay-field { margin: 12px 0 0; }' +
+'.pay-field__label { display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(40,0,0,.55); margin-bottom: 5px; }' +
+'.pay-field__select { font: inherit; font-size: 14px; font-weight: 600; color: #280000; padding: 9px 12px; border: 1.5px solid rgba(122,10,2,.4); border-radius: 10px; background: #fff; width: 100%; max-width: 380px; cursor: pointer; }' +
+'.pay-benefit { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 0; padding: 12px 14px; border: 1.5px solid rgba(31,163,74,.55); background: rgba(31,163,74,.07); border-radius: 10px; max-width: 480px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: #0E5A22; line-height: 1.35; }' +
+'.pay-benefit input { margin-top: 1px; width: 18px; height: 18px; accent-color: #1FA34A; flex-shrink: 0; cursor: pointer; }' +
+'.pay-warning { margin: 12px 0 0; padding: 12px 14px; border-left: 4px solid #FB2E0A; background: rgba(251,46,10,.06); border-radius: 0 8px 8px 0; max-width: 480px; font-size: 13px; font-weight: 500; color: #7A0A02; line-height: 1.4; }' +
+'.inv-num-old { text-decoration: line-through; color: rgba(40,0,0,.4); font-weight: 600; font-size: .82em; margin-right: 8px; }' +
+'.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
+'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
 '<div class="toolbar"><button class="pdf" onclick="window.print()">Salvar como PDF</button><button class="close" onclick="window.close()">Fechar</button><span class="tip">No destino da impressão, escolha <strong>“Salvar como PDF”</strong></span></div>' +
 '<div class="page">' +
@@ -10316,12 +10403,22 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2>' +
-      '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
-      '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table></div>' +
-      '<div class="inv-group"><p class="inv-group-title">Condições de pagamento</p><table>' + payTermsRows + '</table>' +
-        '<p class="note"><span class="edit" contenteditable="true">Descontos aplicados sobre a Estruturação Estratégica conforme a forma de pagamento escolhida.</span></p></div>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table>' +
+        '<div class="pay-field"><label class="pay-field__label" for="pay-ee">Forma de pagamento</label>' +
+          '<select class="pay-field__select" id="pay-ee">' +
+            '<option value="">Selecione a forma de pagamento...</option>' +
+            '<option value="cartao">Cartão</option>' +
+            '<option value="boleto">Boleto</option>' +
+            '<option value="pix">Pix</option>' +
+          '</select></div>' +
+        '<label class="pay-benefit" id="ee-benefit" hidden><input type="checkbox" id="ee-benefit-check"><span>Ativar benefício de 50% de desconto na contratação do EE 3.0 + Executar</span></label>' +
+      '</div>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table>' +
+        '<div class="pay-field"><label class="pay-field__label" for="pay-rec">Forma de pagamento</label>' +
+          '<select class="pay-field__select" id="pay-rec">' + recOptions + '</select></div>' +
+        '<div class="pay-warning" id="ee-benefit-warning" hidden>Para ativar este benefício de desconto, ele é condicionado a um pagamento de entrada do valor restante da Estruturação Estratégica.</div>' +
+      '</div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses.</span></p>' +
-      '<p class="hint">Os campos com sublinhado tracejado são editáveis: clique e ajuste valores/condições antes de salvar o PDF.</p>' +
     '</section>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, <strong>ou se você não ficar satisfeito</strong> com o que recebeu, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Performance nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
@@ -10334,6 +10431,19 @@ document.addEventListener('DOMContentLoaded', function() {
   '</div>' +
   '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
 '</div>' +
+'<script>(function(){' +
+  'var eeBase=' + eeNum + ',comboBase=' + comboPriceNum + ',socNum=' + (social ? SOCIAL_PRICE_NUM : 0) + ',hasSoc=' + (social ? 'true' : 'false') + ';' +
+  'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
+  'var eeVal=document.getElementById("inv-ee-val"),comboVal=document.getElementById("inv-combo-val"),totalVal=document.getElementById("inv-total-val");' +
+  'var payEE=document.getElementById("pay-ee"),benefit=document.getElementById("ee-benefit"),benefitChk=document.getElementById("ee-benefit-check"),warning=document.getElementById("ee-benefit-warning"),payRec=document.getElementById("pay-rec");' +
+  'function renderEE(){if(!eeVal)return;if(benefitChk&&benefitChk.checked){eeVal.innerHTML="<span class=inv-num-old>"+brl(eeBase)+"</span>"+brl(eeBase*0.5)+"<span class=inv-discount-tag>-50%</span>";}else{eeVal.textContent=brl(eeBase);}}' +
+  'function renderRec(){var d=payRec?(parseFloat(payRec.value)||0):0;var c=comboBase*(1-d/100);if(comboVal){if(d){comboVal.innerHTML="<span class=inv-num-old>"+brl(comboBase)+"</span>"+brl(c)+"<span class=inv-discount-tag>-"+d+"%</span>";}else{comboVal.textContent=brl(comboBase);}}if(totalVal)totalVal.textContent=brl(c+(hasSoc?socNum:0));}' +
+  'function updateWarn(){if(warning)warning.hidden=!(benefitChk&&benefitChk.checked);}' +
+  'if(payEE)payEE.addEventListener("change",function(){if(benefit)benefit.hidden=!payEE.value;if(!payEE.value&&benefitChk)benefitChk.checked=false;renderEE();updateWarn();});' +
+  'if(benefitChk)benefitChk.addEventListener("change",function(){renderEE();updateWarn();});' +
+  'if(payRec)payRec.addEventListener("change",renderRec);' +
+  'renderEE();renderRec();updateWarn();' +
+'})();<\/script>' +
 '</body></html>';
   }
 
