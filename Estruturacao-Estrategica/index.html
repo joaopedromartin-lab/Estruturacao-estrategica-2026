@@ -1932,6 +1932,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   z-index: 1;
   background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.42) 48%, rgba(0,0,0,0.22) 100%);
 }
+/* Tint uniforme: card começa "meio escuro" e ACENDE no hover (o tint some) */
+.ee-cases__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.42);
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+.ee-cases__card:hover::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ee-cases__card::after { transition: none; }
+}
 .ee-cases__card-body {
   position: relative;
   z-index: 2;
@@ -8085,7 +8099,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var hero       = document.getElementById('hero');
     var prompt     = document.querySelector('.ee-hero__select-prompt');
     var selector   = document.querySelector('.ee-hero .ee-model-selector');
-    var revealEls  = document.querySelectorAll('.ee-hero__welcome-lead, .ee-hero__welcome-title, .ee-hero__note');
+    var revealEls  = document.querySelectorAll('.ee-hero__welcome-lead, .ee-hero__welcome-title, .ee-hero__note, .ee-hero__panel .ee-model-selector');
     var visual     = document.querySelector('.ee-hero__visual');
     var wipe       = document.querySelector('.ee-hero__wipe');
     if (!hero) return;
