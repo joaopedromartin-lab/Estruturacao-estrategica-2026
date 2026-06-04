@@ -1395,9 +1395,10 @@ footer .wp-block-group.has-black-background-color {
   font-weight: 700;            /* Bold = peso mais forte disponível (não há Black self-hosted) */
   text-transform: uppercase;
   font-size: clamp(88px, 13vw, 240px);
-  line-height: 0.82;
+  line-height: 1;              /* caixa alta o suficiente p/ o gradiente (background-clip:text) cobrir o topo das maiúsculas */
   letter-spacing: 0;
   margin: 0;
+  padding: 0.1em 0 0.04em;     /* respiro extra pro topo/base não serem cortados em telas diferentes */
   /* gradiente escuro (esquerda) → vermelho (direita), como na referência */
   background: linear-gradient(90deg, #160000 0%, #280000 24%, #9A1004 62%, #FB2E0A 100%);
   -webkit-background-clip: text;
@@ -6167,6 +6168,57 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 @media (max-width: 600px) {
   .ee-model-selector__trigger { min-width: 0; width: 100%; }
 }
+
+/* ===== FASES DO PROJETO (velocímetro / carrossel) ===== */
+.ee-phases { background: #FFFFFF; padding-left: var(--ee-pad-x); padding-right: var(--ee-pad-x); }
+.ee-phases__inner {
+  max-width: 1280px; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 72px); align-items: center;
+}
+@media (min-width: 920px) { .ee-phases__inner { grid-template-columns: 1fr 1fr; } }
+.ee-phases__title {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: clamp(30px, 4.2vw, 56px); line-height: 1.02; letter-spacing: -0.02em;
+  color: #280000; margin: 0 0 clamp(22px, 3vh, 38px);
+}
+.ee-phases__bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(14px, 2vh, 22px); }
+.ee-phases__bullets li {
+  position: relative; padding-left: 22px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 500; color: #280000; letter-spacing: -0.01em;
+}
+.ee-phases__bullets li::before {
+  content: ""; position: absolute; left: 0; top: 0.5em;
+  width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #FB2E0A, #C41E08);
+}
+.ee-phases__carousel { position: relative; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; column-gap: clamp(6px,1vw,14px); row-gap: 16px; }
+.ee-phases__card {
+  grid-column: 2; grid-row: 1; text-align: center;
+  border: 2px solid transparent; border-radius: 20px;
+  /* fundo claro no padding-box + stroke de gradiente brand no border-box */
+  background:
+    linear-gradient(#F6F3F1, #F6F3F1) padding-box,
+    linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%) border-box;
+  padding: clamp(24px,3vw,40px) clamp(20px,3vw,44px) clamp(26px,3.2vw,42px);
+}
+.ee-phases__gauge { position: relative; width: 100%; max-width: clamp(240px,26vw,330px); margin: 0 auto clamp(8px,1.2vw,16px); }
+.ee-phases__dial { display: block; width: 100%; height: auto; overflow: visible; }
+.ee-phases__needle { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.ee-phases__logo { position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%); width: 15.5%; height: auto; pointer-events: none; }
+.ee-phases__step { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px,1vw,13px); font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #C41E08; margin: 0 0 4px; }
+.ee-phases__name { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(26px,3vw,40px); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #280000; margin: 0 0 clamp(8px,1vw,12px); line-height: 1; }
+.ee-phases__metrics { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px,1vw,13px); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(40,0,0,0.45); margin: 0 0 clamp(10px,1.2vw,14px); min-height: 1.2em; }
+.ee-phases__desc { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px,1.1vw,16px); font-weight: 400; line-height: 1.5; color: rgba(40,0,0,0.7); margin: 0 auto; max-width: 44ch; min-height: 8em; }
+.ee-phases__nav { grid-row: 1; width: clamp(38px,3vw,46px); height: clamp(38px,3vw,46px); border-radius: 50%; border: 1px solid rgba(40,0,0,0.16); background: #FFFFFF; color: #280000; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; }
+.ee-phases__nav:hover { background: #C41E08; border-color: #C41E08; color: #FFFFFF; transform: scale(1.06); }
+.ee-phases__nav--prev { grid-column: 1; }
+.ee-phases__nav--next { grid-column: 3; }
+.ee-phases__nav svg { width: 20px; height: 20px; }
+.ee-phases__dots { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 8px; }
+.ee-phases__dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(40,0,0,0.18); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.ee-phases__dot.is-active { background: #FB2E0A; transform: scale(1.25); }
+@media (prefers-reduced-motion: reduce) { .ee-phases__needle, .ee-phases__nav, .ee-phases__dot { transition: none; } }
+@media (max-width: 919px) { .ee-phases__title { text-align: center; } .ee-phases__bullets { align-items: flex-start; max-width: 420px; margin: 0 auto; } }
 </style>
 <style id="v4-proposal-select-styles">
   /* ===== Botão "Selecionar este pacote" nos cards ===== */
@@ -6957,6 +7009,108 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
   </div>
 </section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — FASES DO PROJETO (velocímetro / carrossel)            -->
+<!-- ============================================================ -->
+<section id="fases" class="ee-phases" aria-label="Fases do projeto">
+  <div class="ee-phases__inner">
+
+    <div class="ee-phases__intro">
+      <h2 class="ee-phases__title">Fases do projeto</h2>
+      <ul class="ee-phases__bullets">
+        <li>O que você já tem?</li>
+        <li>O que você acredita que falta?</li>
+        <li>O que eu percebi que falta?</li>
+        <li>Como nós vamos resolver juntos?</li>
+      </ul>
+    </div>
+
+    <div class="ee-phases__carousel">
+      <button type="button" class="ee-phases__nav ee-phases__nav--prev" aria-label="Fase anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+      <div class="ee-phases__card">
+        <div class="ee-phases__gauge">
+          <svg class="ee-phases__dial" viewBox="0 0 220 124" role="img" aria-label="Velocímetro da fase do projeto">
+            <defs>
+              <linearGradient id="ph-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7CC93D"/>
+                <stop offset="27%" stop-color="#C6D92E"/>
+                <stop offset="50%" stop-color="#FFC400"/>
+                <stop offset="73%" stop-color="#FF7A0A"/>
+                <stop offset="100%" stop-color="#FB2E0A"/>
+              </linearGradient>
+            </defs>
+            <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="url(#ph-grad)" stroke-width="18" stroke-linecap="round"/>
+            <g stroke="#280000" stroke-opacity="0.38" stroke-width="3" stroke-linecap="round">
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-90 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-72 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-54 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-36 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-18 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(0 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(18 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(36 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(54 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(72 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(90 110 110)"/>
+            </g>
+            <polygon class="ee-phases__needle" points="110,32 105.5,110 114.5,110" fill="#280000" style="transform:rotate(-67deg)"/>
+            <circle cx="110" cy="110" r="8.5" fill="#280000"/>
+            <circle cx="110" cy="110" r="3.5" fill="#FFFFFF"/>
+          </svg>
+          <img class="ee-phases__logo" src="assets/LogoV4Vermelha.svg" alt="" aria-hidden="true"/>
+        </div>
+        <p class="ee-phases__step">STEP V0</p>
+        <h3 class="ee-phases__name">ESTRUTURAR</h3>
+        <p class="ee-phases__metrics"></p>
+        <p class="ee-phases__desc">Nesta etapa, o foco está em estruturar todos os processos e dados necessários para a implementação do nosso processo de vendas.</p>
+      </div>
+      <button type="button" class="ee-phases__nav ee-phases__nav--next" aria-label="Próxima fase"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+      <div class="ee-phases__dots">
+        <button type="button" class="ee-phases__dot is-active" aria-label="Fase 1 — Estruturar"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 2 — Indicadores"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 3 — Maturar"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 4 — Escalar"></button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script id="ee-phases-script">
+(function () {
+  var sec = document.getElementById('fases');
+  if (!sec) return;
+  var PHASES = [
+    { step: 'STEP V0', name: 'ESTRUTURAR',  metrics: '',                      angle: -67, desc: 'Nesta etapa, o foco está em estruturar todos os processos e dados necessários para a implementação do nosso processo de vendas.' },
+    { step: 'STEP V1', name: 'INDICADORES', metrics: 'CAC · LTV · ARPU · ROI', angle: -22, desc: 'Projetos que estão em fase inicial nos processos de vendas através da internet. Ou seja, projetos que não tenham um processo de vendas bem definido, e/ou total clareza dos principais indicadores e métricas do negócio.' },
+    { step: 'STEP V2', name: 'MATURAR',     metrics: '',                      angle:  22, desc: 'Projetos que apresentam definições de seus principais indicadores e processos bem estruturados. Ocorre a realização de testes e validações que visam identificar e/ou manter os bons indicadores.' },
+    { step: 'STEP V3', name: 'ESCALAR',     metrics: '',                      angle:  67, desc: 'Nesta fase os projetos já apresentam dados e estratégias validadas, portanto, estão aptos para que possamos realizar um aumento no investimento, e buscar mais escalabilidade para o projeto.' }
+  ];
+  var i = 0;
+  var needle = sec.querySelector('.ee-phases__needle');
+  var elStep = sec.querySelector('.ee-phases__step');
+  var elName = sec.querySelector('.ee-phases__name');
+  var elMet  = sec.querySelector('.ee-phases__metrics');
+  var elDesc = sec.querySelector('.ee-phases__desc');
+  var dots   = sec.querySelectorAll('.ee-phases__dot');
+  function render() {
+    var p = PHASES[i];
+    if (needle) needle.style.transform = 'rotate(' + p.angle + 'deg)';
+    if (elStep) elStep.textContent = p.step;
+    if (elName) elName.textContent = p.name;
+    if (elMet)  elMet.textContent  = p.metrics;
+    if (elDesc) elDesc.textContent = p.desc;
+    for (var d = 0; d < dots.length; d++) dots[d].classList[d === i ? 'add' : 'remove']('is-active');
+  }
+  function go(n) { i = (n % PHASES.length + PHASES.length) % PHASES.length; render(); }
+  var prev = sec.querySelector('.ee-phases__nav--prev');
+  var next = sec.querySelector('.ee-phases__nav--next');
+  if (prev) prev.addEventListener('click', function () { go(i - 1); });
+  if (next) next.addEventListener('click', function () { go(i + 1); });
+  for (var k = 0; k < dots.length; k++) (function (idx) { dots[idx].addEventListener('click', function () { go(idx); }); })(k);
+  render();
+})();
+</script>
 
 <!-- ============================================================ -->
 <!-- SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) -->
