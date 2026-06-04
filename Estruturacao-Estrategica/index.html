@@ -5148,8 +5148,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   gap: clamp(16px, 1.6vw, 24px);
   align-items: stretch;
 }
-@media (min-width: 680px)  { .ee-packs { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1080px) { .ee-packs { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 680px)  { .ee-packs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1080px) { .ee-packs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* Variantes por modelo de vendas — só a ativa aparece (trocada pelo seletor da hero) */
 .ee-packs__variant { display: none; }
@@ -5251,7 +5251,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-packs__price {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(26px, 2.5vw, 38px);
+  font-size: clamp(22px, 2.1vw, 32px);
   font-weight: 700;
   color: #280000;
   margin: 0 0 clamp(16px, 1.8vw, 24px);
@@ -9761,6 +9761,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Valores (investimento)
   var EE_PRICE = 'R$ 20.000,00';            // Estruturação Estratégica (setup, pagamento único)
+  var EE_PRICE_NUM = 20000;                 // valor numérico base (p/ recálculo por forma de pagamento)
   var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
   var SOCIAL_PRICE_NUM = 4000;              // Social Media (mensal)
 
@@ -10040,15 +10041,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var monthlyTotal = comboPriceNum + (social ? SOCIAL_PRICE_NUM : 0);
     var invPontualRows =
       '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">Setup · sprint de 30 dias</span></td>' +
-      '<td class="inv-v">' + esc(EE_PRICE) + '<span class="per"> à vista</span></td></tr>';
+      '<td class="inv-v"><span class="inv-num" id="inv-ee-val">' + esc(EE_PRICE) + '</span></td></tr>';
     var invRecorrenteRows =
       '<tr><td><strong>Executar — ' + esc(modelLabel) + '</strong><br><span class="muted">Mensalidade · fidelidade mínima de 6 meses</span></td>' +
-      '<td class="inv-v">' + esc(comboPrice) + '<span class="per">/mês</span></td></tr>' +
+      '<td class="inv-v"><span class="inv-num" id="inv-combo-val">' + esc(comboPrice) + '</span><span class="per">/mês</span></td></tr>' +
       (social
-        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '<span class="per">/mês</span></td></tr>'
+        ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v"><span class="inv-num" id="inv-social-val">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '</span><span class="per">/mês</span></td></tr>'
         : '') +
       '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + '</span></td>' +
-      '<td class="inv-v">' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></td></tr>';
+      '<td class="inv-v"><span class="inv-num" id="inv-total-val">' + esc(formatBRL(monthlyTotal)) + '</span><span class="per">/mês</span></td></tr>';
 
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
@@ -10126,7 +10127,11 @@ document.addEventListener('DOMContentLoaded', function() {
 '.foot { padding: 22px 40px; background: #1a0000; color: #fff; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }' +
 '.foot .r { opacity: .7; }' +
 '.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
-'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
+'.pay { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 2px 0 12px; }' +
+'.pay__label { font-size: 12.5px; font-weight: 600; color: rgba(40,0,0,.6); margin-right: 2px; }' +
+'.pay__opt { font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; border: 1.5px solid rgba(122,10,2,.4); background: #fff; color: #7A0A02; border-radius: 9999px; padding: 6px 14px; transition: background .15s, color .15s, border-color .15s; }' +
+'.pay__opt.is-active { background: linear-gradient(135deg,#FB2E0A,#C41E08 55%,#7A0A02); color: #fff; border-color: transparent; }' +
+'@media print { .toolbar, .hint, .tip { display: none !important; } .pay__opt:not(.is-active) { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
 '<div class="toolbar"><button class="pdf" onclick="window.print()">Salvar como PDF</button><button class="close" onclick="window.close()">Fechar</button><span class="tip">No destino da impressão, escolha <strong>“Salvar como PDF”</strong></span></div>' +
 '<div class="page">' +
@@ -10137,7 +10142,6 @@ document.addEventListener('DOMContentLoaded', function() {
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
       '<div><span>Empresa</span><strong>' + esc(form.empresa || '—') + '</strong></div>' +
-      '<div><span>Responsável V4</span><strong>' + esc(form.responsavel || '—') + '</strong></div>' +
       '<div><span>Modelo de vendas</span><strong>' + esc(MODEL_LABEL[model]) + '</strong></div>' +
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
@@ -10145,8 +10149,20 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<section><h2>Investimento</h2>' +
-      '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table></div>' +
-      '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table></div>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p>' +
+        '<div class="pay" data-pay="pontual"><span class="pay__label">Forma de pagamento:</span>' +
+          '<button type="button" class="pay__opt is-active" data-method="pix">Pix</button>' +
+          '<button type="button" class="pay__opt" data-method="boleto">Boleto</button>' +
+          '<button type="button" class="pay__opt" data-method="credito">Cartão de crédito</button>' +
+        '</div>' +
+        '<table>' + invPontualRows + '</table></div>' +
+      '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p>' +
+        '<div class="pay" data-pay="recorrente"><span class="pay__label">Forma de pagamento:</span>' +
+          '<button type="button" class="pay__opt is-active" data-method="pix">Pix</button>' +
+          '<button type="button" class="pay__opt" data-method="boleto">Boleto</button>' +
+          '<button type="button" class="pay__opt" data-method="credito">Cartão de crédito</button>' +
+        '</div>' +
+        '<table>' + invRecorrenteRows + '</table></div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses. Formas de pagamento: Pix, cartão ou boleto — à vista ou parcelado, condições a confirmar.</span></p>' +
       '<p class="hint">Os campos com sublinhado tracejado são editáveis: clique e ajuste valores/condições antes de salvar o PDF.</p>' +
     '</section>' +
@@ -10161,6 +10177,29 @@ document.addEventListener('DOMContentLoaded', function() {
   '</div>' +
   '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
 '</div>' +
+'<script>(function(){' +
+  'var BASE={pontual:' + EE_PRICE_NUM + ',combo:' + comboPriceNum + ',social:' + (social ? SOCIAL_PRICE_NUM : 0) + '};' +
+  'var HASOC=' + (social ? 'true' : 'false') + ';' +
+  /* % de DESCONTO por forma de pagamento (0 = sem desconto). PREENCHER com os valores reais. */
+  'var DISC={pontual:{pix:0,boleto:0,credito:0},recorrente:{pix:0,boleto:0,credito:0}};' +
+  'var sel={pontual:"pix",recorrente:"pix"};' +
+  'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
+  'function disc(b,p){return b*(1-(p||0)/100);}' +
+  'function setT(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}' +
+  'function render(){' +
+    'setT("inv-ee-val",brl(disc(BASE.pontual,DISC.pontual[sel.pontual])));' +
+    'var pr=DISC.recorrente[sel.recorrente];var c=disc(BASE.combo,pr),s=disc(BASE.social,pr);' +
+    'setT("inv-combo-val",brl(c));if(HASOC)setT("inv-social-val",brl(s));' +
+    'setT("inv-total-val",brl(c+(HASOC?s:0)));' +
+  '}' +
+  'var gs=document.querySelectorAll(".pay");for(var i=0;i<gs.length;i++){(function(g){' +
+    'var grp=g.getAttribute("data-pay");' +
+    'g.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".pay__opt");if(!b)return;' +
+      'sel[grp]=b.getAttribute("data-method");' +
+      'var o=g.querySelectorAll(".pay__opt");for(var j=0;j<o.length;j++)o[j].className="pay__opt"+(o[j]===b?" is-active":"");' +
+      'render();});' +
+  '})(gs[i]);}render();' +
+'})();<\/script>' +
 '</body></html>';
   }
 
@@ -10187,16 +10226,12 @@ document.addEventListener('DOMContentLoaded', function() {
         '<div class="v4-modal__summary" id="v4m-summary"></div>' +
         '<div class="v4-modal__field"><label class="v4-modal__label" for="v4m-cliente">Nome do contato</label><input class="v4-modal__input" id="v4m-cliente" type="text" placeholder="Ex.: Gustavo Figueiredo" autocomplete="off"></div>' +
         '<div class="v4-modal__field"><label class="v4-modal__label" for="v4m-empresa">Empresa</label><input class="v4-modal__input" id="v4m-empresa" type="text" placeholder="Ex.: Cammada Alimentos" autocomplete="off"></div>' +
-        '<div class="v4-modal__field"><label class="v4-modal__label" for="v4m-resp">Responsável V4</label><input class="v4-modal__input" id="v4m-resp" type="text" placeholder="Seu nome" autocomplete="off"></div>' +
-        '<div class="v4-modal__field"><label class="v4-modal__label" for="v4m-email">E-mail do responsável V4</label><input class="v4-modal__input" id="v4m-email" type="email" placeholder="nome@v4company.com" autocomplete="off"></div>' +
         '<div class="v4-modal__actions"><button type="button" class="v4-modal__btn v4-modal__btn--ghost" id="v4m-cancel">Cancelar</button><button type="button" class="v4-modal__btn v4-modal__btn--primary" id="v4m-go">Gerar documento</button></div>' +
       '</div>';
     document.body.appendChild(modal);
     refs.summary = modal.querySelector('#v4m-summary');
     refs.cliente = modal.querySelector('#v4m-cliente');
     refs.empresa = modal.querySelector('#v4m-empresa');
-    refs.resp    = modal.querySelector('#v4m-resp');
-    refs.email   = modal.querySelector('#v4m-email');
 
     modal.querySelector('#v4m-cancel').addEventListener('click', closeModal);
     modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
@@ -10208,8 +10243,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var form = {
         cliente: refs.cliente.value.trim(),
         empresa: refs.empresa.value.trim(),
-        responsavel: refs.resp.value.trim(),
-        email: refs.email.value.trim(),
         model: (pageModel && EE_WEEK3[pageModel]) ? pageModel : 'e-commerce'
       };
       closeModal();
@@ -10229,8 +10262,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var modelLabel = MODEL_LABEL[modelKey];
     var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
     refs.summary.innerHTML = '<strong>Combo Performance</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
-    // e-mail padrão do responsável
-    if (!refs.email.value) refs.email.value = 'conteudo@v4company.com';
     modal.classList.add('is-open');
     setTimeout(function () { refs.cliente.focus(); }, 50);
   };
