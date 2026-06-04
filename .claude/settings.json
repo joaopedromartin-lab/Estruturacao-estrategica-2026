@@ -16,7 +16,13 @@
       "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const g=s.match\\(/<script id=\\\\\"v4-proposal-generate-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(g[1]\\);console.log\\('generate-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")",
       "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('braces',o,c,o===c?'OK':'MISMATCH'\\);\")",
       "Bash(grep -nE 'ee-recap__week--executar|SEMANA 04|ee-recap__weeks|Operação contínua|/\\\\.ee-recap__weeks|<!-- EXECUTAR' index.html)",
-      "Bash(grep -nE 'ee-recap__weeks \\\\{|repeat\\\\\\([0-9], 1fr\\\\\\).*ee-recap|ee-recap__weeks.*grid-template' index.html)"
+      "Bash(grep -nE 'ee-recap__weeks \\\\{|repeat\\\\\\([0-9], 1fr\\\\\\).*ee-recap|ee-recap__weeks.*grid-template' index.html)",
+      "Bash(sed -n '/\\\\.ee-recap__head {/,/^}/p' index.html)",
+      "Bash(sed -n '/\\\\.ee-recap__title {/,/^}/p' index.html)",
+      "Bash(sed -n '/\\\\.ee-cases__inner {/,/^}/p' index.html)",
+      "Bash(sed -n '/\\\\.ee-cases__heading {/,/^}/p' index.html)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const m=s.match\\(/<script id=\\\\\"ee-page-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(m[1]\\);console.log\\('ee-page-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const m=s.match\\(/<script id=\\\\\"ee-page-script\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/script>/\\);try{new Function\\(m[1]\\);console.log\\('ee-page-script: OK'\\);}catch\\(e\\){console.log\\('ERROR:',e.message\\);}const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);console.log\\('selectors count in hero HTML:', \\(s.match\\(/ee-model-selector\\\\\" data-state/g\\)||[]\\).length\\);\")"
     ]
   }
 }
