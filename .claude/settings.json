@@ -29,7 +29,13 @@
       "Bash(sed -n '/\\\\.ee-anim-up {/,/^}/p' index.html)",
       "Bash(sed -n '/\\\\.ee-anim-up\\\\.is-in {/,/^}/p' index.html)",
       "Bash(sed -n '/\\\\.ee-warranty__inner {/,/^}/p' index.html)",
-      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);console.log\\('@property:', /@property --ee-warr-angle/.test\\(s\\)?'yes':'NO'\\);\")"
+      "Bash(node -e \"const fs=require\\('fs'\\);const s=fs.readFileSync\\('index.html','utf8'\\);const css=s.match\\(/<style id=\\\\\"ee-page-styles\\\\\">\\([\\\\s\\\\S]*?\\)<\\\\/style>/\\);const o=\\(css[1].match\\(/\\\\{/g\\)||[]\\).length,c=\\(css[1].match\\(/\\\\}/g\\)||[]\\).length;console.log\\('CSS braces',o,c,o===c?'OK':'MISMATCH'\\);console.log\\('@property:', /@property --ee-warr-angle/.test\\(s\\)?'yes':'NO'\\);\")",
+      "Bash(sed -n '/^\\\\.ee-recap {/,/^}/p' index.html)",
+      "Bash(sed -n '/^\\\\.ee-recap__inner {/,/^}/p' index.html)",
+      "Bash(sed -n '/^\\\\.ee-roadmap {/,/^}/p' index.html)",
+      "Bash(sed -n '/^\\\\.ee-roadmap__inner {/,/^}/p' index.html)",
+      "Bash(sed -n '/^\\\\.ee-define__inner {/,/^}/p' index.html)",
+      "Bash(sed -n '/^\\\\.ee-define__grid {/,/^}/p' index.html)"
     ]
   }
 }

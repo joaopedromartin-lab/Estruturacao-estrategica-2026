@@ -1238,8 +1238,12 @@ footer .wp-block-group.has-black-background-color {
     padding-right: 0;
   }
   #top > #cases .ee-cases__heading { padding-left: var(--ee-pad-x); padding-right: var(--ee-pad-x); }
-  /* Recap: mais respiro embaixo */
-  #top > #recap { padding-bottom: clamp(110px, 15vh, 240px); }
+  /* Recap: altura natural (sai do slide de 100vh; pode passar da viewport) + respiro embaixo */
+  #top > #recap {
+    height: auto; min-height: 0; max-height: none; overflow: visible;
+    padding-top: var(--ee-pad-y-default);
+    padding-bottom: clamp(80px, 12vh, 180px);
+  }
   /* Simulador: preenche a viewport, mas NÃO é escalado (pro drag funcionar em px
      reais) e cresce se precisar, sem clipar o conteúdo. */
   #top > #simulador {
@@ -3569,7 +3573,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-define__inner {
-  max-width: 1400px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 .ee-define__heading {
@@ -4109,11 +4113,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-recap {
   background: #280000;
   color: #FFFFFF;
-  /* padding lateral enxuto → seção quase full-width, colunas bem largas */
-  padding: var(--ee-pad-y-default) clamp(1rem, 2vw, 2.5rem);
+  /* mesmo width da seção do cronograma */
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 .ee-recap__inner {
-  max-width: 2240px;   /* bem mais largo que o padrão (1720) → cards e textos grandes */
+  max-width: 1600px;   /* igual ao cronograma */
   margin: 0 auto;
 }
 .ee-recap__head {
@@ -8256,7 +8260,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1, cases: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1, cases: 1, recap: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
