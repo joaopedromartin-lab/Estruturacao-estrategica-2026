@@ -10346,6 +10346,12 @@ document.addEventListener('DOMContentLoaded', function() {
 '.band .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }' +
 '.band .date { font-size: 13px; opacity: .9; text-align: right; }' +
 '.body { padding: 36px 40px 44px; }' +
+/* Visualização paginada em folhas A4 (estilo visualizador de PDF) */
+'body.paged { background: #54585c; }' +
+'.sheets { padding: 28px 0 36px; }' +
+'.sheet { width: 794px; min-height: 1123px; margin: 0 auto 26px; background: #fff; box-shadow: 0 10px 34px rgba(0,0,0,.45); position: relative; }' +
+'.sheet-content { padding: 36px 40px 44px; }' +
+'@media print { body.paged { background: #fff; } .sheets { padding: 0; } .sheet { width: auto; min-height: 0; margin: 0; box-shadow: none; break-before: page; } .sheet:first-child { break-before: avoid; } .sheet-content { padding: 36px 40px 44px; } }' +
 /* Separador de página (preview): faixa cinza imitando a quebra entre folhas */
 '.pgbreak { height: 0; }' +
 '@media screen { .pgbreak { position: relative; margin: 22px -40px; padding: 14px 0; background: #ece7e3; text-align: center; } .pgbreak::after { content: "\\2702  quebra de página"; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(40,0,0,.42); } }' +
@@ -10425,7 +10431,7 @@ document.addEventListener('DOMContentLoaded', function() {
 '.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
 '@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
-'<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">As faixas cinza mostram a <strong>separação de páginas</strong>. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
+'<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">Pré-visualização em <strong>páginas A4</strong>, igual ao PDF. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
@@ -10437,10 +10443,11 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div><span>Modelo de vendas</span><strong>' + esc(MODEL_LABEL[model]) + '</strong></div>' +
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
+    '<div class="pgbreak"></div>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
     '<div class="pgbreak"></div>' +
     '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
-    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
+    (social ? '<div class="pgbreak"></div><section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
     '<div class="pgbreak"></div>' +
     '<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table>' +
@@ -10460,6 +10467,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '</div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Executar é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
+    '<div class="pgbreak"></div>' +
     '<section><h2>Resumo da condição</h2>' +
       '<div class="summary-card">' +
       '<table class="inv-summary">' +
@@ -10518,6 +10526,18 @@ document.addEventListener('DOMContentLoaded', function() {
   'if(benefitChk)benefitChk.addEventListener("change",render);' +
   'if(payRec)payRec.addEventListener("change",render);' +
   'render();' +
+'})();<\/script>' +
+'<script>(function(){' +
+  'var page=document.querySelector(".page");if(!page)return;' +
+  'var band=page.querySelector(".band");' +
+  'var body=page.querySelector(".body");if(!body)return;' +
+  'var kids=[].slice.call(body.childNodes);' +
+  'var sheets=document.createElement("div");sheets.className="sheets";var content;' +
+  'function add(first){var sh=document.createElement("div");sh.className="sheet";if(first&&band)sh.appendChild(band);content=document.createElement("div");content.className="sheet-content";sh.appendChild(content);sheets.appendChild(sh);}' +
+  'add(true);' +
+  'for(var i=0;i<kids.length;i++){var n=kids[i];if(n.nodeType===1&&(""+n.className).indexOf("pgbreak")>-1){add(false);}else{content.appendChild(n);}}' +
+  'page.parentNode.replaceChild(sheets,page);' +
+  'document.body.classList.add("paged");' +
 '})();<\/script>' +
 '</body></html>';
   }
