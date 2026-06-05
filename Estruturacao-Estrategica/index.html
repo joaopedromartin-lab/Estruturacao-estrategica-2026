@@ -3413,11 +3413,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-foru__headline {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(22px, 2vw, 32px);
-  font-weight: 700;
+  font-weight: 400;
   color: #FFFFFF;
   margin: 0 0 clamp(16px, 2vh, 28px);
   line-height: 1.25;
   letter-spacing: -0.015em;
+}
+/* só "desenhado pra você" — bold + gradiente */
+.ee-foru__hl {
+  font-weight: 700;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFB07A 42%, #FF6A00 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .ee-foru__sub {
   font-family: 'IBM Plex Sans', sans-serif;
@@ -4364,7 +4373,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 @keyframes ee-warr-spin { to { --ee-warr-angle: 360deg; } }
 .ee-warranty__inner {
   position: relative;
-  max-width: 1080px;
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -4395,18 +4404,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   .ee-warranty__inner::before { animation: none; }
 }
 @media (min-width: 900px) {
-  .ee-warranty__inner { grid-template-columns: 1.1fr 1fr; }
+  .ee-warranty__inner { grid-template-columns: 1.45fr 1fr; }
 }
 .ee-warranty__content { min-width: 0; }
 .ee-warranty__title {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: clamp(26px, 2.8vw, 44px);
+  font-size: clamp(21px, 2.2vw, 34px);
   font-weight: 400;
   color: #FFFFFF;
   margin: 0;
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  text-wrap: balance;
+  line-height: 1.25;
+  text-wrap: pretty;
 }
 .ee-warranty__title strong { font-weight: 700; }
 .ee-warranty__hl { color: #FFD60A; } /* só "devolve seu dinheiro" em amarelo */
@@ -6245,7 +6254,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (min-width: 920px) { .ee-phases__inner { grid-template-columns: 1fr 1fr; } }
 .ee-phases__title {
-  font-family: 'IBM Plex Sans', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; text-transform: none;
   font-size: clamp(30px, 4.2vw, 56px); line-height: 1.02; letter-spacing: -0.02em;
   color: #280000; margin: 0 0 clamp(22px, 3vh, 38px);
 }
@@ -7384,7 +7393,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       </div>
 
       <div class="ee-foru__aside">
-        <h3 class="ee-foru__headline">Estratégias que mudam o seu resultado.</h3>
+        <h3 class="ee-foru__headline">Se você se identificou com qualquer uma dessas situações, esse serviço foi <span class="ee-foru__hl">desenhado pra você</span>.</h3>
         <p class="ee-foru__sub">Analisamos e planejamos cada passo para posicionar sua empresa à frente da concorrência e acelerar o crescimento.</p>
       </div>
     </div>
