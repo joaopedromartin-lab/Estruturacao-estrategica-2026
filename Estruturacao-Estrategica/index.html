@@ -10359,6 +10359,8 @@ document.addEventListener('DOMContentLoaded', function() {
 'table.ctab td.c-extra { color: rgba(40,0,0,.58); font-size:9px; }' +
 '.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
 '.inv-v { font-size: 18px; color: #E50914; }' +
+'.inv-summary .inv-v { white-space: normal; }' +
+'.inv-summary td { vertical-align: middle; }' +
 '.inv-group { margin-bottom: 16px; break-inside: avoid; }' +
 '.inv-group-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7A0A02; margin: 0 0 2px; padding: 8px 10px; background: rgba(229,9,20,.06); border-left: 3px solid #C41E08; border-radius: 4px; }' +
 '.inv-total td { border-top: 2px solid rgba(229,9,20,.35); border-bottom: none; padding-top: 16px; }' +
@@ -10381,7 +10383,7 @@ document.addEventListener('DOMContentLoaded', function() {
 '.pay-field__select { font: inherit; font-size: 14px; font-weight: 600; color: #280000; padding: 9px 12px; border: 1.5px solid rgba(122,10,2,.4); border-radius: 10px; background: #fff; width: 100%; max-width: 380px; cursor: pointer; }' +
 '.pay-benefit { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 0; padding: 12px 14px; border: 1.5px solid rgba(31,163,74,.55); background: rgba(31,163,74,.07); border-radius: 10px; max-width: 480px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: #0E5A22; line-height: 1.35; }' +
 '.pay-benefit input { margin-top: 1px; width: 18px; height: 18px; accent-color: #1FA34A; flex-shrink: 0; cursor: pointer; }' +
-'.pay-warning { margin: 12px 0 0; padding: 12px 14px; border-left: 4px solid #FB2E0A; background: rgba(251,46,10,.06); border-radius: 0 8px 8px 0; max-width: 480px; font-size: 13px; font-weight: 500; color: #7A0A02; line-height: 1.4; }' +
+'.pay-warning { margin: 14px 0 0; padding: 16px 20px; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(#fff6f4,#fff6f4) padding-box, linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%) border-box; max-width: 540px; font-size: 15px; font-weight: 600; color: #7A0A02; line-height: 1.5; }' +
 '.inv-num-old { text-decoration: line-through; color: rgba(40,0,0,.4); font-weight: 600; font-size: .82em; margin-right: 8px; }' +
 '.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
 '@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
@@ -10419,6 +10421,15 @@ document.addEventListener('DOMContentLoaded', function() {
       '</div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
+    '<section><h2>Resumo da condição</h2>' +
+      '<table class="inv-summary">' +
+        '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">pontual</span></td><td class="inv-v"><span id="sum-ee"></span></td></tr>' +
+        '<tr><td><strong>' + (social ? 'Executar + Social Media' : 'Executar') + '</strong><br><span class="muted">recorrente · fidelidade 6 meses</span></td><td class="inv-v"><span id="sum-rec"></span></td></tr>' +
+        '<tr class="inv-total"><td><strong>TCV — total do contrato</strong></td><td class="inv-v"><span id="sum-tcv"></span></td></tr>' +
+        '<tr><td><strong>Como paga</strong></td><td class="inv-v"><span id="sum-pay"></span></td></tr>' +
+      '</table>' +
+      '<p class="hint">Reflete a forma de pagamento e o benefício selecionados acima.</p>' +
+    '</section>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Performance nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
       '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>' +
@@ -10431,17 +10442,36 @@ document.addEventListener('DOMContentLoaded', function() {
   '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
 '</div>' +
 '<script>(function(){' +
-  'var eeBase=' + eeNum + ',comboBase=' + comboPriceNum + ',socNum=' + (social ? SOCIAL_PRICE_NUM : 0) + ',hasSoc=' + (social ? 'true' : 'false') + ';' +
+  'var eeBase=' + eeNum + ',comboBase=' + comboPriceNum + ',socNum=' + (social ? SOCIAL_PRICE_NUM : 0) + ',hasSoc=' + (social ? 'true' : 'false') + ',FID=6;' +
   'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
-  'var eeVal=document.getElementById("inv-ee-val"),comboVal=document.getElementById("inv-combo-val"),totalVal=document.getElementById("inv-total-val");' +
-  'var payEE=document.getElementById("pay-ee"),benefit=document.getElementById("ee-benefit"),benefitChk=document.getElementById("ee-benefit-check"),warning=document.getElementById("ee-benefit-warning"),payRec=document.getElementById("pay-rec");' +
-  'function renderEE(){if(!eeVal)return;if(benefitChk&&benefitChk.checked){eeVal.innerHTML="<span class=inv-num-old>"+brl(eeBase)+"</span>"+brl(eeBase*0.5)+"<span class=inv-discount-tag>-50%</span>";}else{eeVal.textContent=brl(eeBase);}}' +
-  'function renderRec(){var d=payRec?(parseFloat(payRec.value)||0):0;var c=comboBase*(1-d/100);if(comboVal){if(d){comboVal.innerHTML="<span class=inv-num-old>"+brl(comboBase)+"</span>"+brl(c)+"<span class=inv-discount-tag>-"+d+"%</span>";}else{comboVal.textContent=brl(comboBase);}}if(totalVal)totalVal.textContent=brl(c+(hasSoc?socNum:0));}' +
-  'function updateWarn(){if(warning)warning.hidden=!(benefitChk&&benefitChk.checked);}' +
-  'if(payEE)payEE.addEventListener("change",function(){if(benefit)benefit.hidden=!payEE.value;if(!payEE.value&&benefitChk)benefitChk.checked=false;renderEE();updateWarn();});' +
-  'if(benefitChk)benefitChk.addEventListener("change",function(){renderEE();updateWarn();});' +
-  'if(payRec)payRec.addEventListener("change",renderRec);' +
-  'renderEE();renderRec();updateWarn();' +
+  'function el(id){return document.getElementById(id);}' +
+  'function old(v){return "<span class=inv-num-old>"+brl(v)+"</span>";}' +
+  'var eeVal=el("inv-ee-val"),comboVal=el("inv-combo-val"),socVal=el("inv-social-val"),totalVal=el("inv-total-val");' +
+  'var payEE=el("pay-ee"),benefit=el("ee-benefit"),benefitChk=el("ee-benefit-check"),warning=el("ee-benefit-warning"),payRec=el("pay-rec");' +
+  'var sumEE=el("sum-ee"),sumRec=el("sum-rec"),sumTcv=el("sum-tcv"),sumPay=el("sum-pay");' +
+  'function render(){' +
+    'var eeOn=!!(benefitChk&&benefitChk.checked);' +
+    'var eeFinal=eeBase*(eeOn?0.5:1);' +
+    'var d=payRec?(parseFloat(payRec.value)||0):0;' +
+    'var comboFinal=comboBase*(1-d/100);' +
+    'var socFinal=socNum*(1-d/100);' +
+    'var monthly=comboFinal+(hasSoc?socFinal:0);' +
+    'var origMonthly=comboBase+(hasSoc?socNum:0);' +
+    'var recTCV=monthly*FID, tcvFinal=eeFinal+recTCV, tcvOrig=eeBase+origMonthly*FID;' +
+    'if(eeVal)eeVal.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
+    'if(comboVal)comboVal.innerHTML=d?(old(comboBase)+brl(comboFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(comboBase);' +
+    'if(socVal)socVal.innerHTML=d?(old(socNum)+brl(socFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(socNum);' +
+    'if(totalVal)totalVal.textContent=brl(monthly);' +
+    'if(warning)warning.hidden=!eeOn;' +
+    'if(sumEE)sumEE.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
+    'if(sumRec)sumRec.innerHTML=(d?old(origMonthly):"")+brl(monthly)+"/mês × "+FID+" = "+brl(recTCV);' +
+    'if(sumTcv)sumTcv.innerHTML=(tcvFinal<tcvOrig-0.005?old(tcvOrig):"")+brl(tcvFinal);' +
+    'if(sumPay)sumPay.textContent=brl(eeFinal)+" (E.E) + "+FID+"× de "+brl(monthly)+"/mês";' +
+  '}' +
+  'if(payEE)payEE.addEventListener("change",function(){if(benefit)benefit.hidden=!payEE.value;if(!payEE.value&&benefitChk)benefitChk.checked=false;render();});' +
+  'if(benefitChk)benefitChk.addEventListener("change",render);' +
+  'if(payRec)payRec.addEventListener("change",render);' +
+  'render();' +
 '})();<\/script>' +
 '</body></html>';
   }
