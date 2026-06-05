@@ -1388,7 +1388,7 @@ footer .wp-block-group.has-black-background-color {
   color: #280000;
   letter-spacing: -0.015em;
   line-height: 1;
-  margin: 0 0 clamp(2px, 0.5vw, 10px);
+  margin: 0 0 clamp(0px, 0.2vw, 4px);
 }
 .ee-hero__welcome-title {
   font-family: 'Morganite', 'Anton', sans-serif;
@@ -1397,8 +1397,8 @@ footer .wp-block-group.has-black-background-color {
   font-size: clamp(88px, 13vw, 240px);
   line-height: 1;              /* caixa alta o suficiente p/ o gradiente (background-clip:text) cobrir o topo das maiúsculas */
   letter-spacing: 0;
-  margin: 0;
-  padding: 0.1em 0 0.04em;     /* respiro extra pro topo/base não serem cortados em telas diferentes */
+  margin: -0.08em 0 0;         /* puxa pra cima → menos gap com o "Bem-Vindo à" (sem encostar) */
+  padding: 0.12em 0 0.04em;    /* respiro do topo (gradiente cobre as maiúsculas → não corta) */
   /* gradiente escuro (esquerda) → vermelho (direita), como na referência */
   background: linear-gradient(90deg, #160000 0%, #280000 24%, #9A1004 62%, #FB2E0A 100%);
   -webkit-background-clip: text;
