@@ -5233,10 +5233,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Ordem dentro do card: POPULAR (topo) → título → tag → preço → entregáveis → botão */
 .ee-packs__popular  { order: 0; }
 .ee-packs__title    { order: 1; }
+.ee-packs__term     { order: 1; }
 .ee-packs__tag      { order: 2; }
 .ee-packs__price    { order: 3; }
 .ee-packs__features { order: 4; }
 .ee-packs__select   { order: 5; }
+/* Tag "Plano de 6 meses" — logo abaixo do nome do combo, deixa claro a fidelidade */
+.ee-packs__term {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 clamp(10px, 1.2vw, 14px);
+  padding: 5px 12px 5px 10px;
+  border-radius: 9999px;
+  background: rgba(196, 30, 8, 0.09);
+  color: #C41E08;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(11px, 0.86vw, 12.5px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.ee-packs__term i, .ee-packs__term svg { width: 14px; height: 14px; stroke-width: 2.4; flex-shrink: 0; }
 
 /* Tag "POPULAR" — faixa colada no topo do card: cantos de cima retos, de baixo arredondados */
 .ee-packs__popular {
@@ -7909,7 +7927,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-pricing__panel is-active">
 
         <header class="ee-pricing__bundle-head">
-          <h3 class="ee-pricing__bundle-title">Combo Performance <span class="ee-pricing__bundle-model" data-combo-model>· PDV</span></h3>
+          <h3 class="ee-pricing__bundle-title">Combo Executar <span class="ee-pricing__bundle-model" data-combo-model>· PDV</span></h3>
           <p class="ee-pricing__bundle-sub">A operação contínua que coloca o seu plano pra rodar.</p>
         </header>
 
@@ -7922,7 +7940,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- PDV · 2–5K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 2k – 5k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 6.656,61 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
@@ -7941,7 +7959,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <article class="ee-packs__card ee-packs__card--featured">
                 <div class="ee-packs__popular">POPULAR</div>
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 5k – 15k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 9.781,44 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
@@ -7959,7 +7977,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- PDV · 15–50K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 15k – 50k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 16.850,00 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
@@ -7977,7 +7995,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- PDV · 50K+ -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 50k+/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 24.923,75 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Visita à loja física via tráfego (Meta/Google/etc)</li>
@@ -8001,7 +8019,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- Inside Sales · 2–5K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 2k – 5k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 6.926,88 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
@@ -8020,7 +8038,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <article class="ee-packs__card ee-packs__card--featured">
                 <div class="ee-packs__popular">POPULAR</div>
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 5k – 15k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 9.937,25 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
@@ -8038,7 +8056,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- Inside Sales · 15–50K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 15k – 50k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 17.112,50 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
@@ -8056,7 +8074,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- Inside Sales · 50K+ -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 50k+/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 25.356,88 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Geração de demanda via tráfego (Meta/Google/etc)</li>
@@ -8080,7 +8098,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- E-commerce · 2–5K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 2k – 5k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 6.772,44 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
@@ -8099,7 +8117,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <article class="ee-packs__card ee-packs__card--featured">
                 <div class="ee-packs__popular">POPULAR</div>
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 5k – 15k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 9.833,38 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
@@ -8117,7 +8135,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- E-commerce · 15–50K -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 15k – 50k/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 16.937,50 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
@@ -8135,7 +8153,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <!-- E-commerce · 50K+ -->
               <article class="ee-packs__card">
                 <span class="ee-packs__tag">Investimento em mídia recomendado: <strong>R$ 50k+/mês</strong></span>
-                <h3 class="ee-packs__title">Combo<br>Executar</h3>
+                <h3 class="ee-packs__title">Combo<br>Executar</h3><span class="ee-packs__term"><i data-lucide="calendar-days" aria-hidden="true"></i>Plano de 6 meses</span>
                 <p class="ee-packs__price">R$ 25.068,13 <span>/mês</span></p>
                 <ul class="ee-packs__features">
                   <li><i data-lucide="circle-check" aria-hidden="true"></i>Venda direta via tráfego (Meta/Google/etc)</li>
@@ -9779,9 +9797,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var txt;
         if (social) {
           var total = comboNum + SOCIAL_PRICE_NUM;
-          txt = 'Combo Performance ' + fmtBRL(comboNum) + '/mês   +   Social Media ' + fmtBRL(SOCIAL_PRICE_NUM) + '/mês   =   Total ' + fmtBRL(total) + '/mês';
+          txt = 'Combo Executar ' + fmtBRL(comboNum) + '/mês   +   Social Media ' + fmtBRL(SOCIAL_PRICE_NUM) + '/mês   =   Total ' + fmtBRL(total) + '/mês';
         } else {
-          txt = 'Combo Performance (Estruturação Estratégica + Executar) · ' + fmtBRL(comboNum) + '/mês';
+          txt = 'Combo Executar (Estruturação Estratégica + Executar) · ' + fmtBRL(comboNum) + '/mês';
         }
         itemsEl.textContent = txt;
       } else if (social) {
@@ -10257,7 +10275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Entregáveis EE (com Semana 03 conforme modelo)
     var eeBlocks = EE_WEEKS.map(weekBlock).join('') + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4);
 
-    // Preço do Combo Performance conforme modelo + tier (armazenado no PDF)
+    // Preço do Combo Executar conforme modelo + tier (armazenado no PDF)
     var comboPrice    = (COMBO_PRICE[model] && COMBO_PRICE[model][size]) || pack.price;
     var comboPriceNum = (COMBO_PRICE_NUM[model] && COMBO_PRICE_NUM[model][size]) || (PACK_PRICE_NUM[size] || 0);
     var modelLabel    = MODEL_LABEL[model] || MODEL_LABEL['e-commerce'];
@@ -10270,7 +10288,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
         : '');
 
-    // Tabela 3 colunas (Componente | Entrega | SLA) do Combo Performance
+    // Tabela 3 colunas (Componente | Entrega | SLA) do Combo Executar
     var comboMeta  = COMBO_META[model] || [];
     var comboDeliv = (COMBO_DELIV[model] && COMBO_DELIV[model][size]) || [];
     var comboRows  = comboMeta.map(function (m, i) {
@@ -10285,7 +10303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Investimento dividido em dois tópicos:
     //  • Pontual (não recorrente): só a Estruturação Estratégica
-    //  • Recorrente (mensal): Combo Performance + Social Media (quando houver), com total próprio
+    //  • Recorrente (mensal): Combo Executar + Social Media (quando houver), com total próprio
     var monthlyTotal = comboPriceNum + (social ? SOCIAL_PRICE_NUM : 0);
     var eePrice = EE_PRICE_BY_MODEL[model] || EE_PRICE;        // face (string) da E.E conforme o modelo
     var eeNum   = EE_PRICE_NUM_BY_MODEL[model] || 0;           // face (número) da E.E p/ o cálculo do benefício
@@ -10305,8 +10323,6 @@ document.addEventListener('DOMContentLoaded', function() {
       REC_TERMS.map(function (t) {
         return '<option value="' + t.key + '" data-disc="' + t.disc + '" data-avista="' + (t.aVista ? 1 : 0) + '">' + esc(t.label) + ' · ' + t.disc + '% off</option>';
       }).join('');
-
-    var pdfName = ('Proposta - ' + String(form.empresa || form.cliente || 'V4 Company')).replace(/[\\/:*?"<>|]/g, '').trim().slice(0, 70) + '.pdf';
 
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
@@ -10330,20 +10346,12 @@ document.addEventListener('DOMContentLoaded', function() {
 '.band .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }' +
 '.band .date { font-size: 13px; opacity: .9; text-align: right; }' +
 '.body { padding: 36px 40px 44px; }' +
-'.toolbar .ghost { background: rgba(255,255,255,.14); color: #fff; }' +
-'.toolbar button[disabled] { opacity: .6; cursor: default; }' +
 /* Separador de página (preview): faixa cinza imitando a quebra entre folhas */
 '.pgbreak { height: 0; }' +
 '@media screen { .pgbreak { position: relative; margin: 22px -40px; padding: 14px 0; background: #ece7e3; text-align: center; } .pgbreak::after { content: "\\2702  quebra de página"; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(40,0,0,.42); } }' +
-'@media print { .pgbreak { break-before: page; } }' +
-/* Modo exportação (html2pdf): esconde UI e troca bordas em máscara/gradiente por sólidas */
-'.exporting .toolbar, .exporting .hint, .exporting .tip { display: none !important; }' +
-'.exporting .pgbreak { background: none !important; padding: 0 !important; margin: 0 !important; break-before: page; }' +
-'.exporting .pgbreak::after { display: none !important; }' +
-'.exporting .page { box-shadow: none !important; margin: 0 !important; }' +
-'.exporting .summary-card::before { display: none !important; }' +
-'.exporting .summary-card { border: 2px solid #C41E08 !important; }' +
-'.exporting .pay-warning { background: #fff6f4 !important; border: 2px solid #C41E08 !important; }' +
+'@media print { .pgbreak { break-before: page; padding: 0; margin: 0; background: none; } .pgbreak::after { display: none; } }' +
+/* Impressão: máscara/gradiente de borda não é confiável no PDF → vira preenchimento e some o texto. Troca por borda sólida. */
+'@media print { .summary-card::before { display: none !important; } .summary-card { border: 2px solid #C41E08 !important; background: #fff !important; } .pay-warning { background: #fff6f4 !important; border: 2px solid #C41E08 !important; } }' +
 'h1 { font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.02em; }' +
 '.subtitle { font-size: 15px; color: rgba(40,0,0,.6); margin: 0 0 24px; }' +
 '.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; padding: 18px 22px; background: rgba(229,9,20,.05); border: 1px solid rgba(229,9,20,.14); border-radius: 14px; margin-bottom: 32px; }' +
@@ -10417,11 +10425,11 @@ document.addEventListener('DOMContentLoaded', function() {
 '.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
 '@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
-'<div class="toolbar"><button class="pdf" id="dl-pdf" type="button">Baixar PDF</button><button class="ghost" type="button" onclick="window.print()">Imprimir (alta qualidade)</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">As faixas cinza mostram a <strong>separação de páginas</strong> do PDF.</span></div>' +
+'<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">As faixas cinza mostram a <strong>separação de páginas</strong>. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
-    '<h1>Combo Performance</h1>' +
+    '<h1>Combo Executar</h1>' +
     '<p class="subtitle"><strong>Estruturação Estratégica + Executar</strong> · ' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
@@ -10450,7 +10458,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '<div class="pay-field"><label class="pay-field__label" for="pay-rec">Forma de pagamento</label>' +
           '<select class="pay-field__select" id="pay-rec">' + recOptions + '</select></div>' +
       '</div>' +
-      '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses.</span></p>' +
+      '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Executar é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
     '<section><h2>Resumo da condição</h2>' +
       '<div class="summary-card">' +
@@ -10464,7 +10472,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '</div>' +
     '</section>' +
     '<div class="pgbreak"></div>' +
-    '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Performance nem ao Social Media (serviços recorrentes).</span></div></section>' +
+    '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Executar nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
       '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>' +
       '<li>Assinatura do contrato.</li>' +
@@ -10510,13 +10518,6 @@ document.addEventListener('DOMContentLoaded', function() {
   'if(benefitChk)benefitChk.addEventListener("change",render);' +
   'if(payRec)payRec.addEventListener("change",render);' +
   'render();' +
-'})();<\/script>' +
-'<script>(function(){' +
-  'var btn=document.getElementById("dl-pdf");if(!btn)return;' +
-  'function withLib(cb){if(window.html2pdf)return cb();var sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js";sc.onload=function(){cb();};sc.onerror=function(){done();alert("Não consegui carregar o gerador de PDF. Use o botão Imprimir (alta qualidade).");};document.head.appendChild(sc);}' +
-  'function done(){document.body.classList.remove("exporting");btn.disabled=false;btn.textContent="Baixar PDF";}' +
-  'function baixar(){btn.disabled=true;btn.textContent="Gerando PDF...";withLib(function(){document.body.classList.add("exporting");var el=document.querySelector(".page");var opt={margin:[8,8,10,8],filename:' + JSON.stringify(pdfName) + ',image:{type:"jpeg",quality:0.97},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",windowWidth:el.scrollWidth},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],before:".pgbreak",avoid:[".ee-week",".pillar",".guarantee","table",".inv-group",".summary-card","ol.steps li",".meta"]}};html2pdf().set(opt).from(el).save().then(done).catch(done);});}' +
-  'btn.addEventListener("click",baixar);' +
 '})();<\/script>' +
 '</body></html>';
   }
@@ -10579,7 +10580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var modelKey = (pageModel && MODEL_LABEL[pageModel]) ? pageModel : 'e-commerce';
     var modelLabel = MODEL_LABEL[modelKey];
     var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
-    refs.summary.innerHTML = '<strong>Combo Performance</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    refs.summary.innerHTML = '<strong>Combo Executar</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
     modal.classList.add('is-open');
     setTimeout(function () { refs.cliente.focus(); }, 50);
   };
