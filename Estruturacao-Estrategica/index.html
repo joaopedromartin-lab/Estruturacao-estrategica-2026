@@ -7927,7 +7927,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-pricing__panel is-active">
 
         <header class="ee-pricing__bundle-head">
-          <h3 class="ee-pricing__bundle-title">Combo Executar <span class="ee-pricing__bundle-model" data-combo-model>· PDV</span></h3>
+          <h3 class="ee-pricing__bundle-title">Combo Executar <span class="ee-pricing__bundle-model" data-combo-model>- PDV - AQUISIÇÃO</span></h3>
           <p class="ee-pricing__bundle-sub">A operação contínua que coloca o seu plano pra rodar.</p>
         </header>
 
@@ -9151,7 +9151,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       variants.forEach(function (el) {
         el.classList.toggle('is-shown', el.getAttribute('data-pack-variant') === model);
       });
-      if (modelLabelEl) modelLabelEl.textContent = '· ' + LABELS[model];
+      if (modelLabelEl) modelLabelEl.textContent = '- ' + LABELS[model] + ' - AQUISIÇÃO';
     }
 
     updateCombos();
