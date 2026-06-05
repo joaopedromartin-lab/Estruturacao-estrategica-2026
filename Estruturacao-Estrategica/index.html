@@ -4425,8 +4425,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 /* === SEÇÃO ANCORAGEM (carrossel de precificação: antes → depois, por modelo) === */
 .ee-anchor {
-  /* topo mantém #280000 (flui da garantia), base vira vermelho */
-  background: linear-gradient(180deg, #280000 0%, #280000 32%, #7A0A02 68%, #C41E08 100%);
+  /* topo mantém #280000 (flui da garantia), base casa com a cor do topo da seção de baixo (#FF471F) */
+  background: linear-gradient(180deg, #280000 0%, #280000 30%, #7A0A02 62%, #C41E08 84%, #FF471F 100%);
   /* topo reduzido — diminui o gap pra seção de garantia logo acima */
   padding: clamp(14px, 2vh, 28px) var(--ee-pad-x) var(--ee-pad-y-default);
   display: flex;
@@ -7834,6 +7834,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <ul class="ee-recap__items">
           <li>Gestão de mídia paga.</li>
           <li>Produção de criativos.</li>
+          <li>Produção de copy.</li>
+          <li>Gestão de Projeto com Especialista.</li>
           <li>Otimização contínua de campanhas.</li>
           <li>Reuniões periódicas de performance.</li>
         </ul>
@@ -10001,12 +10003,12 @@ document.addEventListener('DOMContentLoaded', function() {
     'inside-sales': 20878.28,
     'e-commerce':   19647.70
   };
-  // Condições de pagamento do RECORRENTE — [rótulo, % de desconto aplicado sobre o Executar]
+  // Condições de pagamento do RECORRENTE — % de desconto + se é "à vista" (paga o TCV de uma vez)
   var REC_TERMS = [
-    ['À vista — Pix, boleto ou cartão (1×)', 30],
-    ['Cartão parcelado em 12×',              20],
-    ['Cheque em 2×',                         25],
-    ['Cheque em 6×',                         15]
+    { key: 'avista',   label: 'À vista — Pix, boleto ou cartão (1×)', disc: 30, aVista: true },
+    { key: 'cartao12', label: 'Cartão parcelado em 12×',             disc: 20, aVista: false },
+    { key: 'cheque2',  label: 'Cheque em 2×',                        disc: 25, aVista: false },
+    { key: 'cheque6',  label: 'Cheque em 6×',                        disc: 15, aVista: false }
   ];
   var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
   var SOCIAL_PRICE_NUM = 4000;              // Social Media (mensal)
@@ -10296,12 +10298,12 @@ document.addEventListener('DOMContentLoaded', function() {
       (social
         ? '<tr><td><strong>Social Media</strong><br><span class="muted">Mensalidade (adicional)</span></td><td class="inv-v"><span id="inv-social-val">' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '</span><span class="per">/mês</span></td></tr>'
         : '') +
-      '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + '</span></td>' +
-      '<td class="inv-v"><span id="inv-total-val">' + esc(formatBRL(monthlyTotal)) + '</span><span class="per">/mês</span></td></tr>';
+      '<tr class="inv-total"><td><strong>Total recorrente</strong><br><span class="muted">Executar' + (social ? ' + Social Media' : '') + ' · 6 meses</span></td>' +
+      '<td class="inv-v"><span id="inv-total-val">6× de ' + esc(formatBRL(monthlyTotal)) + '<span class="per">/mês</span></span></td></tr>';
     // Opções do seletor de forma de pagamento do RECORRENTE (aplica desconto sobre o Executar)
-    var recOptions = '<option value="0">Selecione a forma de pagamento...</option>' +
+    var recOptions = '<option value="">Selecione a forma de pagamento...</option>' +
       REC_TERMS.map(function (t) {
-        return '<option value="' + t[1] + '">' + esc(t[0]) + ' · ' + t[1] + '% off</option>';
+        return '<option value="' + t.key + '" data-disc="' + t.disc + '" data-avista="' + (t.aVista ? 1 : 0) + '">' + esc(t.label) + ' · ' + t.disc + '% off</option>';
       }).join('');
 
     return '' +
@@ -10365,6 +10367,10 @@ document.addEventListener('DOMContentLoaded', function() {
 '.inv-v { font-size: 18px; color: #E50914; }' +
 '.inv-summary .inv-v { white-space: normal; }' +
 '.inv-summary td { vertical-align: middle; }' +
+'.summary-card { position: relative; border-radius: 16px; padding: 6px 24px 10px; background: transparent; }' +
+'.summary-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }' +
+'.summary-card table { position: relative; }' +
+'.summary-card .hint { position: relative; margin: 10px 0 0; }' +
 '.inv-group { margin-bottom: 16px; break-inside: avoid; }' +
 '.inv-group-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7A0A02; margin: 0 0 2px; padding: 8px 10px; background: rgba(229,9,20,.06); border-left: 3px solid #C41E08; border-radius: 4px; }' +
 '.inv-total td { border-top: 2px solid rgba(229,9,20,.35); border-bottom: none; padding-top: 16px; }' +
@@ -10426,6 +10432,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Performance é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
     '<section><h2>Resumo da condição</h2>' +
+      '<div class="summary-card">' +
       '<table class="inv-summary">' +
         '<tr><td><strong>Estruturação Estratégica</strong><br><span class="muted">pontual</span></td><td class="inv-v"><span id="sum-ee"></span></td></tr>' +
         '<tr><td><strong>' + (social ? 'Executar + Social Media' : 'Executar') + '</strong><br><span class="muted">recorrente · fidelidade 6 meses</span></td><td class="inv-v"><span id="sum-rec"></span></td></tr>' +
@@ -10433,6 +10440,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '<tr><td><strong>Como paga</strong></td><td class="inv-v"><span id="sum-pay"></span></td></tr>' +
       '</table>' +
       '<p class="hint">Reflete a forma de pagamento e o benefício selecionados acima.</p>' +
+      '</div>' +
     '</section>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Performance nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
@@ -10456,7 +10464,9 @@ document.addEventListener('DOMContentLoaded', function() {
   'function render(){' +
     'var eeOn=!!(benefitChk&&benefitChk.checked);' +
     'var eeFinal=eeBase*(eeOn?0.5:1);' +
-    'var d=payRec?(parseFloat(payRec.value)||0):0;' +
+    'var opt=payRec?payRec.options[payRec.selectedIndex]:null;' +
+    'var d=opt?(parseFloat(opt.getAttribute("data-disc"))||0):0;' +
+    'var aVista=opt?opt.getAttribute("data-avista")==="1":false;' +
     'var comboFinal=comboBase*(1-d/100);' +
     'var socFinal=socNum*(1-d/100);' +
     'var monthly=comboFinal+(hasSoc?socFinal:0);' +
@@ -10465,12 +10475,14 @@ document.addEventListener('DOMContentLoaded', function() {
     'if(eeVal)eeVal.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
     'if(comboVal)comboVal.innerHTML=d?(old(comboBase)+brl(comboFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(comboBase);' +
     'if(socVal)socVal.innerHTML=d?(old(socNum)+brl(socFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(socNum);' +
-    'if(totalVal)totalVal.textContent=brl(monthly);' +
+    'if(totalVal)totalVal.innerHTML=aVista?(brl(recTCV)+"<span class=per> à vista · TCV</span>"):("6× de "+brl(monthly)+"<span class=per>/mês</span>");' +
     'if(warning)warning.hidden=!eeOn;' +
     'if(sumEE)sumEE.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
     'if(sumRec)sumRec.innerHTML=(d?old(origMonthly):"")+brl(monthly)+"/mês × "+FID+" = "+brl(recTCV);' +
     'if(sumTcv)sumTcv.innerHTML=(tcvFinal<tcvOrig-0.005?old(tcvOrig):"")+brl(tcvFinal);' +
-    'if(sumPay)sumPay.textContent=brl(eeFinal)+" (E.E) + "+FID+"× de "+brl(monthly)+"/mês";' +
+    'var eePart=eeOn?("Entrada de "+brl(eeFinal)+" (valor restante da E.E, ativa o benefício de desconto)"):(brl(eeFinal)+" (E.E)");' +
+    'var recPart=aVista?(brl(recTCV)+" à vista (TCV)"):(FID+"× de "+brl(monthly)+"/mês");' +
+    'if(sumPay)sumPay.textContent=eePart+" + "+recPart;' +
   '}' +
   'if(payEE)payEE.addEventListener("change",function(){if(benefit)benefit.hidden=!payEE.value;if(!payEE.value&&benefitChk)benefitChk.checked=false;render();});' +
   'if(benefitChk)benefitChk.addEventListener("change",render);' +
