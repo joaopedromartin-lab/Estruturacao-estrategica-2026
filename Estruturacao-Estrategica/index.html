@@ -10306,6 +10306,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return '<option value="' + t.key + '" data-disc="' + t.disc + '" data-avista="' + (t.aVista ? 1 : 0) + '">' + esc(t.label) + ' · ' + t.disc + '% off</option>';
       }).join('');
 
+    var pdfName = ('Proposta - ' + String(form.empresa || form.cliente || 'V4 Company')).replace(/[\\/:*?"<>|]/g, '').trim().slice(0, 70) + '.pdf';
+
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
 '<meta name="viewport" content="width=device-width, initial-scale=1">' +
@@ -10328,6 +10330,20 @@ document.addEventListener('DOMContentLoaded', function() {
 '.band .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }' +
 '.band .date { font-size: 13px; opacity: .9; text-align: right; }' +
 '.body { padding: 36px 40px 44px; }' +
+'.toolbar .ghost { background: rgba(255,255,255,.14); color: #fff; }' +
+'.toolbar button[disabled] { opacity: .6; cursor: default; }' +
+/* Separador de página (preview): faixa cinza imitando a quebra entre folhas */
+'.pgbreak { height: 0; }' +
+'@media screen { .pgbreak { position: relative; margin: 22px -40px; padding: 14px 0; background: #ece7e3; text-align: center; } .pgbreak::after { content: "\\2702  quebra de página"; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(40,0,0,.42); } }' +
+'@media print { .pgbreak { break-before: page; } }' +
+/* Modo exportação (html2pdf): esconde UI e troca bordas em máscara/gradiente por sólidas */
+'.exporting .toolbar, .exporting .hint, .exporting .tip { display: none !important; }' +
+'.exporting .pgbreak { background: none !important; padding: 0 !important; margin: 0 !important; break-before: page; }' +
+'.exporting .pgbreak::after { display: none !important; }' +
+'.exporting .page { box-shadow: none !important; margin: 0 !important; }' +
+'.exporting .summary-card::before { display: none !important; }' +
+'.exporting .summary-card { border: 2px solid #C41E08 !important; }' +
+'.exporting .pay-warning { background: #fff6f4 !important; border: 2px solid #C41E08 !important; }' +
 'h1 { font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.02em; }' +
 '.subtitle { font-size: 15px; color: rgba(40,0,0,.6); margin: 0 0 24px; }' +
 '.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; padding: 18px 22px; background: rgba(229,9,20,.05); border: 1px solid rgba(229,9,20,.14); border-radius: 14px; margin-bottom: 32px; }' +
@@ -10401,7 +10417,7 @@ document.addEventListener('DOMContentLoaded', function() {
 '.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
 '@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } section, .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
-'<div class="toolbar"><button class="pdf" onclick="window.print()">Salvar como PDF</button><button class="close" onclick="window.close()">Fechar</button><span class="tip">No destino da impressão, escolha <strong>“Salvar como PDF”</strong></span></div>' +
+'<div class="toolbar"><button class="pdf" id="dl-pdf" type="button">Baixar PDF</button><button class="ghost" type="button" onclick="window.print()">Imprimir (alta qualidade)</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">As faixas cinza mostram a <strong>separação de páginas</strong> do PDF.</span></div>' +
 '<div class="page">' +
   '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
@@ -10414,8 +10430,10 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
     '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
+    '<div class="pgbreak"></div>' +
     '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
     (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
+    '<div class="pgbreak"></div>' +
     '<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table>' +
         '<div class="pay-field"><label class="pay-field__label" for="pay-ee">Forma de pagamento</label>' +
@@ -10445,6 +10463,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<p class="hint">Reflete a forma de pagamento e o benefício selecionados acima.</p>' +
       '</div>' +
     '</section>' +
+    '<div class="pgbreak"></div>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Performance nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
       '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>' +
@@ -10491,6 +10510,13 @@ document.addEventListener('DOMContentLoaded', function() {
   'if(benefitChk)benefitChk.addEventListener("change",render);' +
   'if(payRec)payRec.addEventListener("change",render);' +
   'render();' +
+'})();<\/script>' +
+'<script>(function(){' +
+  'var btn=document.getElementById("dl-pdf");if(!btn)return;' +
+  'function withLib(cb){if(window.html2pdf)return cb();var sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js";sc.onload=function(){cb();};sc.onerror=function(){done();alert("Não consegui carregar o gerador de PDF. Use o botão Imprimir (alta qualidade).");};document.head.appendChild(sc);}' +
+  'function done(){document.body.classList.remove("exporting");btn.disabled=false;btn.textContent="Baixar PDF";}' +
+  'function baixar(){btn.disabled=true;btn.textContent="Gerando PDF...";withLib(function(){document.body.classList.add("exporting");var el=document.querySelector(".page");var opt={margin:[8,8,10,8],filename:' + JSON.stringify(pdfName) + ',image:{type:"jpeg",quality:0.97},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",windowWidth:el.scrollWidth},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],before:".pgbreak",avoid:[".ee-week",".pillar",".guarantee","table",".inv-group",".summary-card","ol.steps li",".meta"]}};html2pdf().set(opt).from(el).save().then(done).catch(done);});}' +
+  'btn.addEventListener("click",baixar);' +
 '})();<\/script>' +
 '</body></html>';
   }
