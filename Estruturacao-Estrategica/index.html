@@ -927,6 +927,8 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
   /* Tokens de espaçamento vertical pra padronização entre seções */
   --ee-pad-y-default: clamp(48px, 7vh, 96px);
   --ee-pad-y-compact: clamp(40px, 6vh, 80px);
+  /* Respiro vertical CONSISTENTE entre as seções de conteúdo (ajuste aqui pra mudar tudo) */
+  --ee-section-y: clamp(56px, 8vh, 110px);
   --ee-pad-x: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
   /* Largura máxima do conteúdo — reduzida pra centralizar melhor em telas compartilhadas */
   --ee-max-width: 1440px;
@@ -1229,6 +1231,12 @@ footer .wp-block-group.has-black-background-color {
   /* Crescer: altura compacta (conteúdo é absoluto, então defino min-height explícito;
      sem isso a regra height:100vh acima a deixava ocupando a tela inteira). */
   #top > #crescer { height: auto; min-height: clamp(360px, 46vh, 540px); }
+  /* Definição (o que é/não é) + Estrutura (carrossel 3D): altura natural pra controlar os gaps
+     (como slides centralizados, o espaço vazio criava gap demais entre elas). */
+  #top > #definicao,
+  #top > #estrutura { height: auto; min-height: 0; max-height: none; }
+  #top > #definicao { padding-bottom: clamp(64px, 8vh, 120px); }
+  #top > #estrutura { padding-top: clamp(48px, 6vh, 96px); padding-bottom: clamp(64px, 9vh, 130px); }
   /* Cases: altura natural, cards full-bleed 50/50 colados na base (sem gap pra ecossistema). */
   #top > #cases {
     height: auto; min-height: 0; max-height: none; display: block;
@@ -1256,6 +1264,14 @@ footer .wp-block-group.has-black-background-color {
     justify-content: center;
     padding-top: var(--ee-pad-y-default);
     padding-bottom: var(--ee-pad-y-default);
+  }
+  /* ===== Respiro CONSISTENTE entre as seções de conteúdo (sobrescreve os paddings variados) ===== */
+  #top > #reconhecimento, #top > #clientes,
+  #top > #definicao, #top > #estrutura,
+  #top > #recap, #top > #garantia, #top > #ancoragem,
+  #top > #precos, #top > #proposta {
+    padding-top: var(--ee-section-y);
+    padding-bottom: var(--ee-section-y);
   }
 }
 
@@ -3244,7 +3260,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0 auto;
   width: 100%;
 }
-.ee-sim__head { max-width: 820px; margin: 0 0 clamp(32px, 5vh, 56px); }
+.ee-sim__head { max-width: 820px; margin: 0 auto clamp(32px, 5vh, 56px); text-align: center; }
 .ee-sim__title {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(28px, 3vw, 48px);
@@ -3371,6 +3387,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: #280000;
   letter-spacing: -0.015em;
   line-height: 1.3;
+  text-align: center;
 }
 .ee-sim__hook strong { font-weight: 700; }
 .ee-sim__hook-dots { color: #FB2E0A; font-weight: 700; }
@@ -3844,7 +3861,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
   color: #FFFFFF;
-  text-align: left;
+  text-align: center;
   margin: 0 0 clamp(28px, 3.6vh, 48px);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -6296,6 +6313,26 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-phases__dot.is-active { background: #FB2E0A; transform: scale(1.25); }
 @media (prefers-reduced-motion: reduce) { .ee-phases__needle, .ee-phases__nav, .ee-phases__dot { transition: none; } }
 @media (max-width: 919px) { .ee-phases__title { text-align: center; } .ee-phases__bullets { align-items: flex-start; max-width: 420px; margin: 0 auto; } }
+/* Animações da seção Fases: entrada (stagger) + troca de slide */
+@keyframes ee-phases-textin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ee-phases.is-armed .ee-phases__title,
+.ee-phases.is-armed .ee-phases__bullets li { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+.ee-phases.is-armed .ee-phases__carousel { opacity: 0; transform: translateY(28px) scale(0.985); transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1); }
+.ee-phases.is-revealed .ee-phases__title { opacity: 1; transform: none; transition-delay: 0.05s; }
+.ee-phases.is-revealed .ee-phases__bullets li { opacity: 1; transform: none; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(1) { transition-delay: 0.16s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(2) { transition-delay: 0.28s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(3) { transition-delay: 0.40s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(4) { transition-delay: 0.52s; }
+.ee-phases.is-revealed .ee-phases__carousel { opacity: 1; transform: none; transition-delay: 0.22s; }
+.ee-phases__card.is-switching .ee-phases__step,
+.ee-phases__card.is-switching .ee-phases__name,
+.ee-phases__card.is-switching .ee-phases__metrics,
+.ee-phases__card.is-switching .ee-phases__desc { animation: ee-phases-textin 0.42s cubic-bezier(0.23,1,0.32,1); }
+@media (prefers-reduced-motion: reduce) {
+  .ee-phases.is-armed .ee-phases__title, .ee-phases.is-armed .ee-phases__bullets li, .ee-phases.is-armed .ee-phases__carousel { opacity: 1; transform: none; transition: none; }
+  .ee-phases__card.is-switching .ee-phases__step, .ee-phases__card.is-switching .ee-phases__name, .ee-phases__card.is-switching .ee-phases__metrics, .ee-phases__card.is-switching .ee-phases__desc { animation: none; }
+}
 </style>
 <style id="v4-proposal-select-styles">
   /* ===== Botão "Selecionar este pacote" nos cards ===== */
@@ -7153,7 +7190,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <line x1="110" y1="40" x2="110" y2="52" transform="rotate(72 110 110)"/>
               <line x1="110" y1="40" x2="110" y2="52" transform="rotate(90 110 110)"/>
             </g>
-            <polygon class="ee-phases__needle" points="110,32 105.5,110 114.5,110" fill="#280000" style="transform:rotate(-67deg)"/>
+            <polygon class="ee-phases__needle" points="110,32 105.5,110 114.5,110" fill="#280000" style="transform:rotate(-90deg)"/>
             <circle cx="110" cy="110" r="8.5" fill="#280000"/>
             <circle cx="110" cy="110" r="3.5" fill="#FFFFFF"/>
           </svg>
@@ -7186,27 +7223,52 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   ];
   var i = 0;
   var needle = sec.querySelector('.ee-phases__needle');
+  var card   = sec.querySelector('.ee-phases__card');
   var elStep = sec.querySelector('.ee-phases__step');
   var elName = sec.querySelector('.ee-phases__name');
   var elMet  = sec.querySelector('.ee-phases__metrics');
   var elDesc = sec.querySelector('.ee-phases__desc');
   var dots   = sec.querySelectorAll('.ee-phases__dot');
-  function render() {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealed = reduce;   // ponteiro só faz o "sweep" quando a seção entra na tela
+  function render(animateText) {
     var p = PHASES[i];
-    if (needle) needle.style.transform = 'rotate(' + p.angle + 'deg)';
+    if (needle) needle.style.transform = 'rotate(' + (revealed ? p.angle : -90) + 'deg)';
     if (elStep) elStep.textContent = p.step;
     if (elName) elName.textContent = p.name;
     if (elMet)  elMet.textContent  = p.metrics;
     if (elDesc) elDesc.textContent = p.desc;
     for (var d = 0; d < dots.length; d++) dots[d].classList[d === i ? 'add' : 'remove']('is-active');
+    if (animateText && card && !reduce) {           // crossfade do texto ao trocar de step
+      card.classList.remove('is-switching');
+      void card.offsetWidth;                         // reflow → re-dispara a animação
+      card.classList.add('is-switching');
+    }
   }
-  function go(n) { i = (n % PHASES.length + PHASES.length) % PHASES.length; render(); }
+  function go(n) { i = (n % PHASES.length + PHASES.length) % PHASES.length; render(true); }
   var prev = sec.querySelector('.ee-phases__nav--prev');
   var next = sec.querySelector('.ee-phases__nav--next');
   if (prev) prev.addEventListener('click', function () { go(i - 1); });
   if (next) next.addEventListener('click', function () { go(i + 1); });
   for (var k = 0; k < dots.length; k++) (function (idx) { dots[idx].addEventListener('click', function () { go(idx); }); })(k);
-  render();
+  render(false);
+
+  // Entrada (stagger via CSS) + sweep do ponteiro quando a seção surge na tela
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealed = true; sec.classList.add('is-revealed'); render(false);
+  } else {
+    sec.classList.add('is-armed');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        sec.classList.add('is-revealed');
+        revealed = true;
+        requestAnimationFrame(function () { if (needle) needle.style.transform = 'rotate(' + PHASES[i].angle + 'deg)'; });
+        io.unobserve(sec);
+      });
+    }, { threshold: 0.25 });
+    io.observe(sec);
+  }
 })();
 </script>
 
@@ -7394,7 +7456,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
       <div class="ee-foru__aside">
         <h3 class="ee-foru__headline">Se você se identificou com qualquer uma dessas situações, esse serviço foi <span class="ee-foru__hl">desenhado pra você</span>.</h3>
-        <p class="ee-foru__sub">Analisamos e planejamos cada passo para posicionar sua empresa à frente da concorrência e acelerar o crescimento.</p>
+        <p class="ee-foru__sub">Em 30 dias, você sai com plano, método e ativos prontos pra escalar com direção.</p>
       </div>
     </div>
   </div>
@@ -7443,7 +7505,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <h3 class="ee-define__card-title">O que <strong>É</strong></h3>
         </header>
         <ul class="ee-define__list">
-          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>O setup estratégico completo da sua operação de vendas</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Um mapa completo da sua operação de marketing e vendas</li>
           <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Feito uma vez, em 30 dias com início e fim</li>
           <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Ativos prontos pra operar já no Dia 31</li>
           <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="check"></i></span>Plano de mídia e metas para os próximos 6 meses</li>
@@ -7457,9 +7519,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <h3 class="ee-define__card-title">O que <strong>NÃO é</strong></h3>
         </header>
         <ul class="ee-define__list">
-          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Um diagnóstico em PDF que fica na gaveta</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Um plano que fica na gaveta</li>
           <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Consultoria mensal genérica e sem prazo</li>
-          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Achismo: aqui o setup é guiado por método</li>
+          <li><span class="ee-define__mark" aria-hidden="true"><i data-lucide="x"></i></span>Achismo: seguimos um método validado</li>
         </ul>
       </article>
 
@@ -8507,7 +8569,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1, cases: 1, recap: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1, cases: 1, recap: 1, definicao: 1, estrutura: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
@@ -9778,7 +9840,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Social Media (mensal) — mesmo valor usado no gerador de PDF
-    var SOCIAL_PRICE_NUM = 4000;
+    var SOCIAL_PRICE_NUM = 4053.75;
     function parseBRL(txt) {
       var n = String(txt).replace(/[^0-9.,]/g, '').replace(/\./g, '').replace(',', '.');
       return parseFloat(n) || 0;
@@ -10037,7 +10099,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { key: 'cheque6',  label: 'Cheque em 6×',                        disc: 15, aVista: false }
   ];
   var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
-  var SOCIAL_PRICE_NUM = 4000;              // Social Media (mensal)
+  var SOCIAL_PRICE_NUM = 4053.75;          // Social Media (mensal)
 
   // Escopo (entregáveis) do adicional Social Media — entra só quando selecionado
   var SOCIAL_ITEMS = [
