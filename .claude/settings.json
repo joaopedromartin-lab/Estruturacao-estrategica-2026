@@ -96,7 +96,8 @@
       "Bash(sed -n '18,30p' index.html)",
       "Bash(grep -nE \"--ee-section-y\" index.html)",
       "Bash(awk -F: '$1>400 && $1<6400')",
-      "Bash(awk '/<style id=\"ee-page-styles\">/{f=1} f&&/<\\\\/style>/{print NR\": \"$0; exit} f&&/^\\\\.[a-z].*\\\\{/{last=NR\": \"$0} END{}' index.html)"
+      "Bash(awk '/<style id=\"ee-page-styles\">/{f=1} f&&/<\\\\/style>/{print NR\": \"$0; exit} f&&/^\\\\.[a-z].*\\\\{/{last=NR\": \"$0} END{}' index.html)",
+      "Bash(powershell -NoProfile -Command \"Copy-Item 'c:\\\\Users\\\\joaopedro.martin_v4c\\\\Downloads\\\\EE-2026\\\\Estruturacao-Estrategica\\\\index.html' 'c:\\\\Users\\\\joaopedro.martin_v4c\\\\Downloads\\\\EE-2026\\\\estruturacao-estrategica-teste\\\\index.html' -Force; if\\(\\(Get-FileHash 'c:\\\\Users\\\\joaopedro.martin_v4c\\\\Downloads\\\\EE-2026\\\\Estruturacao-Estrategica\\\\index.html' -Algorithm MD5\\).Hash -eq \\(Get-FileHash 'c:\\\\Users\\\\joaopedro.martin_v4c\\\\Downloads\\\\EE-2026\\\\estruturacao-estrategica-teste\\\\index.html' -Algorithm MD5\\).Hash\\){'SYNCED'}\")"
     ]
   }
 }

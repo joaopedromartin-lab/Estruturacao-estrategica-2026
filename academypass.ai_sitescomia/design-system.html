@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design System · Criando sites com IA</title>
+<link rel="icon" href="assets/b3cbbbd690075e95_favicon.ico" />
+<!-- EXACT same stylesheet used by the reference page (tokens, Satoshi @font-face via @import, all utilities & keyframes) -->
+<link rel="stylesheet" href="assets/dcdbb4a3f81ba537_index-BF3AGV1P.css" />
+
+<!--
+  ============================================================
+  VERBATIM component CSS copied from the reference page
+  (originally injected by the SitesComIa React component as a
+  <style> tag). Reused, not re-authored.
+  ============================================================
+-->
+<style>
+  .sites-live-gradient {
+    background:
+      radial-gradient(circle at 12% 10%, rgba(84, 193, 181, 0.95) 0%, rgba(84, 193, 181, 0.42) 24%, transparent 44%),
+      radial-gradient(circle at 45% 12%, rgba(10, 102, 167, 0.92) 0%, rgba(10, 102, 167, 0.42) 27%, transparent 50%),
+      radial-gradient(circle at 82% 24%, rgba(133, 202, 158, 0.92) 0%, rgba(133, 202, 158, 0.48) 28%, transparent 51%),
+      radial-gradient(circle at 36% 68%, rgba(6, 83, 126, 0.88) 0%, rgba(6, 83, 126, 0.4) 30%, transparent 54%),
+      radial-gradient(circle at 72% 72%, rgba(126, 209, 166, 0.86) 0%, rgba(126, 209, 166, 0.36) 32%, transparent 55%),
+      linear-gradient(140deg, #2fb1aa 0%, #096a91 42%, #83cba2 100%);
+    filter: blur(18px) saturate(1.02);
+    transform: scale(1.06);
+    animation: sites-live-gradient-shift 8s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate;
+  }
+
+  .sites-live-cta-wiggle {
+    transform-origin: center;
+    animation: sites-live-cta-wiggle 2.8s ease-in-out infinite;
+  }
+
+  .sites-live-cta-wiggle:hover,
+  .sites-live-cta-wiggle:focus-visible {
+    animation-duration: 1.15s;
+  }
+
+  @keyframes sites-live-cta-wiggle {
+    0%, 74%, 100% { transform: rotate(0deg) translateX(0); }
+    78% { transform: rotate(-1.4deg) translateX(-1px); }
+    82% { transform: rotate(1.4deg) translateX(1px); }
+    86% { transform: rotate(-1deg) translateX(-1px); }
+    90% { transform: rotate(1deg) translateX(1px); }
+    94% { transform: rotate(0deg) translateX(0); }
+  }
+
+  @keyframes sites-live-gradient-shift {
+    from { transform: scale(1.06) translate3d(-1.5%, -1%, 0); }
+    to { transform: scale(1.1) translate3d(1.8%, 1.2%, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sites-live-gradient,
+    .sites-live-cta-wiggle { animation: none; }
+  }
+</style>
+
+<!--
+  ============================================================
+  Entrance-motion recreation: the reference page drives these
+  with framer-motion (initial/animate). These CSS keyframes use
+  the EXACT same values so the look is preserved without the JS:
+    fade-up  -> opacity 0->1, y 28px->0, .72s, cubic-bezier(.22,1,.36,1)
+    rise     -> opacity 0->1, y 18px->0, scale .98->1, .45s
+    progress -> width 20%->90%, .9s (.2s delay)
+  Delays match v(0.05 / 0.12 / 0.22 / 0.28).
+  ============================================================
+-->
+<style>
+  @keyframes sm-fade-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes sm-rise    { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes sm-progress { from { width: 20%; } to { width: 90%; } }
+  @keyframes sm-demo-fadeup { 0% { opacity: 0; transform: translateY(28px); } 45%, 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes sm-demo-rise   { 0% { opacity: 0; transform: translateY(18px) scale(.98); } 45%, 100% { opacity: 1; transform: translateY(0) scale(1); } }
+
+  .sm-enter { opacity: 0; animation: sm-fade-up .72s cubic-bezier(.22, 1, .36, 1) forwards; }
+  .sm-d1 { animation-delay: .05s; } .sm-d2 { animation-delay: .12s; }
+  .sm-d3 { animation-delay: .22s; } .sm-d4 { animation-delay: .28s; }
+  .sm-rise { opacity: 0; animation: sm-rise .45s cubic-bezier(.22, 1, .36, 1) .28s forwards; }
+  .sm-progress-fill { animation: sm-progress .9s .2s cubic-bezier(.22, 1, .36, 1) both; }
+
+  .sm-demo-fadeup { animation: sm-demo-fadeup 2.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+  .sm-demo-rise   { animation: sm-demo-rise 2.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sm-enter, .sm-rise, .sm-progress-fill, .sm-demo-fadeup, .sm-demo-rise { animation: none; opacity: 1; }
+  }
+</style>
+
+<!--
+  ============================================================
+  Documentation chrome only (prefixed .ds-). This is scaffolding
+  for the spec page: nav, section frames, swatch tiles, spec rows.
+  It does NOT restyle any reference component — every canonical
+  example below uses the original class names + the linked CSS.
+  Colours/typography here mirror the brand so the page reads as
+  one piece (teal base, Satoshi, glass).
+  ============================================================
+-->
+<style>
+  body { margin: 0; background: #0b6d83; color: #fff; font-family: "Satoshi", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body::before { /* brand backdrop so glass surfaces read correctly outside the hero */
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(84,193,181,0.30) 0%, transparent 42%),
+      radial-gradient(circle at 84% 18%, rgba(133,202,158,0.24) 0%, transparent 46%),
+      radial-gradient(circle at 50% 100%, rgba(6,83,126,0.55) 0%, transparent 60%),
+      linear-gradient(160deg, #0b6d83 0%, #06506180 50%, #053f4d 100%);
+  }
+
+  .ds-nav {
+    position: sticky; top: 0; z-index: 60;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .4rem;
+    padding: .7rem clamp(16px, 4vw, 48px);
+    background: rgba(5, 63, 77, 0.72);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .ds-nav .ds-brand { font-weight: 700; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; margin-right: auto; color: rgba(255,255,255,0.92); }
+  .ds-nav a {
+    color: rgba(255, 255, 255, 0.72); text-decoration: none;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+    padding: .42rem .7rem; border-radius: 999px; border: 1px solid transparent; transition: all .2s ease;
+  }
+  .ds-nav a:hover { color: #fff; border-color: rgba(255, 255, 255, 0.24); background: rgba(255, 255, 255, 0.08); }
+
+  .ds-section { padding: clamp(56px, 8vw, 96px) clamp(16px, 4vw, 48px); border-top: 1px solid rgba(255, 255, 255, 0.08); scroll-margin-top: 72px; }
+  .ds-wrap { max-width: 1180px; margin: 0 auto; }
+  .ds-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .2em; color: rgba(255, 255, 255, 0.5); margin: 0 0 14px; }
+  .ds-title { font-family: "Satoshi", sans-serif; font-weight: 300; font-size: clamp(34px, 5vw, 56px); line-height: .98; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .ds-lead { max-width: 62ch; font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, 0.78); margin: 0 0 44px; }
+
+  .ds-block + .ds-block { margin-top: 40px; }
+  .ds-block-label { font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: rgba(255,255,255,0.45); margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+  /* spec list (typography) */
+  .ds-spec { display: flex; flex-direction: column; }
+  .ds-spec-row { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; padding: 26px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .ds-preview { min-width: 0; flex: 1; }
+  .ds-spec-name { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: rgba(255, 255, 255, 0.45); margin-bottom: 12px; }
+  .ds-spec-meta { flex: none; text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: rgba(255, 255, 255, 0.5); white-space: nowrap; font-variant-numeric: tabular-nums; line-height: 1.5; }
+  .ds-spec-meta b { display: block; color: rgba(255, 255, 255, 0.82); font-weight: 600; }
+
+  /* swatches */
+  .ds-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px; }
+  .ds-swatch { border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.04); }
+  .ds-swatch .fill { height: 92px; }
+  .ds-swatch.tall .fill { height: 132px; }
+  .ds-swatch .meta { padding: 12px 14px; }
+  .ds-swatch .meta b { display: block; font-size: 13px; font-weight: 600; }
+  .ds-swatch .meta code { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.6); margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .ds-swatch .meta span { display: block; font-size: 11px; color: rgba(255, 255, 255, 0.45); margin-top: 6px; }
+  .ds-checker { background-image: linear-gradient(45deg, rgba(0,0,0,.25) 25%, transparent 25%), linear-gradient(-45deg, rgba(0,0,0,.25) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(0,0,0,.25) 75%), linear-gradient(-45deg, transparent 75%, rgba(0,0,0,.25) 75%); background-size: 18px 18px; background-position: 0 0, 0 9px, 9px -9px, -9px 0; }
+
+  /* component state grids */
+  .ds-states { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+  .ds-state { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; min-width: 220px; }
+  .ds-state .tag { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; color: rgba(255, 255, 255, 0.5); }
+  .ds-note { font-size: 13px; line-height: 1.55; color: rgba(255, 255, 255, 0.6); margin: 14px 0 0; }
+  .ds-note code, .ds-inline-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; padding: 1px 6px; color: #cdeee6; }
+
+  .ds-grid2 { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 900px) { .ds-grid2 { grid-template-columns: 1fr 1fr; } }
+  .ds-frame { border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.05); padding: 24px; }
+  .ds-frame h4 { margin: 0 0 16px; font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: rgba(255,255,255,0.6); font-weight: 600; }
+
+  /* layout diagrams */
+  .ds-diagram { border: 1px dashed rgba(255,255,255,0.28); border-radius: 18px; padding: 14px; }
+  .ds-diagram .cell { border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; min-height: 84px; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,0.6); text-align: center; padding: 10px; }
+
+  /* icon table */
+  .ds-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .ds-icon-cell { border-radius: 18px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); padding: 22px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .ds-icon-cell .name { font-size: 12px; font-weight: 600; }
+  .ds-icon-cell .use { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+  .ds-size-row { display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap; }
+  .ds-size-row .col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .ds-size-row .col span { font-size: 11px; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+
+<body>
+
+<!-- ============================ TOP NAV (required) ============================ -->
+<nav class="ds-nav">
+  <span class="ds-brand">Design System</span>
+  <a href="#hero">Hero</a>
+  <a href="#typography">Tipografia</a>
+  <a href="#colors">Cores</a>
+  <a href="#components">Componentes</a>
+  <a href="#layout">Layout</a>
+  <a href="#motion">Motion</a>
+  <a href="#icons">Ícones</a>
+</nav>
+
+<!-- ============================================================
+     0) HERO — EXACT CLONE of the reference hero, text adapted
+        only in the left column to present the design system.
+        Structure, classes, layers, form component, animations
+        and buttons are reproduced verbatim.
+     ============================================================ -->
+<section id="hero">
+  <div class="relative min-h-screen overflow-hidden bg-[#0b6d83] text-white">
+    <div aria-hidden="true" class="sites-live-gradient pointer-events-none absolute inset-[-12%]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_50%,rgba(2,44,55,0.2)_100%)]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -bottom-14 -right-14 h-44 w-44 rotate-45 rounded-[34px] border border-white/15 bg-white/[0.06] blur-[1px] sm:h-56 sm:w-56"></div>
+
+    <section class="relative z-10 px-5 pb-12 pt-14 sm:px-8 sm:pb-16 sm:pt-20 lg:px-12">
+      <div class="mx-auto grid max-w-[1180px] grid-cols-1 gap-8 lg:mt-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+
+        <!-- LEFT: hero copy (text adapted to present the Design System) -->
+        <section class="order-1">
+          <div class="flex items-center gap-3 sm-enter sm-d1">
+            <img src="assets/6a02053031098530_logo-human-academy-Cqf4pvaO.png" alt="Human Academy" class="h-4 w-auto opacity-80 brightness-0 invert sm:h-5" draggable="false" />
+            <span class="font-body text-[10px] uppercase tracking-normal text-white/[0.64]">design system</span>
+          </div>
+
+          <h1 class="mt-5 max-w-[11.4ch] font-display text-[52px] font-light leading-[0.9] tracking-normal text-white sm:mt-7 sm:text-[72px] lg:text-[96px] xl:text-[112px] sm-enter sm-d2">Sistema de design.</h1>
+
+          <p class="mt-5 max-w-[34rem] font-body text-[16px] leading-[1.58] text-white/[0.84] sm:mt-7 sm:text-[20px] sm:leading-[1.62] sm-enter sm-d3">Um guia vivo do visual desta página. As mesmas cores, tipografia, componentes e animações reaproveitadas, sem aproximações. Tudo que você vê aqui é o próprio sistema renderizado.</p>
+
+          <div class="mt-6 flex flex-wrap gap-2.5 font-body text-[11px] uppercase tracking-normal sm:mt-8 sm-enter sm-d4">
+            <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Satoshi</span>
+            <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Glassmorphism</span>
+            <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Teal palette</span>
+          </div>
+        </section>
+
+        <!-- RIGHT: the live-signup form component (reproduced verbatim) -->
+        <section class="order-2" id="inscricao">
+          <div class="mx-auto w-full max-w-[470px] md:mt-2 sm-rise">
+            <form class="overflow-hidden rounded-[30px] border border-white/[0.24] bg-white/[0.16] text-white shadow-[0_28px_70px_rgba(5,53,71,0.18)] backdrop-blur-2xl" onsubmit="return false;">
+              <div class="border-b border-white/[0.16] px-5 py-5 sm:px-6">
+                <div class="rounded-[22px] border border-white/[0.22] bg-[#053f4d]/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_34px_rgba(4,49,60,0.12)] backdrop-blur-xl">
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="min-w-0">
+                      <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Live gratuita</div>
+                      <div class="mt-1 font-display text-[20px] font-semibold leading-none tracking-normal text-white">10 de junho</div>
+                    </div>
+                    <span class="h-10 w-px shrink-0 bg-white/[0.26]"></span>
+                    <div class="shrink-0 text-right">
+                      <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Ao vivo</div>
+                      <div class="mt-1 font-display text-[20px] font-semibold leading-none tracking-normal text-white">20h</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-4 p-6 sm:p-7">
+                <div>
+                  <label class="mb-2 block font-body text-[10px] uppercase tracking-normal text-white/[0.58]">Nome</label>
+                  <input autocomplete="name" required class="h-[52px] w-full rounded-2xl border border-white/[0.28] bg-white/[0.72] px-4 font-body text-[15px] text-black outline-none transition-colors placeholder:text-black/[0.34] focus:border-white/70 focus:bg-white/[0.86]" placeholder="Seu nome" />
+                </div>
+                <div>
+                  <label class="mb-2 block font-body text-[10px] uppercase tracking-normal text-white/[0.58]">E-mail</label>
+                  <input autocomplete="email" type="email" required class="h-[52px] w-full rounded-2xl border border-white/[0.28] bg-white/[0.72] px-4 font-body text-[15px] text-black outline-none transition-colors placeholder:text-black/[0.34] focus:border-white/70 focus:bg-white/[0.86]" placeholder="seu@email.com" />
+                </div>
+                <div>
+                  <label class="mb-2 block font-body text-[10px] uppercase tracking-normal text-white/[0.58]">Telefone</label>
+                  <div class="flex h-[52px] overflow-hidden rounded-2xl border border-white/[0.28] bg-white/[0.72] transition-colors focus-within:border-white/70 focus-within:bg-white/[0.86]">
+                    <button type="button" class="shrink-0 inline-flex h-full items-center gap-2 border-r border-black/14 bg-transparent pl-3.5 pr-2.5 transition-colors hover:bg-black/[0.04]" aria-label="Selecionar pais">
+                      <span class="text-[18px] leading-none" aria-hidden="true">🇧🇷</span>
+                      <span class="font-body text-[15px] text-black tabular-nums">+55</span>
+                      <svg class="h-3 w-3 text-black/45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <input autocomplete="tel" inputmode="tel" required class="min-w-0 flex-1 bg-transparent px-4 font-body text-[15px] text-black outline-none placeholder:text-black/[0.34]" placeholder="(11) 99999-9999" />
+                  </div>
+                </div>
+                <button type="submit" class="sites-live-cta-wiggle group mt-2 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors hover:bg-[#0b5362] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70">
+                  Garantir minha vaga
+                  <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                </button>
+                <div class="flex items-center justify-center gap-2 pt-1 font-body text-[10px] uppercase tracking-normal text-white/[0.56]">
+                  <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                  Ao vivo · Gratuito · Para criativos
+                </div>
+              </div>
+            </form>
+
+            <div class="mt-4 overflow-hidden rounded-[24px] border border-white/[0.18] bg-black/[0.08] px-5 py-4 text-white shadow-[0_20px_48px_rgba(5,53,71,0.14)] backdrop-blur-2xl">
+              <div class="font-body text-[10px] uppercase tracking-normal text-white/[0.5]">Ao vivo</div>
+              <p class="mt-1 font-body text-[13px] leading-[1.5] text-white/[0.8]">A gente mostra como pensar, montar e apresentar um site com IA sem cair no visual genérico.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============================================================
+     1) TYPOGRAPHY — spec list of the styles present in the page
+     ============================================================ -->
+<section id="typography" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">01 — Tipografia</p>
+    <h2 class="ds-title">Escala &amp; ritmo</h2>
+    <p class="ds-lead">Família única: <span class="ds-inline-code">Satoshi</span> (300 / 500 / 600 / 700). <span class="ds-inline-code">.font-display</span> é Satoshi; o corpo herda Satoshi de <span class="ds-inline-code">--font-sans</span>. Cada linha usa o elemento e as classes exatas da referência. Tamanho / entrelinha à direita (valores base → responsivos).</p>
+
+    <div class="ds-spec">
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Heading 1 · Display</span>
+          <div class="font-display text-[52px] font-light leading-[0.9] tracking-normal text-white sm:text-[72px] lg:text-[96px] xl:text-[112px]">Sistema de design.</div>
+        </div>
+        <div class="ds-spec-meta"><b>52 → 112px</b>line-height 0.9<br />weight 300</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Heading 2 · Display</span>
+          <div class="font-display text-[40px] font-light leading-[0.98] tracking-normal sm:text-[54px]">Sua inscrição está <span class="font-medium text-white">quase</span> confirmada.</div>
+        </div>
+        <div class="ds-spec-meta"><b>40 → 54px</b>line-height 0.98<br />weight 300 / 500</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Heading 3 · Stat / Numeric Display</span>
+          <div class="font-display text-[88px] leading-none tracking-normal sm:text-[112px]">90<span class="text-white/[0.72]">%</span></div>
+        </div>
+        <div class="ds-spec-meta"><b>88 → 112px</b>line-height 1<br />weight 400</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Heading 4 · Display Semibold</span>
+          <div class="font-display text-[20px] font-semibold leading-none tracking-normal text-white">10 de junho</div>
+        </div>
+        <div class="ds-spec-meta"><b>20px</b>line-height 1<br />weight 600</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Bold · CTA Label</span>
+          <div class="font-display text-[14px] font-bold tracking-normal text-white sm:text-[15px]">Garantir minha vaga</div>
+        </div>
+        <div class="ds-spec-meta"><b>14 → 15px</b>weight 700</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Paragraph · Lead</span>
+          <div class="font-body text-[16px] leading-[1.58] text-white/[0.84] sm:text-[20px] sm:leading-[1.62]">Uma hora ao vivo aprendendo a sair do site com cara de IA, com direção, clareza e acabamento.</div>
+        </div>
+        <div class="ds-spec-meta"><b>16 → 20px</b>line-height 1.62<br />weight 400</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Regular L · Body</span>
+          <div class="font-body text-[16px] leading-[1.6] text-white/[0.72]">Entre no grupo para finalizar sua inscrição.</div>
+        </div>
+        <div class="ds-spec-meta"><b>16px</b>line-height 1.6</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Regular M · Body / Input</span>
+          <div class="font-body text-[15px] leading-[1.6] text-white/[0.72]">Texto de campo e corpo padrão — 15px.</div>
+        </div>
+        <div class="ds-spec-meta"><b>15px</b>line-height 1.6</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Regular S · Caption</span>
+          <div class="font-body text-[13px] leading-[1.5] text-white/[0.8]">A gente mostra como pensar, montar e apresentar um site com IA.</div>
+        </div>
+        <div class="ds-spec-meta"><b>13px</b>line-height 1.5</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Eyebrow · Label</span>
+          <div class="font-body text-[10px] uppercase tracking-normal text-white/[0.58]">Inscrição quase confirmada</div>
+        </div>
+        <div class="ds-spec-meta"><b>10px</b>uppercase<br />tracking normal</div>
+      </div>
+
+      <div class="ds-spec-row">
+        <div class="ds-preview">
+          <span class="ds-spec-name">Micro · Tracked Label</span>
+          <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Live gratuita</div>
+        </div>
+        <div class="ds-spec-meta"><b>9px</b>uppercase<br />tracking 0.18em</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     2) COLORS & SURFACES
+     ============================================================ -->
+<section id="colors" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">02 — Cores &amp; Superfícies</p>
+    <h2 class="ds-title">Paleta teal &amp; vidro</h2>
+    <p class="ds-lead">A página define cores diretamente (não usa os tokens de tema claro). Base teal escura, acentos verde-água/azul nos gradientes, e superfícies de vidro construídas com branco translúcido sobre fundo colorido.</p>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Cores sólidas</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch"><div class="fill" style="background:#0b6d83"></div><div class="meta"><b>Base / Page</b><code>#0b6d83</code><span>bg-[#0b6d83]</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#073d4a"></div><div class="meta"><b>CTA (deep teal)</b><code>#073d4a</code><span>bg-[#073d4a]</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#0b5362"></div><div class="meta"><b>CTA hover</b><code>#0b5362</code><span>hover:bg-[#0b5362]</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#053f4d"></div><div class="meta"><b>Painel interno</b><code>#053f4d</code><span>bg-[#053f4d]/70</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#2fb1aa"></div><div class="meta"><b>Gradiente — início</b><code>#2fb1aa</code><span>linear 140deg</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#096a91"></div><div class="meta"><b>Gradiente — meio</b><code>#096a91</code><span>linear 140deg</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#83cba2"></div><div class="meta"><b>Gradiente — fim</b><code>#83cba2</code><span>linear 140deg</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#54c1b5"></div><div class="meta"><b>Blob — teal</b><code>#54c1b5</code><span>radial 12% 10%</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#0a66a7"></div><div class="meta"><b>Blob — azul</b><code>#0a66a7</code><span>radial 45% 12%</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#85ca9e"></div><div class="meta"><b>Blob — verde</b><code>#85ca9e</code><span>radial 82% 24%</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#06537e"></div><div class="meta"><b>Blob — azul fundo</b><code>#06537e</code><span>radial 36% 68%</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#7ed1a6"></div><div class="meta"><b>Blob — verde claro</b><code>#7ed1a6</code><span>radial 72% 72%</span></div></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Superfícies de vidro &amp; bordas (branco translúcido)</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:rgba(255,255,255,0.16)"></div><div class="meta"><b>Card de vidro</b><code>white / 0.16</code><span>bg-white/[0.16]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:rgba(255,255,255,0.14)"></div><div class="meta"><b>Card sucesso</b><code>white / 0.14</code><span>bg-white/[0.14]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:rgba(255,255,255,0.08)"></div><div class="meta"><b>Pill / chip</b><code>white / 0.08</code><span>bg-white/[0.08]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:rgba(255,255,255,0.72)"></div><div class="meta"><b>Input fill</b><code>white / 0.72</code><span>bg-white/[0.72]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:rgba(0,0,0,0.08)"></div><div class="meta"><b>Card informativo</b><code>black / 0.08</code><span>bg-black/[0.08]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:transparent;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.24)"></div><div class="meta"><b>Borda — forte</b><code>white / 0.24</code><span>border-white/[0.24]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:transparent;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.16)"></div><div class="meta"><b>Borda / divisor</b><code>white / 0.16</code><span>border-white/[0.16]</span></div></div>
+        <div class="ds-swatch"><div class="fill ds-checker" style="background:transparent;box-shadow:inset 0 0 0 2px rgba(0,0,0,0.14)"></div><div class="meta"><b>Borda input</b><code>black / 0.14</code><span>border-black/14</span></div></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Acentos de estado &amp; overlay</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch"><div class="fill" style="background:rgba(239,68,68,0.10);box-shadow:inset 0 0 0 1px rgba(239,68,68,0.2)"></div><div class="meta"><b>Erro — fundo</b><code>red-500 / 0.10</code><span>bg-red-500/10</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:#b91c1c"></div><div class="meta"><b>Erro — texto</b><code>red-700</code><span>text-red-700</span></div></div>
+        <div class="ds-swatch"><div class="fill" style="background:rgba(2,44,55,0.6)"></div><div class="meta"><b>Vinheta overlay</b><code>rgba(2,44,55,.2)</code><span>radial center</span></div></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Gradientes (com contexto de uso)</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch tall"><div class="fill sites-live-gradient" style="position:relative;filter:none;transform:none;animation:none"></div><div class="meta"><b>Hero — gradiente vivo</b><code>.sites-live-gradient</code><span>5 radiais + linear 140deg, blur 18px, anima 8s</span></div></div>
+        <div class="ds-swatch tall"><div class="fill" style="background:linear-gradient(140deg,#2fb1aa 0%,#096a91 42%,#83cba2 100%)"></div><div class="meta"><b>Base linear</b><code>140deg</code><span>#2fb1aa → #096a91 → #83cba2</span></div></div>
+        <div class="ds-swatch tall"><div class="fill" style="background:linear-gradient(to right,#0c6d86,#63c0a4,#ffffff)"></div><div class="meta"><b>Barra de progresso</b><code>to-r</code><span>#0c6d86 → #63c0a4 → white</span></div></div>
+        <div class="ds-swatch tall"><div class="fill ds-checker"><div style="width:100%;height:100%;background:radial-gradient(circle at 24% 12%, rgba(255,255,255,0.22) 0%, transparent 34%), radial-gradient(circle at 78% 80%, rgba(115,208,171,0.3) 0%, transparent 42%)"></div></div><div class="meta"><b>Brilho de vidro</b><code>radial x2</code><span>destaque do card de sucesso</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3) UI COMPONENTS — states side by side
+     ============================================================ -->
+<section id="components" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">03 — Componentes</p>
+    <h2 class="ds-title">UI &amp; estados</h2>
+    <p class="ds-lead">Botões, chips, inputs e cards reproduzidos com as classes originais. Estados padrão / hover / active / disabled / loading lado a lado.</p>
+
+    <!-- Buttons -->
+    <div class="ds-block">
+      <p class="ds-block-label">Botão primário (pill CTA)</p>
+      <div class="ds-states">
+        <div class="ds-state">
+          <span class="tag">Default</span>
+          <button type="button" class="group inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors hover:bg-[#0b5362] active:scale-[0.98] sm:text-[15px]" style="min-width:220px">
+            Garantir minha vaga
+            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <div class="ds-state">
+          <span class="tag">Hover (bg-[#0b5362], seta desliza)</span>
+          <button type="button" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] sm:text-[15px]" style="min-width:220px;background:#0b5362">
+            Garantir minha vaga
+            <svg class="h-4 w-4" style="transform:translate(2px,-2px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <div class="ds-state">
+          <span class="tag">Active (scale .98)</span>
+          <button type="button" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] sm:text-[15px]" style="min-width:220px;transform:scale(.98)">
+            Garantir minha vaga
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <div class="ds-state">
+          <span class="tag">Disabled (opacity 70)</span>
+          <button type="button" disabled class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors disabled:cursor-not-allowed disabled:opacity-70 sm:text-[15px]" style="min-width:220px">
+            Garantir minha vaga
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <div class="ds-state">
+          <span class="tag">Loading (LoaderCircle spin)</span>
+          <button type="button" disabled class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] disabled:cursor-not-allowed disabled:opacity-70 sm:text-[15px]" style="min-width:220px">
+            <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+            Inscrevendo...
+          </button>
+        </div>
+        <div class="ds-state">
+          <span class="tag">Variante wiggle (loop 2.8s)</span>
+          <button type="button" class="sites-live-cta-wiggle group inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors hover:bg-[#0b5362] active:scale-[0.98] sm:text-[15px]" style="min-width:220px">
+            Garantir minha vaga
+            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+      </div>
+      <p class="ds-note">Pill secundário (link externo do card de sucesso): mesmo estilo com <code>transition-all</code> e altura maior <code>sm:h-16</code> — texto "Entrar no grupo".</p>
+    </div>
+
+    <!-- Chips / Badges -->
+    <div class="ds-block">
+      <p class="ds-block-label">Chips / badges</p>
+      <div class="flex flex-wrap gap-2.5 font-body text-[11px] uppercase tracking-normal">
+        <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Dia 10 de junho, 20h</span>
+        <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Online</span>
+        <span class="rounded-full border border-white/[0.24] bg-white/[0.08] px-4 py-2 text-white backdrop-blur-md">Gratuito</span>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div class="ds-block">
+      <p class="ds-block-label">Inputs</p>
+      <div class="ds-states">
+        <div class="ds-state" style="flex:1;min-width:280px;max-width:420px">
+          <span class="tag">Texto — default</span>
+          <input class="h-[52px] w-full rounded-2xl border border-white/[0.28] bg-white/[0.72] px-4 font-body text-[15px] text-black outline-none transition-colors placeholder:text-black/[0.34] focus:border-white/70 focus:bg-white/[0.86]" placeholder="Seu nome" />
+        </div>
+        <div class="ds-state" style="flex:1;min-width:280px;max-width:420px">
+          <span class="tag">Texto — focus (border-white/70, bg .86)</span>
+          <input class="h-[52px] w-full rounded-2xl border bg-white px-4 font-body text-[15px] text-black outline-none placeholder:text-black/[0.34]" style="border-color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.86)" placeholder="Foque aqui também" value="Mario" />
+        </div>
+        <div class="ds-state" style="flex:1;min-width:280px;max-width:420px">
+          <span class="tag">Telefone — country select + campo</span>
+          <div class="flex h-[52px] w-full overflow-hidden rounded-2xl border border-white/[0.28] bg-white/[0.72] transition-colors focus-within:border-white/70 focus-within:bg-white/[0.86]">
+            <button type="button" class="shrink-0 inline-flex h-full items-center gap-2 border-r border-black/14 bg-transparent pl-3.5 pr-2.5 transition-colors hover:bg-black/[0.04]" aria-label="Selecionar pais">
+              <span class="text-[18px] leading-none" aria-hidden="true">🇧🇷</span>
+              <span class="font-body text-[15px] text-black tabular-nums">+55</span>
+              <svg class="h-3 w-3 text-black/45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <input inputmode="tel" class="min-w-0 flex-1 bg-transparent px-4 font-body text-[15px] text-black outline-none placeholder:text-black/[0.34]" placeholder="(11) 99999-9999" />
+          </div>
+        </div>
+        <div class="ds-state" style="flex:1;min-width:280px;max-width:420px">
+          <span class="tag">Mensagem de erro</span>
+          <p class="rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 font-body text-[13px] leading-[1.45] text-red-700" style="margin:0;width:100%">Digite um telefone válido com DDI e número local.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="ds-block">
+      <p class="ds-block-label">Cards &amp; superfícies</p>
+      <div class="ds-grid2">
+
+        <div class="ds-frame">
+          <h4>Card de data/hora (painel interno)</h4>
+          <div class="rounded-[22px] border border-white/[0.22] bg-[#053f4d]/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_16px_34px_rgba(4,49,60,0.12)] backdrop-blur-xl">
+            <div class="flex items-center justify-between gap-4">
+              <div class="min-w-0">
+                <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Live gratuita</div>
+                <div class="mt-1 font-display text-[20px] font-semibold leading-none tracking-normal text-white">10 de junho</div>
+              </div>
+              <span class="h-10 w-px shrink-0 bg-white/[0.26]"></span>
+              <div class="shrink-0 text-right">
+                <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Ao vivo</div>
+                <div class="mt-1 font-display text-[20px] font-semibold leading-none tracking-normal text-white">20h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-frame">
+          <h4>Card informativo (black/0.08)</h4>
+          <div class="overflow-hidden rounded-[24px] border border-white/[0.18] bg-black/[0.08] px-5 py-4 text-white shadow-[0_20px_48px_rgba(5,53,71,0.14)] backdrop-blur-2xl">
+            <div class="font-body text-[10px] uppercase tracking-normal text-white/[0.5]">Ao vivo</div>
+            <p class="mt-1 font-body text-[13px] leading-[1.5] text-white/[0.8]">A gente mostra como pensar, montar e apresentar um site com IA sem cair no visual genérico.</p>
+          </div>
+        </div>
+
+        <div class="ds-frame">
+          <h4>Barra de progresso (anima 20% → 90%)</h4>
+          <div class="text-center font-body text-[10px] uppercase tracking-normal text-white/[0.54]">Inscrição quase confirmada</div>
+          <div class="mt-5 font-display text-[88px] leading-none tracking-normal text-center">90<span class="text-white/[0.72]">%</span></div>
+          <div class="mt-7 h-4 overflow-hidden rounded-full bg-white/[0.16]">
+            <div class="sm-progress-fill h-full rounded-full bg-gradient-to-r from-[#0c6d86] via-[#63c0a4] to-white" style="width:90%"></div>
+          </div>
+        </div>
+
+        <div class="ds-frame">
+          <h4>Card de sucesso (glass, max-w-[520px])</h4>
+          <div class="relative w-full overflow-hidden rounded-[34px] border border-white/[0.24] bg-white/[0.14] p-7 text-white shadow-[0_28px_80px_rgba(5,53,71,0.24)] backdrop-blur-2xl">
+            <div aria-hidden="true" class="absolute inset-0 opacity-90" style="background:radial-gradient(circle at 24% 12%, rgba(255,255,255,0.22) 0%, transparent 34%), radial-gradient(circle at 78% 80%, rgba(115,208,171,0.3) 0%, transparent 42%)"></div>
+            <div class="relative">
+              <h2 class="text-center font-display text-[40px] font-light leading-[0.98] tracking-normal">Mario, sua inscrição está <span class="font-medium text-white">quase</span> confirmada.</h2>
+              <p class="mt-5 text-center font-body text-[15px] leading-[1.6] text-white/[0.72] sm:text-[16px]">Entre no grupo para finalizar sua inscrição.</p>
+              <a href="#" class="group mt-9 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-[#073d4a] font-display text-[14px] font-bold tracking-normal text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-all hover:bg-[#0b5362] active:scale-[0.98]">
+                Entrar no grupo
+                <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+              </a>
+              <div class="mt-8 text-center font-body text-[10px] uppercase tracking-normal text-white/[0.3]">Gratuito · Ao vivo · 10 de junho</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4) LAYOUT & SPACING
+     ============================================================ -->
+<section id="layout" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">04 — Layout &amp; Espaçamento</p>
+    <h2 class="ds-title">Container &amp; padrões</h2>
+    <p class="ds-lead">Container central <code>max-w-[1180px]</code>. Padding de seção <code>px-5 pb-12 pt-14</code> → <code>sm:px-8 sm:pb-16 sm:pt-20</code> → <code>lg:px-12</code>. Três padrões reais abaixo.</p>
+
+    <div class="ds-grid2">
+      <div class="ds-frame">
+        <h4>Padrão A — Split do hero <code>lg:grid-cols-[1.02fr_0.98fr]</code></h4>
+        <div class="ds-diagram">
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+            <div class="cell" style="min-height:150px">Copy<br />(logo · h1 · lead · chips)</div>
+            <div class="cell" style="min-height:150px">Form card<br /><code style="text-transform:none">max-w-[470px]</code></div>
+          </div>
+        </div>
+        <p class="ds-note"><code>grid grid-cols-1 gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center</code> — empilha no mobile, 2 colunas no desktop.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Padrão B — Confirmação centrada</h4>
+        <div class="ds-diagram">
+          <div class="flex items-center justify-center" style="min-height:200px">
+            <div class="cell" style="max-width:300px;min-height:150px">Card de sucesso<br /><code style="text-transform:none">max-w-[520px]</code><br />centrado vertical + horizontal</div>
+          </div>
+        </div>
+        <p class="ds-note"><code>flex min-h-[calc(100vh-8rem)] items-center justify-center</code> envolvendo um card único.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Padrão C — Stack do formulário <code>space-y-4</code></h4>
+        <div class="ds-diagram">
+          <div class="space-y-4" style="max-width:340px;margin:0 auto">
+            <div class="cell" style="min-height:46px">Header data/hora</div>
+            <div class="cell" style="min-height:46px">Campo · Nome</div>
+            <div class="cell" style="min-height:46px">Campo · E-mail</div>
+            <div class="cell" style="min-height:46px">Campo · Telefone</div>
+            <div class="cell" style="min-height:46px;background:#073d4a;color:#fff">CTA</div>
+          </div>
+        </div>
+        <p class="ds-note">Card <code>rounded-[30px]</code>, conteúdo em <code>p-6 sm:p-7</code> com ritmo vertical <code>space-y-4</code>.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Raios &amp; profundidade</h4>
+        <div class="ds-diagram" style="border-style:solid">
+          <div class="flex flex-wrap gap-3">
+            <div class="cell" style="min-height:64px;flex:1;min-width:90px;border-radius:34px">34px</div>
+            <div class="cell" style="min-height:64px;flex:1;min-width:90px;border-radius:30px">30px</div>
+            <div class="cell" style="min-height:64px;flex:1;min-width:90px;border-radius:24px">24px</div>
+            <div class="cell" style="min-height:64px;flex:1;min-width:90px;border-radius:22px">22px</div>
+            <div class="cell" style="min-height:64px;flex:1;min-width:90px;border-radius:9999px">full</div>
+          </div>
+        </div>
+        <p class="ds-note">Sombras de vidro: <code>shadow-[0_28px_80px_rgba(5,53,71,0.24)]</code>, <code>0_28px_70px…</code>, <code>0_20px_48px…</code> + <code>backdrop-blur-2xl</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5) MOTION & INTERACTION
+     ============================================================ -->
+<section id="motion" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">05 — Motion &amp; Interação</p>
+    <h2 class="ds-title">Galeria de animação</h2>
+    <p class="ds-lead">Entradas via framer-motion recriadas com os mesmos valores. Easing de entrada: <code>cubic-bezier(.22, 1, .36, 1)</code>. Animações de fundo/CTA vêm do <code>&lt;style&gt;</code> original. Os demos abaixo repetem em loop para demonstração.</p>
+
+    <div class="ds-grid2">
+
+      <div class="ds-frame">
+        <h4>Entrada — fade-up <code>.72s</code></h4>
+        <div style="overflow:hidden">
+          <div class="sm-demo-fadeup font-display text-[40px] font-light leading-[0.98]">Sistema de design.</div>
+        </div>
+        <p class="ds-note">opacity 0→1, translateY 28px→0. Delays escalonados: <code>.05 / .12 / .22 / .28s</code>.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Entrada — rise (form) <code>.45s</code></h4>
+        <div style="overflow:hidden">
+          <div class="sm-demo-rise rounded-[22px] border border-white/[0.22] bg-[#053f4d]/70 p-4 backdrop-blur-xl">
+            <div class="font-body text-[9px] uppercase tracking-[0.18em] text-white/[0.68]">Live gratuita</div>
+            <div class="mt-1 font-display text-[20px] font-semibold leading-none text-white">10 de junho</div>
+          </div>
+        </div>
+        <p class="ds-note">opacity 0→1, translateY 18px→0, scale .98→1. Usado no card do formulário e no card de sucesso (scale .96).</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Fundo — gradiente vivo <code>8s</code></h4>
+        <div style="position:relative;height:160px;border-radius:18px;overflow:hidden">
+          <div class="sites-live-gradient" style="position:absolute;inset:-12%"></div>
+        </div>
+        <p class="ds-note"><code>sites-live-gradient-shift</code> — scale + translate3d, <code>cubic-bezier(0.77,0,0.175,1)</code>, infinite alternate.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>CTA — wiggle <code>2.8s</code> (1.15s no hover)</h4>
+        <div style="padding:8px 0">
+          <button type="button" class="sites-live-cta-wiggle group inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#073d4a] px-7 font-display text-[15px] font-bold text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors hover:bg-[#0b5362] active:scale-[0.98]">
+            Garantir minha vaga
+            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <p class="ds-note">Rotação sutil periódica. Passe o mouse: a animação acelera para <code>1.15s</code>.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Hover &amp; press</h4>
+        <div style="padding:8px 0">
+          <button type="button" class="group inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#073d4a] px-7 font-display text-[15px] font-bold text-white shadow-[0_18px_46px_rgba(5,70,86,0.34)] transition-colors hover:bg-[#0b5362] active:scale-[0.98]">
+            Passe o mouse / clique
+            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          </button>
+        </div>
+        <p class="ds-note">Hover: <code>hover:bg-[#0b5362]</code> + seta <code>group-hover:translate-x-0.5 group-hover:-translate-y-0.5</code>. Press: <code>active:scale-[0.98]</code>. Inputs: <code>focus:</code> / <code>focus-within:</code> mudam borda e fundo.</p>
+      </div>
+
+      <div class="ds-frame">
+        <h4>Loader — spin</h4>
+        <div style="padding:8px 0;display:flex;align-items:center;gap:12px">
+          <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+          <span class="font-display text-[15px] font-bold">Inscrevendo...</span>
+        </div>
+        <p class="ds-note"><code>animate-spin</code> no <code>LoaderCircle</code> durante o envio. Transição form ↔ sucesso usa AnimatePresence (fade + y + scale).</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6) ICONS — lucide-react (same markup, stroke, sizes)
+     ============================================================ -->
+<section id="icons" class="ds-section">
+  <div class="ds-wrap">
+    <p class="ds-eyebrow">06 — Ícones</p>
+    <h2 class="ds-title">Ícones lucide</h2>
+    <p class="ds-lead">Sistema <span class="ds-inline-code">lucide-react</span>: stroke <code>2</code>, linecap/linejoin <code>round</code>, viewBox <code>0 0 24 24</code>, <code>fill:none</code>, cor herdada de <code>currentColor</code>. Apenas os ícones presentes na página.</p>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Ícones em uso</p>
+      <div class="ds-icons">
+        <div class="ds-icon-cell">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+          <span class="name">ArrowUpRight</span>
+          <span class="use">CTA — desliza no hover <code>h-4 w-4</code></span>
+        </div>
+        <div class="ds-icon-cell">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+          <span class="name">Check</span>
+          <span class="use">Linha de confiança <code>h-3 w-3</code></span>
+        </div>
+        <div class="ds-icon-cell">
+          <svg class="animate-spin" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+          <span class="name">LoaderCircle</span>
+          <span class="use">Estado loading <code>animate-spin</code></span>
+        </div>
+        <div class="ds-icon-cell">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          <span class="name">ChevronDown</span>
+          <span class="use">Seletor de país <code>h-3 w-3</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Variantes de tamanho (ArrowUpRight)</p>
+      <div class="ds-size-row">
+        <div class="col"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg><span>24 / h-6</span></div>
+        <div class="col"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg><span>20 / h-5</span></div>
+        <div class="col"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg><span>16 / h-4</span></div>
+        <div class="col"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg><span>12 / h-3</span></div>
+      </div>
+    </div>
+
+    <div class="ds-block">
+      <p class="ds-block-label">Herança de cor (<code>currentColor</code>)</p>
+      <div class="ds-size-row">
+        <div class="col" style="color:#fff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span>text-white</span></div>
+        <div class="col" style="color:rgba(255,255,255,0.45)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span>white/45</span></div>
+        <div class="col" style="color:rgba(0,0,0,0.45)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg><span>black/45</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

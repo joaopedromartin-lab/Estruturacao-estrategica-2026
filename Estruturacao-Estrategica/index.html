@@ -3155,8 +3155,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-warranty {
   background: #280000;
   color: #FFFFFF;
-  /* base reduzida — diminui o gap pra seção de ancoragem logo abaixo */
-  padding: var(--ee-pad-y-default) var(--ee-pad-x) clamp(14px, 2vh, 28px);
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
 }
 /* Ângulo animado do traçado em gradiente (rotação) */
 @property --ee-warr-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
@@ -3221,87 +3220,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   height: auto;
   object-fit: contain;
 }
-
-/* === SEÇÃO ANCORAGEM (carrossel de precificação: antes → depois, por modelo) === */
-.ee-anchor {
-  /* topo mantém #280000 (flui da garantia), base casa com a cor do topo da seção de baixo (#FF471F) */
-  background: linear-gradient(180deg, #280000 0%, #280000 30%, #7A0A02 62%, #C41E08 84%, #FF471F 100%);
-  /* topo reduzido — diminui o gap pra seção de garantia logo acima */
-  padding: clamp(14px, 2vh, 28px) var(--ee-pad-x) var(--ee-pad-y-default);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.ee-anchor__inner {
-  max-width: 1400px;            /* setas ficam fora da imagem; largura extra compensa */
-  width: 100%;
-  margin: 0 auto;
-}
-/* Grid de 3 colunas: seta · imagem · seta. Nunca quebra → setas SEMPRE ao lado.
-   A coluna do meio (minmax 0..cap) limita e encolhe a imagem; bolinhas na 2ª linha. */
-.ee-anchor__carousel {
-  display: grid;
-  grid-template-columns: auto minmax(0, clamp(360px, 80vw, 1080px)) auto;
-  align-items: center;
-  justify-content: center;
-  column-gap: clamp(8px, 1.6vw, 20px);
-  row-gap: clamp(16px, 2vw, 24px);
-}
-.ee-anchor__viewport {
-  grid-column: 2;
-  grid-row: 1;
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;        /* necessário pro carrossel (esconde o slide off-screen) */
-  border-radius: 0;        /* sem arredondar: a borda da imagem (verde) aparece inteira */
-}
-.ee-anchor__track {
-  display: flex;
-  width: 100%;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.ee-anchor__slide { flex: 0 0 100%; min-width: 0; }
-.ee-anchor__slide img { display: block; width: 100%; height: auto; }
-/* Setas de navegação — ao lado da imagem (fora do quadro) */
-.ee-anchor__nav {
-  flex: 0 0 auto;
-  width: clamp(40px, 3.4vw, 54px);
-  height: clamp(40px, 3.4vw, 54px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 50%;
-  background: rgba(20, 0, 0, 0.55);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(22px, 2vw, 30px);
-  line-height: 1;
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-.ee-anchor__nav:hover { background: #C41E08; border-color: #C41E08; transform: scale(1.06); }
-.ee-anchor__nav--prev { grid-column: 1; grid-row: 1; }
-.ee-anchor__nav--next { grid-column: 3; grid-row: 1; }
-/* Bolinhas (antes / agora) — 2ª linha, ocupando as 3 colunas */
-.ee-anchor__dots {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 0;
-}
-.ee-anchor__dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.28);
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-.ee-anchor__dot.is-active { background: #FB2E0A; transform: scale(1.25); }
 
 .ee-handoff {
   position: relative;
@@ -5128,6 +5046,203 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
+/* ============================================================
+   PLANOS — Contratação combinada (liquid glass + fundo gradiente)
+   Receita de vidro inspirada no design de referência, adaptada
+   à marca V4 (vermelhos, Morganite/IBM Plex). CSS à mão.
+   ============================================================ */
+.ee-plans { position: relative; background: #1a0000; }
+.ee-plans__inner { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 var(--ee-pad-x); }
+.ee-plans__card { position: relative; }   /* wrapper de conteúdo — sem visual de card */
+
+/* Camada do gradiente vivo — full-bleed na seção */
+.ee-plans__bg {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+}
+.ee-plans__bg::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #FB2E0A 0%, #7A0A02 55%, #560303 100%);   /* claro em cima → escuro embaixo */
+}
+@keyframes ee-plans-shift {
+  from { transform: scale(1.08) translate3d(-1.6%, -1%, 0); }
+  to   { transform: scale(1.13) translate3d(1.8%, 1.4%, 0); }
+}
+
+/* Selo dourado — centralizado no topo da seção */
+.ee-plans__badge {
+  display: flex; width: fit-content; justify-content: center; align-items: center;
+  margin: 0 auto clamp(24px, 3.6vh, 46px);
+  padding: clamp(12px, 1.4vw, 18px) clamp(26px, 3vw, 52px);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #FFC23D 0%, #E0890C 52%, #C2700A 100%);
+  color: #2a1400;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700; font-size: clamp(13px, 1.2vw, 17px);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0 12px rgba(255, 196, 38, 0.38), 0 0 30px rgba(255, 196, 38, 0.2), 0 12px 26px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+/* Grid: E.E · Combo · Total */
+.ee-plans__grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(14px, 1.8vw, 26px);
+  align-items: stretch;
+}
+.ee-plans__plus {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
+  font-size: clamp(30px, 4vw, 60px); line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Base do vidro (liquid glass) */
+.ee-glass {
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  border-radius: clamp(20px, 2vw, 30px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(18, 0, 0, 0.34);
+  -webkit-backdrop-filter: blur(40px) saturate(1.2);
+          backdrop-filter: blur(40px) saturate(1.2);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  padding: clamp(22px, 2.4vw, 36px);
+}
+.ee-glass::before { display: none; }   /* sheen interno removido */
+.ee-glass > * { position: relative; z-index: 1; }
+
+/* Logo da E.E (card de vidro) */
+.ee-plans__ee-head { display: flex; align-items: center; gap: clamp(10px, 1.4vw, 18px); flex-wrap: wrap; margin: 0 0 clamp(16px, 2vw, 24px); }
+.ee-plans__ee-logo { display: block; width: auto; max-width: 100%; height: clamp(32px, 3.8vw, 52px); object-fit: contain; }
+.ee-plans__model-tag { display: inline-flex; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(11px, 1vw, 13px); text-transform: uppercase; letter-spacing: 0.06em; color: #fff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.26); border-radius: 999px; padding: 5px 12px; white-space: nowrap; }
+
+/* Títulos dos vidros */
+.ee-plans__ctitle {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700; text-transform: uppercase;
+  font-size: clamp(20px, 2.2vw, 30px); line-height: 1.05;
+  letter-spacing: 0.005em; margin: 0 0 clamp(16px, 2vw, 24px);
+  color: #fff;
+}
+.ee-plans__ctitle-hl {
+  background: linear-gradient(90deg, #FB2E0A 0%, #FF6A00 60%, #FFD60A 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ee-plans__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(10px, 0.9vw, 12px); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.58); margin: 0 0 14px;
+  padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* E.E — lista de semanas */
+.ee-plans__weeks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 18px); }
+.ee-plans__weeks .wk { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(10px, 0.9vw, 12px); text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255, 255, 255, 0.55); }
+.ee-plans__weeks .wd { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(14px, 1.3vw, 17px); line-height: 1.3; color: #fff; margin-top: 3px; }
+
+/* Valor (rodapé dos vidros) — empurrado pro fim do card */
+.ee-plans__value {
+  margin: auto 0 0; padding-top: clamp(16px, 2vw, 24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+  font-size: clamp(26px, 2.8vw, 40px); line-height: 1.05; letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums; color: #fff;
+}
+.ee-plans__value small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(10px, 0.9vw, 12px); letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-top: 8px; }
+
+/* Dropdown — investimento em mídia */
+.ee-plans__invest { margin: 0 0 clamp(16px, 2vw, 22px); }
+.ee-plans__invest-label { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(12px, 1vw, 14px); color: rgba(255, 255, 255, 0.78); margin-bottom: 10px; }
+.ee-plans__select-wrap { position: relative; }
+.ee-plans__select {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(14px, 1.2vw, 16px); color: #fff;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.26); border-radius: 14px;
+  padding: 14px 44px 14px 18px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.ee-plans__select:hover, .ee-plans__select:focus { border-color: rgba(255, 255, 255, 0.5); background: rgba(255, 255, 255, 0.16); outline: none; }
+.ee-plans__select option { color: #1a0000; background: #fff; }
+.ee-plans__select-chevron { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: rgba(255, 255, 255, 0.7); pointer-events: none; }
+
+/* Reuso dos cards existentes dentro do vidro do Combo */
+.ee-plans .ee-packs-models { margin: 0; }
+.ee-plans .ee-packs__variant { display: none; }
+.ee-plans .ee-packs__variant.is-shown { display: block; }
+.ee-plans .ee-packs { display: block; grid-template-columns: none; padding: 0; margin: 0; gap: 0; max-width: none; }
+.ee-plans .ee-packs__card { display: none; background: transparent; border: none; box-shadow: none; padding: 0; margin: 0; min-height: 0; }
+.ee-plans .ee-packs__card.is-active-tier { display: flex; flex-direction: column; }
+.ee-plans .ee-packs__card.is-selected { background: transparent; box-shadow: none; }
+.ee-plans .ee-packs__popular,
+.ee-plans .ee-packs__tag,
+.ee-plans .ee-packs__title,
+.ee-plans .ee-packs__term { display: none !important; }
+.ee-plans .ee-packs__select { display: none !important; }
+.ee-plans .ee-packs__features { order: 1; margin: 0; list-style: none; padding: 0; border: 0; display: flex; flex-direction: column; gap: clamp(10px, 1.2vw, 14px); }
+.ee-plans .ee-packs__features li { display: flex; gap: 10px; align-items: flex-start; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(12.5px, 1vw, 14px); line-height: 1.42; color: rgba(255, 255, 255, 0.82); }
+.ee-plans .ee-packs__features li i, .ee-plans .ee-packs__features li svg { width: 16px; height: 16px; flex-shrink: 0; color: #FB2E0A; margin-top: 2px; }
+/* Preço interno do card fica oculto (a proposta ainda o lê no DOM); o valor exibido é o .ee-plans__value */
+.ee-plans .ee-packs__price { display: none; }
+
+/* Painel de total — texto sobre o gradiente (sem vidro) */
+.ee-plans__total {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: clamp(36px, 6vw, 110px);
+  margin-top: clamp(26px, 3.6vw, 52px);
+  padding-top: clamp(26px, 3.6vw, 52px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.ee-plans__total-value { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ee-plans__total-line { display: flex; align-items: flex-start; gap: clamp(6px, 0.8vw, 14px); }
+.ee-plans__total-x { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(18px, 2vw, 30px); line-height: 1; color: #fff; padding-top: 0.34em; white-space: nowrap; }
+.ee-plans__total-x sup { font-size: 0.62em; }
+.ee-plans__total-big {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+  font-size: clamp(40px, 5.4vw, 76px); line-height: 1; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums; white-space: nowrap; padding: 0.05em 0;
+  background: linear-gradient(95deg, #ffffff 50%, #FFD2A6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ee-plans__total-avista { margin-top: clamp(8px, 1.1vw, 14px); font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(14px, 1.4vw, 18px); line-height: 1.4; color: rgba(255, 255, 255, 0.9); }
+.ee-plans__cta {
+  margin-top: 0;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: none; cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(14px, 1.2vw, 16px);
+  color: #2a1400; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 16px 26px; border-radius: 999px;
+  background: linear-gradient(135deg, #FFD60A 0%, #FFB300 100%);
+  box-shadow: 0 16px 40px rgba(255, 180, 20, 0.38);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.ee-plans__cta:hover { transform: translateY(-2px); box-shadow: 0 20px 48px rgba(255, 180, 20, 0.5); }
+.ee-plans__cta:active { transform: translateY(0); }
+.ee-plans__cta.is-selected { background: linear-gradient(135deg, #1f7a2e 0%, #155c22 100%); box-shadow: 0 16px 40px rgba(21, 92, 34, 0.4); color: #fff; }
+
+/* Social Media na nova seção (sobre o gradiente) */
+.ee-plans .ee-pricing__bundle-footer { margin-top: clamp(26px, 3.4vw, 48px); }
+.ee-plans .ee-proposal__addon-heading { color: #fff; }
+
+/* Responsivo */
+@media (max-width: 980px) {
+  .ee-plans__grid { grid-template-columns: 1fr; }
+}
+
+/* Movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .ee-plans__bg::before { animation: none; }
+}
 </style>
 <style id="v4-proposal-select-styles">
   /* ===== Botão "Selecionar este pacote" nos cards ===== */
@@ -6706,32 +6821,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SEÇÃO — ANCORAGEM (placeholder: texto único centralizado)     -->
-<!-- ============================================================ -->
-<section id="ancoragem" class="ee-anchor" aria-label="Seu investimento: antes e agora">
-  <div class="ee-anchor__inner">
-    <div class="ee-anchor__carousel">
-      <div class="ee-anchor__viewport">
-        <div class="ee-anchor__track">
-          <div class="ee-anchor__slide">
-            <img class="ee-anchor__img" data-anchor="before" src="assets/ancoragem_ee_pdv.webp" alt="Quanto a Estruturação Estratégica normalmente custaria"/>
-          </div>
-          <div class="ee-anchor__slide">
-            <img class="ee-anchor__img" data-anchor="after" src="assets/ancoragem_ee_real_pdv.webp" alt="Seu investimento com a condição exclusiva"/>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="ee-anchor__nav ee-anchor__nav--prev" aria-label="Imagem anterior">&#8249;</button>
-      <button type="button" class="ee-anchor__nav ee-anchor__nav--next" aria-label="Próxima imagem">&#8250;</button>
-      <div class="ee-anchor__dots" role="tablist" aria-label="Antes e agora">
-        <button type="button" class="ee-anchor__dot is-active" data-go="0" aria-label="Antes"></button>
-        <button type="button" class="ee-anchor__dot" data-go="1" aria-label="Agora"></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
 <!-- SEÇÃO — HANDOFF (ancoragem EE → Executar, timeline contínua)   -->
 <!-- ============================================================ -->
 <section id="executar" class="ee-handoff" aria-label="A V4 te ajuda na execução do plano — benefício exclusivo">
@@ -6748,19 +6837,54 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO 11 — PREÇOS (toggle E.E vs Bundle)                      -->
 <!-- ============================================================ -->
-<section id="precos" class="ee-pricing" data-active-pack="s" aria-label="Tabela de preços">
-  <div class="ee-pricing__inner">
+<section id="precos" class="ee-pricing ee-plans" data-active-pack="m" aria-label="Contratação combinada">
+  <div class="ee-plans__bg" aria-hidden="true"></div>
+  <div class="ee-pricing__inner ee-plans__inner">
 
     <div class="ee-pricing__panels">
       <div class="ee-pricing__panel is-active">
 
-        <header class="ee-pricing__bundle-head">
-          <h3 class="ee-pricing__bundle-title">Combo Executar <span class="ee-pricing__bundle-model" data-combo-model>- PDV - AQUISIÇÃO</span></h3>
-          <p class="ee-pricing__bundle-sub">A operação contínua que coloca o seu plano pra rodar.</p>
-        </header>
+        <div class="ee-plans__card">
+          <div class="ee-plans__badge">Contratação Combinada</div>
+          <div class="ee-plans__grid">
 
-        <!-- Combos Performance — 4 tiers por modelo de vendas (variantes trocadas pelo seletor) -->
-        <div class="ee-packs-models">
+            <!-- VIDRO 1 — Estruturação Estratégica -->
+            <article class="ee-glass ee-plans__ee">
+              <div class="ee-plans__ee-head">
+                <img src="assets/Eelogo3.png" alt="Estruturação Estratégica 3.0" class="ee-plans__ee-logo"/>
+                <span class="ee-plans__model-tag" data-ee-model>PDV</span>
+              </div>
+              <p class="ee-plans__label">O que você vai receber</p>
+              <ul class="ee-plans__weeks">
+                <li><span class="wk">Semana 1</span><span class="wd">Descoberta e pesquisa de mercado</span></li>
+                <li><span class="wk">Semana 2</span><span class="wd">Diagnóstico digital e posicionamento</span></li>
+                <li><span class="wk">Semana 3</span><span class="wd">Estrutura da operação</span></li>
+                <li><span class="wk">Semana 4</span><span class="wd">Identidade e plano de mídia</span></li>
+              </ul>
+              <p class="ee-plans__value"><span data-ee-value>R$ 36.120</span><small>setup · investimento único</small></p>
+            </article>
+
+            <div class="ee-plans__plus" aria-hidden="true">+</div>
+
+            <!-- VIDRO 2 — Combo Performance -->
+            <article class="ee-glass ee-plans__combo">
+              <h3 class="ee-plans__ctitle">Combo Performance</h3>
+              <div class="ee-plans__invest">
+                <label class="ee-plans__invest-label" for="ee-invest">Investimento em mídia</label>
+                <div class="ee-plans__select-wrap">
+                  <select id="ee-invest" class="ee-plans__select" data-invest-select aria-label="Investimento em mídia por mês">
+                    <option value="s">R$ 2k – 5k / mês</option>
+                    <option value="m" selected>R$ 5k – 15k / mês</option>
+                    <option value="l">R$ 15k – 50k / mês</option>
+                    <option value="xl">R$ 50k+ / mês</option>
+                  </select>
+                  <svg class="ee-plans__select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+              </div>
+              <p class="ee-plans__label">O que você vai receber</p>
+
+              <!-- Conteúdo reaproveitado: 3 modelos × 4 faixas (ganchos da proposta preservados) -->
+              <div class="ee-packs-models">
 
           <!-- ===== MODELO: PDV ===== -->
           <div class="ee-packs__variant is-shown" data-pack-variant="pdv">
@@ -6999,29 +7123,47 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             </div>
           </div>
 
-        </div><!-- /.ee-packs-models -->
+              </div><!-- /.ee-packs-models -->
 
-        <!-- Rodapé do bundle: Social Media (Leve também) + CTA único, ANTES de seguir -->
-        <!-- Some quando E.E está ativo (E.E tem CTA próprio e não leva add-on) -->
-        <div class="ee-pricing__bundle-footer">
-          <div class="ee-proposal__addon-section">
-            <h3 class="ee-proposal__addon-heading">Leve também</h3>
-            <div class="ee-proposal__addon" data-addon="socialMedia" data-checked="false">
-              <div class="ee-proposal__addon-card">
-                <img src="assets/SocialMediaBanner.png" alt="Pacote Social Media — gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões" class="ee-proposal__addon-banner"/>
+              <p class="ee-plans__value"><span data-combo-value>R$ 9.937</span><small>/mês · plano de 6 meses</small></p>
+            </article><!-- /.ee-plans__combo -->
+
+          </div><!-- /.ee-plans__grid -->
+
+          <!-- TOTAL — abaixo dos cards, centralizado -->
+          <aside class="ee-plans__total">
+            <div class="ee-plans__total-value">
+              <div class="ee-plans__total-line">
+                <span class="ee-plans__total-x">12<sup>x</sup></span>
+                <span class="ee-plans__total-big" data-total-12x>R$ —</span>
               </div>
-              <button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
-                <span class="ee-proposal__addon-check" aria-hidden="true"></span>
-                <span class="ee-proposal__addon-action">Adicionar este pacote</span>
-              </button>
+              <span class="ee-plans__total-avista">Ou <span data-total-avista>R$ —</span> à vista</span>
+            </div>
+            <button type="button" class="ee-plans__cta" data-plans-cta>Selecionar pacote
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </button>
+          </aside>
+
+          <!-- Social Media — Leve também -->
+          <div class="ee-pricing__bundle-footer">
+            <div class="ee-proposal__addon-section">
+              <h3 class="ee-proposal__addon-heading">Leve também</h3>
+              <div class="ee-proposal__addon" data-addon="socialMedia" data-checked="false">
+                <div class="ee-proposal__addon-card">
+                  <img src="assets/SocialMediaBanner.png" alt="Pacote Social Media — gestão de mídia, produção de conteúdo, ambientes, relatórios, atendimento e reuniões" class="ee-proposal__addon-banner"/>
+                </div>
+                <button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
+                  <span class="ee-proposal__addon-check" aria-hidden="true"></span>
+                  <span class="ee-proposal__addon-action">Adicionar este pacote</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+
+        </div><!-- /.ee-plans__card -->
 
       </div>
-
     </div>
-
   </div>
 </section>
 
@@ -7328,7 +7470,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
     // simulador (interativo de arrastar — não pode ser escalado por transform),
     // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
-    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, ancoragem: 1, garantia: 1, cases: 1, recap: 1, definicao: 1, estrutura: 1 };
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, garantia: 1, cases: 1, recap: 1, definicao: 1, estrutura: 1 };
     var sections = [];
 
     var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
@@ -7916,41 +8058,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     updateCombos();
     window.addEventListener('v4-sales-model-change', updateCombos);
-  });
-
-  // ── ANCORAGEM (#ancoragem): carrossel "antes → depois" por modelo de vendas ──
-  document.addEventListener('DOMContentLoaded', function () {
-    var section = document.getElementById('ancoragem');
-    if (!section) return;
-    var track     = section.querySelector('.ee-anchor__track');
-    var imgBefore = section.querySelector('[data-anchor="before"]');
-    var imgAfter  = section.querySelector('[data-anchor="after"]');
-    var dots      = section.querySelectorAll('.ee-anchor__dot');
-    var prevBtn   = section.querySelector('.ee-anchor__nav--prev');
-    var nextBtn   = section.querySelector('.ee-anchor__nav--next');
-    var FILE_KEY  = { 'pdv': 'pdv', 'inside-sales': 'inside', 'e-commerce': 'ecommerce' };
-    var slide = 0;
-
-    function go(i) {
-      slide = (i + 2) % 2;
-      if (track) track.style.transform = 'translateX(' + (-100 * slide) + '%)';
-      [].forEach.call(dots, function (d, di) { d.classList.toggle('is-active', di === slide); });
-    }
-    if (prevBtn) prevBtn.addEventListener('click', function () { go(slide - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { go(slide + 1); });
-    [].forEach.call(dots, function (d) {
-      d.addEventListener('click', function () { go(parseInt(d.getAttribute('data-go'), 10) || 0); });
-    });
-
-    function updateModel() {
-      var model = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
-      var key = FILE_KEY[model] || 'pdv';
-      if (imgBefore) imgBefore.src = 'assets/ancoragem_ee_' + key + '.webp';
-      if (imgAfter)  imgAfter.src  = 'assets/ancoragem_ee_real_' + key + '.webp';
-      go(0); // ao trocar de modelo, volta pro "antes"
-    }
-    updateModel();
-    window.addEventListener('v4-sales-model-change', updateModel);
   });
 
   // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
@@ -8766,14 +8873,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var EE_PRICE = 'R$ 20.000,00';            // fallback Estruturação Estratégica (setup, pagamento único)
   // Valor de FACE da Estruturação Estratégica por modelo de vendas (string p/ exibir + número p/ calcular)
   var EE_PRICE_BY_MODEL = {
-    'pdv':          'R$ 19.639,26',
-    'inside-sales': 'R$ 20.878,28',
-    'e-commerce':   'R$ 19.647,70'
+    'pdv':          'R$ 36.120,59',
+    'inside-sales': 'R$ 36.397,89',
+    'e-commerce':   'R$ 36.263,06'
   };
   var EE_PRICE_NUM_BY_MODEL = {
-    'pdv':          19639.26,
-    'inside-sales': 20878.28,
-    'e-commerce':   19647.70
+    'pdv':          36120.59,
+    'inside-sales': 36397.89,
+    'e-commerce':   36263.06
   };
   // Condições de pagamento do RECORRENTE — % de desconto + se é "à vista" (paga o TCV de uma vez)
   var REC_TERMS = [
@@ -9365,6 +9472,113 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.classList.add('is-open');
     setTimeout(function () { refs.cliente.focus(); }, 50);
   };
+})();
+</script>
+
+<script id="ee-plans-script">
+(function () {
+  function init() {
+    var section = document.getElementById('precos');
+    if (!section || !section.classList.contains('ee-plans')) return;
+
+    var sel        = section.querySelector('[data-invest-select]');
+    var eeValueEl  = section.querySelector('[data-ee-value]');
+    var modelTagEl = section.querySelector('[data-ee-model]');
+    var comboValEl = section.querySelector('[data-combo-value]');
+    var total12El  = section.querySelector('[data-total-12x]');
+    var totalAvEl  = section.querySelector('[data-total-avista]');
+    var cta        = section.querySelector('[data-plans-cta]');
+
+    var activeTier = section.getAttribute('data-active-pack') || 'm';
+    var committed  = false;
+
+    // E.E — valor (parte inteira) e descrição da Semana 3 por modelo de vendas
+    var EE_VAL = { 'pdv': 'R$ 36.120', 'inside-sales': 'R$ 36.397', 'e-commerce': 'R$ 36.263' };
+    var EE_NUM = { 'pdv': 36120.59, 'inside-sales': 36397.89, 'e-commerce': 36263.06 };
+    var MODEL_TAG = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+
+    function currentModel() {
+      var m = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
+      return EE_VAL[m] ? m : 'pdv';
+    }
+    function shownVariant() { return section.querySelector('.ee-packs__variant.is-shown'); }
+
+    function comboPriceStripped() {
+      var v = shownVariant(); if (!v) return '';
+      var card = v.querySelector('.ee-packs__card.is-active-tier');
+      var p = card && card.querySelector('.ee-packs__price');
+      if (!p) return '';
+      return (p.childNodes[0] ? p.childNodes[0].nodeValue : p.textContent).replace(/\s+/g, ' ').trim();
+    }
+    function comboNumActive() {
+      var v = shownVariant(); if (!v) return 0;
+      var card = v.querySelector('.ee-packs__card.is-active-tier');
+      var p = card && card.querySelector('.ee-packs__price');
+      var full = p && p.getAttribute('data-full');
+      return full ? (parseFloat(full.replace(/[^\d,]/g, '').replace(',', '.')) || 0) : 0;
+    }
+    function fmtBRL0(n) { return 'R$ ' + Math.round(n).toLocaleString('pt-BR'); }
+
+    function showActiveTier() {
+      var v = shownVariant(); if (!v) return;
+      var cards = v.querySelectorAll('.ee-packs__card');
+      for (var i = 0; i < cards.length; i++) {
+        var b = cards[i].querySelector('[data-pack-cta]');
+        var t = b ? b.getAttribute('data-pack-cta').replace('bundle-', '') : '';
+        cards[i].classList.toggle('is-active-tier', t === activeTier);
+      }
+    }
+
+    function render() {
+      showActiveTier();
+      var m = currentModel();
+      if (eeValueEl) eeValueEl.textContent = EE_VAL[m];
+      if (modelTagEl) modelTagEl.textContent = MODEL_TAG[m];
+      if (comboValEl) comboValEl.textContent = comboPriceStripped();
+      // Total (PROVISÓRIO): TCV = E.E (setup) + Combo × 6 · 12x cartão (-20%) · à vista (-30%)
+      var tcv = (EE_NUM[m] || 0) + comboNumActive() * 6;
+      if (total12El) total12El.textContent = fmtBRL0(tcv * 0.80 / 12);
+      if (totalAvEl) totalAvEl.textContent = fmtBRL0(tcv * 0.70);
+    }
+
+    function commit() {
+      if (window.V4Proposal && window.V4Proposal.select) {
+        window.V4Proposal.select('bundle-' + activeTier);
+        committed = true;
+      }
+    }
+
+    if (sel) {
+      sel.value = activeTier;
+      sel.addEventListener('change', function () {
+        activeTier = sel.value;
+        section.setAttribute('data-active-pack', activeTier);
+        render();
+        if (committed) commit();
+      });
+    }
+
+    if (cta) cta.addEventListener('click', commit);
+
+    window.addEventListener('v4-proposal-change', function () {
+      var sol = (window.V4Proposal && window.V4Proposal.get && window.V4Proposal.get().solution) || null;
+      var mine = sol === ('bundle-' + activeTier);
+      if (cta) {
+        cta.classList.toggle('is-selected', mine);
+        if (cta.firstChild) cta.firstChild.nodeValue = mine ? 'Pacote selecionado ' : 'Selecionar pacote ';
+      }
+      if (!sol) committed = false;
+    });
+
+    // updateCombos() (registrado antes) troca a variante visível no model-change;
+    // re-renderizamos a faixa + valores logo após.
+    window.addEventListener('v4-sales-model-change', function () { render(); });
+
+    render();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 
