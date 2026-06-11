@@ -9373,6 +9373,13 @@ document.addEventListener('DOMContentLoaded', function() {
         '</div>' +
       '</div>';
     }
+    // Linha "Cupom aprovado" — aparece no PDF (diferente da caixa de input). Preenchida via JS quando há cupom.
+    function couponApproved(prefix) {
+      return '<div class="coupon-approved" id="' + prefix + '-coupon-approved" hidden>' +
+        '<svg class="coupon-approved__check" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>' +
+        '<span class="coupon-approved__txt"><strong>Cupom aprovado</strong> <span id="' + prefix + '-coupon-detail"></span></span>' +
+      '</div>';
+    }
 
     // ===== Blocos alternativos da proposta SOMENTE Estruturação Estratégica =====
     var eeInvBlock =
@@ -9386,6 +9393,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<option value="boleto3" data-disc="0" data-parc="3">Boleto em 3× · sem desconto</option>' +
             '</select></div>' +
           couponField('ee', 'acumulativo sobre a face · uso interno (não aparece no PDF)') +
+          couponApproved('ee') +
         '</div>' +
         '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica 3.0 é um investimento pontual (pagamento único). Esta proposta não inclui o Combo Executar — portanto, sem mensalidade.</span></p>' +
       '</section>' +
@@ -9402,16 +9410,20 @@ document.addEventListener('DOMContentLoaded', function() {
       'function old(v){return "<span class=inv-num-old>"+brl(v)+"</span>";}' +
       'function pct(v){return Math.max(0,Math.min(100,parseFloat(v)||0));}' +
       'var payEE=el("pay-ee"),eeCpn=el("ee-coupon"),eeVal=el("inv-ee-val"),sumEE=el("sum-ee"),sumTcv=el("sum-tcv"),sumPay=el("sum-pay");' +
+      'var eeAppr=el("ee-coupon-approved"),eeDet=el("ee-coupon-detail");' +
+      'function showCpn(appr,det,cpn,parts){if(!appr||!det)return;if(cpn>0){det.innerHTML=" ("+cpn+"%) · "+parts.map(function(p){return "<span class=cpn-prod>"+p.name+" −"+brl(p.base*cpn/100)+"</span>";}).join(" · ");appr.removeAttribute("hidden");}else{det.innerHTML="";appr.setAttribute("hidden","");}}' +
       'function render(){' +
         'var o=payEE?payEE.options[payEE.selectedIndex]:null;' +
         'var d=o?(parseFloat(o.getAttribute("data-disc"))||0):0;' +
         'var parc=o?(parseFloat(o.getAttribute("data-parc"))||0):0;' +
-        'var off=Math.min(100,d+(eeCpn?pct(eeCpn.value):0));' +
+        'var cpnPct=eeCpn?pct(eeCpn.value):0;' +
+        'var off=Math.min(100,d+cpnPct);' +
         'var fin=eeBase*(1-off/100);' +
         'var disp=off?(old(eeBase)+brl(fin)+"<span class=inv-discount-tag>-"+off+"%</span>"):brl(eeBase);' +
         'if(eeVal)eeVal.innerHTML=disp;' +
         'if(sumEE)sumEE.innerHTML=disp;' +
         'if(sumTcv)sumTcv.innerHTML=(off?old(eeBase):"")+brl(fin);' +
+        'showCpn(eeAppr,eeDet,cpnPct,[{name:"Estruturação Estratégica",base:eeBase}]);' +
         'var how=o?((parc?(parc+"× de "+brl(fin/parc)):brl(fin))+" · "+o.text):(brl(fin)+" · forma a definir");' +
         'if(sumPay)sumPay.textContent=how;' +
       '}' +
@@ -9566,6 +9578,11 @@ document.addEventListener('DOMContentLoaded', function() {
 '.coupon-input:focus { outline: none; border-color: #C41E08; box-shadow: 0 0 0 3px rgba(196,30,8,.12); }' +
 '.coupon-pct { font-size: 14px; font-weight: 700; color: #7A0A02; margin-left: -2px; }' +
 '.coupon-suffix { font-size: 12px; font-weight: 600; color: rgba(40,0,0,.55); }' +
+'.coupon-approved { display: flex; align-items: flex-start; gap: 8px; margin-top: 10px; padding: 9px 13px; border-radius: 10px; background: #f1faf2; border: 1.5px solid #1f9d4d; color: #14672f; font-size: 12.5px; line-height: 1.45; }' +
+'.coupon-approved[hidden] { display: none; }' +
+'.coupon-approved__check { flex: 0 0 auto; margin-top: 1px; color: #1f9d4d; }' +
+'.coupon-approved__txt strong { color: #14672f; }' +
+'.coupon-approved__txt .cpn-prod { white-space: nowrap; }' +
 '@media print { .coupon-field { display: none !important; } }' +
 '@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group, .summary-card { break-inside: avoid; } .pillar, .inv-group { box-shadow: none !important; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
@@ -9599,11 +9616,13 @@ document.addEventListener('DOMContentLoaded', function() {
             '<option value="boleto3" data-disc="0" data-parc="3">Boleto em 3× · sem desconto</option>' +
           '</select></div>' +
         couponField('ee', 'acumulativo sobre a face · uso interno (não aparece no PDF)') +
+        couponApproved('ee') +
       '</div>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table>' +
         '<div class="pay-field"><label class="pay-field__label" for="pay-rec">Forma de pagamento</label>' +
           '<select class="pay-field__select" id="pay-rec">' + recOptions + '</select></div>' +
         couponField('rec', 'acumulativo sobre o recorrente · uso interno (não aparece no PDF)') +
+        couponApproved('rec') +
       '</div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Executar é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
@@ -9640,17 +9659,21 @@ document.addEventListener('DOMContentLoaded', function() {
   'var eeVal=el("inv-ee-val"),comboVal=el("inv-combo-val"),socVal=el("inv-social-val"),totalVal=el("inv-total-val");' +
   'var payEE=el("pay-ee"),eeCpn=el("ee-coupon"),payRec=el("pay-rec"),recCpn=el("rec-coupon");' +
   'var sumEE=el("sum-ee"),sumRec=el("sum-rec"),sumTcv=el("sum-tcv"),sumPay=el("sum-pay");' +
+  'var eeAppr=el("ee-coupon-approved"),eeDet=el("ee-coupon-detail"),recAppr=el("rec-coupon-approved"),recDet=el("rec-coupon-detail");' +
+  'function showCpn(appr,det,cpn,parts){if(!appr||!det)return;if(cpn>0){det.innerHTML=" ("+cpn+"%) · "+parts.map(function(p){return "<span class=cpn-prod>"+p.name+" −"+brl(p.base*cpn/100)+"</span>";}).join(" · ");appr.removeAttribute("hidden");}else{det.innerHTML="";appr.setAttribute("hidden","");}}' +
   'function render(){' +
     'var oE=payEE?payEE.options[payEE.selectedIndex]:null;' +
     'var eeD=oE?(parseFloat(oE.getAttribute("data-disc"))||0):0;' +
     'var eeParc=oE?(parseFloat(oE.getAttribute("data-parc"))||0):0;' +
-    'var eeOff=Math.min(100,eeD+(eeCpn?pct(eeCpn.value):0));' +
+    'var eeCpnPct=eeCpn?pct(eeCpn.value):0;' +
+    'var eeOff=Math.min(100,eeD+eeCpnPct);' +
     'var eeFinal=eeBase*(1-eeOff/100);' +
     'var oR=payRec?payRec.options[payRec.selectedIndex]:null;' +
     'var recD=oR?(parseFloat(oR.getAttribute("data-disc"))||0):0;' +
     'var aVista=oR?oR.getAttribute("data-avista")==="1":false;' +
     'var recParc=oR?(parseFloat(oR.getAttribute("data-parc"))||0):0;' +
-    'var recOff=Math.min(100,recD+(recCpn?pct(recCpn.value):0));' +
+    'var recCpnPct=recCpn?pct(recCpn.value):0;' +
+    'var recOff=Math.min(100,recD+recCpnPct);' +
     'var recFactor=1-recOff/100;' +
     'var comboFinal=comboBase*recFactor;' +
     'var socFinal=socNum*recFactor;' +
@@ -9664,6 +9687,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'if(sumEE)sumEE.innerHTML=eeOff?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-"+eeOff+"%</span>"):brl(eeBase);' +
     'if(sumRec)sumRec.innerHTML=(recOff?old(origMonthly):"")+brl(monthly)+"/mês × "+FID+" = "+brl(recTCV);' +
     'if(sumTcv)sumTcv.innerHTML=(tcvFinal<tcvOrig-0.005?old(tcvOrig):"")+brl(tcvFinal);' +
+    'showCpn(eeAppr,eeDet,eeCpnPct,[{name:"Estruturação Estratégica",base:eeBase}]);' +
+    'showCpn(recAppr,recDet,recCpnPct,hasSoc?[{name:"Executar",base:comboBase},{name:"Social Media",base:socNum}]:[{name:"Executar",base:comboBase}]);' +
     'var eePart=eeParc?(eeParc+"× de "+brl(eeFinal/eeParc)+" (E.E"+(eeOff?" · -"+eeOff+"%":"")+")"):(brl(eeFinal)+" (E.E"+(eeOff?" · -"+eeOff+"%":"")+")");' +
     'var recPart=aVista?(brl(recTCV)+" à vista (TCV)"):(recParc?(recParc+"× de "+brl(recTCV/recParc)+"/mês"):(FID+"× de "+brl(monthly)+"/mês"));' +
     'if(sumPay)sumPay.textContent=eePart+" + "+recPart;' +
