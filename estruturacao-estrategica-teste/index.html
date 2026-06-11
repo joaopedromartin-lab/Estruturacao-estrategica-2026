@@ -222,10 +222,14 @@
   /* Preços + Proposta: clipam só o sangramento lateral das imagens dos packs */
   #top > #precos,
   #top > #proposta { overflow: hidden; }
+  /* Preços: badge "Contratação Combinada" mais próximo do topo (padding-top menor).
+     Padding-bottom ampliado pra dar área da cúpula + ênfase no fechamento do valor. */
+  #top > #precos { padding-top: clamp(36px, 6vh, 72px); padding-bottom: clamp(80px, 12vh, 180px); }
   /* Crescer: conteúdo posicionado de forma absoluta → precisa de altura mínima própria */
   #top > #crescer { min-height: clamp(540px, 72vh, 860px); }
-  /* Executar (handoff): tela cheia, conteúdo centralizado sobre o fundo */
-  #top > #executar { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  /* Executar (handoff): altura ampla porém controlada (não tela cheia), conteúdo centralizado no meio.
+     Antes era 100vh, o que deixava um vão enorme entre o texto e a seção de preços. */
+  #top > #executar { min-height: clamp(600px, 70vh, 880px); display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(120px, 18vh, 260px); }
 }
 
 /* === HERO === */
@@ -3224,17 +3228,29 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-handoff {
   position: relative;
   background:
-    #280000 url('assets/Garantiaexecutar.png') center / cover no-repeat;
+    #280000 url('assets/Garantiaexecutar.png') center 12% / cover no-repeat;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
   overflow: hidden;
 }
+/* Fade da base até a cor do topo da seção de Preços (#FB2E0A) — emenda sem corte visível */
+.ee-handoff::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: clamp(140px, 26vh, 280px);
+  background: linear-gradient(180deg, rgba(251, 46, 10, 0) 0%, #FB2E0A 100%);
+  pointer-events: none;
+  z-index: 1;
+}
 .ee-handoff__inner {
+  position: relative;
+  z-index: 2;
   max-width: 1400px;
   margin: 0 auto;
 }
 .ee-handoff__header {
   text-align: center;
-  margin-bottom: clamp(56px, 7vh, 96px);
+  margin-bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -5064,7 +5080,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans__bg::before {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, #FB2E0A 0%, #7A0A02 55%, #560303 100%);   /* claro em cima → escuro embaixo */
+  background: linear-gradient(180deg, #FB2E0A 0%, #7A0A02 50%, #C41E08 100%);   /* claro em cima → mais vivo embaixo (sem faixa escura no fechamento) */
+}
+/* Cúpula no rodapé — mesma imagem do handoff (#executar), fechando a página com ênfase no valor.
+   Máscara faz a imagem surgir do topo pra baixo, emendando sem costura no gradiente acima. */
+.ee-plans__bg::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: clamp(760px, 100vh, 1400px);
+  background: url('assets/Garantiaexecutar.png') center bottom / cover no-repeat;
+  -webkit-mask: linear-gradient(180deg, transparent 0%, #000 22%);
+  mask: linear-gradient(180deg, transparent 0%, #000 22%);
+  pointer-events: none;
 }
 @keyframes ee-plans-shift {
   from { transform: scale(1.08) translate3d(-1.6%, -1%, 0); }
@@ -5074,7 +5101,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Selo dourado — centralizado no topo da seção */
 .ee-plans__badge {
   display: flex; width: fit-content; justify-content: center; align-items: center;
-  margin: 0 auto clamp(24px, 3.6vh, 46px);
+  margin: clamp(-26px, -2.4vh, -12px) auto clamp(48px, 7.2vh, 92px);
   padding: clamp(12px, 1.4vw, 18px) clamp(26px, 3vw, 52px);
   border-radius: 14px;
   background: linear-gradient(180deg, #FFC23D 0%, #E0890C 52%, #C2700A 100%);
@@ -5083,7 +5110,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-weight: 700; font-size: clamp(13px, 1.2vw, 17px);
   letter-spacing: 0.14em; text-transform: uppercase;
   border: 1.5px solid rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0 12px rgba(255, 196, 38, 0.38), 0 0 30px rgba(255, 196, 38, 0.2), 0 12px 26px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 196, 38, 0.6), 0 0 50px rgba(255, 196, 38, 0.4), 0 0 90px rgba(255, 170, 20, 0.26), 0 12px 26px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   white-space: nowrap;
 }
 
@@ -5112,7 +5139,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   -webkit-backdrop-filter: blur(40px) saturate(1.2);
           backdrop-filter: blur(40px) saturate(1.2);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.22);
-  padding: clamp(22px, 2.4vw, 36px);
+  padding: clamp(22px, 2.4vw, 36px) clamp(22px, 2.4vw, 36px) clamp(34px, 3.4vw, 52px);
+  min-height: clamp(480px, 59vh, 700px);
 }
 .ee-glass::before { display: none; }   /* sheen interno removido */
 .ee-glass > * { position: relative; z-index: 1; }
@@ -5147,6 +5175,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans__weeks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 18px); }
 .ee-plans__weeks .wk { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(10px, 0.9vw, 12px); text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255, 255, 255, 0.55); }
 .ee-plans__weeks .wd { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(14px, 1.3vw, 17px); line-height: 1.3; color: #fff; margin-top: 3px; }
+.ee-plans__weeks .wd-sub { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(12px, 1vw, 13.5px); line-height: 1.4; color: rgba(255, 255, 255, 0.6); margin-top: 4px; }
 
 /* Valor (rodapé dos vidros) — empurrado pro fim do card */
 .ee-plans__value {
@@ -5157,11 +5186,33 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-variant-numeric: tabular-nums; color: #fff;
 }
 .ee-plans__value small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(10px, 0.9vw, 12px); letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-top: 8px; }
+/* Combo: rodapé do card — valor (mensal + contrato empilhados) à esquerda, CTA à direita */
+.ee-plans__combo-footer {
+  margin: auto 0 0; padding-top: clamp(16px, 2vw, 24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(16px, 2vw, 28px); flex-wrap: wrap;
+}
+.ee-plans__combo-footer .ee-plans__value { margin: 0; padding-top: 0; border-top: 0; }
+.ee-plans__combo-footer .ee-plans__cta { flex-shrink: 0; align-self: flex-end; }
+.ee-plans__value-main { display: block; }
+.ee-plans__contract { display: block; text-align: left; margin-top: 6px; }
 
 /* Dropdown — investimento em mídia */
 .ee-plans__invest { margin: 0 0 clamp(16px, 2vw, 22px); }
 .ee-plans__invest-label { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(12px, 1vw, 14px); color: rgba(255, 255, 255, 0.78); margin-bottom: 10px; }
 .ee-plans__select-wrap { position: relative; }
+.ee-plans__popular-flag { display: none; }
+#precos[data-active-pack="m"] .ee-plans__popular-flag {
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  margin: 0 0 10px; padding: 5px 12px; border-radius: 9999px;
+  background: linear-gradient(135deg, #FFD60A 0%, #FFB300 100%);
+  color: #2a1400;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+  font-size: clamp(10px, 0.85vw, 12px); letter-spacing: 0.04em; text-transform: uppercase;
+  box-shadow: 0 6px 18px rgba(255, 180, 20, 0.35);
+}
+.ee-plans__popular-flag i, .ee-plans__popular-flag svg { width: 13px; height: 13px; }
 .ee-plans__select {
   -webkit-appearance: none; appearance: none;
   width: 100%; cursor: pointer;
@@ -5229,6 +5280,60 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans__cta:hover { transform: translateY(-2px); box-shadow: 0 20px 48px rgba(255, 180, 20, 0.5); }
 .ee-plans__cta:active { transform: translateY(0); }
 .ee-plans__cta.is-selected { background: linear-gradient(135deg, #1f7a2e 0%, #155c22 100%); box-shadow: 0 16px 40px rgba(21, 92, 34, 0.4); color: #fff; }
+
+/* Resumo de pagamento — 2 colunas, aparece ao selecionar um pacote (substitui o total antigo) */
+.ee-plans__summary {
+  min-height: 100vh;
+  margin-top: clamp(26px, 3.6vw, 52px);
+  padding: clamp(48px, 9vh, 110px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3.5vw, 64px);
+  align-content: center;   /* slide de fechamento: colunas centralizadas na tela cheia */
+}
+.ee-plans__summary[hidden] { display: none; }
+.ee-plans__summary.is-ee-only { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+.ee-plans__summary.is-ee-only .ee-paycol--rec { display: none; }
+.ee-paycol { display: flex; flex-direction: column; min-width: 0; align-items: center; text-align: center; }
+.ee-paycol--rec { padding-left: clamp(16px, 2.6vw, 48px); border-left: 1px solid rgba(255, 255, 255, 0.12); }
+.ee-plans__summary.is-ee-only .ee-paycol { padding-left: 0; border-left: 0; }
+.ee-paycol__label { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(12px, 1.1vw, 16px); letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.62); margin-bottom: clamp(14px, 1.8vw, 24px); }
+.ee-paycol__cap { font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(10px, 0.85vw, 12px); letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); margin-top: 6px; }
+/* E.E — valor de face com âncora riscada */
+.ee-paycol__face { display: flex; align-items: baseline; justify-content: center; gap: clamp(8px, 1vw, 14px); flex-wrap: wrap; }
+.ee-paycol__face-old { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(16px, 1.8vw, 28px); color: rgba(255, 255, 255, 0.42); text-decoration: line-through; font-variant-numeric: tabular-nums; }
+.ee-paycol__face--ghost { visibility: hidden; }   /* espaçador: alinha o valor do combo com o 12x da EE */
+.ee-paycol__face-now { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(24px, 2.6vw, 38px); line-height: 1.05; color: #fff; font-variant-numeric: tabular-nums; }
+/* 12x em destaque */
+.ee-paycol__hl { margin-top: clamp(14px, 1.8vw, 22px); display: flex; align-items: baseline; justify-content: center; gap: clamp(8px, 1vw, 14px); flex-wrap: nowrap; white-space: nowrap; }
+.ee-paycol__hl-x { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(20px, 2.4vw, 38px); line-height: 1; color: #fff; white-space: nowrap; }
+.ee-paycol__hl-x sup { font-size: 0.62em; }
+.ee-paycol__hl-val {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+  font-size: clamp(36px, 5vw, 84px); line-height: 1; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+  background: linear-gradient(95deg, #ffffff 50%, #FFD2A6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ee-paycol__hl-tag { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(11px, 1vw, 15px); letter-spacing: 0.04em; text-transform: uppercase; color: #FFD60A; margin-top: 10px; }
+.ee-paycol__avista { font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(15px, 1.4vw, 21px); color: rgba(255, 255, 255, 0.8); margin-top: clamp(10px, 1.3vw, 16px); }
+.ee-paycol__avista strong { font-weight: 700; color: #fff; }
+/* Combo + Social — recorrente mensal */
+.ee-paycol__rec-val { margin-top: clamp(14px, 1.8vw, 22px); display: flex; align-items: baseline; justify-content: center; gap: 6px; white-space: nowrap; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 84px); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: #fff; }
+.ee-paycol__rec-val small { font-size: clamp(16px, 1.6vw, 26px); font-weight: 400; color: rgba(255, 255, 255, 0.55); }
+.ee-paycol__rec-lines { list-style: none; margin: clamp(14px, 1.8vw, 22px) 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ee-paycol__rec-lines li { display: flex; justify-content: center; gap: clamp(8px, 1vw, 14px); font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(13px, 1.15vw, 17px); color: rgba(255, 255, 255, 0.72); font-variant-numeric: tabular-nums; }
+@media (max-width: 720px) {
+  .ee-plans__summary { grid-template-columns: 1fr; gap: 0; }
+  .ee-paycol--rec { padding-left: 0; border-left: 0; margin-top: clamp(22px, 5vw, 30px); padding-top: clamp(22px, 5vw, 30px); border-top: 1px solid rgba(255, 255, 255, 0.12); }
+}
+
+/* Opção discreta: contratar apenas a Estruturação Estratégica (entre os cards e o valor) */
+.ee-plans__ee-only-wrap { width: 100%; text-align: center; margin: clamp(14px, 2vw, 22px) 0 0; }
+.ee-plans__ee-only { background: none; border: 0; cursor: pointer; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; line-height: 1.4; color: rgba(255, 255, 255, 0.4); text-decoration: none; padding: 6px 10px; transition: color 0.15s ease; }
+.ee-plans__ee-only:hover { color: rgba(255, 255, 255, 0.7); }
+.ee-plans__ee-only.is-active { color: #FFD60A; font-weight: 700; text-decoration: none; }
+.ee-plans__ee.is-ee-selected { box-shadow: 0 0 0 2px #FFD60A; border-radius: 16px; }
 
 /* Social Media na nova seção (sobre o gradiente) */
 .ee-plans .ee-pricing__bundle-footer { margin-top: clamp(26px, 3.4vw, 48px); }
@@ -6856,10 +6961,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               </div>
               <p class="ee-plans__label">O que você vai receber</p>
               <ul class="ee-plans__weeks">
-                <li><span class="wk">Semana 1</span><span class="wd">Descoberta e pesquisa de mercado</span></li>
-                <li><span class="wk">Semana 2</span><span class="wd">Diagnóstico digital e posicionamento</span></li>
-                <li><span class="wk">Semana 3</span><span class="wd">Estrutura da operação</span></li>
-                <li><span class="wk">Semana 4</span><span class="wd">Identidade e plano de mídia</span></li>
+                <li><span class="wk">Semana 1</span><span class="wd">Descoberta e pesquisa de mercado</span><span class="wd-sub">Persona e ICP, análise de concorrência, SWOT e pesquisa de mercado (TAM/SAM/SOM).</span></li>
+                <li><span class="wk">Semana 2</span><span class="wd">Diagnóstico digital e posicionamento</span><span class="wd-sub">Auditoria de mídia, orgânico e criativos + posicionamento, PUV e taglines.</span></li>
+                <li><span class="wk">Semana 3</span><span class="wd">Estrutura da operação</span><span class="wd-sub">Captação e conversão estruturadas sob medida para o seu modelo de vendas.</span></li>
+                <li><span class="wk">Semana 4</span><span class="wd">Identidade e plano de mídia</span><span class="wd-sub">Manual de marca, banco de copy, briefing de criativos e plano de mídia de 6 meses.</span></li>
               </ul>
               <p class="ee-plans__value"><span data-ee-value>R$ 36.120</span><small>setup · investimento único</small></p>
             </article>
@@ -6871,6 +6976,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <h3 class="ee-plans__ctitle">Combo Performance</h3>
               <div class="ee-plans__invest">
                 <label class="ee-plans__invest-label" for="ee-invest">Investimento em mídia</label>
+                <span class="ee-plans__popular-flag"><i data-lucide="star" aria-hidden="true"></i>Plano mais popular</span>
                 <div class="ee-plans__select-wrap">
                   <select id="ee-invest" class="ee-plans__select" data-invest-select aria-label="Investimento em mídia por mês">
                     <option value="s">R$ 2k – 5k / mês</option>
@@ -7125,24 +7231,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
               </div><!-- /.ee-packs-models -->
 
-              <p class="ee-plans__value"><span data-combo-value>R$ 9.937</span><small>/mês · plano de 6 meses</small></p>
+              <div class="ee-plans__combo-footer">
+                <p class="ee-plans__value"><span class="ee-plans__value-main"><span data-combo-value>R$ 9.937</span><small>/mês · plano de 6 meses</small><small class="ee-plans__contract">Total do contrato · <span data-combo-total>R$ 59.622</span></small></span></p>
+                <button type="button" class="ee-plans__cta ee-plans__cta--combo" data-plans-cta>Selecionar pacote
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                </button>
+              </div>
             </article><!-- /.ee-plans__combo -->
 
           </div><!-- /.ee-plans__grid -->
 
-          <!-- TOTAL — abaixo dos cards, centralizado -->
-          <aside class="ee-plans__total">
-            <div class="ee-plans__total-value">
-              <div class="ee-plans__total-line">
-                <span class="ee-plans__total-x">12<sup>x</sup></span>
-                <span class="ee-plans__total-big" data-total-12x>R$ —</span>
-              </div>
-              <span class="ee-plans__total-avista">Ou <span data-total-avista>R$ —</span> à vista</span>
-            </div>
-            <button type="button" class="ee-plans__cta" data-plans-cta>Selecionar pacote
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-            </button>
-          </aside>
+          <!-- Opção discreta: contratar apenas a Estruturação Estratégica -->
+          <div class="ee-plans__ee-only-wrap">
+            <button type="button" class="ee-plans__ee-only" data-ee-only aria-pressed="false">Seguir apenas com a Estruturação Estratégica 3.0</button>
+          </div>
 
           <!-- Social Media — Leve também -->
           <div class="ee-pricing__bundle-footer">
@@ -7159,6 +7261,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               </div>
             </div>
           </div>
+
+          <!-- RESUMO DE PAGAMENTO — aparece ao selecionar um pacote -->
+          <aside class="ee-plans__summary" data-pay-summary hidden>
+            <!-- Estruturação Estratégica (pontual) -->
+            <div class="ee-paycol ee-paycol--ee">
+              <span class="ee-paycol__label">Estruturação Estratégica 3.0</span>
+              <span class="ee-paycol__face"><span class="ee-paycol__face-old" data-ee-full>R$ —</span></span>
+              <div class="ee-paycol__hl">
+                <span class="ee-paycol__hl-x">12<sup>x</sup></span>
+                <span class="ee-paycol__hl-val" data-ee-12x>R$ —</span>
+              </div>
+              <span class="ee-paycol__hl-tag">no cartão · −20%</span>
+              <span class="ee-paycol__avista">ou <strong data-ee-avista>R$ —</strong> à vista · −30%</span>
+            </div>
+            <!-- Combo + Social (recorrente mensal, sem desconto) -->
+            <div class="ee-paycol ee-paycol--rec">
+              <span class="ee-paycol__label" data-rec-label>Combo Performance</span>
+              <span class="ee-paycol__face ee-paycol__face--ghost" aria-hidden="true"><span class="ee-paycol__face-old">R$ 0</span></span>
+              <span class="ee-paycol__rec-val"><span data-rec-monthly>R$ —</span><small>/mês</small></span>
+              <ul class="ee-paycol__rec-lines" data-rec-lines></ul>
+            </div>
+          </aside>
 
         </div><!-- /.ee-plans__card -->
 
@@ -8222,6 +8346,12 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       addons: { socialMedia: false }, // adicionais escolhidos
       get: function () { return { solution: this.solution, addons: Object.assign({}, this.addons) }; },
       select: function (solutionKey) {
+        if (solutionKey === null) {
+          this.solution = null;
+          saveState(this.get());
+          window.dispatchEvent(new CustomEvent('v4-proposal-change', { detail: this.get() }));
+          return true;
+        }
         if (!SOLUTIONS[solutionKey]) return false;
         this.solution = solutionKey;
         saveState(this.get());
@@ -8628,6 +8758,18 @@ document.addEventListener('DOMContentLoaded', function() {
           if (label) label.innerHTML = on ? 'Pacote selecionado' : 'Selecionar esse <span class="ee-packs__select-hl">Pacote</span>';
         }
       });
+      // Estado da opção "apenas Estruturação Estratégica"
+      var eeOnly = state.solution === 'ee';
+      var eeCard = document.querySelector('.ee-plans__ee');
+      if (eeCard) eeCard.classList.toggle('is-ee-selected', eeOnly);
+      var eeBtn = document.querySelector('[data-ee-only]');
+      if (eeBtn) {
+        eeBtn.classList.toggle('is-active', eeOnly);
+        eeBtn.setAttribute('aria-pressed', eeOnly ? 'true' : 'false');
+        eeBtn.textContent = eeOnly
+          ? 'Seguindo apenas com a Estruturação Estratégica 3.0 — remover'
+          : 'Seguir apenas com a Estruturação Estratégica 3.0';
+      }
     }
 
     // Social Media (mensal) — mesmo valor usado no gerador de PDF
@@ -8643,11 +8785,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Barra de resumo
     function renderBar(state) {
+      var isEE = state.solution === 'ee';
       var info = state.solution && PACK_INFO[state.solution];
       var hasPack = !!info;
-      var social = !!(state.addons && state.addons.socialMedia);
+      var social = !isEE && !!(state.addons && state.addons.socialMedia);
 
-      if (hasPack) {
+      if (isEE) {
+        var eeEl = document.querySelector('[data-ee-value]');
+        var modelEl = document.querySelector('[data-ee-model]');
+        var modelTxt = modelEl ? modelEl.textContent.trim() : '';
+        itemsEl.textContent = 'Apenas Estruturação Estratégica 3.0' + (modelTxt ? ' · ' + modelTxt : '') + ' · ' + (eeEl ? eeEl.textContent.trim() : '') + ' (setup · pagamento único)';
+      } else if (hasPack) {
         // lê o preço do card visível (reflete o valor por modelo de vendas)
         var shown = document.querySelector('.ee-packs__variant.is-shown') || document;
         var selBtn = shown.querySelector('[data-pack-cta="' + state.solution + '"]');
@@ -8670,12 +8818,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Mostra a barra se há qualquer seleção
-      var show = hasPack || social;
+      var canGen = isEE || hasPack;
+      var show = canGen || social;
       bar.classList.toggle('is-visible', show);
-      // CTA só habilita com um pacote escolhido (a proposta é sempre EE + Executar)
-      genBtn.disabled = !hasPack;
-      genBtn.style.opacity = hasPack ? '1' : '0.5';
-      genBtn.style.pointerEvents = hasPack ? 'auto' : 'none';
+      // CTA habilita com pacote (EE + Executar) OU apenas a Estruturação Estratégica
+      genBtn.disabled = !canGen;
+      genBtn.style.opacity = canGen ? '1' : '0.5';
+      genBtn.style.pointerEvents = canGen ? 'auto' : 'none';
     }
 
     function renderAll() {
@@ -8687,6 +8836,14 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('v4-proposal-change', renderAll);
 
     clearBtn.addEventListener('click', function () { window.V4Proposal.clear(); });
+
+    // Opção discreta: selecionar APENAS a Estruturação Estratégica (alterna)
+    var eeOnlyBtn = document.querySelector('[data-ee-only]');
+    if (eeOnlyBtn) eeOnlyBtn.addEventListener('click', function () {
+      var cur = window.V4Proposal.get().solution;
+      if (cur === 'ee') window.V4Proposal.clear();
+      else window.V4Proposal.select('ee');
+    });
 
     genBtn.addEventListener('click', function () {
       var state = window.V4Proposal.get();
@@ -8884,10 +9041,11 @@ document.addEventListener('DOMContentLoaded', function() {
   };
   // Condições de pagamento do RECORRENTE — % de desconto + se é "à vista" (paga o TCV de uma vez)
   var REC_TERMS = [
-    { key: 'avista',   label: 'À vista — Pix, boleto ou cartão (1×)', disc: 30, aVista: true },
-    { key: 'cartao12', label: 'Cartão parcelado em 12×',             disc: 20, aVista: false },
-    { key: 'cheque2',  label: 'Cheque em 2×',                        disc: 25, aVista: false },
-    { key: 'cheque6',  label: 'Cheque em 6×',                        disc: 15, aVista: false }
+    { key: 'avista',     label: 'À vista — Pix, boleto ou cartão (1×)', disc: 30, aVista: true,  parc: 1 },
+    { key: 'cartao12',   label: 'Cartão parcelado em 12×',             disc: 20, aVista: false, parc: 12 },
+    { key: 'cheque2',    label: 'Cheque em 2×',                        disc: 25, aVista: false, parc: 2 },
+    { key: 'cheque6',    label: 'Cheque em 6×',                        disc: 15, aVista: false, parc: 6 },
+    { key: 'boleto6',    label: 'Boleto/Pix recorrente em 6×',         disc: 0,  aVista: false, parc: 6 }
   ];
   var PACK_PRICE_NUM = { s: 6997, m: 9997, l: 16997, xl: 25497 }; // mensal Executar
   var SOCIAL_PRICE_NUM = 4053.75;          // Social Media (mensal)
@@ -9129,25 +9287,42 @@ document.addEventListener('DOMContentLoaded', function() {
   function buildProposalHTML(form, state) {
     var size = packSizeFromSolution(state.solution);
     var pack = PACK_DATA[size];
-    var social = !!(state.addons && state.addons.socialMedia);
+    var eeOnly = (state.solution === 'ee');                 // proposta SOMENTE Estruturação Estratégica
+    var social = !eeOnly && !!(state.addons && state.addons.socialMedia);
     var model = form.model && EE_WEEK3[form.model] ? form.model : 'e-commerce';
     var date = todayBR();
+    // URL absoluta do logo (o doc abre em janela nova via document.write — caminho relativo não resolve)
+    var logoURL = (function () {
+      try { return new URL('assets/EE-logo-preto.png', location.href).href; }
+      catch (e) { return 'assets/EE-logo-preto.png'; }
+    })();
+    // Fundo da capa (Frame 1.png — espaço em branco vira %20 no URL absoluto)
+    var frameURL = (function () {
+      try { return new URL('assets/Frame 1.png', location.href).href; }
+      catch (e) { return 'assets/Frame%201.png'; }
+    })();
 
     // Entregáveis EE (com Semana 03 conforme modelo)
-    var eeBlocks = EE_WEEKS.map(weekBlock).join('') + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4);
+    // Onboarding full-width no topo; depois 2 colunas fixas — Col1: Semanas 1 e 2 · Col2: Semanas 3 e 4
+    var eeBlocks = weekBlock(EE_WEEKS[0]) +
+      '<div class="ee-weeks">' +
+        '<div class="ee-col">' + weekBlock(EE_WEEKS[1]) + weekBlock(EE_WEEKS[2]) + '</div>' +
+        '<div class="ee-col">' + weekBlock(EE_WEEK3[model]) + weekBlock(EE_WEEK4) + '</div>' +
+      '</div>';
 
     // Preço do Combo Executar conforme modelo + tier (armazenado no PDF)
-    var comboPrice    = (COMBO_PRICE[model] && COMBO_PRICE[model][size]) || pack.price;
+    var comboPrice    = (COMBO_PRICE[model] && COMBO_PRICE[model][size]) || (pack ? pack.price : '');
     var comboPriceNum = (COMBO_PRICE_NUM[model] && COMBO_PRICE_NUM[model][size]) || (PACK_PRICE_NUM[size] || 0);
     var modelLabel    = MODEL_LABEL[model] || MODEL_LABEL['e-commerce'];
 
     // Pilares da oferta
-    var pillars =
-      '<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>' +
-      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Executar</h3><p>' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + '. A operação contínua que coloca o plano pra rodar.</p></div>' +
+    var pillars = eeOnly
+      ? '<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica 3.0</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>'
+      : ('<div class="pillar"><span class="pillar__tag">Setup · 30 dias</span><h3>Estruturação Estratégica</h3><p>Sprint de 4 semanas que monta o plano: diagnóstico, ICP, posicionamento, ambientes e plano de mídia de 6 meses.</p></div>' +
+      '<div class="pillar"><span class="pillar__tag">Recorrente · mensal</span><h3>Executar</h3><p>' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack ? pack.media : '') + '. A operação contínua que coloca o plano pra rodar.</p></div>' +
       (social
         ? '<div class="pillar pillar--add"><span class="pillar__tag">Adicional</span><h3>Social Media</h3><p>Gestão de 2 redes, conteúdo (posts + reels), perfis, relatórios e moderação.</p></div>'
-        : '');
+        : ''));
 
     // Tabela 3 colunas (Componente | Entrega | SLA) do Combo Executar
     var comboMeta  = COMBO_META[model] || [];
@@ -9182,8 +9357,70 @@ document.addEventListener('DOMContentLoaded', function() {
     // Opções do seletor de forma de pagamento do RECORRENTE (aplica desconto sobre o Executar)
     var recOptions = '<option value="">Selecione a forma de pagamento...</option>' +
       REC_TERMS.map(function (t) {
-        return '<option value="' + t.key + '" data-disc="' + t.disc + '" data-avista="' + (t.aVista ? 1 : 0) + '">' + esc(t.label) + ' · ' + t.disc + '% off</option>';
+        return '<option value="' + t.key + '" data-disc="' + t.disc + '" data-avista="' + (t.aVista ? 1 : 0) + '" data-parc="' + t.parc + '">' + esc(t.label) + (t.disc ? ' · ' + t.disc + '% off' : ' · sem desconto') + '</option>';
       }).join('');
+
+    // Botão (engrenagem) + campo de cupom — acumulativo sobre a face. Escondido no PDF.
+    function couponField(prefix, note) {
+      return '<div class="coupon-field">' +
+        '<button type="button" class="coupon-toggle" id="' + prefix + '-coupon-toggle" aria-expanded="false">' +
+          '<svg class="coupon-gear" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>' +
+          '<span>Adicionar cupom de desconto</span>' +
+        '</button>' +
+        '<div class="coupon-box" id="' + prefix + '-coupon-box" hidden>' +
+          '<input class="coupon-input" id="' + prefix + '-coupon" type="number" min="0" max="100" step="1" inputmode="numeric" placeholder="0"><span class="coupon-pct">%</span>' +
+          '<span class="coupon-suffix">' + note + '</span>' +
+        '</div>' +
+      '</div>';
+    }
+
+    // ===== Blocos alternativos da proposta SOMENTE Estruturação Estratégica =====
+    var eeInvBlock =
+      '<section><h2>Investimento</h2>' +
+        '<div class="inv-group"><p class="inv-group-title">Estruturação Estratégica 3.0 · pagamento único</p><table>' + invPontualRows + '</table>' +
+          '<div class="pay-field"><label class="pay-field__label" for="pay-ee">Forma de pagamento</label>' +
+            '<select class="pay-field__select" id="pay-ee">' +
+              '<option value="">Selecione a forma de pagamento...</option>' +
+              '<option value="avista" data-disc="30">À vista — Pix, boleto ou cartão · −30%</option>' +
+              '<option value="cartao12" data-disc="20" data-parc="12">Cartão parcelado em 12× · −20%</option>' +
+            '<option value="boleto3" data-disc="0" data-parc="3">Boleto em 3× · sem desconto</option>' +
+            '</select></div>' +
+          couponField('ee', 'acumulativo sobre a face · uso interno (não aparece no PDF)') +
+        '</div>' +
+        '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica 3.0 é um investimento pontual (pagamento único). Esta proposta não inclui o Combo Executar — portanto, sem mensalidade.</span></p>' +
+      '</section>' +
+      '<section><h2>Resumo da condição</h2><div class="summary-card"><table class="inv-summary">' +
+        '<tr><td><strong>Estruturação Estratégica 3.0</strong><br><span class="muted">setup · pagamento único</span></td><td class="inv-v"><span id="sum-ee"></span></td></tr>' +
+        '<tr class="inv-total"><td><strong>Total</strong></td><td class="inv-v"><span id="sum-tcv"></span></td></tr>' +
+        '<tr><td><strong>Como paga</strong></td><td class="inv-v"><span id="sum-pay"></span></td></tr>' +
+      '</table><p class="hint">Reflete a forma de pagamento e o cupom selecionados acima.</p></div>' +
+      '<p class="note"><strong>Validade:</strong> esta proposta é válida por <strong>10 dias</strong> a partir da data de emissão (' + esc(date) + ').</p></section>';
+    var eeScript = '<script>(function(){' +
+      'var eeBase=' + eeNum + ';' +
+      'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
+      'function el(id){return document.getElementById(id);}' +
+      'function old(v){return "<span class=inv-num-old>"+brl(v)+"</span>";}' +
+      'function pct(v){return Math.max(0,Math.min(100,parseFloat(v)||0));}' +
+      'var payEE=el("pay-ee"),eeCpn=el("ee-coupon"),eeVal=el("inv-ee-val"),sumEE=el("sum-ee"),sumTcv=el("sum-tcv"),sumPay=el("sum-pay");' +
+      'function render(){' +
+        'var o=payEE?payEE.options[payEE.selectedIndex]:null;' +
+        'var d=o?(parseFloat(o.getAttribute("data-disc"))||0):0;' +
+        'var parc=o?(parseFloat(o.getAttribute("data-parc"))||0):0;' +
+        'var off=Math.min(100,d+(eeCpn?pct(eeCpn.value):0));' +
+        'var fin=eeBase*(1-off/100);' +
+        'var disp=off?(old(eeBase)+brl(fin)+"<span class=inv-discount-tag>-"+off+"%</span>"):brl(eeBase);' +
+        'if(eeVal)eeVal.innerHTML=disp;' +
+        'if(sumEE)sumEE.innerHTML=disp;' +
+        'if(sumTcv)sumTcv.innerHTML=(off?old(eeBase):"")+brl(fin);' +
+        'var how=o?((parc?(parc+"× de "+brl(fin/parc)):brl(fin))+" · "+o.text):(brl(fin)+" · forma a definir");' +
+        'if(sumPay)sumPay.textContent=how;' +
+      '}' +
+      'function wire(b,x){if(b&&x)b.addEventListener("click",function(){var h=x.hasAttribute("hidden");if(h){x.removeAttribute("hidden");}else{x.setAttribute("hidden","");var inp=x.querySelector(".coupon-input");if(inp&&inp.value!==""){inp.value="";render();}}b.setAttribute("aria-expanded",h?"true":"false");});}' +
+      'wire(el("ee-coupon-toggle"),el("ee-coupon-box"));' +
+      'if(payEE)payEE.addEventListener("change",render);' +
+      'if(eeCpn)eeCpn.addEventListener("input",render);' +
+      'render();' +
+    '})();<\/script>';
 
     return '' +
 '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
@@ -9212,6 +9449,18 @@ document.addEventListener('DOMContentLoaded', function() {
 '.sheets { padding: 28px 0 36px; }' +
 '.sheet { width: 794px; min-height: 1123px; margin: 0 auto 26px; background: #fff; box-shadow: 0 10px 34px rgba(0,0,0,.45); position: relative; }' +
 '.sheet-content { padding: 36px 40px 44px; }' +
+'.sheet.cover { background: #fff url("' + frameURL + '") center top / cover no-repeat; }' +
+'.sheet.cover .sheet-content { min-height: 1123px; padding: 40px 48px 56px; display: flex; flex-direction: column; justify-content: flex-end; }' +
+'.sheet.cover .meta { border-bottom: none; padding-bottom: 0; margin-bottom: 10px; }' +
+/* Capa: compacta cabeçalho + cards pra tudo caber na área branca da imagem (sem sobrepor a arte) */
+'.sheet.cover .subtitle { margin-bottom: 12px; }' +
+'.sheet.cover section { margin-bottom: 0; }' +
+'.sheet.cover h2 { margin: 8px 0 8px; }' +
+'.sheet.cover .pillars { gap: 10px; }' +
+'.sheet.cover .pillar { padding: 13px 15px 12px; border-radius: 13px; }' +
+'.sheet.cover .pillar__tag { margin-bottom: 7px; padding: 4px 10px; }' +
+'.sheet.cover .pillar h3 { font-size: 15.5px; margin: 0 0 5px; }' +
+'.sheet.cover .pillar p { font-size: 11.5px; line-height: 1.38; }' +
 '@media print { body.paged { background: #fff; } .sheets { padding: 0; } .sheet { width: auto; min-height: 0; margin: 0; box-shadow: none; break-before: page; } .sheet:first-child { break-before: avoid; } .sheet-content { padding: 36px 40px 44px; } }' +
 /* Separador de página (preview): faixa cinza imitando a quebra entre folhas */
 '.pgbreak { height: 0; }' +
@@ -9219,13 +9468,17 @@ document.addEventListener('DOMContentLoaded', function() {
 '@media print { .pgbreak { break-before: page; padding: 0; margin: 0; background: none; } .pgbreak::after { display: none; } }' +
 /* Impressão: máscara/gradiente de borda não é confiável no PDF → vira preenchimento e some o texto. Troca por borda sólida. */
 '@media print { .summary-card::before { display: none !important; } .summary-card { border: 2px solid #C41E08 !important; background: #fff !important; } .pay-warning { background: #fff6f4 !important; border: 2px solid #C41E08 !important; } }' +
+'.ee-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 8px; }' +
+'.ee-head h1 { margin: 0; }' +
+'.ee-logo { display: block; height: 40px; width: auto; max-width: 100%; }' +
 'h1 { font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.02em; }' +
 '.subtitle { font-size: 15px; color: rgba(40,0,0,.6); margin: 0 0 24px; }' +
 '.meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 48px; margin: 0 0 24px; padding: 0 0 16px; border-bottom: 1px solid rgba(40,0,0,.12); }' +
 '.meta div span { display: inline; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(40,0,0,.5); margin-right: 7px; }' +
 '.meta div strong { font-size: 15px; }' +
 'section { margin-bottom: 34px; }' +
-'h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E50914; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(229,9,20,.18); }' +
+'h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E50914; margin: 24px 0 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(229,9,20,.18); }' +
+'.sheet-content > :first-child { margin-top: 0; }' +
 '.pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 16px; }' +
 /* Cards escuros com gradiente da marca + faixa de destaque no topo (identidade V4) */
 '.pillar { position: relative; overflow: hidden; border: none; border-radius: 16px; padding: 22px 20px 20px; color: #fff; background: linear-gradient(158deg, #4A0303 0%, #2A0101 52%, #120000 100%); box-shadow: 0 10px 26px rgba(40,0,0,.28); }' +
@@ -9235,11 +9488,13 @@ document.addEventListener('DOMContentLoaded', function() {
 '.pillar__tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 60%, #7A0A02 100%); border-radius: 9999px; padding: 5px 12px; margin-bottom: 12px; }' +
 '.pillar h3 { font-size: 19px; font-weight: 800; margin: 0 0 8px; letter-spacing: -.01em; color: #fff; }' +
 '.pillar p { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.74); margin: 0; }' +
-'.ee-week { margin-bottom: 16px; break-inside: avoid; }' +
-'.ee-week h4 { font-size: 14px; margin: 0 0 8px; color: #7A0A02; }' +
+'.ee-weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; align-items: start; margin-top: 6px; }' +
+'.ee-col > .ee-week:last-child { margin-bottom: 0; }' +
+'.ee-week { margin: 0 0 12px; break-inside: avoid; }' +
+'.ee-week h4 { font-size: 13px; margin: 0 0 5px; color: #7A0A02; line-height: 1.3; }' +
 'ul.dl { list-style: none; margin: 0; padding: 0; }' +
-'ul.dl li { display: flex; gap: 9px; align-items: flex-start; font-size: 13.5px; padding: 4px 0; color: rgba(40,0,0,.85); }' +
-'ul.dl li .chk { flex: 0 0 18px; width: 18px; height: 18px; border-radius: 50%; background: #E50914; color: #fff; font-size: 11px; line-height: 18px; text-align: center; margin-top: 1px; }' +
+'ul.dl li { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.4; padding: 2.5px 0; color: rgba(40,0,0,.85); }' +
+'ul.dl li .chk { flex: 0 0 16px; width: 16px; height: 16px; border-radius: 50%; background: #E50914; color: #fff; font-size: 10px; line-height: 16px; text-align: center; margin-top: 1px; }' +
 'ul.dl li strong { color: #280000; }' +
 'table { width: 100%; border-collapse: collapse; }' +
 'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
@@ -9247,9 +9502,9 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Wrapper que estoura o padding do corpo pra a tabela (5 colunas) usar a largura cheia da página */
 '.ctab-wrap { margin: 0; }' +
 'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 10px; overflow: hidden; table-layout: auto; }' +
-'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:10px 12px; }' +
-'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:left; padding:8px 11px; }' +
-'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:9px 11px; font-size:11.5px; line-height:1.4; vertical-align:top; color:rgba(40,0,0,.85); }' +
+'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:7px 12px; }' +
+'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:left; padding:6px 9px; }' +
+'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:5px 9px; font-size:10px; line-height:1.3; vertical-align:top; color:rgba(40,0,0,.85); }' +
 'table.ctab tbody tr:nth-child(even) td { background: rgba(229,9,20,.035); }' +
 'table.ctab td.c-comp { font-weight:700; color:#C41E08; }' +
 'table.ctab td.c-sla { color: rgba(40,0,0,.6); }' +
@@ -9262,23 +9517,23 @@ document.addEventListener('DOMContentLoaded', function() {
 '.summary-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }' +
 '.summary-card table { position: relative; }' +
 '.summary-card .hint { position: relative; margin: 10px 0 0; }' +
-'.inv-group { margin: 0 0 18px; border: 1px solid rgba(40,0,0,.12); border-radius: 14px; padding: 0 18px 16px; background: #fff; overflow: hidden; break-inside: avoid; box-shadow: 0 4px 18px rgba(40,0,0,.06); }' +
+'.inv-group { margin: 0 0 18px; border: 1px solid rgba(40,0,0,.12); border-radius: 14px; padding: 0 16px 11px; background: #fff; overflow: hidden; break-inside: avoid; box-shadow: 0 4px 18px rgba(40,0,0,.06); }' +
 '.inv-group-title { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fff; margin: 0 -18px 6px; padding: 12px 18px; background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); }' +
 '.inv-group table tr:last-child td { border-bottom: none; }' +
-'.inv-total td { border-top: 2px solid rgba(229,9,20,.28); border-bottom: none; padding-top: 14px; }' +
+'.inv-total td { border-top: 2px solid rgba(229,9,20,.28); border-bottom: none; padding-top: 9px; }' +
 '.inv-total .inv-v { font-size: 23px; }' +
 '.inv-v .per { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
 '.muted { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
 '.edit { border-bottom: 1.5px dashed rgba(229,9,20,.5); padding: 0 4px; min-width: 90px; display: inline-block; }' +
 '.note { font-size: 12.5px; color: rgba(40,0,0,.65); margin-top: 12px; }' +
 /* Compactação p/ encaixar Investimento (pontual + recorrente) + Resumo em 1 página A4 */
-'section { margin-bottom: 26px; }' +
-'.inv-group { margin-bottom: 10px; }' +
-'.inv-group-title { padding-top: 9px; padding-bottom: 9px; }' +
-'.inv-group td { padding-top: 9px; padding-bottom: 9px; }' +
-'.inv-summary td { padding-top: 8px; padding-bottom: 8px; }' +
-'.note { margin-top: 8px; font-size: 12px; }' +
-'.pay-field { margin-top: 12px; }' +
+'section { margin-bottom: 16px; }' +
+'.inv-group { margin-bottom: 8px; }' +
+'.inv-group-title { padding-top: 7px; padding-bottom: 7px; }' +
+'.inv-group td { padding-top: 6px; padding-bottom: 6px; }' +
+'.inv-summary td { padding-top: 5px; padding-bottom: 5px; }' +
+'.note { margin-top: 6px; font-size: 11.5px; }' +
+'.pay-field { margin-top: 8px; }' +
 '.pay-benefit, .pay-warning { margin-top: 10px; }' +
 '.guarantee { background: #FFD60A; border: none; border-radius: 14px; padding: 18px 22px; font-size: 14px; color: #1a1a00; }' +
 '.guarantee strong { color: #000000; }' +
@@ -9289,7 +9544,7 @@ document.addEventListener('DOMContentLoaded', function() {
 '.foot { padding: 22px 40px; background: #1a0000; color: #fff; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }' +
 '.foot .r { opacity: .7; }' +
 '.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
-'.pay-field { margin: 16px 0 0; }' +
+'.pay-field { margin: 8px 0 0; }' +
 '.pay-field__label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(40,0,0,.5); margin-bottom: 6px; }' +
 '.pay-field__select { font: inherit; font-size: 14px; font-weight: 600; color: #280000; padding: 11px 14px; border: 1.5px solid rgba(122,10,2,.35); border-radius: 10px; background: #fff; width: 100%; max-width: 440px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }' +
 '.pay-field__select:hover { border-color: rgba(122,10,2,.6); }' +
@@ -9299,40 +9554,56 @@ document.addEventListener('DOMContentLoaded', function() {
 '.pay-warning { margin: 14px 0 0; padding: 16px 20px; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(#fff6f4,#fff6f4) padding-box, linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%) border-box; max-width: 540px; font-size: 15px; font-weight: 600; color: #7A0A02; line-height: 1.5; }' +
 '.inv-num-old { text-decoration: line-through; color: rgba(40,0,0,.4); font-weight: 600; font-size: .82em; margin-right: 8px; }' +
 '.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
-'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group, .summary-card { break-inside: avoid; } h1, h2, h4 { break-after: avoid; } }' +
+/* Cupom interno — visível só no preview em tela, escondido no PDF/impressão */
+'.coupon-field { margin-top: 8px; }' +
+'.coupon-toggle { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 12.5px; font-weight: 700; color: #7A0A02; background: rgba(122,10,2,.06); border: 1.5px solid rgba(122,10,2,.28); border-radius: 9999px; padding: 8px 14px; cursor: pointer; transition: background .15s, border-color .15s; }' +
+'.coupon-toggle:hover { background: rgba(122,10,2,.1); border-color: rgba(122,10,2,.55); }' +
+'.coupon-gear { transition: transform .25s ease; }' +
+'.coupon-toggle[aria-expanded="true"] .coupon-gear { transform: rotate(90deg); }' +
+'.coupon-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }' +
+'.coupon-box[hidden] { display: none; }' +
+'.coupon-input { font: inherit; font-size: 14px; font-weight: 700; color: #280000; padding: 9px 12px; border: 1.5px solid rgba(122,10,2,.35); border-radius: 10px; background: #fff; max-width: 86px; }' +
+'.coupon-input:focus { outline: none; border-color: #C41E08; box-shadow: 0 0 0 3px rgba(196,30,8,.12); }' +
+'.coupon-pct { font-size: 14px; font-weight: 700; color: #7A0A02; margin-left: -2px; }' +
+'.coupon-suffix { font-size: 12px; font-weight: 600; color: rgba(40,0,0,.55); }' +
+'@media print { .coupon-field { display: none !important; } }' +
+'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group, .summary-card { break-inside: avoid; } .pillar, .inv-group { box-shadow: none !important; } h1, h2, h4 { break-after: avoid; } }' +
 '</style></head><body>' +
 '<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">Pré-visualização em <strong>páginas A4</strong>, igual ao PDF. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
 '<div class="page">' +
-  '<div class="band"><div><div class="kicker">Proposta comercial</div><div class="brand">V4 COMPANY</div></div><div class="date">' + esc(date) + '</div></div>' +
   '<div class="body">' +
-    '<h1>Combo Executar</h1>' +
-    '<p class="subtitle"><strong>Estruturação Estratégica + Executar</strong> · ' + esc(modelLabel) + ' · faixa de mídia ' + esc(pack.media) + (social ? ' · com Social Media' : '') + '</p>' +
+    '<div class="cover">' +
+    '<div class="ee-head"><img class="ee-logo" src="' + esc(logoURL) + '" alt="Estruturação Estratégica 3.0">' + (eeOnly ? '' : '<h1>+ Combo Executar</h1>') + '</div>' +
+    '<p class="subtitle">' + (eeOnly ? ('Setup estratégico · sprint de 30 dias · ' + esc(modelLabel)) : (esc(modelLabel) + ' · faixa de mídia ' + esc(pack ? pack.media : '') + (social ? ' · com Social Media' : ''))) + '</p>' +
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
       '<div><span>Empresa</span><strong>' + esc(form.empresa || '—') + '</strong></div>' +
       '<div><span>Modelo de vendas</span><strong>' + esc(MODEL_LABEL[model]) + '</strong></div>' +
+      '<div><span>Data</span><strong>' + esc(date) + '</strong></div>' +
+      '<div><span>Validade</span><strong>10 dias</strong></div>' +
     '</div>' +
     '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
-    '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:18px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
+    '</div>' +
     '<div class="pgbreak"></div>' +
-    '<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
-    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : '') +
+    '<section><h2>Entregáveis — Estruturação Estratégica</h2><p class="subtitle" style="margin-bottom:12px">' + esc(EE_INTRO) + '</p>' + eeBlocks + '</section>' +
+    (eeOnly ? '' : ('<section><h2>Executar — entregáveis &amp; SLA</h2>' + (comboTagline ? '<p class="subtitle" style="margin-bottom:14px">' + esc(comboTagline) + '</p>' : '') + comboTable('Executar · ' + modelLabel, ['Componente', 'Entrega', 'SLA'], comboRows) + '</section>' +
+    (social ? '<section><h2>Social Media — entregáveis &amp; SLA</h2>' + comboTable('Componentes, escopo e SLA · Social Media', ['Componente', 'Escopo', 'SLA'], socialRows) + '</section>' : ''))) +
     '<div class="pgbreak"></div>' +
-    '<section><h2>Investimento</h2>' +
+    (eeOnly ? eeInvBlock : ('<section><h2>Investimento</h2>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento pontual</p><table>' + invPontualRows + '</table>' +
         '<div class="pay-field"><label class="pay-field__label" for="pay-ee">Forma de pagamento</label>' +
           '<select class="pay-field__select" id="pay-ee">' +
             '<option value="">Selecione a forma de pagamento...</option>' +
-            '<option value="cartao">Cartão</option>' +
-            '<option value="boleto">Boleto</option>' +
-            '<option value="pix">Pix</option>' +
+            '<option value="avista" data-disc="30">À vista — Pix, boleto ou cartão · −30%</option>' +
+            '<option value="cartao12" data-disc="20" data-parc="12">Cartão parcelado em 12× · −20%</option>' +
+            '<option value="boleto3" data-disc="0" data-parc="3">Boleto em 3× · sem desconto</option>' +
           '</select></div>' +
-        '<label class="pay-benefit" id="ee-benefit" hidden><input type="checkbox" id="ee-benefit-check"><span>Ativar benefício de 50% de desconto na contratação do EE 3.0 + Executar</span></label>' +
-        '<div class="pay-warning" id="ee-benefit-warning" hidden>Para ativar este benefício de desconto, ele é condicionado a um pagamento de entrada do valor restante da Estruturação Estratégica.</div>' +
+        couponField('ee', 'acumulativo sobre a face · uso interno (não aparece no PDF)') +
       '</div>' +
       '<div class="inv-group"><p class="inv-group-title">Investimento recorrente</p><table>' + invRecorrenteRows + '</table>' +
         '<div class="pay-field"><label class="pay-field__label" for="pay-rec">Forma de pagamento</label>' +
           '<select class="pay-field__select" id="pay-rec">' + recOptions + '</select></div>' +
+        couponField('rec', 'acumulativo sobre o recorrente · uso interno (não aparece no PDF)') +
       '</div>' +
       '<p class="note"><span class="edit" contenteditable="true">A Estruturação Estratégica é um investimento pontual (pagamento único), cobrado à parte e que não entra no recorrente. O Combo Executar é mensal, com fidelidade mínima de 6 meses.</span></p>' +
     '</section>' +
@@ -9344,68 +9615,89 @@ document.addEventListener('DOMContentLoaded', function() {
         '<tr class="inv-total"><td><strong>TCV — total do contrato</strong></td><td class="inv-v"><span id="sum-tcv"></span></td></tr>' +
         '<tr><td><strong>Como paga</strong></td><td class="inv-v"><span id="sum-pay"></span></td></tr>' +
       '</table>' +
-      '<p class="hint">Reflete a forma de pagamento e o benefício selecionados acima.</p>' +
+      '<p class="hint">Reflete a forma de pagamento e o cupom selecionados acima.</p>' +
       '</div>' +
-    '</section>' +
+      '<p class="note"><strong>Validade:</strong> esta proposta é válida por <strong>10 dias</strong> a partir da data de emissão (' + esc(date) + ').</p>' +
+    '</section>')) +
     '<div class="pgbreak"></div>' +
     '<section><h2>Garantia</h2><div class="guarantee">Garantia de <strong>30 dias</strong>, válida <strong>exclusivamente para a Estruturação Estratégica</strong>. Se dentro desse prazo a gente não entregar tudo que foi combinado na Estruturação Estratégica, é só pedir o reembolso e <strong>devolvemos 100% do valor da Estruturação Estratégica</strong>. <span class="guarantee-note">A garantia não se aplica ao Combo Executar nem ao Social Media (serviços recorrentes).</span></div></section>' +
     '<section><h2>Próximos passos</h2><ol class="steps">' +
-      '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>' +
+      (eeOnly ? '<li>Confirmar a forma de pagamento.</li>' : '<li>Confirmar o pacote escolhido e a forma de pagamento.</li>') +
       '<li>Assinatura do contrato.</li>' +
       '<li>Kickoff da Estruturação Estratégica — onboarding técnico em até 5 dias úteis.</li>' +
       '<li>Início do sprint de 30 dias: diagnóstico, posicionamento e plano de mídia.</li>' +
-      '<li>Dia 31: handoff para o Executar — operação no ar.</li>' +
+      (eeOnly ? '<li>Entrega final: plano de mídia de 6 meses e ativos prontos para operar.</li>' : '<li>Dia 31: handoff para o Executar — operação no ar.</li>') +
     '</ol></section>' +
   '</div>' +
-  '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Estruturação Estratégica + Executar · ' + esc(date) + '</div></div>' +
+  '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · ' + (eeOnly ? 'Estruturação Estratégica 3.0' : 'Estruturação Estratégica + Executar') + ' · ' + esc(date) + '</div></div>' +
 '</div>' +
-'<script>(function(){' +
+(eeOnly ? eeScript : ('<script>(function(){' +
   'var eeBase=' + eeNum + ',comboBase=' + comboPriceNum + ',socNum=' + (social ? SOCIAL_PRICE_NUM : 0) + ',hasSoc=' + (social ? 'true' : 'false') + ',FID=6;' +
   'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
   'function el(id){return document.getElementById(id);}' +
   'function old(v){return "<span class=inv-num-old>"+brl(v)+"</span>";}' +
+  'function pct(v){return Math.max(0,Math.min(100,parseFloat(v)||0));}' +
   'var eeVal=el("inv-ee-val"),comboVal=el("inv-combo-val"),socVal=el("inv-social-val"),totalVal=el("inv-total-val");' +
-  'var payEE=el("pay-ee"),benefit=el("ee-benefit"),benefitChk=el("ee-benefit-check"),warning=el("ee-benefit-warning"),payRec=el("pay-rec");' +
+  'var payEE=el("pay-ee"),eeCpn=el("ee-coupon"),payRec=el("pay-rec"),recCpn=el("rec-coupon");' +
   'var sumEE=el("sum-ee"),sumRec=el("sum-rec"),sumTcv=el("sum-tcv"),sumPay=el("sum-pay");' +
   'function render(){' +
-    'var eeOn=!!(benefitChk&&benefitChk.checked);' +
-    'var eeFinal=eeBase*(eeOn?0.5:1);' +
-    'var opt=payRec?payRec.options[payRec.selectedIndex]:null;' +
-    'var d=opt?(parseFloat(opt.getAttribute("data-disc"))||0):0;' +
-    'var aVista=opt?opt.getAttribute("data-avista")==="1":false;' +
-    'var comboFinal=comboBase*(1-d/100);' +
-    'var socFinal=socNum*(1-d/100);' +
+    'var oE=payEE?payEE.options[payEE.selectedIndex]:null;' +
+    'var eeD=oE?(parseFloat(oE.getAttribute("data-disc"))||0):0;' +
+    'var eeParc=oE?(parseFloat(oE.getAttribute("data-parc"))||0):0;' +
+    'var eeOff=Math.min(100,eeD+(eeCpn?pct(eeCpn.value):0));' +
+    'var eeFinal=eeBase*(1-eeOff/100);' +
+    'var oR=payRec?payRec.options[payRec.selectedIndex]:null;' +
+    'var recD=oR?(parseFloat(oR.getAttribute("data-disc"))||0):0;' +
+    'var aVista=oR?oR.getAttribute("data-avista")==="1":false;' +
+    'var recParc=oR?(parseFloat(oR.getAttribute("data-parc"))||0):0;' +
+    'var recOff=Math.min(100,recD+(recCpn?pct(recCpn.value):0));' +
+    'var recFactor=1-recOff/100;' +
+    'var comboFinal=comboBase*recFactor;' +
+    'var socFinal=socNum*recFactor;' +
     'var monthly=comboFinal+(hasSoc?socFinal:0);' +
     'var origMonthly=comboBase+(hasSoc?socNum:0);' +
     'var recTCV=monthly*FID, tcvFinal=eeFinal+recTCV, tcvOrig=eeBase+origMonthly*FID;' +
-    'if(eeVal)eeVal.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
-    'if(comboVal)comboVal.innerHTML=d?(old(comboBase)+brl(comboFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(comboBase);' +
-    'if(socVal)socVal.innerHTML=d?(old(socNum)+brl(socFinal)+"<span class=inv-discount-tag>-"+d+"%</span>"):brl(socNum);' +
-    'if(totalVal)totalVal.innerHTML=aVista?(brl(recTCV)+"<span class=per> à vista · TCV</span>"):("6× de "+brl(monthly)+"<span class=per>/mês</span>");' +
-    'if(warning)warning.hidden=!eeOn;' +
-    'if(sumEE)sumEE.innerHTML=eeOn?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-50%</span>"):brl(eeBase);' +
-    'if(sumRec)sumRec.innerHTML=(d?old(origMonthly):"")+brl(monthly)+"/mês × "+FID+" = "+brl(recTCV);' +
+    'if(eeVal)eeVal.innerHTML=eeOff?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-"+eeOff+"%</span>"):brl(eeBase);' +
+    'if(comboVal)comboVal.innerHTML=recOff?(old(comboBase)+brl(comboFinal)+"<span class=inv-discount-tag>-"+recOff+"%</span>"):brl(comboBase);' +
+    'if(socVal)socVal.innerHTML=recOff?(old(socNum)+brl(socFinal)+"<span class=inv-discount-tag>-"+recOff+"%</span>"):brl(socNum);' +
+    'if(totalVal){totalVal.innerHTML=aVista?(brl(recTCV)+"<span class=per> à vista · TCV recorrente</span>"):(recParc?(recParc+"× de "+brl(recTCV/recParc)+"<span class=per> · TCV recorrente</span>"):("6× de "+brl(monthly)+"<span class=per>/mês</span>"));}' +
+    'if(sumEE)sumEE.innerHTML=eeOff?(old(eeBase)+brl(eeFinal)+"<span class=inv-discount-tag>-"+eeOff+"%</span>"):brl(eeBase);' +
+    'if(sumRec)sumRec.innerHTML=(recOff?old(origMonthly):"")+brl(monthly)+"/mês × "+FID+" = "+brl(recTCV);' +
     'if(sumTcv)sumTcv.innerHTML=(tcvFinal<tcvOrig-0.005?old(tcvOrig):"")+brl(tcvFinal);' +
-    'var eePart=eeOn?("Entrada de "+brl(eeFinal)+" (valor restante da E.E, ativa o benefício de desconto)"):(brl(eeFinal)+" (E.E)");' +
-    'var recPart=aVista?(brl(recTCV)+" à vista (TCV)"):(FID+"× de "+brl(monthly)+"/mês");' +
+    'var eePart=eeParc?(eeParc+"× de "+brl(eeFinal/eeParc)+" (E.E"+(eeOff?" · -"+eeOff+"%":"")+")"):(brl(eeFinal)+" (E.E"+(eeOff?" · -"+eeOff+"%":"")+")");' +
+    'var recPart=aVista?(brl(recTCV)+" à vista (TCV)"):(recParc?(recParc+"× de "+brl(recTCV/recParc)+"/mês"):(FID+"× de "+brl(monthly)+"/mês"));' +
     'if(sumPay)sumPay.textContent=eePart+" + "+recPart;' +
   '}' +
-  'if(payEE)payEE.addEventListener("change",function(){if(benefit)benefit.hidden=!payEE.value;if(!payEE.value&&benefitChk)benefitChk.checked=false;render();});' +
-  'if(benefitChk)benefitChk.addEventListener("change",render);' +
+  'function wire(b,x){if(b&&x)b.addEventListener("click",function(){var h=x.hasAttribute("hidden");if(h){x.removeAttribute("hidden");}else{x.setAttribute("hidden","");var inp=x.querySelector(".coupon-input");if(inp&&inp.value!==""){inp.value="";render();}}b.setAttribute("aria-expanded",h?"true":"false");});}' +
+  'wire(el("ee-coupon-toggle"),el("ee-coupon-box"));' +
+  'wire(el("rec-coupon-toggle"),el("rec-coupon-box"));' +
+  'if(payEE)payEE.addEventListener("change",render);' +
   'if(payRec)payRec.addEventListener("change",render);' +
+  'if(eeCpn)eeCpn.addEventListener("input",render);' +
+  'if(recCpn)recCpn.addEventListener("input",render);' +
   'render();' +
-'})();<\/script>' +
+'})();<\/script>')) +
 '<script>(function(){' +
   'var page=document.querySelector(".page");if(!page)return;' +
-  'var band=page.querySelector(".band");' +
   'var body=page.querySelector(".body");if(!body)return;' +
-  'var kids=[].slice.call(body.childNodes);' +
-  'var sheets=document.createElement("div");sheets.className="sheets";var content;' +
-  'function add(first){var sh=document.createElement("div");sh.className="sheet";if(first&&band)sh.appendChild(band);content=document.createElement("div");content.className="sheet-content";sh.appendChild(content);sheets.appendChild(sh);}' +
-  'add(true);' +
-  'for(var i=0;i<kids.length;i++){var n=kids[i];if(n.nodeType===1&&(""+n.className).indexOf("pgbreak")>-1){add(false);}else{content.appendChild(n);}}' +
-  'page.parentNode.replaceChild(sheets,page);' +
-  'document.body.classList.add("paged");' +
+  'var blocks=[];[].forEach.call(body.children,function(ch){if(ch.tagName==="SECTION"){[].forEach.call(ch.children,function(g){blocks.push(g);});}else{blocks.push(ch);}});' +
+  'var sheets=document.createElement("div");sheets.className="sheets";' +
+  'page.parentNode.insertBefore(sheets,page);page.style.display="none";document.body.classList.add("paged");' +
+  'var PAGE=1123,PADV=80,content,budget;' +
+  'function newSheet(cls){var sh=document.createElement("div");sh.className="sheet"+(cls?" "+cls:"");content=document.createElement("div");content.className="sheet-content";sh.appendChild(content);sheets.appendChild(sh);budget=PAGE-PADV;}' +
+  'function blockH(n){var cs=getComputedStyle(n);return n.offsetHeight+(parseFloat(cs.marginTop)||0)+(parseFloat(cs.marginBottom)||0);}' +
+  'function isCls(n,c){return n&&n.nodeType===1&&(""+n.className).indexOf(c)>-1;}' +
+  'function run(){var i=0;' +
+    'if(isCls(blocks[0],"cover")){newSheet("cover");content.appendChild(blocks[0]);i=1;if(isCls(blocks[1],"pgbreak")){i=2;}newSheet("");}else{newSheet("");}' +
+    'for(;i<blocks.length;i++){var n=blocks[i];' +
+      'if(isCls(n,"pgbreak")){newSheet("");continue;}' +
+      'if(n.tagName==="H2"&&content.children.length&&budget<160){newSheet("");}' +
+      'content.appendChild(n);var h=blockH(n);' +
+      'if(h>budget&&content.children.length>1){content.removeChild(n);newSheet("");content.appendChild(n);budget-=blockH(n);}else{budget-=h;}' +
+    '}' +
+    'if(page.parentNode)page.parentNode.removeChild(page);' +
+  '}' +
+  'if(document.fonts&&document.fonts.ready){document.fonts.ready.then(run);}else{run();}' +
 '})();<\/script>' +
 '</body></html>';
   }
@@ -9459,16 +9751,22 @@ document.addEventListener('DOMContentLoaded', function() {
   function closeModal() { if (modal) modal.classList.remove('is-open'); }
 
   window.V4GenerateProposal = function (state) {
-    if (!state || !state.solution || !PACK_DATA[packSizeFromSolution(state.solution)]) return;
+    var eeOnly = state && state.solution === 'ee';
+    if (!state || !state.solution || (!eeOnly && !PACK_DATA[packSizeFromSolution(state.solution)])) return;
     buildModal();
     var size = packSizeFromSolution(state.solution);
     var pack = PACK_DATA[size];
-    var social = state.addons && state.addons.socialMedia;
+    var social = !eeOnly && state.addons && state.addons.socialMedia;
     var pageModel = window.V4SalesModel && window.V4SalesModel.value;
     var modelKey = (pageModel && MODEL_LABEL[pageModel]) ? pageModel : 'e-commerce';
     var modelLabel = MODEL_LABEL[modelKey];
-    var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
-    refs.summary.innerHTML = '<strong>Combo Executar</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    if (eeOnly) {
+      var eeStr = (EE_PRICE_BY_MODEL[modelKey] || EE_PRICE);
+      refs.summary.innerHTML = '<strong>Estruturação Estratégica 3.0</strong><br>Setup · sprint de 30 dias — ' + esc(eeStr) + ' (pagamento único)<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    } else {
+      var comboPrice = (COMBO_PRICE[modelKey] && COMBO_PRICE[modelKey][size]) || pack.price;
+      refs.summary.innerHTML = '<strong>Combo Executar</strong><br>Estruturação Estratégica + Executar · ' + esc(pack.media) + ' — ' + esc(comboPrice) + '/mês' + (social ? '<br>+ Social Media (' + esc(formatBRL(SOCIAL_PRICE_NUM)) + '/mês)' : '') + '<br><span style="color:rgba(5,5,5,.6);font-weight:400">Modelo de vendas: ' + esc(modelLabel) + '</span>';
+    }
     modal.classList.add('is-open');
     setTimeout(function () { refs.cliente.focus(); }, 50);
   };
@@ -9485,8 +9783,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var eeValueEl  = section.querySelector('[data-ee-value]');
     var modelTagEl = section.querySelector('[data-ee-model]');
     var comboValEl = section.querySelector('[data-combo-value]');
-    var total12El  = section.querySelector('[data-total-12x]');
-    var totalAvEl  = section.querySelector('[data-total-avista]');
+    var comboTotalEl = section.querySelector('[data-combo-total]');
+    var summaryEl  = section.querySelector('[data-pay-summary]');
+    var eeFullEl   = section.querySelector('[data-ee-full]');
+    var eeFaceEl   = section.querySelector('[data-ee-face]');
+    var ee12xEl    = section.querySelector('[data-ee-12x]');
+    var eeAvEl     = section.querySelector('[data-ee-avista]');
+    var recLabelEl = section.querySelector('[data-rec-label]');
+    var recMonthlyEl = section.querySelector('[data-rec-monthly]');
+    var recLinesEl = section.querySelector('[data-rec-lines]');
     var cta        = section.querySelector('[data-plans-cta]');
 
     var activeTier = section.getAttribute('data-active-pack') || 'm';
@@ -9496,6 +9801,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var EE_VAL = { 'pdv': 'R$ 36.120', 'inside-sales': 'R$ 36.397', 'e-commerce': 'R$ 36.263' };
     var EE_NUM = { 'pdv': 36120.59, 'inside-sales': 36397.89, 'e-commerce': 36263.06 };
     var MODEL_TAG = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+    var EE_FULL_MULT = 1.8;          // âncora: "valor cheio" exibido = valor de face real × 1.8 (só visual)
+    var SOCIAL_PRICE_NUM = 4053.75;  // Social Media (mensal) — espelha o valor usado no gerador de proposta
 
     function currentModel() {
       var m = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
@@ -9532,17 +9839,57 @@ document.addEventListener('DOMContentLoaded', function() {
     function render() {
       showActiveTier();
       var m = currentModel();
-      if (eeValueEl) eeValueEl.textContent = EE_VAL[m];
+      var eeFace = EE_NUM[m] || 0;            // valor real de face
+      var eeFull = eeFace * EE_FULL_MULT;     // valor cheio (âncora ×1.8)
+
+      // Card da E.E exibe o valor cheio (âncora); tag do modelo de vendas
+      if (eeValueEl) eeValueEl.textContent = fmtBRL0(eeFull);
       if (modelTagEl) modelTagEl.textContent = MODEL_TAG[m];
+
+      // Card do Combo: mensal + total do contrato (×6, sem desconto)
+      var comboMonthly = comboNumActive();
       if (comboValEl) comboValEl.textContent = comboPriceStripped();
-      // Total (PROVISÓRIO): TCV = E.E (setup) + Combo × 6 · 12x cartão (-20%) · à vista (-30%)
-      var tcv = (EE_NUM[m] || 0) + comboNumActive() * 6;
-      if (total12El) total12El.textContent = fmtBRL0(tcv * 0.80 / 12);
-      if (totalAvEl) totalAvEl.textContent = fmtBRL0(tcv * 0.70);
+      if (comboTotalEl) comboTotalEl.textContent = fmtBRL0(comboMonthly * 6);
+
+      // ── Resumo de pagamento (aparece só ao selecionar um pacote) ──
+      var sol = (window.V4Proposal && window.V4Proposal.get && window.V4Proposal.get().solution) || null;
+      var isEEOnly = sol === 'ee';
+      var isBundle = !!sol && sol.indexOf('bundle-') === 0;
+      var show = isEEOnly || isBundle;
+      if (summaryEl) {
+        summaryEl.hidden = !show;
+        summaryEl.classList.toggle('is-ee-only', isEEOnly);
+      }
+      if (!show) return;
+
+      // Coluna E.E — valor de face (real) + 12x cartão (-20%) e à vista (-30%)
+      if (eeFullEl) eeFullEl.textContent = fmtBRL0(eeFull);
+      if (eeFaceEl) eeFaceEl.textContent = EE_VAL[m];
+      if (ee12xEl)  ee12xEl.textContent  = fmtBRL0(eeFace * 0.80 / 12);
+      if (eeAvEl)   eeAvEl.textContent   = fmtBRL0(eeFace * 0.70);
+
+      // Coluna Combo + Social — mensal somado, sem desconto
+      if (!isEEOnly) {
+        var social = !!(window.V4Proposal && window.V4Proposal.addons && window.V4Proposal.addons.socialMedia);
+        var recMonthly = comboMonthly + (social ? SOCIAL_PRICE_NUM : 0);
+        if (recLabelEl) recLabelEl.textContent = social ? 'Combo Performance + Social Media' : 'Combo Performance';
+        if (recMonthlyEl) recMonthlyEl.textContent = fmtBRL0(recMonthly);
+        if (recLinesEl) {
+          var lines = '<li><span>Combo Performance</span><span>' + fmtBRL0(comboMonthly) + '/mês</span></li>';
+          if (social) lines += '<li><span>Social Media</span><span>' + fmtBRL0(SOCIAL_PRICE_NUM) + '/mês</span></li>';
+          recLinesEl.innerHTML = lines;
+        }
+      }
     }
 
     function commit() {
-      if (window.V4Proposal && window.V4Proposal.select) {
+      if (!(window.V4Proposal && window.V4Proposal.select)) return;
+      var current = window.V4Proposal.get ? window.V4Proposal.get().solution : null;
+      if (current === 'bundle-' + activeTier) {
+        // Já selecionado → clicar de novo retira a seleção (igual ao Social Media)
+        window.V4Proposal.select(null);
+        committed = false;
+      } else {
         window.V4Proposal.select('bundle-' + activeTier);
         committed = true;
       }
@@ -9568,6 +9915,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cta.firstChild) cta.firstChild.nodeValue = mine ? 'Pacote selecionado ' : 'Selecionar pacote ';
       }
       if (!sol) committed = false;
+      render(); // atualiza o resumo de pagamento (seleção + addon Social Media)
     });
 
     // updateCombos() (registrado antes) troca a variante visível no model-change;
