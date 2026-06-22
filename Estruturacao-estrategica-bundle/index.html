@@ -5072,6 +5072,51 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans__inner { position: relative; z-index: 1; max-width: 1320px; margin: 0 auto; padding: 0 var(--ee-pad-x); }
 .ee-plans__card { position: relative; }   /* wrapper de conteúdo — sem visual de card */
 
+/* ===== BUNDLE — card único englobando tudo (vidro/gloss vermelho) ===== */
+.ee-plans--bundle .ee-plans__card {
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: clamp(20px, 2.4vw, 32px);
+  border: 1px solid rgba(255, 190, 165, 0.30);
+  background: linear-gradient(180deg, #FF3D1E 0%, #E81F0A 42%, #C8170A 100%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+}
+/* brilho/domo no topo (efeito liquid glass) */
+.ee-plans--bundle .ee-plans__card::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 48%;
+  pointer-events: none; z-index: 0;
+  background: radial-gradient(120% 100% at 50% -28%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.10) 32%, transparent 62%);
+}
+.ee-plans--bundle .ee-plans__card > * { position: relative; z-index: 1; }
+/* surrounding limpo: sem a cúpula-imagem do rodapé na seção do bundle */
+.ee-plans--bundle .ee-plans__bg::after { display: none; }
+
+/* E.E e Combo deixam de ser cards → viram colunas dentro do card único */
+.ee-plans--bundle .ee-plans__ee,
+.ee-plans--bundle .ee-plans__combo {
+  background: transparent; border: 0; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 0;
+  padding-left: clamp(28px, 3.4vw, 56px); padding-right: clamp(28px, 3.4vw, 56px);
+}
+.ee-plans--bundle .ee-glass::before { display: none; }   /* sem sheen interno das colunas */
+
+/* Região do meio (E.E + Combo) = box preta dentro do card vermelho */
+.ee-plans--bundle .ee-plans__grid {
+  background: #0d0000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: clamp(16px, 2vw, 26px);
+  margin: 0 clamp(10px, 1.4vw, 22px);
+  overflow: hidden;
+}
+
+/* divisor vertical central (a linha passa pelo "+") */
+.ee-plans--bundle .ee-plans__plus { position: relative; }
+.ee-plans--bundle .ee-plans__plus::before {
+  content: ""; position: absolute; top: clamp(8px, 1.5vw, 22px); bottom: clamp(8px, 1.5vw, 22px); left: 50%;
+  width: 1px; background: rgba(255, 255, 255, 0.22); transform: translateX(-50%); z-index: 0;
+}
+/* seletor mais escuro no header (como na referência) */
+.ee-plans--bundle .ee-plans__bundle-head .ee-plans__select { background: rgba(20, 0, 0, 0.5); }
+
 /* Camada do gradiente vivo — full-bleed na seção */
 .ee-plans__bg {
   position: absolute; inset: 0; z-index: 0;
@@ -5115,6 +5160,57 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 
 /* Grid: E.E · Combo · Total */
+/* ===== BUNDLE — cabeçalho, faixa "plano mais popular" e preço único ===== */
+.ee-plans__bundle-head {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: clamp(16px, 2.4vw, 36px);
+  padding: clamp(20px, 2.6vw, 36px) clamp(28px, 3.4vw, 60px) clamp(18px, 2.2vw, 30px);
+}
+.ee-plans__bundle-title { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; }
+.ee-plans__bundle-name-row { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 22px); flex-wrap: wrap; }
+.ee-plans__bundle-name {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 800; text-transform: uppercase;
+  font-size: clamp(15px, 1.9vw, 27px); line-height: 1.1; letter-spacing: -0.01em; padding: 0.05em 0 0.02em;
+  background: linear-gradient(95deg, #ffffff 52%, #FFD2A6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ee-plans__bundle-sub {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; text-transform: uppercase;
+  font-size: clamp(13px, 1.4vw, 20px); letter-spacing: 0.03em; color: #fff; margin-top: 4px;
+}
+.ee-plans__bundle-head .ee-plans__invest { margin: 0; flex: 0 0 auto; width: clamp(200px, 23vw, 290px); }
+
+.ee-plans__popular-banner {
+  display: block; width: auto; margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; text-transform: uppercase;
+  font-size: clamp(11px, 1.1vw, 14px); letter-spacing: 0.16em; text-align: center; color: #2a1400;
+  padding: clamp(7px, 0.9vw, 11px) 16px;
+  background: linear-gradient(180deg, #FFC23D 0%, #E0890C 58%, #C2700A 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.ee-plans__bundle-price {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: clamp(20px, 3vw, 56px);
+  margin-top: clamp(6px, 0.8vw, 12px); padding: clamp(14px, 1.8vw, 24px) clamp(28px, 3.4vw, 60px) clamp(22px, 2.8vw, 38px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.ee-plans__bundle-price-main { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ee-plans__price-from { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(15px, 1.4vw, 20px); color: rgba(255, 196, 176, 0.78); text-decoration: line-through; margin-bottom: 2px; }
+.ee-plans__price-line { display: flex; align-items: flex-start; justify-content: center; gap: clamp(6px, 0.8vw, 12px); }
+.ee-plans__price-x { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(15px, 1.6vw, 24px); color: rgba(255, 255, 255, 0.92); padding-top: 0.34em; }
+.ee-plans__price-big {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+  font-size: clamp(40px, 5.6vw, 84px); line-height: 1; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums; padding: 0.04em 0;
+  background: linear-gradient(95deg, #ffffff 55%, #FFD2A6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ee-plans__price-avista-line { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14px, 1.4vw, 19px); color: rgba(255, 255, 255, 0.9); margin-top: 6px; }
+.ee-plans__price-avista-line strong { font-weight: 700; }
+
 .ee-plans__grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -5186,19 +5282,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-variant-numeric: tabular-nums; color: #fff;
 }
 .ee-plans__value small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(10px, 0.9vw, 12px); letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); margin-top: 8px; }
-
-/* Ancoragem de preço da E.E (riscado + 12x + à vista) */
-.ee-plans__ee-price { margin: auto 0 0; padding-top: clamp(16px, 2vw, 24px); border-top: 1px solid rgba(255, 255, 255, 0.14); }
-.ee-plans__price-from { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.1vw, 15px); color: rgba(255, 255, 255, 0.5); text-decoration: line-through; margin-bottom: 6px; }
-.ee-plans__price-main { display: flex; align-items: baseline; gap: 8px; }
-.ee-plans__price-x { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(13px, 1.1vw, 15px); color: rgba(255, 255, 255, 0.72); }
-.ee-plans__price-big { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(32px, 3.8vw, 50px); line-height: 1; color: #fff; letter-spacing: -0.015em; font-variant-numeric: tabular-nums; }
-.ee-plans__price-note { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 0.95vw, 13px); color: rgba(255, 255, 255, 0.5); margin-top: 3px; }
-.ee-plans__price-avista { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: clamp(14px, 1.8vw, 20px); padding: clamp(12px, 1.4vw, 16px) clamp(14px, 1.6vw, 18px); border-radius: 14px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); }
-.ee-plans__price-avista-label { display: flex; flex-direction: column; line-height: 1.2; }
-.ee-plans__price-avista-label strong { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(13px, 1.1vw, 15px); color: #fff; }
-.ee-plans__price-avista-label span { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(10px, 0.9vw, 12px); color: rgba(255, 255, 255, 0.55); }
-.ee-plans__price-avista-val { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: clamp(18px, 1.9vw, 26px); color: #fff; white-space: nowrap; font-variant-numeric: tabular-nums; }
 /* Combo: rodapé do card — valor (mensal + contrato empilhados) à esquerda, CTA à direita */
 .ee-plans__combo-footer {
   margin: auto 0 0; padding-top: clamp(16px, 2vw, 24px);
@@ -5252,8 +5335,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans .ee-packs__title,
 .ee-plans .ee-packs__term { display: none !important; }
 .ee-plans .ee-packs__select { display: none !important; }
-.ee-plans .ee-packs__features { order: 1; margin: 0; list-style: none; padding: 0; border: 0; display: flex; flex-direction: column; gap: clamp(10px, 1.2vw, 14px); }
-.ee-plans .ee-packs__features li { display: flex; gap: 10px; align-items: flex-start; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(12.5px, 1vw, 14px); line-height: 1.42; color: rgba(255, 255, 255, 0.82); }
+.ee-plans .ee-packs__features { order: 1; margin: 0; list-style: none; padding: 0; border: 0; display: flex; flex-direction: column; gap: clamp(16px, 1.9vw, 26px); }
+.ee-plans .ee-packs__features li { display: flex; gap: 12px; align-items: flex-start; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(14px, 1.3vw, 17px); line-height: 1.4; color: rgba(255, 255, 255, 0.88); }
 .ee-plans .ee-packs__features li i, .ee-plans .ee-packs__features li svg { width: 16px; height: 16px; flex-shrink: 0; color: #FB2E0A; margin-top: 2px; }
 /* Preço interno do card fica oculto (a proposta ainda o lê no DOM); o valor exibido é o .ee-plans__value */
 .ee-plans .ee-packs__price { display: none; }
@@ -6955,7 +7038,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO 11 — PREÇOS (toggle E.E vs Bundle)                      -->
 <!-- ============================================================ -->
-<section id="precos" class="ee-pricing ee-plans" data-active-pack="m" aria-label="Contratação combinada">
+<section id="precos" class="ee-pricing ee-plans ee-plans--bundle" data-active-pack="m" aria-label="Bundle — Setup + Execução">
   <div class="ee-plans__bg" aria-hidden="true"></div>
   <div class="ee-pricing__inner ee-plans__inner">
 
@@ -6963,15 +7046,36 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-pricing__panel is-active">
 
         <div class="ee-plans__card">
-          <div class="ee-plans__badge">Contratação Combinada</div>
+
+          <!-- Faixa "plano mais popular" — fixada no topo do card -->
+          <div class="ee-plans__popular-banner" data-popular-banner>Plano mais popular</div>
+
+          <!-- Cabeçalho do bundle: título + seletor de investimento -->
+          <header class="ee-plans__bundle-head">
+            <div class="ee-plans__bundle-title">
+              <span class="ee-plans__bundle-name-row">
+                <span class="ee-plans__bundle-name">Estruturação Estratégica 3.0 + Combo Performance</span>
+                <span class="ee-plans__model-tag" data-ee-model>PDV</span>
+              </span>
+            </div>
+            <div class="ee-plans__invest">
+              <label class="ee-plans__invest-label" for="ee-invest">Investimento em mídia</label>
+              <div class="ee-plans__select-wrap">
+                <select id="ee-invest" class="ee-plans__select" data-invest-select aria-label="Investimento em mídia por mês">
+                  <option value="s">R$ 2k – 5k / mês</option>
+                  <option value="m" selected>R$ 5k – 15k / mês</option>
+                  <option value="l">R$ 15k – 50k / mês</option>
+                  <option value="xl">R$ 50k+ / mês</option>
+                </select>
+                <svg class="ee-plans__select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+          </header>
+
           <div class="ee-plans__grid">
 
             <!-- VIDRO 1 — Estruturação Estratégica -->
             <article class="ee-glass ee-plans__ee">
-              <div class="ee-plans__ee-head">
-                <img src="assets/Eelogo3.png" alt="Estruturação Estratégica 3.0" class="ee-plans__ee-logo"/>
-                <span class="ee-plans__model-tag" data-ee-model>PDV</span>
-              </div>
               <p class="ee-plans__label">O que você vai receber</p>
               <ul class="ee-plans__weeks">
                 <li><span class="wk">Semana 1</span><span class="wd">Descoberta e pesquisa de mercado</span><span class="wd-sub">Persona e ICP, análise de concorrência, SWOT e pesquisa de mercado (TAM/SAM/SOM).</span></li>
@@ -6979,28 +7083,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
                 <li><span class="wk">Semana 3</span><span class="wd">Estrutura da operação</span><span class="wd-sub">Captação e conversão estruturadas sob medida para o seu modelo de vendas.</span></li>
                 <li><span class="wk">Semana 4</span><span class="wd">Identidade e plano de mídia</span><span class="wd-sub">Manual de marca, banco de copy, briefing de criativos e plano de mídia de 6 meses.</span></li>
               </ul>
-              <p class="ee-plans__value"><span data-ee-value>R$ 36.120</span><small>setup · investimento único</small></p>
+              <span data-ee-value hidden></span>
             </article>
 
             <div class="ee-plans__plus" aria-hidden="true">+</div>
 
             <!-- VIDRO 2 — Combo Performance -->
             <article class="ee-glass ee-plans__combo">
-              <h3 class="ee-plans__ctitle">Combo Performance</h3>
-              <div class="ee-plans__invest">
-                <label class="ee-plans__invest-label" for="ee-invest">Investimento em mídia</label>
-                <span class="ee-plans__popular-flag"><i data-lucide="star" aria-hidden="true"></i>Plano mais popular</span>
-                <div class="ee-plans__select-wrap">
-                  <select id="ee-invest" class="ee-plans__select" data-invest-select aria-label="Investimento em mídia por mês">
-                    <option value="s">R$ 2k – 5k / mês</option>
-                    <option value="m" selected>R$ 5k – 15k / mês</option>
-                    <option value="l">R$ 15k – 50k / mês</option>
-                    <option value="xl">R$ 50k+ / mês</option>
-                  </select>
-                  <svg class="ee-plans__select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                </div>
-              </div>
-              <p class="ee-plans__label">O que você vai receber</p>
 
               <!-- Conteúdo reaproveitado: 3 modelos × 4 faixas (ganchos da proposta preservados) -->
               <div class="ee-packs-models">
@@ -7244,15 +7333,28 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
               </div><!-- /.ee-packs-models -->
 
-              <div class="ee-plans__combo-footer">
-                <p class="ee-plans__value"><span class="ee-plans__value-main"><span data-combo-value>R$ 9.937</span><small>/mês · plano de 6 meses</small><small class="ee-plans__contract">Total do contrato · <span data-combo-total>R$ 59.622</span></small></span></p>
-                <button type="button" class="ee-plans__cta ee-plans__cta--combo" data-plans-cta>Selecionar pacote
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                </button>
-              </div>
+              <!-- valor por mês do combo fica oculto (preço do bundle é unificado abaixo); mantém ganchos -->
+              <span data-combo-value hidden></span><span data-combo-total hidden></span>
             </article><!-- /.ee-plans__combo -->
 
           </div><!-- /.ee-plans__grid -->
+
+          <!-- PREÇO ÚNICO DO BUNDLE (âncora + 12x + à vista) -->
+          <div class="ee-plans__bundle-price">
+            <div class="ee-plans__bundle-price-main">
+              <span class="ee-plans__price-from" data-bundle-from>R$ —</span>
+              <div class="ee-plans__price-line">
+                <span class="ee-plans__price-x">12x</span>
+                <span class="ee-plans__price-big" data-bundle-12x>R$ —</span>
+              </div>
+              <span class="ee-plans__price-avista-line">ou <strong data-bundle-avista>R$ —</strong> à vista</span>
+            </div>
+            <button type="button" class="ee-plans__cta" data-plans-cta>Selecionar Pacote
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </button>
+          </div>
+
+        </div><!-- /.ee-plans__card (fecha logo após o preço) -->
 
           <!-- Opção discreta: contratar apenas a Estruturação Estratégica -->
           <div class="ee-plans__ee-only-wrap">
@@ -7296,8 +7398,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <ul class="ee-paycol__rec-lines" data-rec-lines></ul>
             </div>
           </aside>
-
-        </div><!-- /.ee-plans__card -->
 
       </div>
     </div>
@@ -9821,6 +9921,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!section || !section.classList.contains('ee-plans')) return;
 
     var sel        = section.querySelector('[data-invest-select]');
+    var eeValueEl  = section.querySelector('[data-ee-value]');
     var modelTagEl = section.querySelector('[data-ee-model]');
     var comboValEl = section.querySelector('[data-combo-value]');
     var comboTotalEl = section.querySelector('[data-combo-total]');
@@ -9833,19 +9934,32 @@ document.addEventListener('DOMContentLoaded', function() {
     var recMonthlyEl = section.querySelector('[data-rec-monthly]');
     var recLinesEl = section.querySelector('[data-rec-lines]');
     var cta        = section.querySelector('[data-plans-cta]');
-    var eeValueEl  = section.querySelector('[data-ee-value]');
+    var bundleFromEl = section.querySelector('[data-bundle-from]');
+    var bundle12xEl  = section.querySelector('[data-bundle-12x]');
+    var bundleAvEl   = section.querySelector('[data-bundle-avista]');
+    var bannerEl     = section.querySelector('[data-popular-banner]');
+    var socialEl     = section.querySelector('.ee-pricing__bundle-footer');
 
     var activeTier = section.getAttribute('data-active-pack') || 'm';
     var committed  = false;
 
     // E.E — valor (parte inteira) e descrição da Semana 3 por modelo de vendas
+    var EE_VAL = { 'pdv': 'R$ 36.120', 'inside-sales': 'R$ 36.397', 'e-commerce': 'R$ 36.263' };
     var EE_NUM = { 'pdv': 36120.59, 'inside-sales': 36397.89, 'e-commerce': 36263.06 };
     var MODEL_TAG = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+    var EE_FULL_MULT = 1.8;          // âncora: "valor cheio" exibido = valor de face real × 1.8 (só visual)
     var SOCIAL_PRICE_NUM = 4053.75;  // Social Media (mensal) — espelha o valor usado no gerador de proposta
+    // Preço único do BUNDLE por faixa de investimento (igual pros 3 modelos de vendas)
+    var BUNDLE_PRICE = {
+      s:  { from: 'R$ 71.500',  x12: 'R$ 4.166',  avista: 'R$ 39.000' },
+      m:  { from: 'R$ 89.500',  x12: 'R$ 5.250',  avista: 'R$ 49.000' },
+      l:  { from: 'R$ 132.500', x12: 'R$ 7.750',  avista: 'R$ 72.000' },
+      xl: { from: 'R$ 182.000', x12: 'R$ 10.650', avista: 'R$ 99.000' }
+    };
 
     function currentModel() {
       var m = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
-      return EE_NUM[m] ? m : 'pdv';
+      return EE_VAL[m] ? m : 'pdv';
     }
     function shownVariant() { return section.querySelector('.ee-packs__variant.is-shown'); }
 
@@ -9878,9 +9992,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function render() {
       showActiveTier();
       var m = currentModel();
-      var eeFace = EE_NUM[m] || 0;            // valor de face por modelo (sem multiplicador 1.8x)
-      // Card da E.E exibe o valor de face; tag do modelo
-      if (eeValueEl) eeValueEl.textContent = fmtBRL0(eeFace);
+
+      // Preço único do BUNDLE (por faixa de investimento) + faixa "plano mais popular"
+      var bp = BUNDLE_PRICE[activeTier] || BUNDLE_PRICE.m;
+      if (bundleFromEl) bundleFromEl.textContent = bp.from;
+      if (bundle12xEl)  bundle12xEl.textContent  = bp.x12;
+      if (bundleAvEl)   bundleAvEl.textContent   = bp.avista;
+      if (bannerEl)     bannerEl.hidden = (activeTier !== 'm');
+
+      var eeFace = EE_NUM[m] || 0;            // valor real de face
+      var eeFull = eeFace * EE_FULL_MULT;     // valor cheio (âncora ×1.8)
+
+      // Card da E.E exibe o valor cheio (âncora); tag do modelo de vendas
+      if (eeValueEl) eeValueEl.textContent = fmtBRL0(eeFull);
       if (modelTagEl) modelTagEl.textContent = MODEL_TAG[m];
 
       // Card do Combo: mensal + total do contrato (×6, sem desconto)
@@ -9893,14 +10017,17 @@ document.addEventListener('DOMContentLoaded', function() {
       var isEEOnly = sol === 'ee';
       var isBundle = !!sol && sol.indexOf('bundle-') === 0;
       var show = isEEOnly || isBundle;
+      // Social Media só aparece quando um BUNDLE está selecionado (some no E.E-only e no estado inicial)
+      if (socialEl) socialEl.hidden = !isBundle;
       if (summaryEl) {
         summaryEl.hidden = !show;
         summaryEl.classList.toggle('is-ee-only', isEEOnly);
       }
       if (!show) return;
 
-      // Coluna E.E — valor de face (sem ×1.8) + 12x cartão (-20%) e à vista (-30%)
-      if (eeFullEl) eeFullEl.textContent = fmtBRL0(eeFace);
+      // Coluna E.E — valor de face (real) + 12x cartão (-20%) e à vista (-30%)
+      if (eeFullEl) eeFullEl.textContent = fmtBRL0(eeFull);
+      if (eeFaceEl) eeFaceEl.textContent = EE_VAL[m];
       if (ee12xEl)  ee12xEl.textContent  = fmtBRL0(eeFace * 0.80 / 12);
       if (eeAvEl)   eeAvEl.textContent   = fmtBRL0(eeFace * 0.70);
 
