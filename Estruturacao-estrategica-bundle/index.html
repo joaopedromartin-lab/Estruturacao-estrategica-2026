@@ -2190,7 +2190,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-sim__hook-dots { color: #FB2E0A; font-weight: 700; }
 
 /* Bloco de vidro decorativo com parallax (range #para-quem → #recap) */
-#top { position: relative; }
+#top { position: relative; overflow-x: clip; }   /* clip (não hidden) → contém o overflow lateral dos blocos sem quebrar o sticky */
 .ee-glass-deco {
   position: absolute;
   width: clamp(170px, 19vw, 300px);
@@ -5439,7 +5439,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding: clamp(26px, 3.4vw, 44px) clamp(24px, 3vw, 44px) clamp(26px, 3.4vw, 44px) calc(max(0px, (100vw - 1320px) / 2) + clamp(20px, 4vw, 64px));
   background: linear-gradient(90deg, rgba(5, 0, 0, 0.8) 0%, rgba(5, 0, 0, 0.4) 100%);
 }
-.ee-plans--bundle .ee-plans__header-media { position: relative; overflow: hidden; align-self: end; min-height: clamp(180px, 16vw, 260px); }
+.ee-plans--bundle .ee-plans__header-media { position: relative; overflow: hidden; min-height: clamp(180px, 16vw, 260px); }
 .ee-plans--bundle .ee-plans__header-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .ee-plans--bundle .ee-plans__header-meta { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(10px, 1.4vw, 18px); }
 .ee-plans--bundle .ee-plans__header-meta .ee-plans__model-tag { margin: 0; }
