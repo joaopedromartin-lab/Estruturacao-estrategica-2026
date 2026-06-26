@@ -224,9 +224,9 @@
   #top > #proposta { overflow: hidden; }
   /* Preços: badge "Contratação Combinada" mais próximo do topo (padding-top menor).
      Padding-bottom ampliado pra dar área da cúpula + ênfase no fechamento do valor. */
-  #top > #precos { padding-top: clamp(50px, 6.5vh, 67px); padding-bottom: clamp(80px, 12vh, 180px); }
+  #top > #precos { padding-top: clamp(170px, 19vh, 210px); padding-bottom: clamp(80px, 12vh, 180px); }
   /* Respiro extra ao redor da faixa de garantia (absoluta no divisor; selo transborda ~124px) */
-  #top > #recap { padding-bottom: clamp(128px, 14vh, 148px); }
+  #top > #recap { padding-bottom: clamp(170px, 19vh, 210px); }
   /* Crescer: conteúdo posicionado de forma absoluta → precisa de altura mínima própria */
   #top > #crescer { min-height: clamp(540px, 72vh, 860px); padding: 0; }
   /* Executar (handoff): altura ampla porém controlada (não tela cheia), conteúdo centralizado no meio.
@@ -5512,9 +5512,27 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-plans--bundle .ee-plans__cta svg { display: none; }
 
 /* PF do preço — ancorado no canto inferior direito (stroke branco curvo) */
-.ee-plans--bundle .ee-plans__footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: clamp(24px, 3vw, 40px); }
+.ee-plans--bundle .ee-plans__footer { display: flex; align-items: flex-end; justify-content: flex-start; gap: 24px; flex-wrap: wrap; margin-top: clamp(24px, 3vw, 40px); }
 .ee-plans--bundle .ee-plans__footer-left { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .ee-plans--bundle .ee-plans__footer .ee-plans__cta { margin-top: 0; }
+/* Ancoragem (abre ao selecionar): EE×1.2 riscado → valores finais, centralizado */
+.ee-plans--bundle .ee-plans__anchor {
+  margin-top: clamp(24px, 3vw, 40px);
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.22);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-align: center;
+}
+.ee-plans--bundle .ee-plans__anchor-solo { margin: 0; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; font-size: clamp(14px, 1.4vw, 18px); color: rgba(255, 255, 255, 0.72); }
+.ee-plans--bundle .ee-plans__anchor-solo strong { font-weight: 700; color: #fff; }
+.ee-plans--bundle .ee-plans__anchor-solo s { color: rgba(255, 255, 255, 0.55); text-decoration-color: #FFD60A; text-decoration-thickness: 2px; }
+.ee-plans--bundle .ee-plans__anchor-deal { margin: 6px 0 10px; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: clamp(15px, 1.5vw, 21px); color: #fff; }
+.ee-plans--bundle .ee-plans__anchor-deal strong { color: #FFD60A; }
+.ee-plans--bundle .ee-plans__anchor .ee-plans__pf { align-self: center; text-align: center; }
+.ee-plans--bundle .ee-plans__anchor .ee-plans__pf-from { text-align: center; }
+.ee-plans--bundle .ee-plans__anchor .ee-plans__pf-line { justify-content: center; }
 .ee-plans__pf { align-self: flex-end; text-align: right; color: #fff; }
 .ee-plans__pf-line { justify-content: flex-end; }
 .ee-plans__pf-from { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.4vw, 16px); color: rgba(255, 255, 255, 0.6); text-decoration: line-through; margin-bottom: 8px; }
@@ -7397,11 +7415,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <button type="button" class="ee-plans__cta" data-plans-cta>Selecionar este Pacote</button>
               <button type="button" class="ee-plans__ee-only" data-ee-only aria-pressed="false">Seguir apenas com a Estruturação Estratégica 3.0</button>
             </div>
-            <div class="ee-plans__pf">
-              <span class="ee-plans__pf-from" data-bundle-from>De R$ —</span>
-              <div class="ee-plans__pf-line"><span class="ee-plans__pf-x">12x</span><span class="ee-plans__pf-big" data-bundle-12x>R$ —</span><span class="ee-plans__pf-month">/mês</span></div>
-              <span class="ee-plans__pf-avista">ou <strong data-bundle-avista>R$ —</strong> à vista</span>
-            </div>
+          </div>
+
+          <!-- Ancoragem (abre ao selecionar): só o preço solo (E.E × 1.2, riscado) -->
+          <div class="ee-plans__anchor" data-anchor hidden>
+            <p class="ee-plans__anchor-solo">Levando a <strong>Estruturação Estratégica</strong> separada, custaria <s data-anchor-solo>R$ —</s></p>
           </div>
 
           <!-- Social Media — Leve também -->
@@ -8949,6 +8967,17 @@ document.addEventListener('DOMContentLoaded', function() {
     var genBtn   = document.getElementById('v4-pbar-generate');
     if (!bar || !window.V4Proposal) return;
 
+    // A barra só aparece DEPOIS de scrollar até a ancoragem (valores finais) entrar na tela
+    var revealed = false;
+    var anchorWatch = document.querySelector('.ee-plans--bundle [data-anchor]');
+    if (anchorWatch && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !revealed) { revealed = true; renderAll(); }
+      }, { threshold: 0.15 }).observe(anchorWatch);
+    } else {
+      revealed = true;   // fallback (sem IO): comportamento normal
+    }
+
     // Estado visual dos cards (selecionado) — reage ao motor já existente
     function renderCards(state) {
       document.querySelectorAll('.ee-packs__card').forEach(function (card) {
@@ -9020,10 +9049,10 @@ document.addEventListener('DOMContentLoaded', function() {
         itemsEl.textContent = 'Selecione um pacote';
       }
 
-      // Mostra a barra se há qualquer seleção
+      // Mostra a barra se há qualquer seleção E já scrollou até a ancoragem (valores finais)
       var canGen = isEE || hasPack;
       var show = canGen || social;
-      bar.classList.toggle('is-visible', show);
+      bar.classList.toggle('is-visible', show && revealed);
       // CTA habilita com pacote (EE + Executar) OU apenas a Estruturação Estratégica
       genBtn.disabled = !canGen;
       genBtn.style.opacity = canGen ? '1' : '0.5';
@@ -10029,6 +10058,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var bundleAvEl   = section.querySelector('[data-bundle-avista]');
     var bannerEl     = section.querySelector('[data-popular-banner]');
     var socialEl     = section.querySelector('.ee-pricing__bundle-footer');
+    var anchorEl     = section.querySelector('[data-anchor]');
+    var anchorSoloEl = section.querySelector('[data-anchor-solo]');
 
     var activeTier = section.getAttribute('data-active-pack') || 'm';
     var committed  = false;
@@ -10083,6 +10114,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (bundleFromEl) bundleFromEl.textContent = fmtBRL0(tcv);
       if (bundle12xEl)  bundle12xEl.textContent  = fmtBRL0(tcv * 0.80 / 12);
       if (bundleAvEl)   bundleAvEl.textContent   = fmtBRL0(tcv * 0.70);
+      if (anchorSoloEl) anchorSoloEl.textContent = fmtBRL0(eeFace * 1.2);   // ancoragem: E.E solo × 1.2 (só visual)
       if (bannerEl)     bannerEl.hidden = (activeTier !== 'm');
 
       // Tag do modelo + valor de face (resumo)
@@ -10100,6 +10132,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var show = isEEOnly || isBundle;
       // Social Media só aparece quando um BUNDLE está selecionado (some no E.E-only e no estado inicial)
       if (socialEl) socialEl.hidden = !isBundle;
+      if (anchorEl) anchorEl.hidden = !isBundle;
       if (summaryEl) {
         summaryEl.hidden = !show;
         summaryEl.classList.toggle('is-ee-only', isEEOnly);
