@@ -2093,9 +2093,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   box-shadow: 0 30px 80px rgba(0,0,0,0.4);
 }
 
-/* Faixa vermelha (banner) */
+/* Faixa vermelha (banner) — mais estreita que o corpo (recuo lateral),
+   deixando o card de baixo aparecer mais largo atrás dela */
 .ee-comm__banner {
   text-align: center;
+  margin: 0 clamp(24px, 4vw, 64px);
   padding: clamp(20px, 3vw, 36px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 72px);
   border-radius: clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px) 0 0;
   background: linear-gradient(180deg, #FF3D1E 0%, #E11208 100%);
@@ -2139,16 +2141,35 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
 }
 .ee-comm__avatar {
-  width: clamp(44px, 5vw, 62px); height: clamp(44px, 5vw, 62px);
+  width: clamp(52px, 6vw, 76px); height: clamp(52px, 6vw, 76px);
   border-radius: 50%; background: #C9C9C9; margin-bottom: 6px; flex-shrink: 0;
+  object-fit: cover; object-position: center; display: block;
+}
+/* avatar "P" — círculo vermelho com a inicial do participante */
+.ee-comm__avatar--p {
+  background: #E11208; color: #FFFFFF;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 800;
+  font-size: clamp(22px, 2.6vw, 34px); letter-spacing: 0;
 }
 .ee-comm__name {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.1vw, 15px);
-  font-weight: 700; color: #FFFFFF; margin: 0; letter-spacing: 0.02em;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14px, 1.25vw, 18px);
+  font-weight: 700; color: #FFFFFF; margin: 0; letter-spacing: 0.02em; text-transform: uppercase;
 }
 .ee-comm__role {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 0.9vw, 12px);
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 0.9vw, 13px);
   font-weight: 400; color: rgba(255,255,255,0.55); margin: 0;
+}
+/* tile "+25 participantes" — só texto grande, sem avatar */
+.ee-comm__tile--count { justify-content: center; }
+.ee-comm__count {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
+  font-size: clamp(44px, 6vw, 82px); line-height: 0.95; color: #FFFFFF; margin: 0; letter-spacing: -0.02em;
+}
+.ee-comm__count-label {
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 0.95vw, 14px);
+  font-weight: 400; color: rgba(255,255,255,0.85); margin: 4px 0 0;
+  letter-spacing: 0.14em; text-transform: uppercase;
 }
 /* Barra de controles estilo Google Meet */
 .ee-comm__controls {
@@ -2370,7 +2391,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-eqv__head { text-align: center; margin: 0 0 clamp(32px, 5vh, 56px); }
 .ee-eqv__eyebrow {
   font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 1vw, 14px);
-  font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: #FFFFFF; margin: 0 0 6px;
+  font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: #FFC400; margin: 0 0 6px;
 }
 .ee-eqv__title {
   font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(24px, 3vw, 38px);
@@ -2386,8 +2407,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .ee-eqv__reveal:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-/* some com o botão depois de revelar a oferta */
-.ee-eqv[data-eqv-state="offer"] .ee-eqv__reveal-wrap { display: none; }
+/* botão "Voltar ao valor sem oferta" — só aparece no estado offer */
+.ee-eqv__back {
+  display: none; align-items: center; gap: 8px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.1vw, 16px); font-weight: 500;
+  color: rgba(255,255,255,0.85); background: transparent;
+  border: 1px solid rgba(255,255,255,0.4); cursor: pointer;
+  padding: clamp(11px, 1.2vw, 15px) clamp(22px, 3vw, 36px); border-radius: 999px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.ee-eqv__back:hover { background: rgba(255,255,255,0.12); border-color: #FFFFFF; color: #FFFFFF; }
+.ee-eqv__back i { width: 16px; height: 16px; }
+/* alterna qual botão aparece conforme o estado */
+.ee-eqv[data-eqv-state="offer"] .ee-eqv__reveal { display: none; }
+.ee-eqv[data-eqv-state="offer"] .ee-eqv__back { display: inline-flex; }
 
 /* Alternância âncora ↔ oferta dentro de cada card.
    Prefixado com .ee-eqv[data-eqv-state] para vencer a especificidade
@@ -7365,11 +7398,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <!-- ============================================================ -->
 <!-- SEÇÃO — INTRODUÇÃO AO PRODUTO (3 sessões, 3 entregáveis)       -->
 <!-- ============================================================ -->
-<section id="sessoes" class="ee-sessions" aria-label="Todo mês: 3 sessões, 3 entregáveis concretos">
+<section id="sessoes" class="ee-sessions" aria-label="Consultoria, acompanhamento e execução assistida por especialistas">
   <div class="ee-sessions__inner">
     <header class="ee-sessions__head">
-      <h2 class="ee-sessions__title">Todo mês: 3 sessões,<br>3 entregáveis concretos.</h2>
-      <p class="ee-sessions__sub">A <strong>Empresa que Vende</strong> é consultoria, acompanhamento e execução assistida ao longo de 6 meses.</p>
+      <h2 class="ee-sessions__title">Tenha uma consultoria, acompanhamento e execução assistida por especialistas</h2>
+      <p class="ee-sessions__sub">Ciclos de <strong>3 sessões</strong> com <strong>3 entregáveis concretos</strong> todos os meses por 6 meses.</p>
     </header>
 
     <div class="ee-sessions__grid">
@@ -7600,24 +7633,23 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <p class="ee-comm__live-title">Monitoria exclusiva mensal - V4</p>
           <div class="ee-comm__grid">
             <article class="ee-comm__tile">
-              <span class="ee-comm__avatar" aria-hidden="true"></span>
-              <p class="ee-comm__name">Vinicius C.</p>
+              <img class="ee-comm__avatar" src="assets/Den-meet.png" alt="Dener L." loading="lazy" decoding="async">
+              <p class="ee-comm__name">Dener L</p>
+              <p class="ee-comm__role">Ceo v4</p>
+            </article>
+            <article class="ee-comm__tile">
+              <img class="ee-comm__avatar" src="assets/figas-meet.png" alt="Gustavo F." loading="lazy" decoding="async">
+              <p class="ee-comm__name">Gustavo.F</p>
               <p class="ee-comm__role">C-Level V4</p>
             </article>
             <article class="ee-comm__tile">
-              <span class="ee-comm__avatar" aria-hidden="true"></span>
-              <p class="ee-comm__name">Gustavo F.</p>
-              <p class="ee-comm__role">C-Level V4</p>
-            </article>
-            <article class="ee-comm__tile">
-              <span class="ee-comm__avatar" aria-hidden="true"></span>
-              <p class="ee-comm__name">Dener L.</p>
-              <p class="ee-comm__role">C-Level V4</p>
-            </article>
-            <article class="ee-comm__tile">
-              <span class="ee-comm__avatar" aria-hidden="true"></span>
+              <span class="ee-comm__avatar ee-comm__avatar--p" aria-hidden="true">P</span>
               <p class="ee-comm__name">Empresário</p>
               <p class="ee-comm__role">Participante</p>
+            </article>
+            <article class="ee-comm__tile ee-comm__tile--count">
+              <p class="ee-comm__count">+25</p>
+              <p class="ee-comm__count-label">Participantes</p>
             </article>
           </div>
           <!-- Barra de controles estilo Google Meet (decorativa) -->
@@ -7692,7 +7724,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <img class="ee-bonus__logo" src="assets/fabricareceitaLogo.png" alt="Fábrica de Receita" loading="lazy" decoding="async">
       <div class="ee-bonus__copy">
         <h3 class="ee-bonus__copy-title">Evento exclusivo para clientes V4</h3>
-        <p class="ee-bonus__copy-text">Além de tudo que foi oferecido, você também garante sua entrada para o Fábrica de Receita.</p>
+        <p class="ee-bonus__copy-text">Imersão presencial anual de 2 dias. Análise ao vivo do seu negócio com especialistas V4 e os melhores empresários do programa. Hot seats, workshops e networking de alto nível.</p>
       </div>
     </div>
   </div>
@@ -7993,9 +8025,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     </div>
 
-    <!-- Botão "Mostrar oferta" — ABAIXO dos dois cards -->
+    <!-- Botão "Mostrar oferta" — ABAIXO dos dois cards.
+         No estado "offer", vira "Voltar" (mostra o valor pré-oferta). -->
     <div class="ee-eqv__reveal-wrap" data-eqv-reveal-wrap>
       <button type="button" class="ee-eqv__reveal" data-eqv-reveal>Mostrar oferta</button>
+      <button type="button" class="ee-eqv__back" data-eqv-back><i data-lucide="arrow-left" aria-hidden="true"></i>Voltar ao valor sem oferta</button>
     </div>
   </div>
 </section>
@@ -8004,6 +8038,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   var root = document.querySelector('.ee-eqv');
   if (!root) return;
   var reveal = root.querySelector('[data-eqv-reveal]');
+  var back   = root.querySelector('[data-eqv-back]');
   var cards  = root.querySelector('.ee-eqv__cards');
 
   // "Mostrar oferta": troca cada card do preço cheio (à vista) para o de/por parcelado
@@ -8011,6 +8046,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     reveal.addEventListener('click', function () {
       root.setAttribute('data-eqv-state', 'offer');
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+      if (cards) cards.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  // "Voltar": retorna ao valor pré-oferta (útil na apresentação do vendedor)
+  if (back) {
+    back.addEventListener('click', function () {
+      root.setAttribute('data-eqv-state', 'anchor');
       if (cards) cards.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
