@@ -1987,7 +1987,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 /* Linha (sessão): duas colunas — texto + mídia. Alterna via data-media. */
 .ee-how__row {
   display: grid; grid-template-columns: 1fr; align-items: center;
-  gap: clamp(32px, 5vw, 72px);
+  gap: clamp(48px, 8vw, 120px);
   padding: clamp(28px, 5vh, 64px) 0;
 }
 .ee-how__row + .ee-how__row { border-top: 1px solid rgba(255,255,255,0.08); }
@@ -2209,8 +2209,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 @media (min-width: 780px) { .ee-bonus__intro { grid-template-columns: 1fr 1fr; } }
 .ee-bonus__logo {
-  width: 100%; aspect-ratio: 16 / 7; border-radius: clamp(12px, 1.4vw, 18px);
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  width: 100%; aspect-ratio: 16 / 7;
+  object-fit: contain; object-position: left center; display: block;
 }
 .ee-bonus__copy-title {
   font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(20px, 2.2vw, 30px);
@@ -2237,7 +2237,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   width: clamp(260px, 26vw, 340px); height: clamp(320px, 32vw, 420px);
   background: #1A1A1A; overflow: hidden;
 }
-.ee-bonus__photo { position: absolute; inset: 0; background: #2A2A2C; display: block; }
+.ee-bonus__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; background: #2A2A2C; display: block; }
 .ee-bonus__cap {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
   padding: clamp(14px, 1.6vw, 20px);
@@ -2247,7 +2247,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-bonus__name { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(15px, 1.4vw, 19px); font-weight: 700; color: #FFFFFF; letter-spacing: -0.01em; }
 .ee-bonus__role { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(11px, 0.95vw, 13px); font-weight: 400; color: rgba(255,255,255,0.7); }
 /* Networking (só imagem) — formato horizontal/paisagem */
-.ee-bonus__net { flex: 0 0 auto; width: clamp(320px, 32vw, 440px); height: clamp(180px, 18vw, 240px); background: #232326; display: block; }
+.ee-bonus__net { flex: 0 0 auto; width: clamp(320px, 32vw, 440px); height: clamp(180px, 18vw, 240px); background: #232326; display: block; object-fit: cover; object-position: center; }
 .ee-bonus__net:nth-child(even) { background: #2E2E31; }
 
 /* === SEÇÃO — DEPOIMENTO (CEO V4) === */
@@ -2295,9 +2295,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   flex: 0 0 auto;
   width: clamp(220px, 26vw, 380px); aspect-ratio: 4 / 5;
   border-radius: clamp(16px, 1.8vw, 26px);
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(229,9,20,0.18), transparent 70%),
-    #1C1414;
+  object-fit: cover; object-position: top center; display: block;
   border: 1px solid rgba(255,255,255,0.08);
 }
 .ee-quote__id { flex: 0 1 auto; }
@@ -2379,22 +2377,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-weight: 500; color: #FFFFFF; margin: 0; letter-spacing: -0.01em;
 }
 
-/* Ancoragem */
-.ee-eqv__anchor {
-  max-width: 560px; margin: 0 auto; text-align: center;
-  background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.14);
-  border-radius: clamp(16px, 1.8vw, 24px); padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 40px);
-}
-.ee-eqv__anchor-label {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.1vw, 16px);
-  font-weight: 400; color: rgba(255,255,255,0.75); margin: 0 0 clamp(8px, 1vw, 12px); line-height: 1.4;
-}
-.ee-eqv__anchor-price {
-  font-family: 'IBM Plex Sans', sans-serif; margin: 0 0 clamp(20px, 3vw, 30px);
-  font-size: clamp(38px, 5vw, 64px); font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: -0.02em; line-height: 1;
-}
-.ee-eqv__anchor-price s { text-decoration-thickness: 3px; text-decoration-color: rgba(255,255,255,0.6); }
-.ee-eqv__anchor-price span { font-size: 0.4em; font-weight: 500; letter-spacing: 0; }
+/* Botão "Mostrar oferta" — abaixo dos cards */
+.ee-eqv__reveal-wrap { text-align: center; margin-top: clamp(28px, 3.4vw, 44px); }
 .ee-eqv__reveal {
   font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14px, 1.2vw, 17px); font-weight: 600;
   color: #C0140A; background: #FFFFFF; border: none; cursor: pointer;
@@ -2402,10 +2386,26 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .ee-eqv__reveal:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+/* some com o botão depois de revelar a oferta */
+.ee-eqv[data-eqv-state="offer"] .ee-eqv__reveal-wrap { display: none; }
 
-/* Oferta revelada */
-.ee-eqv__offer[hidden] { display: none; }
-.ee-eqv__offer { animation: ee-eqv-in 0.5s cubic-bezier(0.16,1,0.3,1); }
+/* Alternância âncora ↔ oferta dentro de cada card.
+   Prefixado com .ee-eqv[data-eqv-state] para vencer a especificidade
+   da regra base .ee-eqv__price { display: flex } */
+.ee-eqv[data-eqv-state="anchor"] .ee-eqv__price--offer { display: none; }
+.ee-eqv[data-eqv-state="offer"] .ee-eqv__price--anchor { display: none; }
+.ee-eqv[data-eqv-state="offer"] .ee-eqv__price--offer {
+  display: block; animation: ee-eqv-in 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+/* preço âncora: só o valor à vista, sem "Nx" */
+.ee-eqv__price--anchor { display: flex; align-items: baseline; gap: 4px; }
+/* preço oferta: linha "de/por" + parcelado */
+.ee-eqv__price-from {
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 500; color: rgba(26,26,26,0.6); margin: 0 0 4px;
+}
+.ee-eqv__price-from s { text-decoration-thickness: 2px; text-decoration-color: rgba(196,20,10,0.65); }
+.ee-eqv__price-row { display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
 @keyframes ee-eqv-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 .ee-eqv__cards {
   display: grid; grid-template-columns: 1fr; gap: clamp(20px, 2.4vw, 32px);
@@ -2493,7 +2493,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-eqv__card.is-selected .ee-eqv__cta { color: #E11208; border-color: #E11208; background: transparent; }
 .ee-eqv__card.is-selected .ee-eqv__cta:hover { background: #E11208; color: #FFFFFF; }
 @media (prefers-reduced-motion: reduce) {
-  .ee-eqv__offer { animation: none; }
+  .ee-eqv[data-eqv-state="offer"] .ee-eqv__price--offer { animation: none; }
   .ee-eqv__reveal, .ee-eqv__cta { transition: none; }
 }
 
@@ -7287,16 +7287,16 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <p class="ee-foru__label">Estrutura comercial muito amadora</p>
         </article>
         <article class="ee-foru__card">
-          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="trending-up"></i></div>
-          <p class="ee-foru__label">Concorrência avançando</p>
+          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="clipboard-list"></i></div>
+          <p class="ee-foru__label">Não ter um plano de marketing definido</p>
         </article>
         <article class="ee-foru__card">
-          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="circle-help"></i></div>
-          <p class="ee-foru__label">Medo de fazer uma contratação errada</p>
+          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="dice-5"></i></div>
+          <p class="ee-foru__label">Decisões a base do achismo</p>
         </article>
         <article class="ee-foru__card">
-          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="shuffle"></i></div>
-          <p class="ee-foru__label">Não ter um plano bem definido</p>
+          <div class="ee-foru__icon" aria-hidden="true"><i data-lucide="compass"></i></div>
+          <p class="ee-foru__label">Não ter um posicionamento definido</p>
         </article>
       </div>
 
@@ -7379,7 +7379,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-sessions__card-media" aria-hidden="true"></div>
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão de Tráfego</h3>
-          <p class="ee-sessions__card-text">Aprenda a gerir mídia paga com suporte especializado: canais certos, plano de mídia, segmentação de audiências, pixel, leitura de dados e decisão por resultado. Você aprende a rodar — não depende de ninguém para operar.</p>
+          <p class="ee-sessions__card-text">Acompanhamento especializado para operar mídia paga com método e decidir por resultado — escalando com previsibilidade.</p>
         </div>
       </article>
 
@@ -7388,7 +7388,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-sessions__card-media" aria-hidden="true"></div>
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão de Conteúdo</h3>
-          <p class="ee-sessions__card-text">O especialista V4 cria junto com você o roteiro do próximo vídeo, calibrado para o seu ICP e a linguagem do negócio. Você sai com o script na mão e um brief de posts para Instagram e WhatsApp.</p>
+          <p class="ee-sessions__card-text">Consultoria de conteúdo lado a lado: estratégia calibrada para o seu ICP e execução acompanhada para a marca crescer com consistência.</p>
         </div>
       </article>
 
@@ -7397,7 +7397,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-sessions__card-media" aria-hidden="true"></div>
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão Comercial</h3>
-          <p class="ee-sessions__card-text">Revisão dos scripts de venda, análise das objeções reais que apareceram no mês e atualização das réguas de follow-up com base no que não está convertendo. O processo evolui com o negócio.</p>
+          <p class="ee-sessions__card-text">Acompanhamento comercial próximo: scripts, objeções e processo de vendas ajustados com você para converter mais e crescer com previsibilidade.</p>
         </div>
       </article>
 
@@ -7419,7 +7419,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <div class="ee-how__row" data-media="right">
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão de Tráfego</h3>
-        <p class="ee-how__row-desc">Receba o suporte necessário para gerir mídia paga com método: dos canais certos à leitura de dados, você aprende a decidir por resultado e a rodar a operação sem depender de ninguém.</p>
+        <p class="ee-how__row-desc">Acompanhamento especializado para operar mídia paga com método: um especialista V4 conduz junto com você a escolha de canais, a leitura de dados e as decisões de investimento — para escalar a operação com previsibilidade e resultado.</p>
         <ul class="ee-how__artifacts">
           <li>Canais</li>
           <li>Plano de mídia</li>
@@ -7449,7 +7449,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <div class="ee-how__row" data-media="left">
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão de Conteúdo</h3>
-        <p class="ee-how__row-desc">O especialista V4 cria junto com você o roteiro do próximo conteúdo, calibrado para o seu ICP e a linguagem do negócio. Você sai da sessão com o script na mão e um brief pronto para produzir.</p>
+        <p class="ee-how__row-desc">Consultoria de conteúdo lado a lado: o especialista V4 orienta a estratégia, calibra a mensagem para o seu ICP e acompanha a execução mês a mês — para que a marca cresça com consistência e gere demanda de verdade.</p>
         <ul class="ee-how__artifacts">
           <li>Roteiro de vídeo</li>
           <li>Brief de posts</li>
@@ -7479,7 +7479,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     <div class="ee-how__row" data-media="right">
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão Comercial</h3>
-        <p class="ee-how__row-desc">Revisão dos scripts de venda, análise das objeções reais do mês e atualização das réguas de follow-up com base no que não está convertendo. O processo comercial evolui junto com o negócio.</p>
+        <p class="ee-how__row-desc">Acompanhamento comercial próximo: o especialista V4 revisa os scripts, analisa as objeções reais do mês e ajusta o processo de vendas com você — estruturando uma operação que converte mais e cresce com previsibilidade.</p>
         <ul class="ee-how__artifacts">
           <li>Scripts de venda</li>
           <li>Matriz de objeções</li>
@@ -7689,7 +7689,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     <!-- Topo: logo Fábrica de Receita (placeholder) + texto do bônus -->
     <div class="ee-bonus__intro">
-      <div class="ee-bonus__logo" aria-label="Fábrica de Receita"></div>
+      <img class="ee-bonus__logo" src="assets/fabricareceitaLogo.png" alt="Fábrica de Receita" loading="lazy" decoding="async">
       <div class="ee-bonus__copy">
         <h3 class="ee-bonus__copy-title">Evento exclusivo para clientes V4</h3>
         <p class="ee-bonus__copy-text">Além de tudo que foi oferecido, você também garante sua entrada para o Fábrica de Receita.</p>
@@ -7701,11 +7701,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <p class="ee-bonus__label">Palestrantes:</p>
   <div class="ee-bonus__marquee" data-bonus-marquee>
     <div class="ee-bonus__track">
-      <figure class="ee-bonus__tile"><span class="ee-bonus__photo"></span><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Lucas Amadeu</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
-      <figure class="ee-bonus__tile"><span class="ee-bonus__photo"></span><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Alfredo Soares</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
-      <figure class="ee-bonus__tile"><span class="ee-bonus__photo"></span><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Flávio Augusto</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
-      <figure class="ee-bonus__tile"><span class="ee-bonus__photo"></span><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Tallis Gomes</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
-      <figure class="ee-bonus__tile"><span class="ee-bonus__photo"></span><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Fernando Miranda</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/luamadeu-fabrica.png" alt="Lucas Amadeu" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Lucas Amadeu</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/alfsoares-fabrica.png" alt="Alfredo Soares" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Alfredo Soares</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/Flaaugusto-fabrica.png" alt="Flávio Augusto" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Flávio Augusto</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/tallisgomes-fabrica.png" alt="Tallis Gomes" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Tallis Gomes</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/fermiranda-fabrica.png" alt="Fernando Miranda" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Fernando Miranda</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
     </div>
   </div>
 
@@ -7713,12 +7713,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <p class="ee-bonus__label">Networking</p>
   <div class="ee-bonus__marquee ee-bonus__marquee--net" data-bonus-marquee data-bonus-dir="-1">
     <div class="ee-bonus__track">
-      <span class="ee-bonus__net"></span>
-      <span class="ee-bonus__net"></span>
-      <span class="ee-bonus__net"></span>
-      <span class="ee-bonus__net"></span>
-      <span class="ee-bonus__net"></span>
-      <span class="ee-bonus__net"></span>
+      <img class="ee-bonus__net" src="assets/net1.png" alt="Networking" loading="lazy" decoding="async">
+      <img class="ee-bonus__net" src="assets/net2.png" alt="Networking" loading="lazy" decoding="async">
+      <img class="ee-bonus__net" src="assets/net3.png" alt="Networking" loading="lazy" decoding="async">
+      <img class="ee-bonus__net" src="assets/net4.png" alt="Networking" loading="lazy" decoding="async">
+      <img class="ee-bonus__net" src="assets/net6.png" alt="Networking" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -7786,7 +7785,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
     <!-- Direita: imagem (placeholder) + nome/cargo ao lado -->
     <div class="ee-quote__author">
-      <div class="ee-quote__photo" aria-hidden="true"></div>
+      <img class="ee-quote__photo" src="assets/DenerDepoimento.png" alt="Dener Lippert, CEO da V4 Company" loading="lazy" decoding="async">
       <div class="ee-quote__id">
         <p class="ee-quote__name">Dener <em>Lippert</em></p>
         <p class="ee-quote__role">CEO da V4 Company</p>
@@ -7811,42 +7810,70 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>Uma agência executa por você: roda as campanhas, produz os criativos, reporta os resultados. Quando o contrato termina, o conhecimento vai embora com ela. A Empresa que Vende não executa nada por você: estrutura o negócio, treina o time e te ensina a operar. O que fica dentro da empresa é o processo, o playbook, o CRM e a capacidade do time de vender. Isso não vai a lugar nenhum quando a mentoria acaba.</p></div>
         </div>
         <div class="ee-faq__item">
           <button type="button" class="ee-faq__q" aria-expanded="false">
-            <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
+            <span>Por que o cliente executa e não a V4?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>Porque empresas que aprendem a operar têm NPS mais alto, crescem mais rápido e não param quando o contrato termina. Dados internos V4 mostram que clientes em modelos de execução terceirizada apresentam NPS médio de 35. Produtos de mentoria e acompanhamento, onde o cliente executa com suporte especializado, atingem NPS acima de 55. A diferença não é de esforço: é de propriedade. Quando o empresário constrói com as próprias mãos, com orientação especializada, ele entende, defende e continua.</p></div>
         </div>
         <div class="ee-faq__item">
           <button type="button" class="ee-faq__q" aria-expanded="false">
-            <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
+            <span>Em quanto tempo vejo resultados?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>A Estruturação Estratégica entrega os ativos completos em 30 dias: diagnóstico, posicionamento, canal de vendas estruturado, time treinado, CRM ativo e plano de mídia. O cliente pode começar a rodar campanhas na semana seguinte ao encerramento. Os primeiros indicadores de conversão e atendimento aparecem entre 30 e 60 dias após a ativação. Resultados de médio prazo, como crescimento de receita, recompra e redução de ciclo de vendas, se consolidam ao longo dos 12 meses de acompanhamento.</p></div>
         </div>
         <div class="ee-faq__item">
           <button type="button" class="ee-faq__q" aria-expanded="false">
-            <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
+            <span>A Estruturação tem duas versões? Qual se aplica ao meu negócio?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>Sim. A versão PDV/Inside Sales é para negócios onde o WhatsApp é o canal de vendas principal: atendimento, qualificação e fechamento acontecem pelo aplicativo. A versão E-commerce é para negócios com loja online, onde o WhatsApp entra como canal de suporte e recompra, e o funil digital é o centro da operação. O especialista V4 identifica com o cliente qual variante aplica durante o kickoff.</p></div>
         </div>
         <div class="ee-faq__item">
           <button type="button" class="ee-faq__q" aria-expanded="false">
-            <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
+            <span>O módulo de Inteligência Artificial é obrigatório?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>Não. O módulo de IA, com SDR operando 24/7, qualificação automática e handoff inteligente para o time humano, é um add-on opcional que o cliente decide incluir ou não na contratação. A lógica do Método 3P-IA é clara: a IA só multiplica o que já funciona. Sem Produto, Processo e Pessoas bem estruturados, colocar IA é automatizar o caos. Por isso o módulo está disponível como último passo, não como ponto de partida.</p></div>
         </div>
         <div class="ee-faq__item">
           <button type="button" class="ee-faq__q" aria-expanded="false">
-            <span>Qual a diferença entre Empresa que Vende e contratar uma agência de marketing?</span>
+            <span>Posso contratar a Mentoria sem passar pela Estruturação?</span>
             <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
-          <div class="ee-faq__a"><p>Resposta aqui.</p></div>
+          <div class="ee-faq__a"><p>Para clientes que já têm diagnóstico estratégico, posicionamento definido, processo comercial documentado e CRM ativo, é possível entrar diretamente na Mentoria e Acompanhamento. Para a maioria dos novos clientes, a Estruturação é o pré-requisito: a mentoria pressupõe que a fundação existe. Não tem como ensinar alguém a operar uma máquina que ainda não foi montada.</p></div>
+        </div>
+        <div class="ee-faq__item">
+          <button type="button" class="ee-faq__q" aria-expanded="false">
+            <span>Como funciona a Fábrica de Receita?</span>
+            <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="ee-faq__a"><p>A Fábrica de Receita é o evento presencial anual do programa, com dois dias de imersão intensiva. Inclui sessões de hot seat com especialistas V4 (análise ao vivo do negócio do participante), cases reais de outros empresários do programa, workshops práticos de tráfego, conteúdo e comercial, e espaços estruturados de networking entre pares do mesmo segmento. A Fábrica está incluída nos três formatos do Produto 2: Operacional, Tático e Estratégico.</p></div>
+        </div>
+        <div class="ee-faq__item">
+          <button type="button" class="ee-faq__q" aria-expanded="false">
+            <span>Qual a diferença entre Operacional, Tático e Estratégico?</span>
+            <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="ee-faq__a"><p>O <strong>Operacional</strong> (R$ 30.000/ano) é o formato base: 3 sessões mensais de 30 minutos, comunidade, lives mensais e 1 Fábrica de Receita. Indicado para Tiny e Small.<br><br>O <strong>Tático</strong> (R$ 100.000/ano) inclui tudo do Operacional e adiciona 4 imersões presenciais trimestrais com o time V4 (1 dia cada), sessões de 60 minutos com especialistas sênior e gerente de conta dedicado. Indicado para médio porte.<br><br>O <strong>Estratégico</strong> (R$ 250.000/ano) inclui tudo do Tático e adiciona board trimestral presencial com os C-levels da V4 Company (CEO, CMO, CPO) e convidados estratégicos externos, co-criação da estratégia de crescimento de 3 anos e relatório executivo mensal. Vagas limitadas a 12 empresas por ano. Indicado para grandes empresas e grupos empresariais.</p></div>
+        </div>
+        <div class="ee-faq__item">
+          <button type="button" class="ee-faq__q" aria-expanded="false">
+            <span>Quem são os especialistas que entregam as sessões mensais?</span>
+            <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="ee-faq__a"><p>No formato Operacional, as sessões são conduzidas por especialistas V4 nas respectivas áreas: Coordenador Comercial (sessão comercial), Gestor de Tráfego (sessão de mídia) e Designer/Copy Viral (sessão de conteúdo). O Gestor de Projetos atua como ponto de contato central. No Tático, sessões com especialistas sênior e gerente de conta dedicado. No Estratégico, decisões estratégicas contam com participação direta do C-level V4.</p></div>
+        </div>
+        <div class="ee-faq__item">
+          <button type="button" class="ee-faq__q" aria-expanded="false">
+            <span>Empresa que Vende é para qualquer setor?</span>
+            <i class="ee-faq__chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="ee-faq__a"><p>O produto funciona em qualquer setor B2C com operação de vendas ativa e faturamento a partir de R$ 500.000/ano. O método é generalista na estrutura e adaptado ao setor na aplicação: scripts, conteúdos e campanhas são desenvolvidos com o vocabulário, o ICP e a sazonalidade específica de cada negócio. Em versões futuras da plataforma, trilhas setoriais estarão disponíveis: Clínica que Vende, Escritório que Vende, Academia que Vende, com materiais, benchmarks e comunidades segmentadas por vertical.</p></div>
         </div>
       </div>
     </div>
@@ -7882,69 +7909,93 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <h2 class="ee-eqv__title">Tudo isso por:</h2>
     </header>
 
-    <!-- ANCORAGEM: preço "cheio" + botão que revela a oferta -->
-    <div class="ee-eqv__anchor" data-eqv-anchor>
-      <p class="ee-eqv__anchor-label">Contratando cada peça separadamente, o valor de mercado seria</p>
-      <p class="ee-eqv__anchor-price"><s>R$ 96.000<span>/ano</span></s></p>
-      <button type="button" class="ee-eqv__reveal" data-eqv-reveal>Mostrar oferta</button>
-    </div>
+    <!-- Os 2 cards já aparecem no estado "anchor" (valor cheio à vista).
+         Ao clicar em "Mostrar oferta" (abaixo dos cards) → estado "offer":
+         cada card troca para o preço de/por parcelado. -->
+    <div class="ee-eqv__cards">
 
-    <!-- OFERTA: 2 cards (revelados ao clicar em "Mostrar oferta") -->
-    <div class="ee-eqv__offer" data-eqv-offer hidden>
-      <div class="ee-eqv__cards">
+      <!-- Card 06 meses -->
+      <article class="ee-eqv__card">
+        <div class="ee-eqv__body">
+          <p class="ee-eqv__term"><i data-lucide="clock" aria-hidden="true"></i>06 meses</p>
+          <h3 class="ee-eqv__plan">Semestral</h3>
+          <p class="ee-eqv__desc">Comunidade, sessões mensais e Fábrica de Receita. A base do acompanhamento V4 para <strong>PMEs em crescimento</strong>.</p>
 
-        <!-- Card 06 meses -->
-        <article class="ee-eqv__card">
-          <div class="ee-eqv__body">
-            <p class="ee-eqv__term"><i data-lucide="clock" aria-hidden="true"></i>06 meses</p>
-            <h3 class="ee-eqv__plan">Semestral</h3>
-            <p class="ee-eqv__desc">Comunidade, sessões mensais e Fábrica de Receita. A base do acompanhamento V4 para <strong>PMEs em crescimento</strong>.</p>
-            <div class="ee-eqv__price">
+          <!-- Preço ÂNCORA (cheio, só à vista) -->
+          <div class="ee-eqv__price ee-eqv__price--anchor">
+            <span class="ee-eqv__price-cur">R$</span>
+            <span class="ee-eqv__price-val">36.000</span>
+            <span class="ee-eqv__price-per">à vista</span>
+          </div>
+
+          <!-- Preço OFERTA (de/por, parcelado) -->
+          <div class="ee-eqv__price ee-eqv__price--offer">
+            <p class="ee-eqv__price-from">de <s>R$ 36.000</s> por</p>
+            <div class="ee-eqv__price-row">
               <span class="ee-eqv__price-x">12x <small>de</small></span>
               <span class="ee-eqv__price-cur">R$</span>
               <span class="ee-eqv__price-val" data-full="R$ 2.500,00">2.500</span>
               <span class="ee-eqv__price-per">/mês</span>
             </div>
-            <p class="ee-eqv__avista">ou R$ 30.000/ano à vista</p>
-            <p class="ee-eqv__incl-label">O que está incluso:</p>
-            <ul class="ee-eqv__incl">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>3 sessões mensais × 30 min</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 entregável concreto por sessão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Comunidade privada com peers</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Lives mensais temáticas</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Fábrica de Receita/ano</li>
-            </ul>
-            <button type="button" class="ee-eqv__cta" data-pack-cta="eqv-6m">Selecionar pacote semestral</button>
+            <p class="ee-eqv__avista">ou R$ 30.000 à vista</p>
           </div>
-        </article>
 
-        <!-- Card 12 meses (mais vendido) -->
-        <article class="ee-eqv__card ee-eqv__card--featured">
-          <div class="ee-eqv__badge">Mais vendido <i data-lucide="check-circle" aria-hidden="true"></i></div>
-          <div class="ee-eqv__body">
-            <p class="ee-eqv__term"><i data-lucide="clock" aria-hidden="true"></i>12 meses</p>
-            <h3 class="ee-eqv__plan">Anual</h3>
-            <p class="ee-eqv__desc">Comunidade, sessões mensais e Fábrica de Receita. A base do acompanhamento V4 para <strong>PMEs em crescimento</strong>.</p>
-            <div class="ee-eqv__price">
+          <p class="ee-eqv__incl-label">O que está incluso:</p>
+          <ul class="ee-eqv__incl">
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>3 sessões mensais × 30 min</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>1 entregável concreto por sessão</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>Comunidade privada com peers</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>Lives mensais temáticas</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Fábrica de Receita/ano</li>
+          </ul>
+          <button type="button" class="ee-eqv__cta" data-pack-cta="eqv-6m">Selecionar pacote semestral</button>
+        </div>
+      </article>
+
+      <!-- Card 12 meses (mais vendido) -->
+      <article class="ee-eqv__card ee-eqv__card--featured">
+        <div class="ee-eqv__badge">Mais vendido <i data-lucide="check-circle" aria-hidden="true"></i></div>
+        <div class="ee-eqv__body">
+          <p class="ee-eqv__term"><i data-lucide="clock" aria-hidden="true"></i>12 meses</p>
+          <h3 class="ee-eqv__plan">Anual</h3>
+          <p class="ee-eqv__desc">Comunidade, sessões mensais e Fábrica de Receita. A base do acompanhamento V4 para <strong>PMEs em crescimento</strong>.</p>
+
+          <!-- Preço ÂNCORA (cheio, só à vista) -->
+          <div class="ee-eqv__price ee-eqv__price--anchor">
+            <span class="ee-eqv__price-cur">R$</span>
+            <span class="ee-eqv__price-val">66.000</span>
+            <span class="ee-eqv__price-per">à vista</span>
+          </div>
+
+          <!-- Preço OFERTA (de/por, parcelado) -->
+          <div class="ee-eqv__price ee-eqv__price--offer">
+            <p class="ee-eqv__price-from">de <s>R$ 66.000</s> por</p>
+            <div class="ee-eqv__price-row">
               <span class="ee-eqv__price-x">12x <small>de</small></span>
               <span class="ee-eqv__price-cur">R$</span>
               <span class="ee-eqv__price-val" data-full="R$ 3.300,00">3.300</span>
               <span class="ee-eqv__price-per">/mês</span>
             </div>
-            <p class="ee-eqv__avista">ou R$ 55.000/ano à vista</p>
-            <p class="ee-eqv__incl-label">O que está incluso:</p>
-            <ul class="ee-eqv__incl">
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>3 sessões mensais × 30 min</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 entregável concreto por sessão</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Comunidade privada com peers</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>Lives mensais temáticas</li>
-              <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Fábrica de Receita/ano</li>
-            </ul>
-            <button type="button" class="ee-eqv__cta" data-pack-cta="eqv-12m">Selecionar pacote anual</button>
+            <p class="ee-eqv__avista">ou R$ 55.000 à vista</p>
           </div>
-        </article>
 
-      </div>
+          <p class="ee-eqv__incl-label">O que está incluso:</p>
+          <ul class="ee-eqv__incl">
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>3 sessões mensais × 30 min</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>1 entregável concreto por sessão</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>Comunidade privada com peers</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>Lives mensais temáticas</li>
+            <li><i data-lucide="circle-check" aria-hidden="true"></i>1 Fábrica de Receita/ano</li>
+          </ul>
+          <button type="button" class="ee-eqv__cta" data-pack-cta="eqv-12m">Selecionar pacote anual</button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Botão "Mostrar oferta" — ABAIXO dos dois cards -->
+    <div class="ee-eqv__reveal-wrap" data-eqv-reveal-wrap>
+      <button type="button" class="ee-eqv__reveal" data-eqv-reveal>Mostrar oferta</button>
     </div>
   </div>
 </section>
@@ -7953,17 +8004,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   var root = document.querySelector('.ee-eqv');
   if (!root) return;
   var reveal = root.querySelector('[data-eqv-reveal]');
-  var anchor = root.querySelector('[data-eqv-anchor]');
-  var offer  = root.querySelector('[data-eqv-offer]');
+  var cards  = root.querySelector('.ee-eqv__cards');
 
-  // "Mostrar oferta": esconde a ancoragem e revela os 2 cards
-  if (reveal && offer) {
+  // "Mostrar oferta": troca cada card do preço cheio (à vista) para o de/por parcelado
+  if (reveal) {
     reveal.addEventListener('click', function () {
       root.setAttribute('data-eqv-state', 'offer');
-      if (anchor) anchor.hidden = true;
-      offer.hidden = false;
       if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
-      offer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (cards) cards.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
 
