@@ -9907,6 +9907,329 @@ document.addEventListener('DOMContentLoaded', function() {
       '<tbody>' + body + '</tbody></table></div>';
   }
 
+  // ===== Shell do documento (compartilhado entre os geradores) =====
+  // CSS do documento A4 branded. Recebe o URL da arte de capa (Frame 1.png).
+  function proposalStyle(frameURL) {
+    return '<style>' +
+'@page { size: A4; margin: 0; }' +
+'* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
+'body { margin: 0; font-family: "IBM Plex Sans", Arial, sans-serif; color: #280000; background: #f3f0ee; line-height: 1.5; }' +
+'.toolbar { position: sticky; top: 0; z-index: 10; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 14px; background: #1a0000; }' +
+'.toolbar .tip { color: rgba(255,255,255,.7); font-size: 12.5px; }' +
+'.toolbar .tip strong { color: #fff; }' +
+'.toolbar button { font: inherit; font-weight: 700; cursor: pointer; border: none; border-radius: 9999px; padding: 12px 26px; }' +
+'.toolbar .pdf { background: linear-gradient(135deg,#FB2E0A,#C41E08 55%,#7A0A02); color: #fff; }' +
+'.toolbar .close { background: rgba(255,255,255,.12); color: #fff; }' +
+'.page { width: 794px; max-width: 100%; margin: 24px auto; background: #fff; box-shadow: 0 10px 40px rgba(40,0,0,.15); }' +
+'.band { background: linear-gradient(135deg,#560303 0%,#7A0A02 40%,#FB2E0A 100%); color: #fff; padding: 28px 40px; display: flex; justify-content: space-between; align-items: flex-end; }' +
+'.band .brand { font-family: "Anton","IBM Plex Sans",sans-serif; font-weight: 800; font-size: 30px; letter-spacing: .02em; }' +
+'.band .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }' +
+'.band .date { font-size: 13px; opacity: .9; text-align: right; }' +
+'.body { padding: 36px 40px 44px; }' +
+'body.paged { background: #54585c; }' +
+'.sheets { padding: 28px 0 36px; }' +
+'.sheet { width: 794px; min-height: 1123px; margin: 0 auto 26px; background: #fff; box-shadow: 0 10px 34px rgba(0,0,0,.45); position: relative; }' +
+'.sheet-content { padding: 36px 40px 44px; }' +
+'.sheet.cover { background: #fff url("' + frameURL + '") center top / cover no-repeat; }' +
+'.sheet.cover .sheet-content { min-height: 1123px; padding: 40px 48px 56px; display: flex; flex-direction: column; justify-content: flex-end; }' +
+'.sheet.cover .meta { border-bottom: none; padding-bottom: 0; margin-bottom: 10px; }' +
+'.sheet.cover .subtitle { margin-bottom: 12px; }' +
+'.sheet.cover section { margin-bottom: 0; }' +
+'.sheet.cover h2 { margin: 8px 0 8px; }' +
+'.sheet.cover .pillars { gap: 10px; }' +
+'.sheet.cover .pillar { padding: 13px 15px 12px; border-radius: 13px; }' +
+'.sheet.cover .pillar__tag { margin-bottom: 7px; padding: 4px 10px; }' +
+'.sheet.cover .pillar h3 { font-size: 15.5px; margin: 0 0 5px; }' +
+'.sheet.cover .pillar p { font-size: 11.5px; line-height: 1.38; }' +
+'@media print { body.paged { background: #fff; } .sheets { padding: 0; } .sheet { width: auto; min-height: 0; margin: 0; box-shadow: none; break-before: page; } .sheet:first-child { break-before: avoid; } .sheet-content { padding: 36px 40px 44px; } }' +
+'.pgbreak { height: 0; }' +
+'@media screen { .pgbreak { position: relative; margin: 22px -40px; padding: 14px 0; background: #ece7e3; text-align: center; } .pgbreak::after { content: "\\2702  quebra de página"; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(40,0,0,.42); } }' +
+'@media print { .pgbreak { break-before: page; padding: 0; margin: 0; background: none; } .pgbreak::after { display: none; } }' +
+'@media print { .summary-card::before { display: none !important; } .summary-card { border: 2px solid #C41E08 !important; background: #fff !important; } .pay-warning { background: #fff6f4 !important; border: 2px solid #C41E08 !important; } }' +
+'.ee-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 8px; }' +
+'.ee-head h1 { margin: 0; }' +
+'.ee-logo { display: block; height: 40px; width: auto; max-width: 100%; }' +
+'h1 { font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.02em; }' +
+'.subtitle { font-size: 15px; color: rgba(40,0,0,.6); margin: 0 0 24px; }' +
+'.meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 48px; margin: 0 0 24px; padding: 0 0 16px; border-bottom: 1px solid rgba(40,0,0,.12); }' +
+'.meta div span { display: inline; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(40,0,0,.5); margin-right: 7px; }' +
+'.meta div strong { font-size: 15px; }' +
+'section { margin-bottom: 34px; }' +
+'h2 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E50914; margin: 24px 0 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(229,9,20,.18); }' +
+'.sheet-content > :first-child { margin-top: 0; }' +
+'.pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 16px; }' +
+'.pillar { position: relative; overflow: hidden; border: none; border-radius: 16px; padding: 22px 20px 20px; color: #fff; background: linear-gradient(158deg, #4A0303 0%, #2A0101 52%, #120000 100%); box-shadow: 0 10px 26px rgba(40,0,0,.28); }' +
+'.pillar::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%); }' +
+'.pillar--add { background: linear-gradient(158deg, #2A0101 0%, #160000 100%); box-shadow: none; }' +
+'.pillar--add::before { background: repeating-linear-gradient(90deg, #FB2E0A 0 14px, transparent 14px 24px); }' +
+'.pillar__tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 60%, #7A0A02 100%); border-radius: 9999px; padding: 5px 12px; margin-bottom: 12px; }' +
+'.pillar h3 { font-size: 19px; font-weight: 800; margin: 0 0 8px; letter-spacing: -.01em; color: #fff; }' +
+'.pillar p { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.74); margin: 0; }' +
+'.ee-weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; align-items: start; margin-top: 6px; }' +
+'.ee-col > .ee-week:last-child { margin-bottom: 0; }' +
+'.ee-week { margin: 0 0 12px; break-inside: avoid; }' +
+'.ee-week h4 { font-size: 13px; margin: 0 0 5px; color: #7A0A02; line-height: 1.3; }' +
+'ul.dl { list-style: none; margin: 0; padding: 0; }' +
+'ul.dl li { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.4; padding: 2.5px 0; color: rgba(40,0,0,.85); }' +
+'ul.dl li .chk { flex: 0 0 16px; width: 16px; height: 16px; border-radius: 50%; background: #E50914; color: #fff; font-size: 10px; line-height: 16px; text-align: center; margin-top: 1px; }' +
+'ul.dl li strong { color: #280000; }' +
+'table { width: 100%; border-collapse: collapse; }' +
+'table td { padding: 12px 4px; border-bottom: 1px solid rgba(40,0,0,.1); font-size: 14px; vertical-align: top; }' +
+'.ctab-wrap { margin: 0; }' +
+'table.ctab { border: 1px solid rgba(229,9,20,.22); border-radius: 10px; overflow: hidden; table-layout: auto; }' +
+'table.ctab thead th.ctab-title { background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); color:#fff; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center; padding:7px 12px; }' +
+'table.ctab thead th.ctab-h { background:#2a0a08; color:#fff; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:left; padding:6px 9px; }' +
+'table.ctab td { border-bottom:1px solid rgba(40,0,0,.1); padding:5px 9px; font-size:10px; line-height:1.3; vertical-align:top; color:rgba(40,0,0,.85); }' +
+'table.ctab tbody tr:nth-child(even) td { background: rgba(229,9,20,.035); }' +
+'table.ctab td.c-comp { font-weight:700; color:#C41E08; }' +
+'table.ctab td.c-sla { color: rgba(40,0,0,.6); }' +
+'table.ctab td.c-extra { color: rgba(40,0,0,.58); font-size:9px; }' +
+'.sla-v, .inv-v { text-align: right; font-weight: 700; white-space: nowrap; }' +
+'.inv-v { font-size: 18px; color: #E50914; }' +
+'.inv-summary .inv-v { white-space: normal; }' +
+'.inv-summary td { vertical-align: middle; }' +
+'.summary-card { position: relative; border-radius: 16px; padding: 6px 24px 10px; background: transparent; }' +
+'.summary-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }' +
+'.summary-card table { position: relative; }' +
+'.summary-card .hint { position: relative; margin: 10px 0 0; }' +
+'.inv-group { margin: 0 0 18px; border: 1px solid rgba(40,0,0,.12); border-radius: 14px; padding: 0 16px 11px; background: #fff; overflow: hidden; break-inside: avoid; box-shadow: 0 4px 18px rgba(40,0,0,.06); }' +
+'.inv-group-title { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fff; margin: 0 -18px 6px; padding: 12px 18px; background: linear-gradient(135deg,#7A0A02 0%,#C41E08 60%,#FB2E0A 100%); }' +
+'.inv-group table tr:last-child td { border-bottom: none; }' +
+'.inv-total td { border-top: 2px solid rgba(229,9,20,.28); border-bottom: none; padding-top: 9px; }' +
+'.inv-total .inv-v { font-size: 23px; }' +
+'.inv-v .per { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
+'.muted { font-size: 12px; color: rgba(40,0,0,.5); font-weight: 400; }' +
+'.edit { border-bottom: 1.5px dashed rgba(229,9,20,.5); padding: 0 4px; min-width: 90px; display: inline-block; }' +
+'.note { font-size: 12.5px; color: rgba(40,0,0,.65); margin-top: 12px; }' +
+'section { margin-bottom: 16px; }' +
+'.inv-group { margin-bottom: 8px; }' +
+'.inv-group-title { padding-top: 7px; padding-bottom: 7px; }' +
+'.inv-group td { padding-top: 6px; padding-bottom: 6px; }' +
+'.inv-summary td { padding-top: 5px; padding-bottom: 5px; }' +
+'.note { margin-top: 6px; font-size: 11.5px; }' +
+'.pay-field { margin-top: 8px; }' +
+'.pay-benefit, .pay-warning { margin-top: 10px; }' +
+'.guarantee { background: #FFD60A; border: none; border-radius: 14px; padding: 18px 22px; font-size: 14px; color: #1a1a00; }' +
+'.guarantee strong { color: #000000; }' +
+'.guarantee-note { display:block; margin-top:10px; font-size:12px; font-weight:600; color: rgba(0,0,0,.65); }' +
+'ol.steps { margin: 0; padding-left: 0; list-style: none; counter-reset: s; }' +
+'ol.steps li { counter-increment: s; position: relative; padding: 8px 0 8px 40px; font-size: 14px; border-bottom: 1px solid rgba(40,0,0,.08); }' +
+'ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 7px; width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg,#FB2E0A,#7A0A02); color: #fff; font-weight: 700; font-size: 13px; text-align: center; line-height: 26px; }' +
+'.foot { padding: 22px 40px; background: #1a0000; color: #fff; font-size: 12.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }' +
+'.foot .r { opacity: .7; }' +
+'.hint { font-size: 11px; color: rgba(40,0,0,.45); font-style: italic; }' +
+'.pay-field { margin: 8px 0 0; }' +
+'.pay-field__label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(40,0,0,.5); margin-bottom: 6px; }' +
+'.pay-field__select { font: inherit; font-size: 14px; font-weight: 600; color: #280000; padding: 11px 14px; border: 1.5px solid rgba(122,10,2,.35); border-radius: 10px; background: #fff; width: 100%; max-width: 440px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }' +
+'.pay-field__select:hover { border-color: rgba(122,10,2,.6); }' +
+'.pay-field__select:focus { outline: none; border-color: #C41E08; box-shadow: 0 0 0 3px rgba(196,30,8,.12); }' +
+'.pay-benefit { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 0; padding: 12px 14px; border: 1.5px solid rgba(31,163,74,.55); background: rgba(31,163,74,.07); border-radius: 10px; max-width: 480px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: #0E5A22; line-height: 1.35; }' +
+'.pay-benefit input { margin-top: 1px; width: 18px; height: 18px; accent-color: #1FA34A; flex-shrink: 0; cursor: pointer; }' +
+'.pay-warning { margin: 14px 0 0; padding: 16px 20px; border: 2px solid transparent; border-radius: 12px; background: linear-gradient(#fff6f4,#fff6f4) padding-box, linear-gradient(135deg,#FB2E0A 0%,#C41E08 55%,#7A0A02 100%) border-box; max-width: 540px; font-size: 15px; font-weight: 600; color: #7A0A02; line-height: 1.5; }' +
+'.inv-num-old { text-decoration: line-through; color: rgba(40,0,0,.4); font-weight: 600; font-size: .82em; margin-right: 8px; }' +
+'.inv-discount-tag { font-size: .68em; font-weight: 800; color: #1FA34A; margin-left: 8px; letter-spacing: .02em; }' +
+'.coupon-field { margin-top: 8px; }' +
+'.coupon-toggle { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 12.5px; font-weight: 700; color: #7A0A02; background: rgba(122,10,2,.06); border: 1.5px solid rgba(122,10,2,.28); border-radius: 9999px; padding: 8px 14px; cursor: pointer; transition: background .15s, border-color .15s; }' +
+'.coupon-toggle:hover { background: rgba(122,10,2,.1); border-color: rgba(122,10,2,.55); }' +
+'.coupon-gear { transition: transform .25s ease; }' +
+'.coupon-toggle[aria-expanded="true"] .coupon-gear { transform: rotate(90deg); }' +
+'.coupon-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }' +
+'.coupon-box[hidden] { display: none; }' +
+'.coupon-input { font: inherit; font-size: 14px; font-weight: 700; color: #280000; padding: 9px 12px; border: 1.5px solid rgba(122,10,2,.35); border-radius: 10px; background: #fff; max-width: 86px; }' +
+'.coupon-input:focus { outline: none; border-color: #C41E08; box-shadow: 0 0 0 3px rgba(196,30,8,.12); }' +
+'.coupon-pct { font-size: 14px; font-weight: 700; color: #7A0A02; margin-left: -2px; }' +
+'.coupon-suffix { font-size: 12px; font-weight: 600; color: rgba(40,0,0,.55); }' +
+'.coupon-approved { display: flex; align-items: flex-start; gap: 8px; margin-top: 10px; padding: 9px 13px; border-radius: 10px; background: #f1faf2; border: 1.5px solid #1f9d4d; color: #14672f; font-size: 12.5px; line-height: 1.45; }' +
+'.coupon-approved[hidden] { display: none; }' +
+'.coupon-approved__check { flex: 0 0 auto; margin-top: 1px; color: #1f9d4d; }' +
+'.coupon-approved__txt strong { color: #14672f; }' +
+'.coupon-approved__txt .cpn-prod { white-space: nowrap; }' +
+'@media print { .coupon-field { display: none !important; } }' +
+'@media print { .toolbar, .hint, .tip { display: none !important; } body { background: #fff; } .page { width: auto; max-width: none; margin: 0; box-shadow: none; } .pay-field__select { -webkit-appearance: none; appearance: none; border-color: rgba(40,0,0,.3); } .ee-week, .pillar, .guarantee, table, ol.steps li, .meta, .inv-group, .summary-card { break-inside: avoid; } .pillar, .inv-group { box-shadow: none !important; } h1, h2, h4 { break-after: avoid; } }' +
+'</style></head><body>';
+  }
+
+  // Script que reparte o conteúdo do .page em folhas A4 (visualização paginada).
+  function pagingScript() {
+    return '<script>(function(){' +
+  'var page=document.querySelector(".page");if(!page)return;' +
+  'var body=page.querySelector(".body");if(!body)return;' +
+  'var blocks=[];[].forEach.call(body.children,function(ch){if(ch.tagName==="SECTION"){[].forEach.call(ch.children,function(g){blocks.push(g);});}else{blocks.push(ch);}});' +
+  'var sheets=document.createElement("div");sheets.className="sheets";' +
+  'page.parentNode.insertBefore(sheets,page);page.style.display="none";document.body.classList.add("paged");' +
+  'var PAGE=1123,PADV=80,content,budget;' +
+  'function newSheet(cls){var sh=document.createElement("div");sh.className="sheet"+(cls?" "+cls:"");content=document.createElement("div");content.className="sheet-content";sh.appendChild(content);sheets.appendChild(sh);budget=PAGE-PADV;}' +
+  'function blockH(n){var cs=getComputedStyle(n);return n.offsetHeight+(parseFloat(cs.marginTop)||0)+(parseFloat(cs.marginBottom)||0);}' +
+  'function isCls(n,c){return n&&n.nodeType===1&&(""+n.className).indexOf(c)>-1;}' +
+  'function run(){var i=0;' +
+    'if(isCls(blocks[0],"cover")){newSheet("cover");content.appendChild(blocks[0]);i=1;if(isCls(blocks[1],"pgbreak")){i=2;}newSheet("");}else{newSheet("");}' +
+    'for(;i<blocks.length;i++){var n=blocks[i];' +
+      'if(isCls(n,"pgbreak")){newSheet("");continue;}' +
+      'if(n.tagName==="H2"&&content.children.length&&budget<160){newSheet("");}' +
+      'content.appendChild(n);var h=blockH(n);' +
+      'if(h>budget&&content.children.length>1){content.removeChild(n);newSheet("");content.appendChild(n);budget-=blockH(n);}else{budget-=h;}' +
+    '}' +
+    'if(page.parentNode)page.parentNode.removeChild(page);' +
+  '}' +
+  'if(document.fonts&&document.fonts.ready){document.fonts.ready.then(run);}else{run();}' +
+'})();<\/script>';
+  }
+
+  // ===== Empresa que Vende (planos EQV: eqv-6m / eqv-12m) =====
+  // Preço, prazo e condições de cada plano do acompanhamento "Empresa que Vende".
+  var EQV_PLANS = {
+    'eqv-6m':  { label: 'Semestral', term: '06 meses', months: 6,  anchor: 36000, avista: 30000, monthly: 2500, parc: 12 },
+    'eqv-12m': { label: 'Anual',     term: '12 meses', months: 12, anchor: 66000, avista: 55000, monthly: 3300, parc: 12 }
+  };
+  // As 3 sessões mensais e seus entregáveis (espelham a seção "Como Funciona" da página).
+  var EQV_SESSIONS = [
+    { title: 'Sessão de Tráfego', desc: 'Acompanhamento especializado para operar mídia paga com método — o time aprende a operar como especialista V4.', items: [
+      'Configuração e leitura de pixel',
+      'Plano de mídia estruturado',
+      'Segmentação de audiências definida',
+      'Interpretação de dados das campanhas',
+      'Capacitação para gestão de mídia paga nos canais',
+      'Tomada de decisão por resultado'
+    ]},
+    { title: 'Sessão de Conteúdo', desc: 'Consultoria de conteúdo lado a lado: estratégia calibrada para o ICP e execução acompanhada.', items: [
+      '1 roteiro de vídeo viral calibrado para o negócio do cliente (pronto para gravar)',
+      '1 brief de posts complementares para Instagram'
+    ]},
+    { title: 'Sessão Comercial', desc: 'Acompanhamento comercial próximo: scripts, objeções e processo de vendas ajustados com base no que não está convertendo.', items: [
+      'Revisão dos scripts de venda',
+      'Análise de 3 objeções reais que apareceram no mês',
+      'Atualização das réguas de follow-up (baseada no que não está convertendo)'
+    ]}
+  ];
+  // O que está incluso no acompanhamento, além das sessões.
+  var EQV_INCLUDES = [
+    '3 sessões mensais × 30 min com especialistas V4',
+    '1 entregável concreto por sessão, todos os meses',
+    'Comunidade privada com outros empresários (peers)',
+    'Lives mensais temáticas com C-levels da V4',
+    '1 Fábrica de Receita por ano (evento presencial)'
+  ];
+
+  // Monta o documento branded da proposta "Empresa que Vende".
+  // Reaproveita o mesmo shell (CSS + paginação A4) do gerador principal.
+  function buildEqvProposalHTML(form, state) {
+    var plan = EQV_PLANS[state.solution] || EQV_PLANS['eqv-6m'];
+    var date = todayBR();
+    var logoURL = (function () {
+      try { return new URL('assets/EE-logo-preto.png', location.href).href; }
+      catch (e) { return 'assets/EE-logo-preto.png'; }
+    })();
+    var frameURL = (function () {
+      try { return new URL('assets/Frame 1.png', location.href).href; }
+      catch (e) { return 'assets/Frame%201.png'; }
+    })();
+
+    // Pilares da oferta (capa)
+    var pillars =
+      '<div class="pillar"><span class="pillar__tag">Ciclo mensal</span><h3>3 Sessões</h3><p>Tráfego, Conteúdo e Comercial — acompanhamento e execução assistida por especialistas, com 1 entregável concreto por sessão.</p></div>' +
+      '<div class="pillar"><span class="pillar__tag">Contínuo</span><h3>Comunidade</h3><p>Comunidade privada, monitorias e lives mensais com C-levels da V4 — networking e direcionamento sempre ativos.</p></div>' +
+      '<div class="pillar pillar--add"><span class="pillar__tag">1× por ano</span><h3>Fábrica de Receita</h3><p>Evento presencial com grandes empresários e especialistas — imersão em crescimento e geração de receita.</p></div>';
+
+    // Blocos de entregáveis: as 3 sessões (formato "semana" reaproveitado) + o que está incluso
+    var sessionBlocks = EQV_SESSIONS.map(function (s) {
+      return '<div class="ee-week"><h4>' + esc(s.title) + '</h4>' +
+        '<p class="subtitle" style="margin:0 0 6px;font-size:12px">' + esc(s.desc) + '</p>' +
+        '<ul class="dl">' + liList(s.items) + '</ul></div>';
+    }).join('');
+    var includesBlock = '<div class="ee-week"><h4>Também incluso no acompanhamento</h4><ul class="dl">' + liList(EQV_INCLUDES) + '</ul></div>';
+
+    // Investimento (pagamento recorrente do plano) + formas de pagamento com desconto à vista
+    var monthlyStr = formatBRL(plan.monthly);
+    var avistaStr  = formatBRL(plan.avista);
+    var anchorStr  = formatBRL(plan.anchor);
+    var invRows =
+      '<tr><td><strong>Empresa que Vende — ' + esc(plan.label) + '</strong><br><span class="muted">Acompanhamento · ' + esc(plan.term) + '</span></td>' +
+      '<td class="inv-v"><span id="inv-eqv-val">' + plan.parc + '× de ' + esc(monthlyStr) + '</span><span class="per">/mês</span></td></tr>';
+
+    // Opções de pagamento: à vista (desconto embutido no valor avista) ou parcelado no cartão.
+    var recOptions = '<option value="">Selecione a forma de pagamento...</option>' +
+      '<option value="avista" data-avista="1">À vista — Pix, boleto ou cartão · ' + esc(avistaStr) + '</option>' +
+      '<option value="cartao" data-parc="' + plan.parc + '">Cartão em ' + plan.parc + '× de ' + esc(monthlyStr) + '</option>';
+
+    var invBlock =
+      '<section><h2>Investimento</h2>' +
+        '<div class="inv-group"><p class="inv-group-title">Empresa que Vende · ' + esc(plan.label) + '</p><table>' + invRows + '</table>' +
+          '<div class="pay-field"><label class="pay-field__label" for="pay-eqv">Forma de pagamento</label>' +
+            '<select class="pay-field__select" id="pay-eqv">' + recOptions + '</select></div>' +
+        '</div>' +
+        '<p class="note"><span class="edit" contenteditable="true">Valor de tabela: ' + esc(anchorStr) + '. Na condição à vista o investimento sai por ' + esc(avistaStr) + '.</span></p>' +
+      '</section>' +
+      '<section><h2>Resumo da condição</h2><div class="summary-card"><table class="inv-summary">' +
+        '<tr><td><strong>Empresa que Vende — ' + esc(plan.label) + '</strong><br><span class="muted">' + esc(plan.term) + '</span></td><td class="inv-v"><span id="sum-eqv"></span></td></tr>' +
+        '<tr class="inv-total"><td><strong>Total do contrato</strong></td><td class="inv-v"><span id="sum-total"></span></td></tr>' +
+        '<tr><td><strong>Como paga</strong></td><td class="inv-v"><span id="sum-pay"></span></td></tr>' +
+      '</table><p class="hint">Reflete a forma de pagamento selecionada acima.</p></div>' +
+      '<p class="note"><strong>Validade:</strong> esta proposta é válida por <strong>10 dias</strong> a partir da data de emissão (' + esc(date) + ').</p></section>';
+
+    // Script interativo: recalcula resumo conforme a forma de pagamento
+    var invScript = '<script>(function(){' +
+      'var monthly=' + plan.monthly + ',avista=' + plan.avista + ',parc=' + plan.parc + ';' +
+      'function brl(n){return "R$ "+(Math.round(n*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}' +
+      'function el(id){return document.getElementById(id);}' +
+      'var pay=el("pay-eqv"),eqvVal=el("inv-eqv-val"),sumEqv=el("sum-eqv"),sumTotal=el("sum-total"),sumPay=el("sum-pay");' +
+      'function render(){' +
+        'var o=pay?pay.options[pay.selectedIndex]:null;' +
+        'var isAvista=o?o.getAttribute("data-avista")==="1":false;' +
+        'var total=isAvista?avista:monthly*parc;' +
+        'if(eqvVal)eqvVal.innerHTML=isAvista?(brl(avista)+"<span class=per> à vista</span>"):(parc+"× de "+brl(monthly)+"<span class=per>/mês</span>");' +
+        'if(sumEqv)sumEqv.innerHTML=isAvista?brl(avista):(parc+"× de "+brl(monthly)+"/mês");' +
+        'if(sumTotal)sumTotal.innerHTML=brl(total);' +
+        'if(sumPay)sumPay.textContent=o?(isAvista?(brl(avista)+" à vista"):(parc+"× de "+brl(monthly)+"/mês")):"forma a definir";' +
+      '}' +
+      'if(pay)pay.addEventListener("change",render);' +
+      'render();' +
+    '})();<\/script>';
+
+    return '' +
+'<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">' +
+'<meta name="viewport" content="width=device-width, initial-scale=1">' +
+'<title>Proposta — ' + esc(form.empresa || form.cliente || 'V4 Company') + '</title>' +
+'<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+'<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&family=Anton&display=swap" rel="stylesheet">' +
+proposalStyle(frameURL) +
+'<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">Pré-visualização em <strong>páginas A4</strong>, igual ao PDF. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
+'<div class="page"><div class="body">' +
+  '<div class="cover">' +
+    '<div class="ee-head"><img class="ee-logo" src="' + esc(logoURL) + '" alt="Empresa que Vende"><h1>Empresa que Vende</h1></div>' +
+    '<p class="subtitle">Acompanhamento e execução assistida por especialistas · ' + esc(plan.label) + ' (' + esc(plan.term) + ')</p>' +
+    '<div class="meta">' +
+      '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
+      '<div><span>Empresa</span><strong>' + esc(form.empresa || '—') + '</strong></div>' +
+      '<div><span>Plano</span><strong>' + esc(plan.label) + ' · ' + esc(plan.term) + '</strong></div>' +
+      '<div><span>Data</span><strong>' + esc(date) + '</strong></div>' +
+      '<div><span>Validade</span><strong>10 dias</strong></div>' +
+    '</div>' +
+    '<section><h2>A oferta</h2><div class="pillars">' + pillars + '</div></section>' +
+  '</div>' +
+  '<div class="pgbreak"></div>' +
+  '<section><h2>Entregáveis — Sessões mensais</h2>' +
+    '<p class="subtitle" style="margin-bottom:12px">Ciclos de 3 sessões com 3 entregáveis concretos todos os meses, ao longo de ' + esc(plan.term) + '.</p>' +
+    '<div class="ee-weeks"><div class="ee-col">' + sessionBlocks + '</div><div class="ee-col">' + includesBlock + '</div></div>' +
+  '</section>' +
+  '<div class="pgbreak"></div>' +
+  invBlock +
+  '<div class="pgbreak"></div>' +
+  '<section><h2>Garantia</h2><div class="guarantee">Compromisso V4: <strong>3 entregáveis concretos por mês</strong> durante todo o acompanhamento. Se em qualquer ciclo mensal a gente não entregar o que foi combinado nas sessões, é só sinalizar que <strong>ajustamos ou reexecutamos sem custo</strong>. <span class="guarantee-note">O acompanhamento é recorrente, com fidelidade mínima do período contratado (' + esc(plan.term) + ').</span></div></section>' +
+  '<section><h2>Próximos passos</h2><ol class="steps">' +
+    '<li>Confirmar o plano escolhido e a forma de pagamento.</li>' +
+    '<li>Assinatura do contrato.</li>' +
+    '<li>Kickoff e entrada na comunidade — onboarding em até 5 dias úteis.</li>' +
+    '<li>Início do primeiro ciclo mensal de sessões (Tráfego, Conteúdo e Comercial).</li>' +
+    '<li>Acompanhamento contínuo por ' + esc(plan.term) + ', com lives mensais e a Fábrica de Receita no período.</li>' +
+  '</ol></section>' +
+  '</div>' +
+  '<div class="foot"><div>' + esc(form.responsavel || 'V4 Company') + (form.email ? ' · ' + esc(form.email) : '') + '</div><div class="r">V4 Company · Empresa que Vende · ' + esc(date) + '</div></div>' +
+'</div>' +
+invScript +
+pagingScript() +
+'</body></html>';
+  }
+
   // ===== Monta o HTML do documento =====
   function buildProposalHTML(form, state) {
     var size = packSizeFromSolution(state.solution);
@@ -10355,7 +10678,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function generate(form, state) {
-    var html = buildProposalHTML(form, state);
+    var isEqv = state && state.solution && state.solution.indexOf('eqv-') === 0;
+    var html = isEqv ? buildEqvProposalHTML(form, state) : buildProposalHTML(form, state);
     var win = window.open('', '_blank');
     if (!win) { alert('Habilite pop-ups para gerar a proposta.'); return; }
     win.document.open();
@@ -10403,11 +10727,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function closeModal() { if (modal) modal.classList.remove('is-open'); }
 
   window.V4GenerateProposal = function (state) {
-    // Empresa que Vende (eqv-6m / eqv-12m): gerador do documento ainda será conectado.
+    // Empresa que Vende (eqv-6m / eqv-12m): abre o modal e gera o documento branded.
     if (state && state.solution && state.solution.indexOf('eqv-') === 0) {
-      var months = state.solution === 'eqv-12m' ? '12 meses (Anual)' : '06 meses (Semestral)';
-      alert('Pacote selecionado ✅\n\nEmpresa que Vende — ' + months +
-        '\n\n(A geração do documento da proposta será conectada na próxima etapa.)');
+      var plan = EQV_PLANS[state.solution] || EQV_PLANS['eqv-6m'];
+      buildModal();
+      refs.summary.innerHTML = '<strong>Empresa que Vende — ' + esc(plan.label) + '</strong><br>' +
+        'Acompanhamento · ' + esc(plan.term) + ' — ' + esc(plan.parc + '× de ' + formatBRL(plan.monthly)) + '/mês' +
+        '<br><span style="color:rgba(5,5,5,.6);font-weight:400">ou ' + esc(formatBRL(plan.avista)) + ' à vista</span>';
+      modal.classList.add('is-open');
+      setTimeout(function () { refs.cliente.focus(); }, 50);
       return;
     }
     var eeOnly = state && state.solution === 'ee';
