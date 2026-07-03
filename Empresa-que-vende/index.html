@@ -2112,7 +2112,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 .ee-how__slide {
   position: absolute; left: 50%; top: 50%;
-  width: clamp(240px, 26vw, 340px); height: clamp(280px, 32vw, 400px);
+  /* aspect-ratio casa com a proporção real das imagens (1856x2304 ≈ 0.806)
+     para o object-fit não precisar cortar/esticar e a renderização ficar nítida */
+  width: clamp(260px, 28vw, 372px); aspect-ratio: 1856 / 2304; height: auto;
   border-radius: clamp(16px, 1.8vw, 24px);
   background: linear-gradient(160deg, #7A0C06 0%, #4B0603 100%);
   border: 1px solid rgba(255,255,255,0.08);
@@ -2134,8 +2136,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-how__slide-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
+  /* contain: mostra a imagem inteira sem corte nem distorção (a proporção do
+     container já bate com a da imagem, então preenche igual sem perder nitidez) */
+  object-fit: contain; object-position: center;
   display: block;
+  /* força rasterização em alta resolução mesmo sob transform: scale() dos slides */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
 }
 /* Row com carrossel à esquerda: empilha os slides para a ESQUERDA (gap negativo),
    evitando que os cards inativos sobreponham o texto à direita */
@@ -7598,13 +7606,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão de Tráfego">
           <div class="ee-how__stack">
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: plano de mídia">
-              <img class="ee-how__slide-img" src="assets/artefato-trafego-plano-midia-v2.png" alt="Plano de mídia" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-plano-midia-v2.webp" alt="Plano de mídia" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: segmentação de audiências">
-              <img class="ee-how__slide-img" src="assets/artefato-trafego-audiencias-v2.png" alt="Segmentação de audiências" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-audiencias-v2.webp" alt="Segmentação de audiências" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: performance de campanhas">
-              <img class="ee-how__slide-img" src="assets/artefato-trafego-performance-v2.png" alt="Performance de campanhas" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-performance-v2.webp" alt="Performance de campanhas" loading="lazy" decoding="async">
             </article>
           </div>
           <div class="ee-how__cnav">
@@ -7631,13 +7639,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão de Conteúdo">
           <div class="ee-how__stack">
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: roteiro de vídeo">
-              <img class="ee-how__slide-img" src="assets/artefato-conteudo-roteiro-v2.png" alt="Roteiro de vídeo" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-roteiro-v2.webp" alt="Roteiro de vídeo" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: brief de posts para Instagram">
-              <img class="ee-how__slide-img" src="assets/artefato-conteudo-brief-posts-v2.png" alt="Brief de posts para Instagram" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-brief-posts-v2.webp" alt="Brief de posts para Instagram" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: calendário editorial">
-              <img class="ee-how__slide-img" src="assets/artefato-conteudo-calendario-v2.png" alt="Calendário editorial" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-calendario-v2.webp" alt="Calendário editorial" loading="lazy" decoding="async">
             </article>
           </div>
           <div class="ee-how__cnav">
@@ -7665,13 +7673,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão Comercial">
           <div class="ee-how__stack">
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: réguas de follow-up">
-              <img class="ee-how__slide-img" src="assets/artefato-comercial-reguas-v2.png" alt="Réguas de follow-up" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-reguas-v2.webp" alt="Réguas de follow-up" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: script de vendas">
-              <img class="ee-how__slide-img" src="assets/artefato-comercial-script-v2.png" alt="Script de vendas" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-script-v2.webp" alt="Script de vendas" loading="lazy" decoding="async">
             </article>
             <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: análise de objeções">
-              <img class="ee-how__slide-img" src="assets/artefato-comercial-objecoes-v2.png" alt="Análise de objeções" loading="lazy" decoding="async">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-objecoes-v2.webp" alt="Análise de objeções" loading="lazy" decoding="async">
             </article>
           </div>
           <div class="ee-how__cnav">
