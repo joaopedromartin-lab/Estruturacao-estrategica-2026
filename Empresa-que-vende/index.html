@@ -2066,6 +2066,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   margin: 0 0 clamp(20px, 2.4vw, 30px); max-width: 46ch;
   padding-bottom: clamp(18px, 2.4vw, 28px); border-bottom: 1px solid rgba(255,255,255,0.14);
 }
+/* Tag "Artefatos:" — pílula amarela acima da lista de entregáveis */
+.ee-how__artifacts-label {
+  display: inline-block;
+  margin: 0 0 clamp(14px, 1.8vw, 20px);
+  padding: 5px 13px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(10px, 0.95vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #280000;
+  background: #FFC400;
+  border-radius: 9999px;
+}
 .ee-how__artifacts {
   list-style: none; margin: 0; padding: 0;
   display: flex; flex-direction: column; gap: clamp(11px, 1.4vh, 16px);
@@ -2113,6 +2127,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   transform: translate(-50%, -50%) translateX(0) scale(1);
   box-shadow: 0 30px 70px rgba(0,0,0,0.45);
   cursor: default;
+}
+/* Slide com artefato (imagem já traz device 3D + gradiente próprios) */
+.ee-how__slide--img { background: none; overflow: hidden; }
+.ee-how__slide--img.is-active { background: none; }
+.ee-how__slide-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
 }
 /* Row com carrossel à esquerda: empilha os slides para a ESQUERDA (gap negativo),
    evitando que os cards inativos sobreponham o texto à direita */
@@ -7561,6 +7584,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão de Tráfego</h3>
         <p class="ee-how__row-desc">Acompanhamento especializado para operar mídia paga com método: um especialista V4 conduz junto com você a escolha de canais, a leitura de dados e as decisões de investimento — para escalar a operação com previsibilidade e resultado.</p>
+        <p class="ee-how__artifacts-label">Artefatos:</p>
         <ul class="ee-how__artifacts">
           <li>Configuração e leitura de pixel</li>
           <li>Plano de mídia estruturado</li>
@@ -7573,9 +7597,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__media">
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão de Tráfego">
           <div class="ee-how__stack">
-            <article class="ee-how__slide" role="group" aria-label="Artefato 1"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 2"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 3"></article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: plano de mídia">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-plano-midia-v2.png" alt="Plano de mídia" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: segmentação de audiências">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-audiencias-v2.png" alt="Segmentação de audiências" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: performance de campanhas">
+              <img class="ee-how__slide-img" src="assets/artefato-trafego-performance-v2.png" alt="Performance de campanhas" loading="lazy" decoding="async">
+            </article>
           </div>
           <div class="ee-how__cnav">
             <button type="button" class="ee-how__cbtn ee-how__cbtn--prev" aria-label="Artefato anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
@@ -7591,6 +7621,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão de Conteúdo</h3>
         <p class="ee-how__row-desc">Consultoria de conteúdo lado a lado: o especialista V4 orienta a estratégia, calibra a mensagem para o seu ICP e acompanha a execução mês a mês — para que a marca cresça com consistência e gere demanda de verdade.</p>
+        <p class="ee-how__artifacts-label">Artefatos:</p>
         <ul class="ee-how__artifacts">
           <li>1 roteiro de vídeo viral calibrado para o negócio do cliente (pronto para gravar)</li>
           <li>1 brief de posts complementares para Instagram</li>
@@ -7599,9 +7630,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__media">
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão de Conteúdo">
           <div class="ee-how__stack">
-            <article class="ee-how__slide" role="group" aria-label="Artefato 1"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 2"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 3"></article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: roteiro de vídeo">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-roteiro-v2.png" alt="Roteiro de vídeo" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: brief de posts para Instagram">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-brief-posts-v2.png" alt="Brief de posts para Instagram" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: calendário editorial">
+              <img class="ee-how__slide-img" src="assets/artefato-conteudo-calendario-v2.png" alt="Calendário editorial" loading="lazy" decoding="async">
+            </article>
           </div>
           <div class="ee-how__cnav">
             <button type="button" class="ee-how__cbtn ee-how__cbtn--prev" aria-label="Artefato anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
@@ -7617,6 +7654,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__text">
         <h3 class="ee-how__row-title">Sessão Comercial</h3>
         <p class="ee-how__row-desc">Acompanhamento comercial próximo: o especialista V4 revisa os scripts, analisa as objeções reais do mês e ajusta o processo de vendas com você — estruturando uma operação que converte mais e cresce com previsibilidade.</p>
+        <p class="ee-how__artifacts-label">Artefatos:</p>
         <ul class="ee-how__artifacts">
           <li>Revisão dos scripts de venda</li>
           <li>Análise de 3 objeções reais que apareceram no mês</li>
@@ -7626,9 +7664,15 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-how__media">
         <div class="ee-how__carousel" aria-label="Artefatos da Sessão Comercial">
           <div class="ee-how__stack">
-            <article class="ee-how__slide" role="group" aria-label="Artefato 1"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 2"></article>
-            <article class="ee-how__slide" role="group" aria-label="Artefato 3"></article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 1: réguas de follow-up">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-reguas-v2.png" alt="Réguas de follow-up" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 2: script de vendas">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-script-v2.png" alt="Script de vendas" loading="lazy" decoding="async">
+            </article>
+            <article class="ee-how__slide ee-how__slide--img" role="group" aria-label="Artefato 3: análise de objeções">
+              <img class="ee-how__slide-img" src="assets/artefato-comercial-objecoes-v2.png" alt="Análise de objeções" loading="lazy" decoding="async">
+            </article>
           </div>
           <div class="ee-how__cnav">
             <button type="button" class="ee-how__cbtn ee-how__cbtn--prev" aria-label="Artefato anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
@@ -10116,8 +10160,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var plan = EQV_PLANS[state.solution] || EQV_PLANS['eqv-6m'];
     var date = todayBR();
     var logoURL = (function () {
-      try { return new URL('assets/EE-logo-preto.png', location.href).href; }
-      catch (e) { return 'assets/EE-logo-preto.png'; }
+      try { return new URL('assets/eqv-preto.svg', location.href).href; }
+      catch (e) { return 'assets/eqv-preto.svg'; }
     })();
     var frameURL = (function () {
       try { return new URL('assets/Frame 1.png', location.href).href; }
@@ -10195,7 +10239,7 @@ proposalStyle(frameURL) +
 '<div class="toolbar"><button class="pdf" type="button" onclick="window.print()">Salvar como PDF</button><button class="close" type="button" onclick="window.close()">Fechar</button><span class="tip">Pré-visualização em <strong>páginas A4</strong>, igual ao PDF. No destino da impressão, escolha <strong>“Salvar como PDF”</strong>.</span></div>' +
 '<div class="page"><div class="body">' +
   '<div class="cover">' +
-    '<div class="ee-head"><img class="ee-logo" src="' + esc(logoURL) + '" alt="Empresa que Vende"><h1>Empresa que Vende</h1></div>' +
+    '<div class="ee-head"><img class="ee-logo" src="' + esc(logoURL) + '" alt="Empresa que Vende" style="height:52px"></div>' +
     '<p class="subtitle">Acompanhamento e execução assistida por especialistas · ' + esc(plan.label) + ' (' + esc(plan.term) + ')</p>' +
     '<div class="meta">' +
       '<div><span>Cliente</span><strong>' + esc(form.cliente || '—') + '</strong></div>' +
