@@ -138,6 +138,53 @@
   opacity: 1;
 }
 
+/* === GLOSSÁRIO MARQUEE (termos de marketing digital) ===
+   Faixa fina de altura fixa. O padding de seção global (#top > section) é
+   zerado em #top > #glossario, então a faixa cola na seção acima. */
+.ee-glossary {
+  background: #280000;
+}
+.ee-glossary .ds-marquee {
+  height: clamp(50px, 5.2vw, 64px);
+}
+/* Loop contínuo sem "buraco": o track tem 2 cópias dos termos e desliza
+   exatamente a largura de UMA cópia (-50%). Quando a 1ª cópia sai pela
+   esquerda, a 2ª ocupa o mesmo lugar — o reset fica invisível. */
+@keyframes glossary-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ee-glossary .ds-marquee__track {
+  height: 100%;
+  align-items: stretch;
+  animation-name: glossary-scroll;
+  animation-duration: 80s;
+}
+.ee-glossary__terms {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+.ee-glossary__term {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1.15vw, 16px);
+  font-weight: 300;
+  letter-spacing: 0.26em;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 clamp(1.8rem, 3.4vw, 3.6rem);
+  /* divisória vertical de altura total entre as células */
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+  transition: color 0.3s ease;
+}
+.ee-glossary .ds-marquee:hover .ee-glossary__term {
+  color: #FFFFFF;
+}
+
 /* === BRAND GRADIENT BACKGROUNDS === */
 :root {
   --ds-gradient-dark: linear-gradient(135deg, #560303 0%, #7A0A02 40%, #FB2E0A 100%);
@@ -219,6 +266,8 @@
   /* Cases: cards full-bleed 50/50 colados, sem respiro vertical e sem padding lateral */
   #top > #cases { padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; }
   #top > #cases .ee-cases__heading { padding-left: var(--ee-pad-x); padding-right: var(--ee-pad-x); }
+  /* Glossário: faixa fina colada na seção acima, sem respiro vertical de seção */
+  #top > #glossario { padding-top: 0; padding-bottom: 0; }
   /* Preços + Proposta: clipam só o sangramento lateral das imagens dos packs */
   #top > #precos,
   #top > #proposta { overflow: hidden; }
@@ -1923,26 +1972,31 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 
 .ee-sessions__card {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  min-height: clamp(360px, 44vw, 460px);   /* altura p/ sobrar espaço à imagem no topo */
-  background: #FFFFFF;
+  min-height: clamp(360px, 44vw, 460px);
+  background: #160000;                       /* fallback enquanto a imagem carrega */
   border-radius: clamp(16px, 1.6vw, 22px);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
   overflow: hidden;
 }
-/* Espaço reservado no topo p/ imagem futura (placeholder sutil por enquanto) */
+/* Imagem full-bleed: cobre o card inteiro. A sombra na base já vem embutida
+   na própria imagem, então NÃO aplicamos degradê aqui. */
 .ee-sessions__card-media {
-  flex: 1 1 auto;
-  min-height: clamp(120px, 16vw, 180px);
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(229,9,20,0.06), transparent 70%),
-    #F6F3F1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
-/* Corpo com o texto ancorado na PARTE INFERIOR do card */
+/* Corpo com o texto ancorado na PARTE INFERIOR, sobreposto à imagem */
 .ee-sessions__card-body {
-  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  align-self: flex-end;
   padding: clamp(20px, 2vw, 28px) clamp(20px, 2vw, 28px) clamp(24px, 2.4vw, 32px);
   display: flex;
   flex-direction: column;
@@ -1953,7 +2007,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(18px, 1.6vw, 23px);
   font-weight: 700;
-  color: #1A1A1A;
+  color: #FFFFFF;
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -1961,7 +2015,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(13px, 1.05vw, 15px);
   font-weight: 400;
-  color: rgba(26, 26, 26, 0.72);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
   line-height: 1.5;
   text-wrap: pretty;
@@ -1988,7 +2042,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-how__row {
   display: grid; grid-template-columns: 1fr; align-items: center;
   gap: clamp(48px, 8vw, 120px);
-  padding: clamp(28px, 5vh, 64px) 0;
+  padding: clamp(56px, 9vh, 120px) 0;
 }
 .ee-how__row + .ee-how__row { border-top: 1px solid rgba(255,255,255,0.08); }
 @media (min-width: 900px) {
@@ -2093,11 +2147,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   box-shadow: 0 30px 80px rgba(0,0,0,0.4);
 }
 
-/* Faixa vermelha (banner) — mais estreita que o corpo (recuo lateral),
-   deixando o card de baixo aparecer mais largo atrás dela */
+/* Faixa vermelha (banner) — ocupa toda a largura do card, sem recuo lateral,
+   evitando o preenchimento escuro do card aparecer atrás/ao redor dela */
 .ee-comm__banner {
   text-align: center;
-  margin: 0 clamp(24px, 4vw, 64px);
+  margin: 0;
   padding: clamp(20px, 3vw, 36px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 72px);
   border-radius: clamp(18px, 2vw, 28px) clamp(18px, 2vw, 28px) 0 0;
   background: linear-gradient(180deg, #FF3D1E 0%, #E11208 100%);
@@ -2139,6 +2193,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   background: #1C1C1E; border-radius: clamp(10px, 1.2vw, 14px);
   padding: clamp(18px, 2.2vw, 30px) clamp(14px, 1.6vw, 20px);
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+}
+/* tile "falando" — borda verde interna como no Google Meet (participante ativo) */
+.ee-comm__tile--speaking {
+  box-shadow: inset 0 0 0 3px #1F9D55;
 }
 .ee-comm__avatar {
   width: clamp(52px, 6vw, 76px); height: clamp(52px, 6vw, 76px);
@@ -2496,7 +2554,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 .ee-eqv__price-per { font-size: clamp(13px, 1.1vw, 15px); font-weight: 400; color: rgba(26,26,26,0.6); }
 .ee-eqv__avista {
   font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(12px, 1vw, 14px); font-weight: 400;
-  color: rgba(26,26,26,0.6); margin: 0 0 clamp(18px, 2.4vw, 26px);
+  color: rgba(26,26,26,0.6); margin: 0 0 clamp(18px, 2.4vw, 26px); text-align: center;
   padding-bottom: clamp(16px, 2vw, 24px); border-bottom: 1px solid rgba(26,26,26,0.12);
 }
 .ee-eqv__incl-label {
@@ -7299,6 +7357,56 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 </section>
 
 <!-- ============================================================ -->
+<!-- MARQUEE — GLOSSÁRIO DE MARKETING DIGITAL                       -->
+<!-- ============================================================ -->
+<section id="glossario" class="ee-glossary" aria-label="Glossário de métricas de marketing digital">
+  <div class="ds-marquee">
+    <div class="ds-marquee__track">
+      <div class="ee-glossary__terms" role="list" aria-label="Métricas de marketing digital">
+        <span class="ee-glossary__term" role="listitem">ROI</span>
+        <span class="ee-glossary__term" role="listitem">CAC</span>
+        <span class="ee-glossary__term" role="listitem">LTV</span>
+        <span class="ee-glossary__term" role="listitem">ARPU</span>
+        <span class="ee-glossary__term" role="listitem">ROAS</span>
+        <span class="ee-glossary__term" role="listitem">GMV</span>
+        <span class="ee-glossary__term" role="listitem">LEAD</span>
+        <span class="ee-glossary__term" role="listitem">MQL</span>
+        <span class="ee-glossary__term" role="listitem">CPL</span>
+        <span class="ee-glossary__term" role="listitem">CTR</span>
+        <span class="ee-glossary__term" role="listitem">CPC</span>
+        <span class="ee-glossary__term" role="listitem">CPM</span>
+        <span class="ee-glossary__term" role="listitem">SQL</span>
+        <span class="ee-glossary__term" role="listitem">CRM</span>
+        <span class="ee-glossary__term" role="listitem">NPS</span>
+        <span class="ee-glossary__term" role="listitem">TICKET MÉDIO</span>
+        <span class="ee-glossary__term" role="listitem">CHURN</span>
+        <span class="ee-glossary__term" role="listitem">FUNIL</span>
+      </div>
+      <div class="ee-glossary__terms" aria-hidden="true">
+        <span class="ee-glossary__term">ROI</span>
+        <span class="ee-glossary__term">CAC</span>
+        <span class="ee-glossary__term">LTV</span>
+        <span class="ee-glossary__term">ARPU</span>
+        <span class="ee-glossary__term">ROAS</span>
+        <span class="ee-glossary__term">GMV</span>
+        <span class="ee-glossary__term">LEAD</span>
+        <span class="ee-glossary__term">MQL</span>
+        <span class="ee-glossary__term">CPL</span>
+        <span class="ee-glossary__term">CTR</span>
+        <span class="ee-glossary__term">CPC</span>
+        <span class="ee-glossary__term">CPM</span>
+        <span class="ee-glossary__term">SQL</span>
+        <span class="ee-glossary__term">CRM</span>
+        <span class="ee-glossary__term">NPS</span>
+        <span class="ee-glossary__term">TICKET MÉDIO</span>
+        <span class="ee-glossary__term">CHURN</span>
+        <span class="ee-glossary__term">FUNIL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SEÇÃO — PRA QUEM (6 dores em cards glass)                      -->
 <!-- ============================================================ -->
 <section id="para-quem" class="ee-foru" aria-label="Pra que tipo de empresa esse serviço foi desenhado">
@@ -7402,14 +7510,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-sessions__inner">
     <header class="ee-sessions__head">
       <h2 class="ee-sessions__title">Tenha uma consultoria, acompanhamento e execução assistida por especialistas</h2>
-      <p class="ee-sessions__sub">Ciclos de <strong>3 sessões</strong> com <strong>3 entregáveis concretos</strong> todos os meses por 6 meses.</p>
+      <p class="ee-sessions__sub">Ciclos de <strong>3 sessões</strong> com <strong>3 entregáveis concretos</strong> todos os meses por 6&nbsp;meses.</p>
     </header>
 
     <div class="ee-sessions__grid">
 
       <!-- Card 1 — Sessão de Tráfego -->
       <article class="ee-sessions__card">
-        <div class="ee-sessions__card-media" aria-hidden="true"></div>
+        <img class="ee-sessions__card-media" src="assets/strafego.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão de Tráfego</h3>
           <p class="ee-sessions__card-text">Acompanhamento especializado para operar mídia paga com método e decidir por resultado — escalando com previsibilidade.</p>
@@ -7418,7 +7526,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
       <!-- Card 2 — Sessão de Conteúdo -->
       <article class="ee-sessions__card">
-        <div class="ee-sessions__card-media" aria-hidden="true"></div>
+        <img class="ee-sessions__card-media" src="assets/sconteudo.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão de Conteúdo</h3>
           <p class="ee-sessions__card-text">Consultoria de conteúdo lado a lado: estratégia calibrada para o seu ICP e execução acompanhada para a marca crescer com consistência.</p>
@@ -7427,7 +7535,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
       <!-- Card 3 — Sessão Comercial -->
       <article class="ee-sessions__card">
-        <div class="ee-sessions__card-media" aria-hidden="true"></div>
+        <img class="ee-sessions__card-media" src="assets/scomercial.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="ee-sessions__card-body">
           <h3 class="ee-sessions__card-title">Sessão Comercial</h3>
           <p class="ee-sessions__card-text">Acompanhamento comercial próximo: scripts, objeções e processo de vendas ajustados com você para converter mais e crescer com previsibilidade.</p>
@@ -7454,11 +7562,11 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <h3 class="ee-how__row-title">Sessão de Tráfego</h3>
         <p class="ee-how__row-desc">Acompanhamento especializado para operar mídia paga com método: um especialista V4 conduz junto com você a escolha de canais, a leitura de dados e as decisões de investimento — para escalar a operação com previsibilidade e resultado.</p>
         <ul class="ee-how__artifacts">
-          <li>Canais</li>
-          <li>Plano de mídia</li>
-          <li>Segmentação de audiências</li>
-          <li>Configuração e Leitura de pixel</li>
-          <li>Interpretação de dados</li>
+          <li>Configuração e leitura de pixel</li>
+          <li>Plano de mídia estruturado</li>
+          <li>Segmentação de audiências definida</li>
+          <li>Interpretação de dados das campanhas</li>
+          <li>Capacitação para gestão de mídia paga nos canais</li>
           <li>Tomada de decisão por resultado</li>
         </ul>
       </div>
@@ -7484,12 +7592,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <h3 class="ee-how__row-title">Sessão de Conteúdo</h3>
         <p class="ee-how__row-desc">Consultoria de conteúdo lado a lado: o especialista V4 orienta a estratégia, calibra a mensagem para o seu ICP e acompanha a execução mês a mês — para que a marca cresça com consistência e gere demanda de verdade.</p>
         <ul class="ee-how__artifacts">
-          <li>Roteiro de vídeo</li>
-          <li>Brief de posts</li>
-          <li>Calendário de conteúdo</li>
-          <li>Linha editorial por ICP</li>
-          <li>Ganchos e CTAs</li>
-          <li>Referências de criativos</li>
+          <li>1 roteiro de vídeo viral calibrado para o negócio do cliente (pronto para gravar)</li>
+          <li>1 brief de posts complementares para Instagram</li>
         </ul>
       </div>
       <div class="ee-how__media">
@@ -7514,12 +7618,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         <h3 class="ee-how__row-title">Sessão Comercial</h3>
         <p class="ee-how__row-desc">Acompanhamento comercial próximo: o especialista V4 revisa os scripts, analisa as objeções reais do mês e ajusta o processo de vendas com você — estruturando uma operação que converte mais e cresce com previsibilidade.</p>
         <ul class="ee-how__artifacts">
-          <li>Scripts de venda</li>
-          <li>Matriz de objeções</li>
-          <li>Réguas de follow-up</li>
-          <li>Pipeline no CRM</li>
-          <li>Metas e forecast</li>
-          <li>Análise de conversão</li>
+          <li>Revisão dos scripts de venda</li>
+          <li>Análise de 3 objeções reais que apareceram no mês</li>
+          <li>Atualização das réguas de follow-up (baseada no que não está convertendo)</li>
         </ul>
       </div>
       <div class="ee-how__media">
@@ -7637,7 +7738,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               <p class="ee-comm__name">Dener L</p>
               <p class="ee-comm__role">Ceo v4</p>
             </article>
-            <article class="ee-comm__tile">
+            <article class="ee-comm__tile ee-comm__tile--speaking">
               <img class="ee-comm__avatar" src="assets/figas-meet.png" alt="Gustavo F." loading="lazy" decoding="async">
               <p class="ee-comm__name">Gustavo.F</p>
               <p class="ee-comm__role">C-Level V4</p>
@@ -7734,6 +7835,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   <div class="ee-bonus__marquee" data-bonus-marquee>
     <div class="ee-bonus__track">
       <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/luamadeu-fabrica.png" alt="Lucas Amadeu" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Lucas Amadeu</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
+      <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/carlos-fabrica.png" alt="Carlos Busch" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Carlos Busch</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
       <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/alfsoares-fabrica.png" alt="Alfredo Soares" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Alfredo Soares</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
       <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/Flaaugusto-fabrica.png" alt="Flávio Augusto" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Flávio Augusto</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
       <figure class="ee-bonus__tile"><img class="ee-bonus__photo" src="assets/tallisgomes-fabrica.png" alt="Tallis Gomes" loading="lazy" decoding="async"><figcaption class="ee-bonus__cap"><span class="ee-bonus__name">Tallis Gomes</span><span class="ee-bonus__role">Cargo</span></figcaption></figure>
