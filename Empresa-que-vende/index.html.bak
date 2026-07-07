@@ -6605,6 +6605,873 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <img class="ee-glass-deco" src="assets/BlocoGlass.png" alt="" aria-hidden="true" data-glass-pos="0.84" data-glass-side="right" data-glass-speed="0.10"/>
 
 <!-- ============================================================ -->
+<!-- SEÇÃO 01 — HERO                                               -->
+<!-- ============================================================ -->
+<section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
+  <div class="ee-hero__wipe" aria-hidden="true"></div>
+
+  <!-- ESTADO SELECT: prompt + seletor de modelo (centralizado sobre o gradiente) -->
+  <div class="ee-hero__inner">
+    <div class="ee-hero__content">
+      <h1 class="ee-hero__brand">Empresa que <em>Vende</em></h1>
+      <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
+
+      <div class="ee-model-selector" data-state="closed">
+        <button type="button"
+                class="ee-model-selector__trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-label="Escolha seu modelo de vendas">
+          <span class="ee-model-selector__label" data-placeholder="Escolha seu modelo de vendas">Escolha seu modelo de vendas</span>
+          <svg class="ee-model-selector__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <ul class="ee-model-selector__menu" role="listbox" aria-label="Modelos de vendas disponíveis">
+          <li role="option" data-value="pdv" tabindex="-1">PDV</li>
+          <li role="option" data-value="inside-sales" tabindex="-1">Inside Sales</li>
+          <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTADO WELCOME: split-screen (painel branco à esquerda + imagem full-height à direita) -->
+  <div class="ee-hero__welcome">
+    <div class="ee-hero__panel">
+      <p class="ee-hero__note ee-hero__note--tl">Somos <strong>Cientistas</strong></p>
+      <p class="ee-hero__note ee-hero__note--tr">Inimigos da <em>Inércia</em></p>
+      <div class="ee-hero__welcome-block">
+        <span class="ee-hero__welcome-lead">Bem-Vindo à</span>
+        <h1 class="ee-hero__welcome-title">V4 Company</h1>
+        <div class="ee-model-selector ee-model-selector--welcome" data-state="closed">
+          <button type="button"
+                  class="ee-model-selector__trigger"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-label="Escolha seu modelo de vendas">
+            <span class="ee-model-selector__label" data-placeholder="Escolha seu modelo de vendas">Escolha seu modelo de vendas</span>
+            <svg class="ee-model-selector__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <ul class="ee-model-selector__menu" role="listbox" aria-label="Modelos de vendas disponíveis">
+            <li role="option" data-value="pdv" tabindex="-1">PDV</li>
+            <li role="option" data-value="inside-sales" tabindex="-1">Inside Sales</li>
+            <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ee-hero__note ee-hero__note--bl">Nosso negócio é vender o seu</p>
+      <p class="ee-hero__note ee-hero__note--br">#GoToIPO2030</p>
+    </div>
+    <div class="ee-hero__photo">
+      <img src="assets/imgherose.webp" alt="Mão segurando o cubo translúcido da V4 Company"/>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 02 — AUTORIDADE (stats + quem somos)                    -->
+<!-- ============================================================ -->
+<section id="autoridade" class="ee-auth" aria-label="Autoridade da V4 Company">
+  <div class="ee-auth__inner">
+
+    <!-- Conteúdo (esquerda) -->
+    <div class="ee-auth__main">
+      <p class="ee-auth__eyebrow">Quem somos?</p>
+      <h2 class="ee-auth__who-title">
+        <span>MAIOR</span>
+        <span>ASSESSORIA</span>
+      </h2>
+      <p class="ee-auth__who-sub">de Marketing da <strong>América Latina</strong></p>
+    </div>
+
+    <!-- Mapa (direita) -->
+    <div class="ee-auth__map">
+      <img src="assets/MapaV4.webp" alt="Mapa do Brasil com a presença nacional da V4 Company" class="ee-auth__map-img"/>
+    </div>
+
+    <!-- Big numbers — faixa full-width abaixo da head + mapa -->
+    <div class="ee-auth__stats" role="list">
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+13</p>
+        <p class="ee-auth__stat-label">Anos de<br/>mercado</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+260</p>
+        <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+16bi</p>
+        <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+30 mil</p>
+        <p class="ee-auth__stat-label">Projetos<br/>atendidos</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — RECONHECIMENTO (badges Google + Meta)                 -->
+<!-- ============================================================ -->
+<section id="reconhecimento" class="ee-recognition" aria-label="Reconhecimentos de plataformas">
+  <div class="ee-recognition__inner">
+    <h2 class="ee-recognition__title">Reconhecida pelas <strong>maiores plataformas</strong> de mídia.</h2>
+    <div class="ee-recognition__badges">
+      <div class="ee-recognition__col">
+        <img class="ee-recognition__badge ee-recognition__badge--kommo" src="assets/kommoCrm.png" alt="Kommo Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--tray" src="assets/tray.svg" alt="Tray — Parceiro Diamante"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hubspot" src="assets/hubspot.png" alt="HubSpot Certified Partner"/>
+      </div>
+      <div class="ee-recognition__col ee-recognition__col--offset">
+        <img class="ee-recognition__badge ee-recognition__badge--google" src="assets/GOOGLE PARTNER PREMIER 2022.png" alt="Google Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--meta" src="assets/META CERTIFIED COMPANY.png" alt="Meta Business Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--facebook" src="assets/Facebook.svg" alt="Facebook Blueprint Certification"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script id="ee-recognition-parallax">
+(function () {
+  var sec = document.getElementById('reconhecimento');
+  if (!sec) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cols = sec.querySelectorAll('.ee-recognition__col');
+  if (cols.length < 2) return;
+  var left = cols[0], right = cols[1];
+  var AMOUNT = 70;            // deslocamento máximo (px) de cada coluna
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var rect = sec.getBoundingClientRect();
+    var winH = window.innerHeight || document.documentElement.clientHeight;
+    var p = (winH - rect.top) / (winH + rect.height);   // 0 ao entrar (base) → 1 ao sair (topo)
+    p = p < 0 ? 0 : (p > 1 ? 1 : p);
+    var t = (p - 0.5) * 2;                               // -1 → +1 (neutro quando a seção está centralizada)
+    left.style.transform  = 'translate3d(0,' + (-t * AMOUNT) + 'px,0)';  // desce a page → sobe
+    right.style.transform = 'translate3d(0,' + ( t * AMOUNT) + 'px,0)';  // desce a page → desce
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 03 — CLIENTES (carrossel de logos, 2 linhas opostas)    -->
+<!-- ============================================================ -->
+<section id="clientes" class="ee-clients" aria-label="Nossos clientes">
+  <p class="ee-clients__title">Quem <strong>acredita</strong> na V4</p>
+  <div class="ee-clients__rows">
+
+    <!-- Linha 1 — anima da esquerda para a direita (24 logos) -->
+    <div class="ds-marquee ee-clients__row ee-clients__row--reverse">
+      <div class="ds-marquee__track">
+        <div class="ds-marquee__logos" role="list" aria-label="Clientes — linha 1">
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Calvin Klein.svg" alt="Calvin Klein"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/LUGANO.svg" alt="Lugano"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/ifood.svg" alt="iFood"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/XP.svg" alt="XP"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Sicoob.svg" alt="Sicoob"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Max Titanium.svg" alt="Max Titanium"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/123milhas.svg" alt="123 Milhas"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/angatu.svg" alt="Angatu"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt="Spoleto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/mahogany.svg" alt="Mahogany"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/todeschini.svg" alt="Todeschini"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/army br.svg" alt="Army BR"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/cvc.png" alt="CVC"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt="Spotify"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/grupok1.svg" alt="Grupo K1"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/applebeews.svg" alt="Applebee's"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/metroform.png" alt="Metroform"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/alphabeto.svg" alt="Alphabeto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/oficialfarma.svg" alt="Oficial Farma"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/MarveeLogo.svg" alt="Marvee"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bembrasil.svg" alt="Bem Brasil"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/thebestacai.svg" alt="The Best Açaí"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bombeef.png" alt="Bombeef"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Group.png" alt="Cliente V4"/>
+        </div>
+        <!-- Cópia duplicada (aria-hidden) para o loop infinito ficar seamless -->
+        <div class="ds-marquee__logos" aria-hidden="true">
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Calvin Klein.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/LUGANO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/ifood.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/XP.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Sicoob.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Max Titanium.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/123milhas.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/angatu.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/mahogany.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/todeschini.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/army br.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/cvc.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/grupok1.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/applebeews.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/metroform.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/alphabeto.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/oficialfarma.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/MarveeLogo.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bembrasil.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/thebestacai.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bombeef.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Group.png" alt=""/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha 2 — anima da direita para a esquerda (24 logos, ordem deslocada) -->
+    <div class="ds-marquee ee-clients__row">
+      <div class="ds-marquee__track">
+        <div class="ds-marquee__logos" role="list" aria-label="Clientes — linha 2">
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/metroform.png" alt="Metroform"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt="Spotify"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/army br.svg" alt="Army BR"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/oficialfarma.svg" alt="Oficial Farma"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/ifood.svg" alt="iFood"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Sicoob.svg" alt="Sicoob"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/applebeews.svg" alt="Applebee's"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/alphabeto.svg" alt="Alphabeto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Calvin Klein.svg" alt="Calvin Klein"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bombeef.png" alt="Bombeef"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/LUGANO.svg" alt="Lugano"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/mahogany.svg" alt="Mahogany"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/todeschini.svg" alt="Todeschini"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/MarveeLogo.svg" alt="Marvee"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt="Spoleto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/thebestacai.svg" alt="The Best Açaí"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/angatu.svg" alt="Angatu"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/cvc.png" alt="CVC"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Max Titanium.svg" alt="Max Titanium"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/grupok1.svg" alt="Grupo K1"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/123milhas.svg" alt="123 Milhas"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/XP.svg" alt="XP"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Group.png" alt="Cliente V4"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bembrasil.svg" alt="Bem Brasil"/>
+        </div>
+        <div class="ds-marquee__logos" aria-hidden="true">
+          <img class="ee-clients__logo" src="assets/Faixadelogos/metroform.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/army br.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/oficialfarma.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/ifood.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Sicoob.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/applebeews.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/alphabeto.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Calvin Klein.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bombeef.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/LUGANO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/mahogany.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/todeschini.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/MarveeLogo.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/thebestacai.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/angatu.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/cvc.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Max Titanium.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/grupok1.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/123milhas.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/XP.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Group.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bembrasil.svg" alt=""/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Faixa de afiliação: Grupo Dreamers + InfoMoney — dentro de "Quem acredita na V4" -->
+  <div class="ee-affiliation">
+    <div class="ee-affiliation__inner">
+      <p class="ee-affiliation__text">Somos uma empresa do <strong>Grupo Dreamers</strong> e parceiros do <strong>InfoMoney</strong>.</p>
+      <div class="ee-affiliation__logos">
+        <img src="assets/grupoDreamers.svg" alt="Grupo Dreamers" class="ee-affiliation__logo ee-affiliation__logo--dreamers"/>
+        <img src="assets/rock-in-rio 1.svg" alt="Rock in Rio" class="ee-affiliation__logo ee-affiliation__logo--rockinrio"/>
+        <img src="assets/Infomoney.svg" alt="InfoMoney" class="ee-affiliation__logo ee-affiliation__logo--infomoney"/>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — CASES (fundo preto, conteúdo varia por modelo de vendas) -->
+<!-- ============================================================ -->
+<section id="cases" class="ee-cases" data-state="empty" aria-label="Cases de sucesso" aria-live="polite">
+  <div class="ee-cases__inner">
+
+    <h2 class="ee-cases__heading">Alguns cases que temos de <strong data-cases-model>PDV</strong></h2>
+
+    <!-- Estado vazio: prompt -->
+    <div class="ee-cases__empty">
+      Selecione seu <strong>modelo de vendas</strong> no topo da página pra ver cases de sucesso da V4 no seu segmento.
+    </div>
+
+    <!-- GRUPO: PDV -->
+    <div class="ee-cases__group" data-model="pdv">
+      <article class="ee-cases__card" style="background-image:url('assets/preventimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/Preventlogo.png" alt="Óticas Prevent"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Óticas Prevent</span><span class="ee-cases__type">Varejo de óticas</span></span>
+          </div>
+          <p class="ee-cases__challenge">Rede gigante batendo no teto do Google e do Meta (CPM/CPL subindo, eficiência caindo). Reposicionamos TikTok Ads e Kwai como pilar de aquisição local, com criativos nativos e segmentação por município, e trocamos a métrica de "custo do clique" para agendamento, comparecimento e fechamento na loja.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">10x</span><span class="ee-cases__num-after">13,83x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 5,06M</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Canal saturado não pede mais verba; pede o canal certo e a métrica certa.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/valecimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/valeclogo.png" alt="Valec Renault"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Valec Renault</span><span class="ee-cases__type">Concessionária</span></span>
+          </div>
+          <p class="ee-cases__challenge">Gerava leads, mas vivia a "ilusão do tráfego": o gargalo era o comercial não converter na loja. Conectamos o marketing ao CRM e retroalimentamos as campanhas toda semana com base em quem comprava, focando em oferta direta e lead com intenção real.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 392,5K</span><span class="ee-cases__num-after">R$ 1,69M</span></span><span class="ee-cases__num-note">4,3x em receita</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Vendas</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5</span><span class="ee-cases__num-after">16</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 3.600</span><span class="ee-cases__num-after">R$ 1.588</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Ticket</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 90K</span><span class="ee-cases__num-after">R$ 180K</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">4,55%</span><span class="ee-cases__num-after">6,99%</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Marketing sem comercial é só tráfego. No CRM, vira venda.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- GRUPO: INSIDE SALES -->
+    <div class="ee-cases__group" data-model="inside-sales">
+      <article class="ee-cases__card" style="background-image:url('assets/cvcimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/cvclogo.png" alt="CVC Corp"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">CVC Corp</span><span class="ee-cases__type">Turismo / Educação</span></span>
+          </div>
+          <p class="ee-cases__challenge">Venda consultiva de ciclo longo, com leads desqualificados, volume baixo e CAC alto (R$ 1.250). Plugamos a mídia no e-mail/CRM, passamos a analisar cohort respeitando o ciclo de decisão e fizemos os criativos atuarem como filtro, entregando MQL real ao vendedor.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 91,6M</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 1.250</span><span class="ee-cases__num-after">R$ 544</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">12x</span><span class="ee-cases__num-after">21x</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Em venda consultiva, criativo bom não gera mais lead; gera o lead certo.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/medfuturaimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/medfuturalogo.png" alt="Medfutura"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Medfutura</span><span class="ee-cases__type">Distribuidora B2B / Medicamentos</span></span>
+          </div>
+          <p class="ee-cases__challenge">B2B de saúde com alto custo de mídia e nenhuma conversão proporcional: fuga na landing page, anúncio saturado, comercial no escuro. Como em B2B volume não é qualidade, reestruturamos o Google Ads por intenção de compra e produto rentável, com mensuração e rotina de otimização orientada ao comercial.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">82,52x</span></span><span class="ee-cases__num-note">com R$ 8,9K de investimento</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CPL</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 11,51</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão LP</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">25,26%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 734K</span></span></div>
+          </div>
+          <p class="ee-cases__quote">B2B escala com precisão cirúrgica, não com volume bruto.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- GRUPO: E-COMMERCE -->
+    <div class="ee-cases__group" data-model="e-commerce">
+      <article class="ee-cases__card" style="background-image:url('assets/uvlineimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/uvlinelogo.png" alt="UV Line"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">UV Line</span><span class="ee-cases__type">E-commerce / Proteção solar</span></span>
+          </div>
+          <p class="ee-cases__challenge">E-commerce maduro com verba alta, mas conversão baixa (1,11%) e ROAS travado nos 7x, sem escalar sem perder margem. Escalamos por diversificação + sazonalidade: além de Google e Meta, entramos com Pinterest e TikTok, mantendo o grosso da verba no motor principal e cortando rápido todo teste sem performance.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 10,8M</span></span><span class="ee-cases__num-note">~R$ 1M em um dia</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">7,94x</span><span class="ee-cases__num-after">14,56x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">1,11%</span><span class="ee-cases__num-after">4,03%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 21</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Escala não é só mais verba; é o canal certo na hora certa.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/totalarteimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/totalartelogo.png" alt="Total Arte"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Total Arte</span><span class="ee-cases__type">E-commerce / Bens de consumo</span></span>
+          </div>
+          <p class="ee-cases__challenge">Marca gigante no offline apanhando no digital: CAC estourando a margem (R$ 40,21), site convertendo só 2,24% e dados ruins demais pra saber onde estava o problema. Arrumamos a casa: faxina no rastreamento do GA4 e landing pages de apoio pra não perder venda enquanto o site era ajustado.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">2,24%</span><span class="ee-cases__num-after">5,88%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5,76x</span><span class="ee-cases__num-after">12,12x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 22</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 1,16M</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Às vezes o problema não é o anúncio; é a casa.</p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — ECOSSISTEMA (full-bleed image only)                   -->
+<!-- ============================================================ -->
+<section id="ecossistema" class="ee-ecosystem" aria-label="Ecossistema V4">
+  <img class="ee-ecosystem__img" src="assets/Ecossistema foto.png" alt="Ecossistema V4 — em 13 anos de mercado, construímos um ecossistema sólido e próspero"/>
+  <div class="ee-ecosystem__fade" aria-hidden="true"></div>
+  <div class="ee-ecosystem__overlay">
+    <div class="ee-ecosystem__overlay-inner">
+      <h2 class="ee-ecosystem__title">Ecossistema</h2>
+      <p class="ee-ecosystem__sub">Em <strong>13 anos</strong> de mercado, construímos um ecossistema <strong>sólido e próspero</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — +30 SOLUÇÕES DIGITAIS (texto esquerda + grid direita)  -->
+<!-- ============================================================ -->
+<!-- Stack dedicado: #ecossistema-30 prende (sticky) e #missao sobe por cima; sticky escopado a este wrapper (não vaza pras seções de baixo) -->
+<div class="ee-stack">
+<section id="ecossistema-30" class="ee-ecosystem30" aria-label="+30 soluções digitais para vender mais">
+  <div class="ee-ecosystem30__inner">
+
+    <div class="ee-ecosystem30__content">
+      <h2 class="ee-ecosystem30__number">+30</h2>
+      <h3 class="ee-ecosystem30__title">Soluções <em>Digitais</em><br>para vender mais.</h3>
+    </div>
+
+    <div class="ee-ecosystem30__media">
+      <img class="ee-ecosystem30__img" src="assets/Ecossistema-30.png" alt="Grade de 30+ soluções digitais V4: Consultoria Estratégica, Meta Ads, Treinamento Comercial, Product, Automação, Live Marketing, LinkedIn Ads, TikTok Ads, Mídia Paralela, UX/UI, SDR IA, V4 MKT, Growth, Pesquisa de Mercado, BI, Landing Pages, Outbound, Branding, Tráfego Pago, Social Media, Auditoria, Inside Sales, Google Ads, E-mail Mkt, Edição de Vídeo, CRM, Analytics, Copywriting, SEO, Criativos, CRO, Lead Broker e Inbound"/>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 04 — MISSÃO (full-bleed bg + conteúdo à esquerda)       -->
+<!-- ============================================================ -->
+<section id="missao" class="ee-mission" aria-label="Nossa missão: vender">
+  <div class="ee-mission__inner">
+    <div class="ee-mission__content">
+      <p class="ee-mission__eyebrow">Mas qual é a <strong>NOSSA MISSÃO?</strong></p>
+      <div class="ee-mission__row">
+        <h2 class="ee-mission__title">VENDER</h2>
+        <ol class="ee-mission__list">
+          <li><span class="ee-mission__num">01</span> - O seu produto</li>
+          <li><span class="ee-mission__num">02</span> - Para mais pessoas</li>
+          <li><span class="ee-mission__num">03</span> - Mais vezes</li>
+          <li><span class="ee-mission__num">04</span> - Pelo maior valor</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /.ee-stack -->
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 05 — MÉTODO (planta de receita + 4 pilares)             -->
+<!-- ============================================================ -->
+<section id="metodo" class="ee-method" aria-label="Nosso método científico">
+  <div class="ee-method__inner">
+
+    <!-- Header centralizado -->
+    <header class="ee-method__head">
+      <h2 class="ee-method__title">Método <strong>V4</strong></h2>
+      <p class="ee-method__sub">O Método V4 é uma estratégia utilizada para impulsionar as vendas dos clientes. É composto por quatro pilares: <strong>aquisição, engajamento, monetização e retenção.</strong> Ao contrário do funil de vendas tradicional, essas etapas se conectam e a conversão pode ocorrer em qualquer momento do processo de vendas.</p>
+    </header>
+
+    <!-- 4 cards: ícone do pilar acima + ferramentas dentro -->
+    <ol class="ee-method__pillars">
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/aquisicao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Aquisição</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Tiktokads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">TikTok Ads</span></li>
+            <li class="ee-method__tool"><i data-lucide="search" aria-hidden="true"></i><span class="ee-method__tool-label">S.E.O.</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/engagamento.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Engajamento</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
+            <li class="ee-method__tool"><i data-lucide="shopping-cart" aria-hidden="true"></i><span class="ee-method__tool-label">Sales Pages</span></li>
+            <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
+            <li class="ee-method__tool"><i data-lucide="file-text" aria-hidden="true"></i><span class="ee-method__tool-label">Conteúdo</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/monetizacao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Monetização</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><i data-lucide="store" aria-hidden="true"></i><span class="ee-method__tool-label">E-commerce</span></li>
+            <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
+            <li class="ee-method__tool"><img src="assets/inbound.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inbound</span></li>
+            <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/retencao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Retenção</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
+            <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
+            <li class="ee-method__tool"><img src="assets/crm.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">CRM: RFM, LTV</span></li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — NÍVEIS DE MATURIDADE (carrossel de níveis + dores)    -->
+<!-- ============================================================ -->
+<section id="maturidade" class="ee-mat" aria-label="Níveis de maturidade">
+  <div class="ee-mat__inner">
+    <h2 class="ee-mat__title">Níveis de maturidade</h2>
+
+    <!-- Palco: um "nível" por vez. Fundo, barra e dores mudam conforme o nível. -->
+    <div class="ee-mat__stage" data-level="0">
+      <div class="ee-mat__head">
+        <p class="ee-mat__eyebrow">Nível de maturidade</p>
+        <h3 class="ee-mat__level">Baixa</h3>
+        <!-- setas do NÍVEL ladeando a barra de progresso -->
+        <div class="ee-mat__barrow">
+          <button type="button" class="ee-mat__nav ee-mat__nav--prev" aria-label="Nível anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+          <div class="ee-mat__bar" role="img" aria-label="Barra de progresso do nível de maturidade">
+            <span class="ee-mat__bar-fill"></span>
+          </div>
+          <button type="button" class="ee-mat__nav ee-mat__nav--next" aria-label="Próximo nível"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+        </div>
+        <p class="ee-mat__desc">Consistência não é motivação, é sistema. Pontos, níveis e badges pra você enxergar progresso e manter ritmo. Cada curso, lab e entrega alimenta seu perfil.</p>
+      </div>
+
+      <!-- Carrossel interno: dores do nível. Marquee contínuo (fluxo infinito). -->
+      <div class="ee-mat__pains" aria-label="Principais dores deste nível">
+        <button type="button" class="ee-mat__pnav ee-mat__pnav--prev" aria-label="Dor anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+        <div class="ee-mat__viewport">
+          <div class="ee-mat__track" role="list"></div>
+        </div>
+        <button type="button" class="ee-mat__pnav ee-mat__pnav--next" aria-label="Próxima dor"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+<script id="ee-mat-script">
+(function () {
+  var sec = document.getElementById('maturidade');
+  if (!sec) return;
+
+  /* ===========================================================
+     DADOS — 3 níveis de maturidade. Edite os textos livremente.
+     progress: 0..1  → largura da barra de progresso do nível.
+     pains[]: dores mostradas no carrossel interno (título + texto).
+     =========================================================== */
+  var LEVELS = [
+    {
+      level: 'Baixa',
+      progress: 0.28,
+      desc: 'A operação de vendas ainda depende de esforço individual e improviso. Não há processo definido, os dados são frágeis e cada resultado parece sorte — não sistema.',
+      pains: [
+        { title: 'Sem ICP definido', text: 'Não há clareza de quem é o cliente ideal. A empresa tenta vender pra todo mundo e acaba não convertendo ninguém com consistência.' },
+        { title: 'Proposta de valor genérica', text: 'A mensagem não diferencia a marca da concorrência. Sem um posicionamento claro, o cliente não entende por que comprar de você.' },
+        { title: 'Presença digital inconsistente', text: 'Canais desatualizados e sem padrão. A marca aparece de forma fragmentada e não sustenta a confiança de quem chega até ela.' },
+        { title: 'Sem funil estruturado', text: 'Não existe uma jornada clara do primeiro contato à venda. Os leads chegam e se perdem porque não há etapas definidas.' },
+        { title: 'Vendas por indicação', text: 'A maior parte da receita vem de boca a boca. Sem canal previsível, crescer significa torcer por mais indicações.' },
+        { title: 'Sem processo comercial', text: 'Cada vendedor faz do seu jeito. Não há etapas padronizadas nem previsibilidade — o resultado depende de quem está vendendo.' }
+      ]
+    },
+    {
+      level: 'Média',
+      progress: 0.6,
+      desc: 'O ICP já está em definição e há um benchmarking inicial rodando. A operação existe, mas ainda é informal — o desafio é dar estrutura e clareza de estratégia ao que já funciona.',
+      pains: [
+        { title: 'ICP em definição', text: 'Já existe uma noção de quem é o cliente ideal, mas ela ainda não está validada nem documentada com clareza.' },
+        { title: 'Benchmarking inicial', text: 'Há uma primeira leitura do mercado e dos concorrentes, mas ainda sem profundidade para orientar decisões.' },
+        { title: 'Estratégia de canais a definir', text: 'Existem canais em uso, porém falta uma estratégia clara sobre onde investir e como priorizar cada frente.' },
+        { title: 'Funil incipiente', text: 'Já há um esboço de jornada, mas as etapas ainda não estão bem definidas nem medidas de ponta a ponta.' },
+        { title: 'Processo comercial informal', text: 'O time vende com alguma consistência, mas sem um processo padronizado e replicável entre as pessoas.' },
+        { title: 'Diagnóstico de maturidade de GTM', text: 'É o momento de mapear o estágio real do go-to-market para saber o que estruturar primeiro.' },
+        { title: 'Posicionamento semidefinido', text: 'A marca já tem uma direção, mas o posicionamento ainda não está afiado o suficiente para se diferenciar.' },
+        { title: 'Análise competitiva básica', text: 'Você conhece os concorrentes de forma superficial. Falta um estudo estruturado das vantagens e lacunas.' },
+        { title: 'Canais ativos sem estratégia clara', text: 'Os canais estão rodando, mas sem um plano que conecte investimento, mensagem e objetivo de cada um.' },
+        { title: 'CRM parcialmente adotado', text: 'A ferramenta existe, mas o uso é irregular. Os dados ficam incompletos e a gestão perde visibilidade.' },
+        { title: 'Metas sem previsibilidade', text: 'As metas são definidas, mas sem base histórica sólida — o resultado ainda depende de esforço, não de sistema.' }
+      ]
+    },
+    {
+      level: 'Alta',
+      progress: 0.92,
+      desc: 'A operação já é madura, com time sênior e estrutura consolidada. O desafio agora é orquestrar a estratégia de receita e transformar boas práticas em playbook — escalando com previsibilidade.',
+      pains: [
+        { title: 'OKRs de GTM estruturados', text: 'As metas de go-to-market já são organizadas em OKRs, dando direção clara para marketing e vendas.' },
+        { title: 'Revenue Strategy indefinido', text: 'Falta uma estratégia de receita unificada que conecte aquisição, expansão e retenção num único plano.' },
+        { title: 'Canais isolados sem orquestração', text: 'Os canais funcionam bem individualmente, mas ainda não operam de forma integrada e coordenada.' },
+        { title: 'Time sênior sem playbook', text: 'O time tem experiência, mas o conhecimento não está documentado em playbooks que garantam consistência e escala.' },
+        { title: 'Diagnóstico aprofundado necessário', text: 'Para dar o próximo salto, é preciso um diagnóstico profundo que revele os gargalos finos da operação.' }
+      ]
+    }
+  ];
+
+  var reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stage   = sec.querySelector('.ee-mat__stage');
+  var elLevel = sec.querySelector('.ee-mat__level');
+  var elDesc  = sec.querySelector('.ee-mat__desc');
+  var elFill  = sec.querySelector('.ee-mat__bar-fill');
+  var track   = sec.querySelector('.ee-mat__track');
+  var dotsBox = sec.querySelector('.ee-mat__dots');
+  var head    = sec.querySelector('.ee-mat__head');
+
+  var li = 0;   // índice do nível
+  var pi = 0;   // índice da dor (carrossel interno)
+  var revealed = reduce;
+
+  /* --- dots dos níveis (opcionais) --- */
+  var levelDots = [];
+  if (dotsBox) {
+    for (var d = 0; d < LEVELS.length; d++) {
+      (function (idx) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ee-mat__dot';
+        b.setAttribute('aria-label', 'Nível ' + LEVELS[idx].level);
+        b.addEventListener('click', function () { goLevel(idx); });
+        dotsBox.appendChild(b);
+        levelDots.push(b);
+      })(d);
+    }
+  }
+
+  /* ===========================================================
+     MARQUEE de DORES — fluxo contínuo e infinito.
+     Os cards do nível são duplicados (2 cópias) e o conjunto desliza
+     sem parar; ao passar da largura de uma cópia, o offset "reseta"
+     sem salto visível. Sem cards vazios, sem destaque central.
+     =========================================================== */
+  var SPEED = 42;          // px por segundo do marquee
+  var loopW = 0;           // largura de UMA cópia (px) — ponto de wrap
+  var offset = 0;          // deslocamento acumulado (px)
+  var dir = -1;            // -1 = rola para a esquerda (padrão)
+
+  /* --- cria os cards de dores do nível, duplicados p/ loop --- */
+  function buildPains() {
+    track.innerHTML = '';
+    var pains = LEVELS[li].pains;
+    function makeCard(data) {
+      var card = document.createElement('article');
+      card.className = 'ee-mat__pain';
+      card.setAttribute('role', 'listitem');
+      var h = document.createElement('h4');
+      h.className = 'ee-mat__pain-title';
+      h.textContent = data.title;
+      var t = document.createElement('p');
+      t.className = 'ee-mat__pain-text';
+      t.textContent = data.text;
+      card.appendChild(h); card.appendChild(t);
+      return card;
+    }
+    // 2 cópias garantem que sempre há card entrando pela borda oposta
+    for (var pass = 0; pass < 2; pass++) {
+      for (var p = 0; p < pains.length; p++) {
+        var c = makeCard(pains[p]);
+        if (pass === 1) c.setAttribute('aria-hidden', 'true');  // cópia é decorativa p/ leitores de tela
+        track.appendChild(c);
+      }
+    }
+    measure();
+  }
+
+  /* --- mede a largura de uma cópia (metade do track) p/ o wrap --- */
+  function measure() {
+    // scrollWidth do track = 2 cópias + gaps; usamos metade como período de loop
+    var full = track.scrollWidth;
+    loopW = full / 2;
+    if (offset <= -loopW || offset > 0) offset = 0;
+    applyOffset();
+  }
+  function applyOffset() { track.style.setProperty('--mat-x', offset + 'px'); }
+
+  /* --- renderiza o nível inteiro (cabeçalho, barra, dores) --- */
+  function renderLevel(animate) {
+    var L = LEVELS[li];
+    stage.setAttribute('data-level', String(li));
+    if (elLevel) elLevel.textContent = L.level;
+    if (elDesc)  elDesc.textContent  = L.desc;
+    if (elFill)  elFill.style.width  = (revealed ? Math.round(L.progress * 100) : 0) + '%';
+    for (var d = 0; d < levelDots.length; d++) {
+      levelDots[d].classList.toggle('is-active', d === li);
+    }
+    offset = 0;
+    buildPains();
+    if (animate && head && !reduce) {   // crossfade do texto ao trocar de nível
+      head.classList.remove('is-switching');
+      void head.offsetWidth;
+      head.classList.add('is-switching');
+    }
+  }
+
+  /* ===========================================================
+     Loop de animação (requestAnimationFrame).
+     Pausa no hover, quando a aba está oculta ou a seção sai da tela.
+     Respeita prefers-reduced-motion (fica parado, mas navegável).
+     =========================================================== */
+  var paused = { hover: false, offscreen: !revealed, hidden: false };
+  var nudge = 0;           // impulso extra das setas (px a consumir)
+  var rafId = null, lastT = 0;
+  function running() { return !paused.hover && !paused.offscreen && !paused.hidden; }
+
+  function step(t) {
+    rafId = requestAnimationFrame(step);
+    if (!lastT) lastT = t;
+    var dt = (t - lastT) / 1000; lastT = t;
+    if (dt > 0.1) dt = 0.1;   // evita saltos após aba inativa
+
+    var move = 0;
+    if (!reduce && running()) move += dir * SPEED * dt;   // fluxo automático
+    if (nudge !== 0) {                                    // impulso das setas (decai suave)
+      var take = nudge * Math.min(1, dt * 8);
+      move += take; nudge -= take;
+      if (Math.abs(nudge) < 0.5) nudge = 0;
+    }
+    if (move === 0) return;
+
+    offset += move;
+    if (loopW > 0) {                                      // wrap infinito nos dois sentidos
+      while (offset <= -loopW) offset += loopW;
+      while (offset > 0)       offset -= loopW;
+    }
+    applyOffset();
+  }
+
+  function goLevel(n) {
+    li = (n % LEVELS.length + LEVELS.length) % LEVELS.length;
+    renderLevel(true);
+  }
+  /* setas das dores: empurram o marquee ~1 card na direção escolhida */
+  function nudgeBy(cards) {
+    var cardW = (loopW / Math.max(1, LEVELS[li].pains.length));  // largura média (card + gap)
+    nudge += cards * -cardW;   // cards>0 = avançar (mesma direção do fluxo)
+  }
+
+  /* --- navegação dos NÍVEIS --- */
+  var prev = sec.querySelector('.ee-mat__nav--prev');
+  var next = sec.querySelector('.ee-mat__nav--next');
+  if (prev) prev.addEventListener('click', function () { goLevel(li - 1); });
+  if (next) next.addEventListener('click', function () { goLevel(li + 1); });
+
+  /* --- navegação das DORES (empurram o fluxo) --- */
+  var pprev = sec.querySelector('.ee-mat__pnav--prev');
+  var pnext = sec.querySelector('.ee-mat__pnav--next');
+  if (pprev) pprev.addEventListener('click', function () { nudgeBy(-1); });
+  if (pnext) pnext.addEventListener('click', function () { nudgeBy(1); });
+
+  /* --- pausa no hover do carrossel --- */
+  var pains = sec.querySelector('.ee-mat__pains');
+  if (pains) {
+    pains.addEventListener('mouseenter', function () { paused.hover = true; });
+    pains.addEventListener('mouseleave', function () { paused.hover = false; lastT = 0; });
+  }
+  /* --- pausa quando a aba fica oculta --- */
+  document.addEventListener('visibilitychange', function () {
+    paused.hidden = document.hidden; lastT = 0;
+  });
+  /* --- remede em resize (larguras clamp mudam) --- */
+  window.addEventListener('resize', function () { measure(); });
+
+  renderLevel(false);
+  rafId = requestAnimationFrame(step);
+
+  /* --- entrada quando a seção surge na tela (barra "enche", texto sobe) --- */
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealed = true; paused.offscreen = false; sec.classList.add('is-revealed'); renderLevel(false);
+  } else {
+    sec.classList.add('is-armed');
+    // observer de REVEAL (uma vez): dispara a barra e a animação de entrada
+    var ioReveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        sec.classList.add('is-revealed');
+        revealed = true;
+        requestAnimationFrame(function () {
+          if (elFill) elFill.style.width = Math.round(LEVELS[li].progress * 100) + '%';
+        });
+        ioReveal.unobserve(sec);
+      });
+    }, { threshold: 0.2 });
+    ioReveal.observe(sec);
+
+    // observer de VISIBILIDADE (contínuo): liga/desliga o marquee conforme a seção entra/sai
+    var ioPlay = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        paused.offscreen = !e.isIntersecting;
+        lastT = 0;   // evita salto ao voltar à tela
+      });
+    }, { threshold: 0.2 });
+    ioPlay.observe(sec);
+  }
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) -->
+<!-- ============================================================ -->
+<section id="simulador" class="ee-sim" aria-label="Por que saber antes de executar">
+  <div class="ee-sim__inner">
+    <header class="ee-sim__head">
+      <h2 class="ee-sim__title">Por que <strong>saber</strong> antes de <strong>executar?</strong></h2>
+      <p class="ee-sim__sub">Cada solução depende da anterior. Tente reorganizar as barras — você vai ver que não dá pra pular etapa.</p>
+    </header>
+
+    <div class="ee-sim__bars" id="ee-sim-bars">
+      <div class="ee-sim__bar" data-key="potencializar" style="--start: 62%;">
+        <span class="ee-sim__chip" aria-hidden="true">P</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Potencializar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="executar" style="--start: 50%;">
+        <span class="ee-sim__chip" aria-hidden="true">E</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Executar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="ter" style="--start: 34%;">
+        <span class="ee-sim__chip" aria-hidden="true">T</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Ter</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="saber" style="--start: 17%;">
+        <span class="ee-sim__chip" aria-hidden="true">S</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Saber</span></div></div>
+      </div>
+    </div>
+
+    <p class="ee-sim__alert" id="ee-sim-alert" role="status" aria-live="polite"></p>
+
+    <p class="ee-sim__hook">E foi seguindo esse <strong>raciocínio</strong> que criamos<span class="ee-sim__hook-dots">...</span></p>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
 <!-- SEÇÃO 07 — PRODUTO (Estruturação Estratégica)                 -->
 <!-- ============================================================ -->
 <section id="produto" class="ee-product" aria-label="Estruturação Estratégica — apresentação do produto">
@@ -7515,6 +8382,21 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 <script id="ee-page-script">
 (function () {
   'use strict';
+
+  // ── TRAVA DE SCROLL ATÉ ESCOLHER O MODELO DE VENDAS ──
+  // Aplicada já no parse do script (antes do paint) pra evitar flash. É liberada
+  // na 1ª seleção de modelo de vendas (ver revealWelcome). Sem persistência: todo
+  // reload (F5/Ctrl+R) ou nova visita volta pro seletor antes do "Bem vindo a V4".
+  //
+  // O navegador, por padrão, restaura a posição de scroll no reload — o que, com a
+  // trava, deixaria o usuário "preso" na seção em que estava. Então desligamos a
+  // restauração e forçamos o topo, garantindo que todo F5 caia no seletor.
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  document.documentElement.classList.add('ee-scroll-lock');
+  window.addEventListener('load', function () {
+    if (document.documentElement.classList.contains('ee-scroll-lock')) window.scrollTo(0, 0);
+  });
 
   // ── ESTADO GLOBAL DO MODELO DE VENDAS ──
   // Disponível em window.V4SalesModel para qualquer seção/script ler.
