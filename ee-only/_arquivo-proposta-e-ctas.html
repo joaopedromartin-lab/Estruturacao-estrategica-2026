@@ -1,0 +1,109 @@
+<!--
+============================================================================
+ARQUIVO DE COMPONENTES REMOVIDOS DA PÁGINA EE — guardados para reuso futuro
+============================================================================
+Removidos de index.html em 2026-06-02 a pedido (não usados por enquanto).
+
+O QUE TEM AQUI:
+  1. Botão "Adicionar este pacote" (do bloco Social Media / "Leve também")
+  2. Botão "Seguir com essa solução" (CTA do bundle nos Preços)
+  3. Seção inteira #proposta ("Monte sua proposta personalizada")
+
+COMO RESTAURAR:
+  - O CSS (.ee-proposal*, .ee-pricing__cta*, .ee-proposal__addon-controls)
+    e o JS (window.V4Proposal, handlers de [data-pack-cta] e do addon)
+    CONTINUAM em index.html (inertes, com guardas — não quebram nada).
+  - Pra reativar, basta colar de volta os blocos HTML abaixo nos lugares indicados.
+============================================================================
+-->
+
+
+<!-- ====================================================================
+  [1] BOTÃO "ADICIONAR ESTE PACOTE"
+  Onde estava: dentro de <div class="ee-proposal__addon" data-addon="socialMedia">,
+  logo após <div class="ee-proposal__addon-card"> (o banner do Social Media),
+  na seção #precos → .ee-pricing__bundle-footer.
+==================================================================== -->
+<button type="button" class="ee-proposal__addon-controls" aria-pressed="false">
+  <span class="ee-proposal__addon-check" aria-hidden="true"></span>
+  <span class="ee-proposal__addon-action">Adicionar este pacote</span>
+</button>
+
+
+<!-- ====================================================================
+  [2] CTA "SEGUIR COM ESSA SOLUÇÃO"
+  Onde estava: dentro de <div class="ee-pricing__bundle-footer">,
+  logo após o bloco .ee-proposal__addon-section, na seção #precos.
+==================================================================== -->
+<div class="ee-pricing__cta-wrap">
+  <button type="button" class="ee-pricing__cta" data-pack-cta="bundle-s" id="ee-bundle-cta">
+    Seguir com essa solução
+    <i data-lucide="arrow-right" aria-hidden="true"></i>
+  </button>
+</div>
+
+
+<!-- ====================================================================
+  [3] SEÇÃO #proposta — "Monte sua proposta personalizada"
+  Onde estava: logo após o fechamento de </section> da seção #precos,
+  antes de </main>.
+==================================================================== -->
+<section id="proposta" class="ee-proposal" data-state="empty" aria-label="Sua proposta personalizada" aria-live="polite">
+  <div class="ee-proposal__inner">
+
+    <p class="ee-proposal__eyebrow">Sua proposta</p>
+    <h2 class="ee-proposal__heading" id="ee-proposal-heading">Monte sua proposta personalizada</h2>
+
+    <!-- Estado vazio: prompt -->
+    <div class="ee-proposal__empty">
+      <strong>Escolha uma solução acima</strong> e clique em "Seguir com essa solução" pra montarmos aqui sua proposta personalizada — com base no seu modelo de vendas e nos pacotes que você selecionou.
+    </div>
+
+    <!-- Estado preenchido: gerado/atualizado dinamicamente via JS -->
+    <div class="ee-proposal__filled">
+
+      <!-- Card com escolha + lista de entregáveis (preenchido por JS) -->
+      <div class="ee-proposal__card">
+        <header class="ee-proposal__card-head">
+          <h3 class="ee-proposal__card-title" id="ee-proposal-pack-title">—</h3>
+          <p class="ee-proposal__card-meta" id="ee-proposal-pack-meta">—</p>
+        </header>
+
+        <p class="ee-proposal__receive-label">O que vai estar incluso:</p>
+
+        <!-- Grupo: Estruturação Estratégica (sempre) -->
+        <div class="ee-proposal__group" id="ee-proposal-group-ee">
+          <header class="ee-proposal__group-head">
+            <img src="assets/EE-logo-preto.png" alt="Estruturação Estratégica" class="ee-proposal__group-logo"/>
+            <p class="ee-proposal__group-sub">Sprint de 4 semanas</p>
+          </header>
+          <div class="ee-proposal__weeks" id="ee-proposal-list-ee"></div>
+        </div>
+
+        <!-- Grupo: Executar (só quando bundle) -->
+        <div class="ee-proposal__group" id="ee-proposal-group-executar" hidden>
+          <header class="ee-proposal__group-head">
+            <h4 class="ee-proposal__group-title">Executar — <span id="ee-proposal-pack-label">Pack X</span></h4>
+            <p class="ee-proposal__group-sub">Operação contínua (mínimo 6 meses)</p>
+          </header>
+          <ul class="ee-proposal__list" id="ee-proposal-list-executar"></ul>
+        </div>
+      </div>
+
+      <!-- Total + CTA finalizar -->
+      <div class="ee-proposal__total">
+        <div class="ee-proposal__total-body">
+          <p class="ee-proposal__total-label">Total da proposta</p>
+          <p class="ee-proposal__total-value" id="ee-proposal-total">R$ XX.XXX</p>
+          <p class="ee-proposal__total-installment" id="ee-proposal-installment">Ou em até 6x sem juros · valores a serem confirmados</p>
+        </div>
+        <button type="button" class="ee-proposal__finalize">
+          Quero esta proposta
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
