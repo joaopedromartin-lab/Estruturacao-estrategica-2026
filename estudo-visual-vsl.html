@@ -1,0 +1,1908 @@
+<title>Estudo Visual de VSL — Cenário, Luz, Contraste e Saturação</title>
+<style>
+:root{
+  --ground:#EDEDEF; --surface:#F7F7F9; --surface-2:#E2E2E7; --sunk:#DCDCE2;
+  --line:#CFCFD6; --line-2:#B4B4BE; --line-strong:#8E8E9A;
+  --ink:#17181C; --ink-2:#4A4C55; --ink-3:#757883;
+  --key:#C4761E; --key-bright:#E08A2B; --key-wash:#F3E2CB;
+  --fill:#33788F; --fill-bright:#3E8FAE; --fill-wash:#D8E7EC;
+  --alert:#B33326; --alert-wash:#F2DAD6;
+  --ok:#3B7048; --ok-wash:#DBE8DE;
+  --plot-bg:#22242A; --plot-ink:#C9CBD2;
+  --f-display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-body:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --f-mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(20,20,28,.06),0 8px 24px -12px rgba(20,20,28,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#161719; --surface:#1D1E22; --surface-2:#25272C; --sunk:#131416;
+    --line:#31333A; --line-2:#43464E; --line-strong:#5E626C;
+    --ink:#E7E8EC; --ink-2:#A6A9B3; --ink-3:#787B85;
+    --key:#F0A94E; --key-bright:#F5BC72; --key-wash:#3A2A16;
+    --fill:#5FB4D4; --fill-bright:#83C8E2; --fill-wash:#14313C;
+    --alert:#E0574A; --alert-wash:#3B1B17;
+    --ok:#63A874; --ok-wash:#18301D;
+    --plot-bg:#0F1013; --plot-ink:#B9BCC4;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#161719; --surface:#1D1E22; --surface-2:#25272C; --sunk:#131416;
+  --line:#31333A; --line-2:#43464E; --line-strong:#5E626C;
+  --ink:#E7E8EC; --ink-2:#A6A9B3; --ink-3:#787B85;
+  --key:#F0A94E; --key-bright:#F5BC72; --key-wash:#3A2A16;
+  --fill:#5FB4D4; --fill-bright:#83C8E2; --fill-wash:#14313C;
+  --alert:#E0574A; --alert-wash:#3B1B17;
+  --ok:#63A874; --ok-wash:#18301D;
+  --plot-bg:#0F1013; --plot-ink:#B9BCC4;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--f-body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--f-display); text-wrap:balance; margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--key-bright); outline-offset:3px; border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important; transition-duration:.01ms!important}}
+
+/* ---------- shell ---------- */
+.shell{max-width:1320px; margin:0 auto; padding:0 24px}
+.doc{display:grid; grid-template-columns:1fr; gap:0}
+@media (min-width:1080px){
+  .doc{grid-template-columns:210px minmax(0,1fr); gap:56px; align-items:start}
+}
+.rail{display:none}
+@media (min-width:1080px){
+  .rail{
+    display:block; position:sticky; top:0; padding:48px 0 48px;
+    max-height:100vh; overflow-y:auto;
+  }
+}
+.rail-title{font-family:var(--f-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3); padding-bottom:12px; border-bottom:1px solid var(--line)}
+.rail ol{list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:1px}
+.rail a{
+  display:flex; gap:10px; text-decoration:none; font-family:var(--f-mono);
+  font-size:11.5px; line-height:1.45; letter-spacing:.01em; color:var(--ink-2);
+  padding:7px 8px 7px 0; border-left:2px solid transparent; padding-left:10px;
+}
+.rail a:hover{color:var(--ink); background:var(--surface-2); border-left-color:var(--line-2)}
+.rail a.on{color:var(--ink); border-left-color:var(--key-bright); background:var(--surface-2)}
+.rail a i{font-style:normal; color:var(--ink-3); min-width:20px}
+.rail a.on i{color:var(--key)}
+
+main{min-width:0; padding-bottom:96px}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+.sec{padding-top:72px; scroll-margin-top:24px}
+.sec-head{display:flex; flex-direction:column; gap:10px; padding-bottom:8px;
+  border-bottom:1px solid var(--line-2); margin-bottom:26px}
+.sec-num{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--key)}
+.sec h2{font-size:clamp(26px,3.4vw,36px); line-height:1.08; letter-spacing:-.022em; font-weight:800}
+.sec h3{font-size:19px; letter-spacing:-.01em; font-weight:700; margin-top:38px}
+.sec h4{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-2); font-weight:600; margin-top:26px}
+.lede{font-size:19px; line-height:1.58; color:var(--ink-2); max-width:66ch}
+.prose{max-width:68ch; margin-top:16px}
+.prose > * + *{margin-top:16px}
+.prose p{max-width:68ch}
+strong{font-weight:700; color:var(--ink)}
+em.term{font-style:normal; font-family:var(--f-mono); font-size:.88em; background:var(--surface-2);
+  padding:1px 5px; border-radius:3px; border:1px solid var(--line)}
+
+/* ---------- primitives ---------- */
+.card{background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow)}
+.pad{padding:20px 22px}
+.grid{display:grid; gap:16px}
+.g2{grid-template-columns:1fr}
+@media (min-width:720px){.g2{grid-template-columns:1fr 1fr}}
+.g3{grid-template-columns:1fr}
+@media (min-width:640px){.g3{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.g3{grid-template-columns:repeat(3,1fr)}}
+.stack{display:flex; flex-direction:column; gap:16px}
+.mt{margin-top:28px}
+.mt-s{margin-top:14px}
+
+.tag{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  padding:3px 7px; border-radius:3px; border:1px solid var(--line-2); color:var(--ink-2); white-space:nowrap}
+.tag.k{color:var(--key); border-color:var(--key); background:var(--key-wash)}
+.tag.f{color:var(--fill); border-color:var(--fill); background:var(--fill-wash)}
+.tag.no{color:var(--alert); border-color:var(--alert); background:var(--alert-wash)}
+.tag.yes{color:var(--ok); border-color:var(--ok); background:var(--ok-wash)}
+
+.rule{height:1px; background:var(--line); border:0; margin:0}
+
+/* data list */
+.dl{display:grid; grid-template-columns:auto 1fr; gap:0; font-family:var(--f-mono);
+  font-size:12px; font-variant-numeric:tabular-nums}
+.dl dt{color:var(--ink-3); padding:5px 14px 5px 0; border-bottom:1px solid var(--line);
+  letter-spacing:.06em; text-transform:uppercase; font-size:10px; align-self:center}
+.dl dd{margin:0; padding:5px 0; border-bottom:1px solid var(--line); color:var(--ink); text-align:right}
+.dl dt:last-of-type,.dl dd:last-of-type{border-bottom:0}
+
+/* tables */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:660px; font-family:var(--f-mono);
+  font-size:12px; font-variant-numeric:tabular-nums}
+th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3);
+  background:var(--surface-2); position:sticky; top:0; border-bottom:1px solid var(--line-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td.n{text-align:right}
+caption{caption-side:bottom; text-align:left; padding:10px 13px; font-family:var(--f-mono);
+  font-size:10.5px; color:var(--ink-3); border-top:1px solid var(--line)}
+
+/* callouts */
+.note{border-left:2px solid var(--line-strong); padding:2px 0 2px 16px; color:var(--ink-2); font-size:16px}
+.note.k{border-left-color:var(--key)}
+.note.no{border-left-color:var(--alert)}
+.note b{color:var(--ink)}
+
+/* do / dont */
+.dd{display:grid; gap:14px; grid-template-columns:1fr}
+@media (min-width:760px){.dd{grid-template-columns:1fr 1fr}}
+.dd ul{margin:10px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:9px}
+.dd li{font-size:15px; line-height:1.5; padding-left:20px; position:relative; color:var(--ink-2)}
+.dd li::before{position:absolute; left:0; top:0; font-family:var(--f-mono); font-size:13px}
+.dd .yes li::before{content:"+"; color:var(--ok)}
+.dd .no li::before{content:"\00d7"; color:var(--alert)}
+
+figure{margin:0}
+figcaption{font-family:var(--f-mono); font-size:10.5px; line-height:1.5; color:var(--ink-3);
+  letter-spacing:.02em; padding-top:9px}
+svg{display:block; max-width:100%}
+canvas{display:block}
+</style>
+<style>
+/* ---------- hero ---------- */
+.hero{padding:52px 0 0}
+.hero-kick{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:22px}
+.hero h1{
+  font-size:clamp(38px,6.6vw,72px); line-height:.95; letter-spacing:-.038em; font-weight:800;
+  max-width:16ch;
+}
+.hero h1 span{color:var(--ink-3)}
+.hero .lede{margin-top:22px}
+.hero-meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px}
+
+/* ---------- light lab ---------- */
+.lab{margin-top:34px; border:1px solid var(--line-2); border-radius:8px; overflow:hidden;
+  background:var(--surface); box-shadow:var(--shadow)}
+.lab-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between;
+  padding:11px 16px; background:var(--surface-2); border-bottom:1px solid var(--line-2)}
+.lab-bar b{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  font-weight:600; color:var(--ink-2)}
+.presets{display:flex; flex-wrap:wrap; gap:6px}
+.presets button{
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.05em; cursor:pointer;
+  padding:5px 9px; border-radius:3px; border:1px solid var(--line-2);
+  background:var(--surface); color:var(--ink-2);
+}
+.presets button:hover{border-color:var(--line-strong); color:var(--ink)}
+.presets button[aria-pressed="true"]{background:var(--key-wash); border-color:var(--key); color:var(--key)}
+
+.lab-body{display:grid; grid-template-columns:1fr; gap:0}
+@media (min-width:900px){.lab-body{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) 268px}}
+@media (min-width:640px) and (max-width:899px){.lab-body{grid-template-columns:1fr 1fr}}
+
+.lab-pane{padding:16px; border-bottom:1px solid var(--line); min-width:0}
+@media (min-width:900px){.lab-pane{border-bottom:0; border-right:1px solid var(--line)}}
+.lab-pane:last-child{border:0}
+.pane-label{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:10px; display:flex; justify-content:space-between; gap:8px}
+.viewport{background:var(--plot-bg); border-radius:4px; border:1px solid var(--line-2);
+  overflow:hidden; position:relative; display:flex; justify-content:center}
+.viewport canvas{width:100%; height:auto; image-rendering:auto}
+
+/* controls */
+.ctrls{display:flex; flex-direction:column; gap:12px}
+.ctrl{display:flex; flex-direction:column; gap:5px}
+.ctrl-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase}
+.ctrl-top span:first-child{color:var(--ink-3)}
+.ctrl-top output{color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:.02em}
+input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; height:16px; background:transparent; cursor:pointer; margin:0;
+}
+input[type=range]::-webkit-slider-runnable-track{height:2px; background:var(--line-2); border-radius:2px}
+input[type=range]::-moz-range-track{height:2px; background:var(--line-2); border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:12px; height:12px; border-radius:50%;
+  background:var(--key-bright); border:2px solid var(--surface); margin-top:-5px;
+  box-shadow:0 0 0 1px var(--line-strong)}
+input[type=range]::-moz-range-thumb{width:12px; height:12px; border-radius:50%; border:2px solid var(--surface);
+  background:var(--key-bright); box-shadow:0 0 0 1px var(--line-strong)}
+input[type=range].cool::-webkit-slider-thumb{background:var(--fill-bright)}
+input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
+
+/* readout */
+.readout{display:flex; flex-direction:column; gap:0; margin-top:14px; border-top:1px solid var(--line)}
+.ro{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:6px 0;
+  border-bottom:1px solid var(--line); font-family:var(--f-mono); font-size:11px}
+.ro span{color:var(--ink-3); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase}
+.ro b{font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink)}
+.ro b.hl{color:var(--key)}
+.pattern{margin-top:12px; padding:10px 12px; border-radius:4px; background:var(--surface-2);
+  border:1px solid var(--line)}
+.pattern .p-name{font-family:var(--f-display); font-weight:800; font-size:16px; letter-spacing:-.01em}
+.pattern .p-use{font-family:var(--f-mono); font-size:10.5px; line-height:1.5; color:var(--ink-2); margin-top:4px}
+
+.legend{display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; font-family:var(--f-mono); font-size:10px;
+  color:var(--ink-3); letter-spacing:.04em}
+.legend i{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:middle}
+
+/* ladders */
+.ladder{display:grid; gap:10px; grid-template-columns:repeat(2,1fr)}
+@media (min-width:660px){.ladder{grid-template-columns:repeat(5,1fr)}}
+.rung{display:flex; flex-direction:column; gap:0}
+.rung .vp{background:var(--plot-bg); border:1px solid var(--line-2); border-radius:4px 4px 0 0; overflow:hidden}
+.rung canvas{width:100%; height:auto}
+.rung .cap{border:1px solid var(--line-2); border-top:0; border-radius:0 0 4px 4px; padding:7px 8px;
+  background:var(--surface); font-family:var(--f-mono); font-size:10px; line-height:1.45; color:var(--ink-3)}
+.rung .cap b{display:block; color:var(--ink); font-size:11.5px; font-weight:600; letter-spacing:.02em}
+.rung.pick .vp,.rung.pick .cap{border-color:var(--key)}
+.rung.pick .cap b{color:var(--key)}
+</style>
+
+<div class="shell">
+<div class="doc">
+
+<nav class="rail" aria-label="Índice do estudo">
+  <div class="rail-title">Índice</div>
+  <ol id="rail">
+    <li><a href="#lab"><i>00</i>Laboratório de luz</a></li>
+    <li><a href="#tese"><i>—</i>A tese</a></li>
+    <li><a href="#c1"><i>01</i>Enquadramento</a></li>
+    <li><a href="#c2"><i>02</i>Mapas de luz</a></li>
+    <li><a href="#c3"><i>03</i>Contraste</a></li>
+    <li><a href="#c4"><i>04</i>Saturação e cor</a></li>
+    <li><a href="#c5"><i>05</i>Cenário</a></li>
+    <li><a href="#mapa"><i>—</i>Mapa mestre</a></li>
+    <li><a href="#heranca"><i>—</i>Cinema, TV, internet</a></li>
+    <li><a href="#teste"><i>—</i>Protocolo de teste</a></li>
+    <li><a href="#set"><i>—</i>Checklist de set</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="hero-kick">
+    <span class="tag k">3200 K · KEY</span>
+    <span class="tag f">5600 K · FILL</span>
+    <span class="eyebrow">Estudo técnico · VSL · V4</span>
+  </div>
+  <h1>A imagem vende antes<br>da primeira palavra. <span>Este é o mapa dela.</span></h1>
+  <p class="lede">Cenário, luz, contraste e saturação para vídeos de venda — com as regras herdadas do cinema, da TV e da internet, filtradas por uma única pergunta: <strong>isso segura o espectador e faz ele comprar?</strong></p>
+  <div class="hero-meta">
+    <span class="tag">Mapas de luz calculados, não ilustrados</span>
+    <span class="tag">Valores em stops, IRE e Kelvin</span>
+    <span class="tag">Protocolo de teste A/B incluso</span>
+  </div>
+</header>
+
+<section id="lab" class="sec" style="padding-top:44px">
+  <div class="sec-head">
+    <span class="sec-num">00 · Ferramenta</span>
+    <h2>Laboratório de luz</h2>
+  </div>
+  <p class="prose" style="margin-top:0">Este painel não é um desenho. O rosto é iluminado por um motor de <em class="term">relighting</em> real: sombreamento lambertiano, lei do inverso do quadrado, penumbra proporcional ao tamanho da fonte e traçado de sombra sobre o campo de altura da face. <strong>O ratio que o painel mostra é o ratio que a câmera mediria.</strong> Mova a key e os padrões clássicos — borboleta, loop, Rembrandt, split — aparecem sozinhos, porque são consequência geométrica, não estilo.</p>
+
+  <div class="lab">
+    <div class="lab-bar">
+      <b>Planta de luz · sujeito na origem</b>
+      <div class="presets" id="presets" role="group" aria-label="Setups pré-definidos"></div>
+    </div>
+    <div class="lab-body">
+
+      <div class="lab-pane">
+        <div class="pane-label"><span>Render do sujeito</span><span id="lblExp">—</span></div>
+        <div class="viewport"><canvas id="face" width="320" height="400" aria-label="Render do rosto iluminado conforme os controles"></canvas></div>
+        <div class="legend">
+          <span><i style="background:var(--key-bright)"></i>Key</span>
+          <span><i style="background:var(--fill-bright)"></i>Fill</span>
+          <span><i style="background:#D7DCE4"></i>Rim</span>
+        </div>
+      </div>
+
+      <div class="lab-pane">
+        <div class="pane-label"><span>Mapa de iluminância · vista superior</span><span>iso = 1 stop</span></div>
+        <div class="viewport"><canvas id="plot" width="340" height="340" aria-label="Mapa de calor de iluminância do set, visto de cima, com curvas de nível a cada stop"></canvas></div>
+        <div class="legend">
+          <span><i style="background:#3A4152"></i>−4 st</span>
+          <span><i style="background:#7A5A38"></i>−2 st</span>
+          <span><i style="background:#E0A65B"></i>0 st</span>
+          <span><i style="background:#FFF3E0"></i>+2 st</span>
+        </div>
+      </div>
+
+      <div class="lab-pane">
+        <div class="pane-label"><span>Controles</span></div>
+        <div class="ctrls" id="ctrls"></div>
+        <div class="readout">
+          <div class="ro"><span>Ratio key:fill</span><b class="hl" id="roRatio">—</b></div>
+          <div class="ro"><span>Contraste</span><b id="roStops">—</b></div>
+          <div class="ro"><span>Pele · lado luz</span><b id="roLit">—</b></div>
+          <div class="ro"><span>Pele · lado sombra</span><b id="roSha">—</b></div>
+          <div class="ro"><span>Separação do fundo</span><b id="roSep">—</b></div>
+          <div class="ro"><span>Catchlight</span><b id="roCatch">—</b></div>
+        </div>
+        <div class="pattern">
+          <div class="p-name" id="roPattern">—</div>
+          <div class="p-use" id="roUse">—</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <figcaption style="max-width:74ch">Todos os valores derivam do render: IRE é a luminância Rec.709 do patch de pele medido no frame; o ratio é a razão linear entre a bochecha iluminada e a bochecha na sombra. O mapa superior soma a contribuição de cada fonte por 1/d² e traça uma curva a cada stop de queda.</figcaption>
+</section>
+<section id="tese" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Princípio</span>
+    <h2>A imagem não persuade. Ela remove atrito.</h2>
+  </div>
+  <div class="prose">
+    <p>Existe uma ilusão confortável em produção de VSL: a de que a imagem "convence". Não convence — quem convence é a oferta e o argumento. O que a imagem faz é <strong>decidir se o argumento chega inteiro</strong>. Cada erro de luz, enquadramento ou cor cobra um pedágio em atenção, e atenção é o orçamento que o espectador gasta antes de decidir ficar.</p>
+    <p>Isso muda o critério de julgamento. A pergunta certa nunca é "está bonito?". É: <strong>quantos milissegundos de esforço cognitivo esta imagem cobra por segundo assistido?</strong> Uma imagem cara e mal resolvida cobra mais que uma imagem simples e limpa. Por isso um VSL gravado com uma janela e um rebatedor bate rotineiramente um set de três pontos mal balanceado.</p>
+    <p>Os números do contexto onde o VSL vive são implacáveis: cerca de <strong>67% dos espectadores em mobile saem nos três primeiros segundos</strong>, e a Meta estima que <strong>47% do valor do anúncio é construído nesses mesmos três segundos</strong>. Entre 85% e 92% do consumo acontece <strong>sem som</strong> em feed. A primeira coisa que seu VSL comunica não é a headline — é uma leitura de rosto feita em silêncio, em uma tela de 6 polegadas, provavelmente sob luz ambiente forte.</p>
+  </div>
+
+  <h3>A hierarquia de atenção</h3>
+  <p class="prose" style="margin-top:8px">Toda decisão neste estudo serve a esta ordem. Quando duas regras colidem, ganha a que estiver mais acima.</p>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 200" role="img" aria-label="Hierarquia de atenção em seis níveis, dos olhos ao cenário">
+        <defs>
+          <linearGradient id="hierG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--key-bright)"/>
+            <stop offset="100%" stop-color="var(--fill-bright)"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="58" width="760" height="4" fill="url(#hierG)" rx="2"/>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="11" fill="var(--ink)">
+          <g><circle cx="60" cy="60" r="9" fill="var(--key-bright)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="60" y="94" text-anchor="middle" font-weight="700">Olhos</text>
+            <text x="60" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">catchlight</text>
+            <text x="60" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">e nitidez</text></g>
+          <g><circle cx="204" cy="60" r="8" fill="var(--key)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="204" y="94" text-anchor="middle" font-weight="700">Boca</text>
+            <text x="204" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">sincronia</text>
+            <text x="204" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">e leitura labial</text></g>
+          <g><circle cx="348" cy="60" r="8" fill="var(--key)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="348" y="94" text-anchor="middle" font-weight="700">Rosto inteiro</text>
+            <text x="348" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">microexpressão</text>
+            <text x="348" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">= confiança</text></g>
+          <g><circle cx="492" cy="60" r="8" fill="var(--ink-3)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="492" y="94" text-anchor="middle" font-weight="700">Legenda</text>
+            <text x="492" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">o áudio</text>
+            <text x="492" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">sem som</text></g>
+          <g><circle cx="636" cy="60" r="8" fill="var(--fill)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="636" y="94" text-anchor="middle" font-weight="700">Prova visual</text>
+            <text x="636" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">tela, gráfico,</text>
+            <text x="636" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">produto</text></g>
+          <g><circle cx="760" cy="60" r="7" fill="var(--fill-bright)" stroke="var(--surface)" stroke-width="3"/>
+            <text x="757" y="94" text-anchor="middle" font-weight="700">Cenário</text>
+            <text x="757" y="110" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">contexto</text>
+            <text x="757" y="122" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">e status</text></g>
+        </g>
+        <text x="20" y="34" font-family="ui-monospace,Menlo,monospace" font-size="9.5" letter-spacing="1.6" fill="var(--ink-3)">PRIORIDADE MÁXIMA</text>
+        <text x="780" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9.5" letter-spacing="1.6" fill="var(--ink-3)">SACRIFICÁVEL</text>
+        <line x1="20" y1="160" x2="780" y2="160" stroke="var(--line)" stroke-width="1"/>
+        <text x="20" y="180" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="var(--ink-2)">Regra de decisão: se um elemento à direita compete com um à esquerda, o elemento à direita está errado.</text>
+      </svg>
+    </div>
+    <figcaption>O cenário existe para servir ao rosto. Quando o fundo é a primeira coisa que você nota no seu próprio VSL, ele já custou retenção.</figcaption>
+  </figure>
+</section>
+
+<section id="c1" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Camada 01</span>
+    <h2>Enquadramento</h2>
+  </div>
+  <p class="lede">O enquadramento decide o <strong>tamanho angular do rosto</strong> na retina de quem assiste — e é isso, não a resolução, que determina se a microexpressão é lida.</p>
+
+  <h3>A geometria do quadro</h3>
+  <p class="prose" style="margin-top:8px">As três medidas abaixo vêm direto da gramática de cinema e continuam válidas porque descrevem como o olho procura um rosto, não uma convenção estética. O que a internet mudou foi a escala: em mobile, tudo aperta.</p>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 300" role="img" aria-label="Diagrama de enquadramento: headroom, linha dos olhos no terço superior e lookroom">
+        <g id="fr1" transform="translate(20,20)">
+          <rect width="240" height="240" fill="var(--sunk)" stroke="var(--line-strong)" stroke-width="1"/>
+          <g stroke="var(--line-2)" stroke-width="1" stroke-dasharray="3 3">
+            <line x1="80" y1="0" x2="80" y2="240"/><line x1="160" y1="0" x2="160" y2="240"/>
+            <line x1="0" y1="80" x2="240" y2="80"/><line x1="0" y1="160" x2="240" y2="160"/>
+          </g>
+          <g transform="translate(120,0)">
+            <ellipse cx="0" cy="96" rx="40" ry="52" fill="var(--ink-3)" opacity=".5"/>
+            <path d="M-62 240 L-52 178 Q0 150 52 178 L62 240 Z" fill="var(--ink-3)" opacity=".5"/>
+            <circle cx="-15" cy="84" r="4.5" fill="var(--key-bright)"/><circle cx="15" cy="84" r="4.5" fill="var(--key-bright)"/>
+          </g>
+          <line x1="0" y1="84" x2="240" y2="84" stroke="var(--key-bright)" stroke-width="1.5"/>
+          <g stroke="var(--fill-bright)" stroke-width="1.5">
+            <line x1="120" y1="2" x2="120" y2="42"/>
+          </g>
+          <text x="126" y="26" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--fill)">headroom 6%</text>
+          <text x="4" y="79" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--key)">linha dos olhos · 35%</text>
+          <text x="0" y="264" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--ink)">CERTO</text>
+        </g>
+        <g transform="translate(285,20)">
+          <rect width="240" height="240" fill="var(--sunk)" stroke="var(--line-strong)" stroke-width="1"/>
+          <g transform="translate(120,0)">
+            <ellipse cx="0" cy="140" rx="36" ry="47" fill="var(--ink-3)" opacity=".35"/>
+            <path d="M-56 240 L-47 216 Q0 192 47 216 L56 240 Z" fill="var(--ink-3)" opacity=".35"/>
+            <circle cx="-13" cy="129" r="4" fill="var(--alert)"/><circle cx="13" cy="129" r="4" fill="var(--alert)"/>
+          </g>
+          <line x1="0" y1="129" x2="240" y2="129" stroke="var(--alert)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="120" y1="2" x2="120" y2="90" stroke="var(--alert)" stroke-width="1.5"/>
+          <text x="126" y="52" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--alert)">headroom 37%</text>
+          <text x="4" y="124" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--alert)">olhos no centro · 54%</text>
+          <text x="0" y="264" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--alert)">ERRADO · rosto pequeno demais</text>
+        </g>
+        <g transform="translate(550,20)">
+          <rect width="230" height="240" fill="var(--sunk)" stroke="var(--line-strong)" stroke-width="1"/>
+          <g stroke="var(--line-2)" stroke-width="1" stroke-dasharray="3 3">
+            <line x1="92" y1="0" x2="92" y2="240"/><line x1="138" y1="0" x2="138" y2="240"/>
+          </g>
+          <g transform="translate(138,0)">
+            <ellipse cx="0" cy="96" rx="40" ry="52" fill="var(--ink-3)" opacity=".5"/>
+            <path d="M-62 240 L-52 178 Q0 150 52 178 L62 240 Z" fill="var(--ink-3)" opacity=".5"/>
+            <circle cx="-22" cy="84" r="4.5" fill="var(--key-bright)"/><circle cx="6" cy="84" r="4.5" fill="var(--key-bright)"/>
+          </g>
+          <path d="M76 200 L20 200" stroke="var(--fill-bright)" stroke-width="1.5" marker-end="url(#ar1)"/>
+          <defs><marker id="ar1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+            <path d="M0 0 L7 3.5 L0 7 z" fill="var(--fill-bright)"/></marker></defs>
+          <text x="20" y="192" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--fill)">lookroom 60/40</text>
+          <text x="0" y="264" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--ink)">OLHAR FORA DO EIXO</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Headroom entre 4% e 8% da altura do quadro. Olhos entre 33% e 40% a partir do topo — nunca no centro geométrico. Quando o sujeito olha para fora do eixo da lente, o espaço vai para onde ele olha, na proporção 60/40.</figcaption>
+  </figure>
+
+  <h3>Escala de plano por função narrativa</h3>
+  <p class="prose" style="margin-top:8px">Um VSL não é um plano só. A troca de escala é o principal instrumento de ritmo visual quando não há corte de cenário — e é ela que reseta o relógio de atenção a cada 4–8 segundos.</p>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 220" role="img" aria-label="Cinco escalas de plano e sua função no roteiro de VSL">
+        <g id="shots"></g>
+      </svg>
+      <div id="shotsFallback"></div>
+    </div>
+    <figcaption>O <em>punch-in</em> — recortar 15–20% do quadro no mesmo take e cortar entre as duas versões — produz troca de escala sem segunda câmera. É a técnica de retenção mais barata que existe.</figcaption>
+  </figure>
+
+  <div class="tw mt">
+    <table>
+      <caption>Escala de plano × seção do VSL. Percentual = altura da cabeça sobre a altura do quadro.</caption>
+      <thead><tr><th>Plano</th><th class="n">Cabeça / quadro</th><th>Seção do VSL</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td>Médio aberto</td><td class="n">18–25%</td><td>Abertura, cenário, prova</td><td>Estabelece contexto e status; mostra linguagem corporal.</td></tr>
+        <tr><td>Médio</td><td class="n">25–35%</td><td>Corpo do argumento</td><td>Plano de trabalho. Rosto legível + gestos ainda visíveis.</td></tr>
+        <tr><td>Médio fechado</td><td class="n">35–48%</td><td>Virada, mecanismo único</td><td>Aperta a atenção sem sufocar. O plano do <em>punch-in</em>.</td></tr>
+        <tr><td>Close</td><td class="n">48–65%</td><td>Dor, objeção, promessa</td><td>Microexpressão dominante. Alta carga emocional.</td></tr>
+        <tr><td>Close fechado</td><td class="n">65–85%</td><td>CTA, garantia, urgência</td><td>Máxima intimidade. Usar por pouco tempo, senão vira pressão.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Lente, distância e a distorção que custa confiança</h3>
+  <div class="prose">
+    <p>Distância focal curta com câmera perto do rosto aumenta o nariz e afunda as orelhas — o cérebro lê isso como <strong>estranheza</strong>, e estranheza em um rosto que está pedindo dinheiro é caro. A regra prática: <strong>equivalente 50–85 mm, câmera a 1,5–2,5 m do sujeito</strong>. Se o rosto ficar pequeno, aproxime a lente, não a câmera.</p>
+    <p>A armadilha do celular: a câmera frontal costuma ser equivalente a 24–28 mm. Gravar VSL de braço estendido com a frontal entrega a pior combinação possível — distorção máxima, ângulo instável e, quase sempre, câmera acima da linha dos olhos.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 190" role="img" aria-label="Comparação de distância focal e distorção facial">
+        <g font-family="ui-monospace,Menlo,monospace" font-size="10">
+          <g transform="translate(30,20)">
+            <ellipse cx="60" cy="70" rx="52" ry="60" fill="none" stroke="var(--alert)" stroke-width="1.6"/>
+            <ellipse cx="60" cy="76" rx="20" ry="24" fill="var(--alert)" opacity=".22"/>
+            <circle cx="42" cy="56" r="3.5" fill="var(--alert)"/><circle cx="78" cy="56" r="3.5" fill="var(--alert)"/>
+            <text x="60" y="152" text-anchor="middle" fill="var(--alert)" font-weight="700">24 mm · 0,5 m</text>
+            <text x="60" y="168" text-anchor="middle" fill="var(--ink-3)">nariz +40% · nunca</text>
+          </g>
+          <g transform="translate(230,20)">
+            <ellipse cx="60" cy="70" rx="48" ry="59" fill="none" stroke="var(--ink-3)" stroke-width="1.6"/>
+            <ellipse cx="60" cy="76" rx="14" ry="20" fill="var(--ink-3)" opacity=".22"/>
+            <circle cx="44" cy="56" r="3.5" fill="var(--ink-3)"/><circle cx="76" cy="56" r="3.5" fill="var(--ink-3)"/>
+            <text x="60" y="152" text-anchor="middle" fill="var(--ink-2)" font-weight="700">35 mm · 1,0 m</text>
+            <text x="60" y="168" text-anchor="middle" fill="var(--ink-3)">aceitável em vlog</text>
+          </g>
+          <g transform="translate(430,20)">
+            <ellipse cx="60" cy="70" rx="45" ry="58" fill="none" stroke="var(--ok)" stroke-width="2"/>
+            <ellipse cx="60" cy="76" rx="11" ry="18" fill="var(--ok)" opacity=".22"/>
+            <circle cx="45" cy="56" r="3.5" fill="var(--ok)"/><circle cx="75" cy="56" r="3.5" fill="var(--ok)"/>
+            <text x="60" y="152" text-anchor="middle" fill="var(--ok)" font-weight="700">50 mm · 1,8 m</text>
+            <text x="60" y="168" text-anchor="middle" fill="var(--ink-3)">neutro · padrão VSL</text>
+          </g>
+          <g transform="translate(630,20)">
+            <ellipse cx="60" cy="70" rx="44" ry="56" fill="none" stroke="var(--ok)" stroke-width="2"/>
+            <ellipse cx="60" cy="76" rx="10" ry="17" fill="var(--ok)" opacity=".22"/>
+            <circle cx="46" cy="56" r="3.5" fill="var(--ok)"/><circle cx="74" cy="56" r="3.5" fill="var(--ok)"/>
+            <text x="60" y="152" text-anchor="middle" fill="var(--ok)" font-weight="700">85 mm · 2,8 m</text>
+            <text x="60" y="168" text-anchor="middle" fill="var(--ink-3)">lisonjeiro · exige espaço</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <figcaption>A largura do quadro é a mesma nos quatro casos. O que muda é a distância — e com ela a relação entre nariz, maçãs do rosto e orelhas.</figcaption>
+  </figure>
+
+  <h3>Altura de câmera: a decisão política do enquadramento</h3>
+  <div class="prose">
+    <p>Câmera <strong>abaixo</strong> da linha dos olhos coloca o espectador olhando para cima: domínio, mas também distância — e um ângulo de queixo que raramente favorece. Câmera <strong>acima</strong> coloca o espectador olhando para baixo: proximidade e simpatia, ao custo de autoridade. Ambos existem e servem.</p>
+    <p>Para VSL, o ajuste que resolve os dois é estreito: <strong>lente na altura dos olhos ou 2 a 5 graus acima</strong>. Levemente acima afina o maxilar e abre o olhar sem inverter a relação de autoridade. Passou de ~10 graus, o sujeito começa a parecer que está pedindo permissão.</p>
+  </div>
+
+  <h3>Zonas seguras: onde a interface come o seu quadro</h3>
+  <p class="prose" style="margin-top:8px">Em 9:16, a plataforma sobrepõe UI em cima do seu enquadramento. Compor ignorando isso significa entregar o CTA embaixo de um botão de compartilhar.</p>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 330" role="img" aria-label="Zonas seguras em 9:16, 1:1 e 16:9">
+        <g transform="translate(40,16)">
+          <rect width="169" height="300" fill="var(--sunk)" stroke="var(--line-strong)"/>
+          <rect y="0" width="169" height="36" fill="var(--alert)" opacity=".18"/>
+          <rect y="240" width="169" height="60" fill="var(--alert)" opacity=".18"/>
+          <rect x="139" y="60" width="30" height="180" fill="var(--alert)" opacity=".18"/>
+          <rect x="8" y="42" width="125" height="192" fill="none" stroke="var(--ok)" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <g transform="translate(70,60)">
+            <ellipse cx="0" cy="52" rx="34" ry="44" fill="var(--ink-3)" opacity=".45"/>
+            <circle cx="-12" cy="44" r="3.6" fill="var(--key-bright)"/><circle cx="12" cy="44" r="3.6" fill="var(--key-bright)"/>
+            <path d="M-52 234 L-44 176 Q0 150 44 176 L52 234 Z" fill="var(--ink-3)" opacity=".45"/>
+          </g>
+          <text x="0" y="322" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--ink)">9:16 · Reels · TikTok · Shorts</text>
+        </g>
+        <g transform="translate(270,16)">
+          <rect width="230" height="230" fill="var(--sunk)" stroke="var(--line-strong)"/>
+          <rect y="196" width="230" height="34" fill="var(--alert)" opacity=".18"/>
+          <rect x="10" y="10" width="210" height="180" fill="none" stroke="var(--ok)" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <g transform="translate(115,26)">
+            <ellipse cx="0" cy="60" rx="38" ry="49" fill="var(--ink-3)" opacity=".45"/>
+            <circle cx="-14" cy="51" r="4" fill="var(--key-bright)"/><circle cx="14" cy="51" r="4" fill="var(--key-bright)"/>
+            <path d="M-58 204 L-49 152 Q0 126 49 152 L58 204 Z" fill="var(--ink-3)" opacity=".45"/>
+          </g>
+          <text x="0" y="268" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--ink)">1:1 · Feed</text>
+          <text x="0" y="284" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--ink-3)">rodapé com caption e CTA</text>
+        </g>
+        <g transform="translate(540,16)">
+          <rect width="230" height="129" fill="var(--sunk)" stroke="var(--line-strong)"/>
+          <rect y="108" width="230" height="21" fill="var(--alert)" opacity=".18"/>
+          <rect x="8" y="6" width="214" height="100" fill="none" stroke="var(--ok)" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <g transform="translate(115,10)">
+            <ellipse cx="0" cy="46" rx="28" ry="36" fill="var(--ink-3)" opacity=".45"/>
+            <circle cx="-10" cy="39" r="3.2" fill="var(--key-bright)"/><circle cx="10" cy="39" r="3.2" fill="var(--key-bright)"/>
+            <path d="M-44 119 L-37 100 Q0 84 37 100 L44 119 Z" fill="var(--ink-3)" opacity=".45"/>
+          </g>
+          <text x="0" y="168" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--ink)">16:9 · YouTube · página de vendas</text>
+          <text x="0" y="184" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--ink-3)">barra de player nos 16% inferiores</text>
+          <text x="0" y="214" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--alert)">■ zona coberta pela interface</text>
+          <text x="0" y="230" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--ok)">▢ zona segura para rosto e texto</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Em 9:16 conte com 12% do topo, 20% da base e 18% da lateral direita comprometidos. Componha o rosto no terço superior da zona segura, não do quadro inteiro.</figcaption>
+  </figure>
+</section>
+<section id="c2" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Camada 02</span>
+    <h2>Mapas de luz</h2>
+  </div>
+  <p class="lede">Luz é a única variável de produção que muda simultaneamente <strong>legibilidade, percepção de custo e leitura emocional</strong>. É onde o dinheiro rende mais.</p>
+
+  <h3>Os seis setups que cobrem 95% dos VSLs</h3>
+  <p class="prose" style="margin-top:8px">Cada card abaixo é renderizado pelo mesmo motor do laboratório, com os parâmetros reais listados. Clique para carregar o setup no painel do topo e mexer nele.</p>
+
+  <div class="grid g3 mt-s" id="gallery"></div>
+
+  <h3>Padrões de luz no rosto</h3>
+  <div class="prose">
+    <p>Os cinco padrões clássicos do retrato não são estilos — são <strong>coordenadas</strong>. O que os separa é apenas o azimute e a elevação da key em relação ao eixo da lente. Saber isso permite ir de "quero um clima mais duro" para "gire a key de 20° para 45° e baixe o fill um stop" sem tentativa e erro.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 250" role="img" aria-label="Cinco padrões de luz no rosto com seus ângulos de key">
+        <defs>
+          <clipPath id="fc"><ellipse cx="0" cy="0" rx="40" ry="52"/></clipPath>
+        </defs>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="9.5">
+          <g transform="translate(85,80)">
+            <g clip-path="url(#fc)"><rect x="-45" y="-56" width="90" height="112" fill="#2A2C32"/>
+              <ellipse cx="0" cy="-14" rx="46" ry="38" fill="#E0A65B" opacity=".85"/>
+              <ellipse cx="0" cy="30" rx="34" ry="26" fill="#E0A65B" opacity=".45"/>
+              <path d="M-7 -4 L0 22 L7 -4 Z" fill="#7A5A38" opacity=".5"/></g>
+            <ellipse cx="0" cy="0" rx="40" ry="52" fill="none" stroke="var(--line-2)"/>
+            <circle cx="0" cy="-88" r="7" fill="var(--key-bright)"/>
+            <line x1="0" y1="-80" x2="0" y2="-56" stroke="var(--key-bright)" stroke-dasharray="2 2"/>
+            <text x="0" y="76" text-anchor="middle" font-weight="700" fill="var(--ink)">Borboleta</text>
+            <text x="0" y="90" text-anchor="middle" fill="var(--ink-3)">az 0° · elev 50°</text>
+            <text x="0" y="104" text-anchor="middle" fill="var(--ink-3)">beleza · autoridade</text>
+          </g>
+          <g transform="translate(225,80)">
+            <g clip-path="url(#fc)"><rect x="-45" y="-56" width="90" height="112" fill="#2A2C32"/>
+              <ellipse cx="-8" cy="-10" rx="44" ry="42" fill="#E0A65B" opacity=".85"/>
+              <ellipse cx="-6" cy="30" rx="32" ry="26" fill="#E0A65B" opacity=".4"/>
+              <ellipse cx="16" cy="14" rx="12" ry="14" fill="#5A4530" opacity=".55"/></g>
+            <ellipse cx="0" cy="0" rx="40" ry="52" fill="none" stroke="var(--line-2)"/>
+            <circle cx="-42" cy="-78" r="7" fill="var(--key-bright)"/>
+            <line x1="-38" y1="-72" x2="-16" y2="-46" stroke="var(--key-bright)" stroke-dasharray="2 2"/>
+            <text x="0" y="76" text-anchor="middle" font-weight="700" fill="var(--ink)">Loop</text>
+            <text x="0" y="90" text-anchor="middle" fill="var(--ink-3)">az 25° · elev 35°</text>
+            <text x="0" y="104" text-anchor="middle" fill="var(--ink-3)">padrão VSL</text>
+          </g>
+          <g transform="translate(370,80)">
+            <g clip-path="url(#fc)"><rect x="-45" y="-56" width="90" height="112" fill="#2A2C32"/>
+              <ellipse cx="-14" cy="-10" rx="40" ry="42" fill="#E0A65B" opacity=".85"/>
+              <ellipse cx="-12" cy="30" rx="28" ry="24" fill="#E0A65B" opacity=".35"/>
+              <rect x="6" y="-40" width="40" height="90" fill="#3E3629" opacity=".62"/>
+              <path d="M12 -2 L26 6 L12 16 Z" fill="#E0A65B" opacity=".7"/></g>
+            <ellipse cx="0" cy="0" rx="40" ry="52" fill="none" stroke="var(--line-2)"/>
+            <circle cx="-62" cy="-64" r="7" fill="var(--key-bright)"/>
+            <line x1="-56" y1="-58" x2="-26" y2="-36" stroke="var(--key-bright)" stroke-dasharray="2 2"/>
+            <text x="0" y="76" text-anchor="middle" font-weight="700" fill="var(--ink)">Rembrandt</text>
+            <text x="0" y="90" text-anchor="middle" fill="var(--ink-3)">az 45° · elev 42°</text>
+            <text x="0" y="104" text-anchor="middle" fill="var(--ink-3)">narrativa · virada</text>
+          </g>
+          <g transform="translate(515,80)">
+            <g clip-path="url(#fc)"><rect x="-45" y="-56" width="90" height="112" fill="#2A2C32"/>
+              <rect x="-45" y="-56" width="45" height="112" fill="#E0A65B" opacity=".8"/>
+              <rect x="-4" y="-56" width="10" height="112" fill="#8A6A42" opacity=".5"/></g>
+            <ellipse cx="0" cy="0" rx="40" ry="52" fill="none" stroke="var(--line-2)"/>
+            <circle cx="-80" cy="-24" r="7" fill="var(--key-bright)"/>
+            <line x1="-73" y1="-22" x2="-40" y2="-14" stroke="var(--key-bright)" stroke-dasharray="2 2"/>
+            <text x="0" y="76" text-anchor="middle" font-weight="700" fill="var(--ink)">Split</text>
+            <text x="0" y="90" text-anchor="middle" fill="var(--ink-3)">az 85° · elev 12°</text>
+            <text x="0" y="104" text-anchor="middle" fill="var(--ink-3)">dor · conflito</text>
+          </g>
+          <g transform="translate(675,80)">
+            <g clip-path="url(#fc)"><rect x="-45" y="-56" width="90" height="112" fill="#2A2C32"/>
+              <ellipse cx="0" cy="-6" rx="48" ry="48" fill="#E8B87A" opacity=".92"/>
+              <ellipse cx="0" cy="32" rx="38" ry="28" fill="#E8B87A" opacity=".7"/></g>
+            <ellipse cx="0" cy="0" rx="40" ry="52" fill="none" stroke="var(--line-2)"/>
+            <circle cx="-26" cy="-84" r="6" fill="var(--key-bright)"/>
+            <circle cx="26" cy="-84" r="6" fill="var(--fill-bright)"/>
+            <text x="0" y="76" text-anchor="middle" font-weight="700" fill="var(--ink)">Chapado</text>
+            <text x="0" y="90" text-anchor="middle" fill="var(--ink-3)">az 0° · ratio 1:1</text>
+            <text x="0" y="104" text-anchor="middle" fill="var(--ink-3)">CTA · demonstração</text>
+          </g>
+        </g>
+        <line x1="20" y1="205" x2="780" y2="205" stroke="var(--line)"/>
+        <text x="20" y="228" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="var(--ink-2)">Azimute cresce → sombra cresce → drama cresce → confiança cai. Escolha a posição no eixo conforme a seção do roteiro, não conforme o gosto.</text>
+      </svg>
+    </div>
+    <figcaption>Broad vs. short: se a key ilumina o lado do rosto mais próximo da câmera, o rosto alarga (<em>broad</em>); se ilumina o lado mais distante, afina (<em>short</em>). Para a maioria dos rostos em VSL, <em>short lighting</em> é a escolha segura.</figcaption>
+  </figure>
+
+  <h3>Lei do inverso do quadrado: a régua que ninguém usa</h3>
+  <div class="prose">
+    <p>A intensidade cai com o quadrado da distância. Isso tem duas consequências práticas que valem mais que qualquer equipamento novo:</p>
+    <p><strong>Perto do sujeito, a queda é brutal.</strong> Uma key a 1 m entrega ao fundo, 2 m atrás, apenas 11% do que entrega ao rosto — separação de mais de 3 stops de graça. A mesma key a 3 m entrega ao fundo 36% — pouco mais de 1,5 stop. <strong>Aproximar a fonte é a forma mais barata de escurecer o fundo</strong> sem tocar nele.</p>
+    <p><strong>Perto do sujeito, o erro de posição é brutal também.</strong> A 1 m, o sujeito inclinar 20 cm para frente muda a exposição em ~0,5 stop. A 2,5 m, os mesmos 20 cm custam 0,15 stop. Se a pessoa se mexe, afaste a fonte e aceite menos separação.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 240" role="img" aria-label="Diagrama da lei do inverso do quadrado com percentuais de intensidade por distância">
+        <g font-family="ui-monospace,Menlo,monospace" font-size="10">
+          <circle cx="60" cy="120" r="12" fill="var(--key-bright)"/>
+          <text x="60" y="152" text-anchor="middle" fill="var(--key)" font-weight="700">FONTE</text>
+          <g stroke="var(--line-2)" stroke-dasharray="3 3">
+            <line x1="60" y1="30" x2="60" y2="110"/>
+          </g>
+          <g>
+            <rect x="180" y="60" width="6" height="120" fill="var(--key-bright)" opacity=".95"/>
+            <text x="183" y="50" text-anchor="middle" fill="var(--ink)" font-weight="700">100%</text>
+            <text x="183" y="200" text-anchor="middle" fill="var(--ink-3)">1,0 m</text>
+            <text x="183" y="214" text-anchor="middle" fill="var(--ink-3)">0 stop</text>
+          </g>
+          <g>
+            <rect x="330" y="60" width="6" height="120" fill="var(--key-bright)" opacity=".55"/>
+            <text x="333" y="50" text-anchor="middle" fill="var(--ink)" font-weight="700">50%</text>
+            <text x="333" y="200" text-anchor="middle" fill="var(--ink-3)">1,4 m</text>
+            <text x="333" y="214" text-anchor="middle" fill="var(--ink-3)">−1 stop</text>
+          </g>
+          <g>
+            <rect x="480" y="60" width="6" height="120" fill="var(--key-bright)" opacity=".32"/>
+            <text x="483" y="50" text-anchor="middle" fill="var(--ink)" font-weight="700">25%</text>
+            <text x="483" y="200" text-anchor="middle" fill="var(--ink-3)">2,0 m</text>
+            <text x="483" y="214" text-anchor="middle" fill="var(--ink-3)">−2 stops</text>
+          </g>
+          <g>
+            <rect x="620" y="60" width="6" height="120" fill="var(--key-bright)" opacity=".19"/>
+            <text x="623" y="50" text-anchor="middle" fill="var(--ink)" font-weight="700">12,5%</text>
+            <text x="623" y="200" text-anchor="middle" fill="var(--ink-3)">2,8 m</text>
+            <text x="623" y="214" text-anchor="middle" fill="var(--ink-3)">−3 stops</text>
+          </g>
+          <g>
+            <rect x="750" y="60" width="6" height="120" fill="var(--key-bright)" opacity=".11"/>
+            <text x="753" y="50" text-anchor="middle" fill="var(--ink)" font-weight="700">6%</text>
+            <text x="753" y="200" text-anchor="middle" fill="var(--ink-3)">4,0 m</text>
+            <text x="753" y="214" text-anchor="middle" fill="var(--ink-3)">−4 stops</text>
+          </g>
+          <path d="M72 120 L186 62 M72 120 L186 178" stroke="var(--key-bright)" stroke-width="1" opacity=".45"/>
+          <path d="M186 62 L756 58 M186 178 L756 182" stroke="var(--key-bright)" stroke-width="1" opacity=".2"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Regra de bolso: <strong>dobrou a distância, perdeu 2 stops</strong>. Multiplicou por 1,4, perdeu 1 stop. Isso vale para a key, o fill e — principalmente — para o quanto do seu key vaza no cenário.</figcaption>
+  </figure>
+
+  <h3>Tamanho da fonte: a variável que define a "cara" da imagem</h3>
+  <div class="prose">
+    <p>O que faz a luz parecer cara não é a potência — é o <strong>tamanho angular</strong> da fonte vista do rosto. Uma fonte maior que a cabeça produz transição de sombra longa (<em class="term">soft</em>); uma fonte menor produz borda de sombra curta e dura. Só isso.</p>
+    <p>A conta é simples: <strong>tamanho aparente = tamanho físico ÷ distância</strong>. Um softbox de 90 cm a 1 m é enorme e muito suave. O mesmo softbox a 4 m é praticamente uma fonte pontual. <strong>Mover o softbox para longe não é "diminuir a luz" — é endurecê-la.</strong> Para reduzir intensidade mantendo a suavidade, use difusão ou reduza a potência, nunca a distância.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 210" role="img" aria-label="Relação entre tamanho da fonte e dureza da transição de sombra">
+        <defs>
+          <linearGradient id="sh1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="46%" stop-color="#E0A65B"/><stop offset="54%" stop-color="#2A2C32"/></linearGradient>
+          <linearGradient id="sh2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="28%" stop-color="#E0A65B"/><stop offset="72%" stop-color="#2A2C32"/></linearGradient>
+          <linearGradient id="sh3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="6%" stop-color="#E0A65B"/><stop offset="94%" stop-color="#2A2C32"/></linearGradient>
+        </defs>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="10">
+          <g transform="translate(40,20)">
+            <rect x="0" y="0" width="12" height="26" fill="var(--key-bright)"/>
+            <text x="6" y="42" text-anchor="middle" fill="var(--ink-3)">20 cm</text>
+            <rect x="60" y="0" width="150" height="70" fill="url(#sh1)"/>
+            <text x="135" y="92" text-anchor="middle" font-weight="700" fill="var(--ink)">DURA</text>
+            <text x="135" y="108" text-anchor="middle" fill="var(--ink-3)">borda de 3 cm</text>
+            <text x="135" y="124" text-anchor="middle" fill="var(--ink-3)">textura de pele exposta</text>
+            <text x="135" y="146" text-anchor="middle" fill="var(--alert)">tensão · notícia · confronto</text>
+          </g>
+          <g transform="translate(300,20)">
+            <rect x="0" y="-8" width="12" height="60" fill="var(--key-bright)"/>
+            <text x="6" y="70" text-anchor="middle" fill="var(--ink-3)">60 cm</text>
+            <rect x="60" y="0" width="150" height="70" fill="url(#sh2)"/>
+            <text x="135" y="92" text-anchor="middle" font-weight="700" fill="var(--ink)">MÉDIA</text>
+            <text x="135" y="108" text-anchor="middle" fill="var(--ink-3)">borda de 12 cm</text>
+            <text x="135" y="124" text-anchor="middle" fill="var(--ink-3)">volume com desenho</text>
+            <text x="135" y="146" text-anchor="middle" fill="var(--key)">autoridade · documentário</text>
+          </g>
+          <g transform="translate(560,20)">
+            <rect x="0" y="-24" width="12" height="102" fill="var(--key-bright)"/>
+            <text x="6" y="94" text-anchor="middle" fill="var(--ink-3)">120 cm</text>
+            <rect x="60" y="0" width="150" height="70" fill="url(#sh3)"/>
+            <text x="135" y="92" text-anchor="middle" font-weight="700" fill="var(--ink)">SUAVE</text>
+            <text x="135" y="108" text-anchor="middle" fill="var(--ink-3)">borda de 40 cm</text>
+            <text x="135" y="124" text-anchor="middle" fill="var(--ink-3)">pele perdoada</text>
+            <text x="135" y="146" text-anchor="middle" fill="var(--ok)">confiança · beleza · VSL</text>
+          </g>
+        </g>
+        <line x1="20" y1="176" x2="780" y2="176" stroke="var(--line)"/>
+        <text x="20" y="196" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="var(--ink-2)">Todas a 1,2 m do rosto. A única variável é a largura da fonte.</text>
+      </svg>
+    </div>
+    <figcaption>Regra operacional para VSL: a maior dimensão da fonte deve ser <strong>no mínimo igual à largura da cabeça</strong>, idealmente 2× — e posicionada perto. Um lençol branco a 80 cm bate um softbox caro a 3 m.</figcaption>
+  </figure>
+
+  <h3>Fill negativo: esculpir sem endurecer</h3>
+  <div class="prose">
+    <p>A armadilha do VSL bem-intencionado é o excesso de fill: rosto chapado, sem volume, que lê como "vídeo de treinamento corporativo". A correção intuitiva — girar a key para o lado — custa frontalidade, e frontalidade é confiança.</p>
+    <p>A solução profissional é a oposta: mantenha a key quase frontal e <strong>coloque uma bandeira preta do lado do fill</strong>, a 60–90 cm do rosto. Isso remove a luz de rebote do ambiente e cria queda no lado escuro sem mover fonte nenhuma. Você ganha 0,5 a 1,5 stop de modelagem mantendo o olhar no eixo da lente.</p>
+  </div>
+
+  <h3>Catchlight: o detalhe de 2 pixels que decide a confiança</h3>
+  <div class="prose">
+    <p>O reflexo da fonte na córnea é o único elemento do quadro que informa, em um instante, que existe uma pessoa viva ali. Sem catchlight, o olho lê como <strong>morto</strong> — e a leitura emocional muda antes de qualquer processamento consciente.</p>
+    <p>Regras: catchlight <strong>obrigatório em ambos os olhos</strong>; posição às 10h ou 2h no globo ocular; um único formato dominante (dois catchlights concorrentes do mesmo tamanho parecem erro). Se a key está alta e some o catchlight, o conserto é um rebatedor branco no colo do sujeito ou baixar a key 10 graus.</p>
+  </div>
+
+  <h3>Temperatura de cor: escolha uma e crave</h3>
+  <div class="prose">
+    <p>Misturar 3200 K e 5600 K no mesmo rosto produz pele com dominante verde-magenta que nenhuma correção salva depois. A regra é rígida: <strong>todas as fontes que tocam a pele na mesma temperatura</strong>. O cenário é onde você brinca — uma prática âmbar ou um painel azul atrás separam e criam profundidade sem contaminar o sujeito.</p>
+  </div>
+
+  <div class="tw mt-s">
+    <table>
+      <caption>Temperatura por função. Balanço de branco cravado na temperatura da key.</caption>
+      <thead><tr><th>Fonte</th><th class="n">Kelvin</th><th>Leitura</th><th>Uso em VSL</th></tr></thead>
+      <tbody>
+        <tr><td>Key tungstênio</td><td class="n">3200 K</td><td>Íntimo, noturno, caloroso</td><td>Narrativa pessoal, história de origem, escassez</td></tr>
+        <tr><td>Key neutra</td><td class="n">4300 K</td><td>Neutro, atemporal</td><td>Corpo do argumento. A escolha padrão segura.</td></tr>
+        <tr><td>Key luz do dia</td><td class="n">5600 K</td><td>Diurno, factual, clínico</td><td>Demonstração, dado, prova, comparativo</td></tr>
+        <tr><td>Prática de fundo</td><td class="n">2400–2700 K</td><td>Profundidade quente</td><td>Ponto de interesse no cenário sem competir</td></tr>
+        <tr><td>Painel de fundo</td><td class="n">6500–8000 K</td><td>Separação fria</td><td>Contraste de temperatura com a pele quente</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="c3" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Camada 03</span>
+    <h2>Contraste</h2>
+  </div>
+  <p class="lede">Contraste é a variável que mais separa "vídeo de internet" de "vídeo de TV" — e a que mais é destruída pelas condições reais de exibição.</p>
+
+  <h3>A escala de ratio, medida</h3>
+  <p class="prose" style="margin-top:8px">Os cinco degraus abaixo são renderizados pelo motor com apenas uma variável mudando: o nível do fill. Tudo mais — key, fundo, exposição da pele — está travado.</p>
+
+  <div class="ladder mt-s" id="ladder"></div>
+  <figcaption style="max-width:70ch">Os números são <strong>medidos no próprio render</strong>, não rótulos escritos à mão — a única coisa que muda entre os cinco é o nível do fill. Repare no último degrau: com o fill totalmente desligado, esta key chega a ~10:1 e para. <strong>Existe um piso de ratio que o fill não controla</strong>, vindo da difusão da própria fonte e da luz de rebote do ambiente. Para passar disso é preciso endurecer e lateralizar a key, ou colocar bandeira negativa — e não continuar cortando um fill que já está em zero.</figcaption>
+
+  <div class="tw mt">
+    <table>
+      <caption>Ratio de luz × leitura psicológica × aplicação em VSL.</caption>
+      <thead><tr><th>Ratio</th><th class="n">Stops</th><th>Leitura</th><th>Onde usar</th><th>Risco</th></tr></thead>
+      <tbody>
+        <tr><td>1:1</td><td class="n">0</td><td>Aberto, honesto, sem mistério</td><td>CTA, demonstração de produto, garantia</td><td>Chapado, barato, sem volume</td></tr>
+        <tr><td>2:1</td><td class="n">1</td><td>Claro, acessível, confiável</td><td><strong>Padrão do corpo do VSL</strong></td><td>Quase nenhum</td></tr>
+        <tr><td>3:1</td><td class="n">1,6</td><td>Profissional, com desenho</td><td>Autoridade, entrevista, prova</td><td>Exige controle de fundo</td></tr>
+        <tr><td>4:1</td><td class="n">2</td><td>Sério, cinematográfico</td><td>Virada, mecanismo único, revelação</td><td>Perde microexpressão no lado escuro</td></tr>
+        <tr><td>8:1</td><td class="n">3</td><td>Tenso, dramático</td><td>Seção de dor, inimigo comum</td><td>Alto: distancia e reduz confiança</td></tr>
+        <tr><td>16:1+</td><td class="n">4+</td><td>Conflito, ameaça, noir</td><td>Insert curto. Nunca a peça inteira.</td><td>Ilegível em mobile sob sol</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Onde colocar a pele na waveform</h3>
+  <div class="prose">
+    <p>O erro mais comum e mais caro em VSL é subexpor a pele porque "ficou bonito no monitor do estúdio". O espectador não está no seu estúdio — está no ônibus, com o brilho no automático e reflexo na tela. <strong>A pele precisa de luminância suficiente para sobreviver a isso.</strong></p>
+    <p>Alvos práticos, medidos na waveform: <strong>peles claras 62–72 IRE, médias 50–62, escuras 38–50</strong>. O que muda entre tons de pele é a luminância, não a posição do matiz. Fundo entre 25 e 40 IRE. Nada clipando acima de 100, nada esmagado abaixo de 3.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 300" role="img" aria-label="Waveform com zonas alvo de exposição para pele, fundo e altas luzes">
+        <rect x="90" y="20" width="680" height="230" fill="var(--plot-bg)" stroke="var(--line-strong)"/>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--plot-ink)">
+          <g stroke="#4A4E58" stroke-width="1">
+            <line x1="90" y1="20" x2="770" y2="20"/><line x1="90" y1="66" x2="770" y2="66"/>
+            <line x1="90" y1="112" x2="770" y2="112"/><line x1="90" y1="158" x2="770" y2="158"/>
+            <line x1="90" y1="204" x2="770" y2="204"/><line x1="90" y1="250" x2="770" y2="250"/>
+          </g>
+          <text x="82" y="24" text-anchor="end" fill="var(--ink-3)">100 IRE</text>
+          <text x="82" y="70" text-anchor="end" fill="var(--ink-3)">80</text>
+          <text x="82" y="116" text-anchor="end" fill="var(--ink-3)">60</text>
+          <text x="82" y="162" text-anchor="end" fill="var(--ink-3)">40</text>
+          <text x="82" y="208" text-anchor="end" fill="var(--ink-3)">20</text>
+          <text x="82" y="254" text-anchor="end" fill="var(--ink-3)">0</text>
+        </g>
+        <rect x="90" y="20" width="680" height="12" fill="var(--alert)" opacity=".3"/>
+        <text x="100" y="30" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#FFD9D2">CLIP · informação perdida para sempre</text>
+        <rect x="90" y="238" width="680" height="12" fill="var(--alert)" opacity=".3"/>
+        <text x="100" y="248" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#FFD9D2">ESMAGADO · ruído e banding em compressão</text>
+        <rect x="90" y="85" width="680" height="46" fill="var(--key-bright)" opacity=".26"/>
+        <text x="100" y="102" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--key-bright)">PELE · 62–72 IRE (clara)</text>
+        <text x="100" y="124" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#E0A65B">50–62 (média) · 38–50 (escura)</text>
+        <rect x="90" y="158" width="680" height="35" fill="var(--fill-bright)" opacity=".22"/>
+        <text x="100" y="180" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="var(--fill-bright)">FUNDO · 25–40 IRE</text>
+        <g opacity=".85">
+          <path d="M180 118 C220 92 260 100 300 96 C340 92 380 104 420 100 C460 96 500 110 540 106 C580 102 620 94 660 98" stroke="#F0C48A" stroke-width="7" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M180 176 C240 170 300 180 360 174 C420 168 480 182 540 176 C600 170 640 178 680 174" stroke="#8FC6DC" stroke-width="6" fill="none" stroke-linecap="round" opacity=".45"/>
+          <path d="M300 60 C320 54 340 58 356 56" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/>
+          <text x="368" y="58" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#DDE2EA">specular do catchlight · ok até 95</text>
+        </g>
+        <text x="90" y="278" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="var(--ink-2)">Leia a waveform no patch da testa e da bochecha iluminada — não na média do quadro.</text>
+      </svg>
+    </div>
+    <figcaption>A separação sujeito–fundo deve ficar entre <strong>1 e 2 stops</strong>. Menos que 1 stop e a cabeça cola no fundo; mais que 3 e o sujeito parece recortado sobre o cenário.</figcaption>
+  </figure>
+
+  <h3>A condição real de exibição</h3>
+  <div class="prose">
+    <p>Cinema calibra para 48 nits em sala escura. TV calibra para ~100 nits em sala controlada. <strong>O VSL é assistido a 400–800 nits com 20.000 lux de sol batendo na tela.</strong> Sob luz ambiente forte, a tela reflete e as sombras deixam de existir: tudo abaixo de ~15 IRE vira uma mancha uniforme cinza.</p>
+    <p>Consequência direta: <strong>a informação não pode viver nas sombras.</strong> O que precisa ser lido — rosto, texto, produto — tem que estar acima de 40 IRE. Contraste alto funciona em mobile; contraste alto <em>com informação no lado escuro</em> não funciona.</p>
+  </div>
+
+  <div class="dd mt-s">
+    <div class="card pad">
+      <h4 style="margin-top:0; color:var(--ok)">Sobrevive ao sol</h4>
+      <ul class="yes">
+        <li>Pele acima de 55 IRE, ratio entre 2:1 e 3:1</li>
+        <li>Legenda em caixa sólida ou com contorno, contraste ≥ 7:1</li>
+        <li>Silhueta do sujeito destacada do fundo por luminância, não só por cor</li>
+        <li>CTA com contraste de matiz <em>e</em> de luminância contra o fundo</li>
+      </ul>
+    </div>
+    <div class="card pad">
+      <h4 style="margin-top:0; color:var(--alert)">Some no sol</h4>
+      <ul class="no">
+        <li>Look "cinematográfico" com pele a 35 IRE e sombras profundas</li>
+        <li>Texto cinza-claro sobre fundo cinza-médio</li>
+        <li>Separação feita só por temperatura de cor, sem diferença de brilho</li>
+        <li>Detalhe de produto vivendo entre 5 e 20 IRE</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note k mt">
+    <b>Sobre os "aprimoramentos" da plataforma:</b> a Meta aplica ajustes automáticos de brilho, contraste e cor nos criativos do Advantage+. Se você não desativar, está testando uma versão modificada da sua peça — e o teste A/B de contraste vira ruído. Para estudo de imagem, desligue os aprimoramentos; para escala, teste com e sem.
+  </div>
+</section>
+
+<section id="c4" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Camada 04</span>
+    <h2>Saturação e cor</h2>
+  </div>
+  <p class="lede">Cor não decora: ela <strong>direciona o olho</strong> e <strong>datilografa a emoção</strong>. Em VSL, a maior parte do trabalho de cor é subtrativa — tirar cor de onde ela compete.</p>
+
+  <h3>A linha de tom de pele</h3>
+  <div class="prose">
+    <p>No vectorscope, todos os tons de pele humanos caem sobre a mesma linha, a aproximadamente 11 horas, entre o vermelho e o amarelo — porque a cor da pele é, essencialmente, a cor do sangue sob ela. <strong>Etnia não muda o matiz; muda a saturação e a luminância.</strong> É a ferramenta de correção mais confiável que existe: se o vetor da pele está fora dessa linha, o balanço de branco está errado, ponto.</p>
+    <p>Comprimento do vetor: pele saudável em VSL fica entre <strong>15% e 35% do raio</strong> do vectorscope. Passou disso, vira laranja artificial — que o espectador registra como "filtro", e filtro em vídeo de venda lê como ocultação.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <div class="grid g2">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Vectorscope com a linha de tom de pele a 11 horas">
+          <circle cx="150" cy="150" r="130" fill="var(--plot-bg)" stroke="var(--line-strong)"/>
+          <circle cx="150" cy="150" r="97" fill="none" stroke="#41454F" stroke-dasharray="2 4"/>
+          <circle cx="150" cy="150" r="65" fill="none" stroke="#41454F" stroke-dasharray="2 4"/>
+          <circle cx="150" cy="150" r="32" fill="none" stroke="#41454F" stroke-dasharray="2 4"/>
+          <g stroke="#41454F"><line x1="20" y1="150" x2="280" y2="150"/><line x1="150" y1="20" x2="150" y2="280"/></g>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--plot-ink)">
+            <g stroke-width="1.5">
+              <rect x="196" y="88" width="9" height="9" fill="none" stroke="#E04A4A"/>
+              <rect x="86" y="196" width="9" height="9" fill="none" stroke="#4ADCE0"/>
+              <rect x="92" y="96" width="9" height="9" fill="none" stroke="#D8E04A"/>
+              <rect x="200" y="192" width="9" height="9" fill="none" stroke="#B84AE0"/>
+              <rect x="82" y="150" width="9" height="9" fill="none" stroke="#4AE07A"/>
+              <rect x="212" y="150" width="9" height="9" fill="none" stroke="#4A6AE0"/>
+            </g>
+            <text x="208" y="84" fill="#E04A4A">R</text><text x="80" y="212" fill="#4ADCE0">Cy</text>
+            <text x="86" y="92" fill="#D8E04A">Yl</text><text x="212" y="206" fill="#B84AE0">Mg</text>
+            <text x="72" y="146" fill="#4AE07A">G</text><text x="224" y="146" fill="#4A6AE0">B</text>
+          </g>
+          <line x1="150" y1="150" x2="212" y2="88" stroke="#F0A94E" stroke-width="2.5" stroke-dasharray="6 4"/>
+          <g>
+            <ellipse cx="176" cy="124" rx="17" ry="9" transform="rotate(-45 176 124)" fill="#F0A94E" opacity=".55"/>
+          </g>
+          <text x="150" y="288" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--ink-3)">vetor da pele · 11h · 15–35% do raio</text>
+        </svg>
+        <div class="stack" style="justify-content:center">
+          <div>
+            <h4 style="margin-top:0">Diagnóstico rápido pelo vetor</h4>
+            <dl class="dl">
+              <dt>Vetor gira p/ magenta</dt><dd>WB frio demais</dd>
+              <dt>Vetor gira p/ amarelo</dt><dd>WB quente demais</dd>
+              <dt>Vetor gira p/ verde</dt><dd>Fluorescente / LED barato</dd>
+              <dt>Vetor curto e disperso</dt><dd>Subexposto</dd>
+              <dt>Vetor &gt; 40% do raio</dt><dd>Saturação artificial</dd>
+              <dt>Dois vetores de pele</dt><dd>Mistura de temperatura</dd>
+            </dl>
+          </div>
+          <p class="note">A pele é o único elemento do quadro que o espectador sabe julgar sem treino. Todo mundo detecta pele errada; quase ninguém detecta fundo errado. <b>Acerte a pele primeiro, o resto depois.</b></p>
+        </div>
+      </div>
+    </div>
+    <figcaption>Nas escalas do vectorscope, o quadrado de referência marca 75% de saturação. A pele deve ficar bem antes disso.</figcaption>
+  </figure>
+
+  <h3>Saturação como arco, não como ajuste</h3>
+  <div class="prose">
+    <p>A tentação é escolher "uma cara" e aplicá-la ao VSL inteiro. Isso desperdiça o instrumento. Saturação e temperatura são o subtexto emocional do roteiro — <strong>quando o argumento muda de temperatura, a imagem deveria mudar junto</strong>, discretamente o bastante para não ser notada conscientemente.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 250" role="img" aria-label="Arco de saturação e temperatura ao longo das seções do VSL">
+        <defs>
+          <linearGradient id="arcG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#E0A65B"/><stop offset="18%" stop-color="#8892A0"/>
+            <stop offset="38%" stop-color="#7A8698"/><stop offset="58%" stop-color="#C99A5E"/>
+            <stop offset="80%" stop-color="#E8A94E"/><stop offset="100%" stop-color="#F2B255"/>
+          </linearGradient>
+        </defs>
+        <rect x="40" y="26" width="720" height="26" fill="url(#arcG)" rx="3"/>
+        <path id="arcPath" d="M40 150 C 130 120, 170 178, 220 176 C 290 174, 330 172, 400 150 C 470 128, 520 96, 600 84 C 680 72, 720 68, 760 66"
+          fill="none" stroke="var(--key)" stroke-width="2.5"/>
+        <g stroke="var(--line)" stroke-dasharray="2 3">
+          <line x1="40" y1="60" x2="40" y2="196"/><line x1="184" y1="60" x2="184" y2="196"/>
+          <line x1="328" y1="60" x2="328" y2="196"/><line x1="472" y1="60" x2="472" y2="196"/>
+          <line x1="616" y1="60" x2="616" y2="196"/><line x1="760" y1="60" x2="760" y2="196"/>
+        </g>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="var(--ink-2)">
+          <text x="46" y="212" font-weight="700">GANCHO</text>
+          <text x="46" y="226" fill="var(--ink-3)">sat 115% · 4600K</text>
+          <text x="190" y="212" font-weight="700">DOR</text>
+          <text x="190" y="226" fill="var(--ink-3)">sat 85% · 5400K</text>
+          <text x="334" y="212" font-weight="700">INIMIGO</text>
+          <text x="334" y="226" fill="var(--ink-3)">sat 80% · 5600K</text>
+          <text x="478" y="212" font-weight="700">MECANISMO</text>
+          <text x="478" y="226" fill="var(--ink-3)">sat 100% · 4600K</text>
+          <text x="622" y="212" font-weight="700">PROVA</text>
+          <text x="622" y="226" fill="var(--ink-3)">sat 110% · 4200K</text>
+          <text x="754" y="212" text-anchor="end" font-weight="700">CTA</text>
+          <text x="754" y="226" text-anchor="end" fill="var(--ink-3)">sat 118% · 3900K</text>
+        </g>
+        <text x="40" y="18" font-family="ui-monospace,Menlo,monospace" font-size="9.5" letter-spacing="1.4" fill="var(--ink-3)">TEMPERATURA E SATURAÇÃO AO LONGO DO ROTEIRO</text>
+        <text x="770" y="150" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="var(--key)">curva = saturação relativa</text>
+      </svg>
+    </div>
+    <figcaption>A amplitude total do arco deve ficar em torno de <strong>±20% de saturação e ±1500 K</strong>. Mais que isso e o espectador percebe a manipulação — o que, em vídeo de venda, é exatamente o efeito que você não quer.</figcaption>
+  </figure>
+
+  <h3>Paletas de cenário e o custo de cada uma</h3>
+  <div class="tw mt-s">
+    <table>
+      <caption>Esquemas de cor aplicados ao par sujeito/cenário.</caption>
+      <thead><tr><th>Esquema</th><th>Construção</th><th>Efeito na atenção</th><th>Risco em VSL</th></tr></thead>
+      <tbody>
+        <tr><td>Monocromático</td><td>Fundo na mesma faixa de matiz da pele, dessaturado</td><td>Máxima: nada compete com o rosto</td><td>Pode ler como pobre se a luz não desenhar</td></tr>
+        <tr><td>Análogo</td><td>Fundo em matiz vizinho ao da pele (âmbar/terroso)</td><td>Alta, com sensação de ambiente</td><td>Sujeito pode colar no fundo</td></tr>
+        <tr><td>Complementar<br>(teal &amp; orange)</td><td>Pele quente contra fundo ciano frio</td><td>Alta separação, leitura "cinema"</td><td>Saturado demais vira clichê de trailer</td></tr>
+        <tr><td>Acento único</td><td>Cena neutra + um objeto na cor da marca</td><td>Dirigida: o olho vai ao acento</td><td>Se o acento não for o rosto ou o CTA, rouba atenção</td></tr>
+        <tr><td>Alto-croma total</td><td>Fundo saturado, prática colorida, gel forte</td><td>Alta no scroll, baixa na permanência</td><td>Fadiga rápida; ruim para VSL longo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note k mt-s">
+    <b>Regra do elemento mais saturado:</b> em qualquer quadro do VSL, o pixel mais saturado precisa pertencer ao rosto ou ao CTA. Se for a almofada do sofá atrás, você está pagando mídia para o espectador olhar a almofada.
+  </div>
+
+  <h3>A cor do CTA</h3>
+  <div class="prose">
+    <p>O botão ou o card de chamada não precisa ser laranja porque "laranja converte" — precisa ser a cor que <strong>não existe em nenhum outro lugar do quadro</strong>. A regra operacional: distância de matiz ≥ 60° do matiz dominante do cenário, saturação acima de qualquer outro elemento, e contraste de luminância ≥ 4,5:1 contra o que estiver atrás. Se a marca tem cor fixa, então o cenário é que precisa ceder — dessature o set até o CTA ser inevitável.</p>
+  </div>
+</section>
+
+<section id="c5" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Camada 05</span>
+    <h2>Cenário</h2>
+  </div>
+  <p class="lede">O cenário responde a uma pergunta que o espectador faz em silêncio nos primeiros 400 ms: <strong>"quem é essa pessoa e por que eu deveria ouvir?"</strong></p>
+
+  <h3>Profundidade em três camadas</h3>
+  <div class="prose">
+    <p>Um cenário que funciona tem três planos separados por distância e por luz. É isso que produz a sensação de volume que uma parede a 40 cm das costas nunca dá — e, não por acaso, é o que a lei do inverso do quadrado entrega de graça quando você afasta o sujeito.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 260" role="img" aria-label="Corte lateral do set mostrando as três camadas de profundidade e distâncias">
+        <line x1="30" y1="200" x2="770" y2="200" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <g font-family="ui-monospace,Menlo,monospace" font-size="9.5">
+          <g transform="translate(90,0)">
+            <rect x="-14" y="150" width="28" height="50" fill="var(--ink-3)" opacity=".4"/>
+            <text x="0" y="222" text-anchor="middle" fill="var(--ink-3)">CÂMERA</text>
+          </g>
+          <g transform="translate(280,0)">
+            <ellipse cx="0" cy="118" rx="20" ry="26" fill="var(--key)" opacity=".85"/>
+            <path d="M-32 200 L-26 158 Q0 140 26 158 L32 200 Z" fill="var(--key)" opacity=".85"/>
+            <text x="0" y="222" text-anchor="middle" font-weight="700" fill="var(--key)">SUJEITO</text>
+            <text x="0" y="236" text-anchor="middle" fill="var(--ink-3)">0 stop</text>
+          </g>
+          <g transform="translate(500,0)">
+            <rect x="-30" y="140" width="12" height="60" fill="var(--fill)" opacity=".5"/>
+            <rect x="6" y="164" width="34" height="36" fill="var(--fill)" opacity=".5"/>
+            <text x="0" y="222" text-anchor="middle" font-weight="700" fill="var(--fill)">MEIO</text>
+            <text x="0" y="236" text-anchor="middle" fill="var(--ink-3)">−1 stop</text>
+          </g>
+          <g transform="translate(700,0)">
+            <rect x="-46" y="60" width="92" height="140" fill="var(--ink-3)" opacity=".22"/>
+            <rect x="-34" y="80" width="26" height="34" fill="var(--ink-3)" opacity=".3"/>
+            <rect x="4" y="96" width="26" height="18" fill="var(--ink-3)" opacity=".3"/>
+            <text x="0" y="222" text-anchor="middle" font-weight="700" fill="var(--ink-2)">FUNDO</text>
+            <text x="0" y="236" text-anchor="middle" fill="var(--ink-3)">−1,5 a −2 stops</text>
+          </g>
+          <g stroke="var(--key-bright)" stroke-width="1">
+            <line x1="280" y1="112" x2="280" y2="52"/>
+            <circle cx="248" cy="46" r="10" fill="var(--key-bright)" stroke="none"/>
+            <line x1="252" y1="54" x2="272" y2="96" stroke-dasharray="3 3"/>
+          </g>
+          <text x="230" y="30" fill="var(--key)">key · 1,2 m · 25°</text>
+          <g stroke="var(--line-2)" stroke-dasharray="4 4">
+            <line x1="300" y1="182" x2="480" y2="182"/>
+            <line x1="522" y1="182" x2="654" y2="182"/>
+            <line x1="110" y1="188" x2="258" y2="188"/>
+          </g>
+          <text x="390" y="176" text-anchor="middle" fill="var(--ink-2)">≥ 1,5 m</text>
+          <text x="588" y="176" text-anchor="middle" fill="var(--ink-2)">≥ 1,0 m</text>
+          <text x="184" y="182" text-anchor="middle" fill="var(--ink-2)">1,8–2,5 m</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>A distância sujeito–fundo é a variável mais subestimada de todo o set. Ela entrega, simultaneamente: separação por luz, desfoque por profundidade de campo e ausência de sombra projetada na parede.</figcaption>
+  </figure>
+
+  <h3>Quatro arquétipos e o que cada um promete</h3>
+  <div class="grid g2 mt-s">
+    <div class="card pad stack">
+      <div style="display:flex; gap:8px; align-items:center"><span class="tag k">01</span><b style="font-family:var(--f-display); font-size:17px">Escritório-autoridade</b></div>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Estantes, prêmios, monitores desligados, madeira. Promete: <strong>track record</strong>.</p>
+      <dl class="dl"><dt>Ratio</dt><dd>3:1</dd><dt>Temp</dt><dd>4300 K</dd><dt>Fundo</dt><dd>−1,5 stop</dd><dt>Sat</dt><dd>95–105%</dd></dl>
+      <p style="font-size:14px; color:var(--ink-3); margin:0">Risco: cheira a encenação se os objetos forem genéricos demais. Use objetos que são realmente seus.</p>
+    </div>
+    <div class="card pad stack">
+      <div style="display:flex; gap:8px; align-items:center"><span class="tag k">02</span><b style="font-family:var(--f-display); font-size:17px">Estúdio-limpo</b></div>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Fundo liso com gradiente de luz, nada mais. Promete: <strong>foco e neutralidade</strong>.</p>
+      <dl class="dl"><dt>Ratio</dt><dd>2:1</dd><dt>Temp</dt><dd>5600 K</dd><dt>Fundo</dt><dd>−2 stops</dd><dt>Sat</dt><dd>100%</dd></dl>
+      <p style="font-size:14px; color:var(--ink-3); margin:0">Risco: sem gradiente no fundo, vira foto 3x4. O gradiente é obrigatório.</p>
+    </div>
+    <div class="card pad stack">
+      <div style="display:flex; gap:8px; align-items:center"><span class="tag f">03</span><b style="font-family:var(--f-display); font-size:17px">Casa-intimidade</b></div>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Sala, cozinha, luz de janela, textura real. Promete: <strong>"sou gente como você"</strong>.</p>
+      <dl class="dl"><dt>Ratio</dt><dd>2:1</dd><dt>Temp</dt><dd>5200 K</dd><dt>Fundo</dt><dd>−1 stop</dd><dt>Sat</dt><dd>105–115%</dd></dl>
+      <p style="font-size:14px; color:var(--ink-3); margin:0">Risco: desordem lê como desorganização. Um cenário "casual" precisa ser tão desenhado quanto um estúdio.</p>
+    </div>
+    <div class="card pad stack">
+      <div style="display:flex; gap:8px; align-items:center"><span class="tag no">04</span><b style="font-family:var(--f-display); font-size:17px">Vazio-hipnose</b></div>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Fundo preto, só o rosto na luz. Promete: <strong>confissão, revelação</strong>.</p>
+      <dl class="dl"><dt>Ratio</dt><dd>4:1 a 6:1</dd><dt>Temp</dt><dd>3600 K</dd><dt>Fundo</dt><dd>−4 stops</dd><dt>Sat</dt><dd>85–95%</dd></dl>
+      <p style="font-size:14px; color:var(--ink-3); margin:0">Risco: o mais alto da lista. Funciona em trechos curtos; um VSL inteiro assim cansa e soa manipulador.</p>
+    </div>
+  </div>
+
+  <h3>Densidade visual</h3>
+  <div class="prose">
+    <p>O fundo deve conter entre <strong>três e cinco elementos legíveis</strong>. Menos que três lê como vazio improvisado; mais que cinco vira inventário e o olho começa a auditar em vez de escutar. E todo elemento do fundo precisa passar em um teste simples: <strong>ele responde "por que eu deveria ouvir essa pessoa?"</strong> Se não responde, sai.</p>
+  </div>
+
+  <div class="dd mt-s">
+    <div class="card pad">
+      <h4 style="margin-top:0; color:var(--ok)">Colocar no fundo</h4>
+      <ul class="yes">
+        <li>Prova física do resultado: prêmio, capa de livro, quadro com número</li>
+        <li>Uma fonte prática quente fora de foco (abajur, luminária) para profundidade</li>
+        <li>Linhas verticais que reforcem a estabilidade do enquadramento</li>
+        <li>Textura com variação de brilho — parede lisa mata a imagem</li>
+      </ul>
+    </div>
+    <div class="card pad">
+      <h4 style="margin-top:0; color:var(--alert)">Nunca colocar no fundo</h4>
+      <ul class="no">
+        <li>Janela aberta atrás — o sujeito vira silhueta e o WB racha</li>
+        <li>Planta ou objeto saindo exatamente do topo da cabeça</li>
+        <li>Linha do horizonte ou moldura cortando o pescoço</li>
+        <li>Espelho, TV ligada, ou qualquer coisa com movimento próprio</li>
+        <li>Parede branca a 40 cm — sombra projetada e zero separação</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="mapa" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Síntese</span>
+    <h2>Mapa mestre</h2>
+  </div>
+  <p class="lede">As cinco camadas cruzadas com a estrutura do roteiro. Esta é a tabela que vai para o set.</p>
+
+  <div class="tw mt-s">
+    <table style="min-width:900px">
+      <caption>Um VSL não tem uma configuração — tem seis. Mudar dois parâmetros por seção já produz o efeito.</caption>
+      <thead><tr>
+        <th>Seção</th><th>Plano</th><th>Padrão de luz</th><th class="n">Ratio</th><th class="n">Pele IRE</th><th class="n">Temp</th><th class="n">Sat</th><th>Fundo</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Gancho</strong><br><span style="color:var(--ink-3)">0–5 s</span></td><td>Médio fechado</td><td>Loop suave</td><td class="n">2:1</td><td class="n">68</td><td class="n">4600 K</td><td class="n">115%</td><td>−1 st, com prática visível</td></tr>
+        <tr><td><strong>Dor</strong><br><span style="color:var(--ink-3)">5–40 s</span></td><td>Close</td><td>Rembrandt</td><td class="n">4:1</td><td class="n">60</td><td class="n">5400 K</td><td class="n">85%</td><td>−2 st, esvaziado</td></tr>
+        <tr><td><strong>Inimigo comum</strong></td><td>Close</td><td>Rembrandt / split leve</td><td class="n">4:1–6:1</td><td class="n">56</td><td class="n">5600 K</td><td class="n">80%</td><td>−2,5 st</td></tr>
+        <tr><td><strong>Mecanismo único</strong></td><td>Médio fechado</td><td>Loop</td><td class="n">3:1</td><td class="n">65</td><td class="n">4600 K</td><td class="n">100%</td><td>−1,5 st, volta a prática</td></tr>
+        <tr><td><strong>Prova</strong></td><td>Médio + insert</td><td>Loop suave</td><td class="n">2:1</td><td class="n">68</td><td class="n">4200 K</td><td class="n">110%</td><td>−1 st, elementos de autoridade</td></tr>
+        <tr><td><strong>Oferta / CTA</strong></td><td>Close fechado</td><td>Borboleta / chapado</td><td class="n">1,5:1</td><td class="n">70</td><td class="n">3900 K</td><td class="n">118%</td><td>−1 st, CTA em acento único</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>O que pode mudar no meio da gravação sem trocar o set</h3>
+  <div class="prose">
+    <p>Gravar seis setups é irreal para a maioria das produções. A boa notícia: <strong>quatro dos sete parâmetros da tabela são ajustáveis sem mover a key.</strong></p>
+  </div>
+  <div class="grid g2 mt-s">
+    <div class="card pad">
+      <h4 style="margin-top:0">Ajuste no set, em segundos</h4>
+      <dl class="dl">
+        <dt>Ratio</dt><dd>bandeira preta / rebatedor no fill</dd>
+        <dt>Fundo</dt><dd>dimmer da fonte de fundo</dd>
+        <dt>Plano</dt><dd>punch-in no corte</dd>
+        <dt>Temp</dt><dd>dimmer bicolor ou gel de 1/4</dd>
+      </dl>
+    </div>
+    <div class="card pad">
+      <h4 style="margin-top:0">Ajuste na pós</h4>
+      <dl class="dl">
+        <dt>Saturação</dt><dd>por seção, na timeline</dd>
+        <dt>Temp fina</dt><dd>±300 K sem prejuízo</dd>
+        <dt>Contraste local</dt><dd>curva + máscara no rosto</dd>
+        <dt>Vinheta</dt><dd>−0,3 st nas bordas, sutil</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="heranca" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Genealogia</span>
+    <h2>O que cinema, TV e internet ensinam — e onde divergem</h2>
+  </div>
+  <p class="lede">As três tradições resolveram problemas diferentes. Copiar a tradição errada é o erro mais caro em VSL.</p>
+
+  <div class="tw mt-s">
+    <table style="min-width:860px">
+      <caption>Herança por meio. A coluna final é o que efetivamente serve ao VSL.</caption>
+      <thead><tr><th>Parâmetro</th><th>Cinema</th><th>TV / broadcast</th><th>Internet / feed</th><th>VSL herda de</th></tr></thead>
+      <tbody>
+        <tr><td>Problema central</td><td>Imersão em sala escura</td><td>Legibilidade contínua e ao vivo</td><td>Interromper o polegar</td><td>TV + internet</td></tr>
+        <tr><td>Brilho de exibição</td><td>~48 nits, sala escura</td><td>~100 nits, sala controlada</td><td>400–800 nits, sol</td><td>Internet</td></tr>
+        <tr><td>Contraste</td><td>Alto; sombras carregam informação</td><td>Baixo e seguro; nada nas sombras</td><td>Alto global, informação nas altas</td><td>TV (segurança) + internet (punch)</td></tr>
+        <tr><td>Luz no rosto</td><td>Motivada pela cena</td><td>Chapada, frontal, sem falha</td><td>Suave e frontal, catchlight forte</td><td>TV, suavizada</td></tr>
+        <tr><td>Enquadramento</td><td>Escala varia com dramaturgia</td><td>Médio fixo, olhos no terço</td><td>Close dominante, vertical</td><td>Internet</td></tr>
+        <tr><td>Ritmo de corte</td><td>Lento, motivado</td><td>Regular, por bloco</td><td>4–8 s, punch-in constante</td><td>Internet</td></tr>
+        <tr><td>Saturação</td><td>Autoral, esquema fechado</td><td>Neutra, dentro do legal</td><td>Elevada, alto croma</td><td>TV (pele) + internet (fundo)</td></tr>
+        <tr><td>Áudio</td><td>Mixado para sala</td><td>Faixa dinâmica estreita</td><td>Assumido mudo; legenda obrigatória</td><td>Internet</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose mt">
+    <p><strong>A síntese que funciona:</strong> pele e exposição pela disciplina de broadcast (previsível, legível, segura), enquadramento e ritmo pela gramática de feed (perto, vertical, cortado), e o vocabulário de luz do cinema usado <em>pontualmente</em> — nas seções de dor e virada — como exceção que marca a mudança de temperatura do argumento.</p>
+    <p>O erro clássico: aplicar o look de cinema ao VSL inteiro. Você herda o contraste alto e as sombras profundas, e entrega uma peça que fica linda no seu monitor e ilegível no ônibus. O oposto — TV pura o tempo todo — é seguro e esquecível: converte no funil quente, morre no frio.</p>
+  </div>
+</section>
+
+<section id="teste" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Método</span>
+    <h2>Protocolo de teste</h2>
+  </div>
+  <p class="lede">Nada aqui é lei. Tudo aqui é hipótese com boa taxa de acerto. O que transforma hipótese em conhecimento da sua audiência é o teste isolado.</p>
+
+  <h3>Regra de isolamento</h3>
+  <div class="prose">
+    <p>Uma variável por rodada. Mesma copy, mesmo áudio, mesmo talento, mesma duração, mesma thumbnail, mesmo público, mesmo orçamento. Se você mudar luz <em>e</em> enquadramento, aprendeu zero — só descobriu que uma combinação bateu outra, sem saber por quê.</p>
+    <p>Gravar as variantes <strong>na mesma sessão</strong>, no mesmo dia, com o mesmo figurino. Diferença de performance do apresentador entre dias contamina qualquer teste de imagem.</p>
+  </div>
+
+  <div class="tw mt-s">
+    <table>
+      <caption>Ordem de teste sugerida — do maior efeito esperado para o menor.</caption>
+      <thead><tr><th class="n">#</th><th>Variável isolada</th><th>Variantes</th><th>Métrica primária</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>Escala de plano do gancho</td><td>Médio × close fechado</td><td>Hook rate (3 s)</td></tr>
+        <tr><td class="n">2</td><td>Ratio de luz</td><td>2:1 × 4:1</td><td>Hold rate (25%)</td></tr>
+        <tr><td class="n">3</td><td>Densidade de cenário</td><td>Estúdio limpo × escritório</td><td>Hold rate (25%) e CVR</td></tr>
+        <tr><td class="n">4</td><td>Exposição da pele</td><td>58 IRE × 70 IRE</td><td>Hook rate e retenção a 50%</td></tr>
+        <tr><td class="n">5</td><td>Saturação global</td><td>95% × 120%</td><td>Hook rate</td></tr>
+        <tr><td class="n">6</td><td>Temperatura de cor</td><td>3900 K × 5600 K</td><td>CVR</td></tr>
+        <tr><td class="n">7</td><td>Frequência de punch-in</td><td>a cada 12 s × a cada 6 s</td><td>Curva de retenção completa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>O que medir, em ordem</h3>
+  <div class="grid g3 mt-s">
+    <div class="card pad stack">
+      <span class="eyebrow">Métrica 01</span>
+      <b style="font-family:var(--f-display); font-size:17px">Hook rate</b>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Views de 3 s ÷ impressões. Isola quase puramente <strong>quadro e luz</strong> — em 3 s a copy quase não teve tempo de agir. É a métrica mais limpa para julgar imagem.</p>
+      <span class="tag">alvo &gt; 30%</span>
+    </div>
+    <div class="card pad stack">
+      <span class="eyebrow">Métrica 02</span>
+      <b style="font-family:var(--f-display); font-size:17px">Hold rate</b>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Percentual que chega a 25%, 50% e 75%. Mede se a imagem <strong>sustenta</strong> — é aqui que fadiga de contraste, cenário poluído e falta de troca de plano aparecem.</p>
+      <span class="tag">alvo &gt; 50% em 25%</span>
+    </div>
+    <div class="card pad stack">
+      <span class="eyebrow">Métrica 03</span>
+      <b style="font-family:var(--f-display); font-size:17px">CVR do CTA</b>
+      <p style="font-size:15px; color:var(--ink-2); margin:0">Conversões ÷ views qualificadas. Chega por último porque é a mais contaminada por oferta, página e público. <strong>Nunca julgue imagem só por CVR.</strong></p>
+      <span class="tag">depende da oferta</span>
+    </div>
+  </div>
+
+  <div class="note k mt">
+    <b>Volume mínimo:</b> para decidir hook rate com confiança razoável, algo em torno de <b>3.000–5.000 impressões por variante</b>. Para decidir CVR, <b>~100 conversões por variante</b> — abaixo disso você está lendo ruído e vai matar o criativo certo. Se o orçamento não alcança o volume de CVR, decida por hook rate e hold rate, que precisam de muito menos amostra.
+  </div>
+
+  <div class="note no mt-s">
+    <b>A leitura da curva de retenção importa mais que o número final:</b> quedas verticais em pontos específicos apontam para um problema localizado — um corte ruim, uma mudança de luz brusca, um trecho sem troca de plano. Queda constante e suave é problema de argumento, não de imagem. Antes de mexer na luz, olhe <em>onde</em> as pessoas saem.
+  </div>
+</section>
+
+<section id="set" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Operação</span>
+    <h2>Checklist de set</h2>
+  </div>
+  <p class="lede">Rodar antes de cada gravação. Leva quatro minutos e evita a maior parte dos problemas que só aparecem na edição.</p>
+
+  <div class="grid g2 mt-s">
+    <div class="card pad stack">
+      <h4 style="margin-top:0; color:var(--key)">Antes de ligar a câmera</h4>
+      <ul class="ck">
+        <li>Sujeito a <b>≥ 1,5 m</b> do fundo</li>
+        <li>Câmera a <b>1,8–2,5 m</b>, lente <b>50–85 mm</b> eq.</li>
+        <li>Lente na altura dos olhos ou <b>2–5° acima</b></li>
+        <li>Key com dimensão <b>≥ largura da cabeça</b>, a <b>1–1,5 m</b></li>
+        <li>Todas as fontes que tocam a pele na <b>mesma temperatura</b></li>
+        <li>WB cravado manualmente na temperatura da key</li>
+        <li>Bandeira preta no lado do fill, a <b>60–90 cm</b></li>
+        <li>Nada no fundo saindo do topo da cabeça</li>
+      </ul>
+    </div>
+    <div class="card pad stack">
+      <h4 style="margin-top:0; color:var(--fill)">Com a câmera ligada</h4>
+      <ul class="ck">
+        <li>Waveform: pele no alvo de IRE do tom</li>
+        <li>Waveform: fundo entre <b>25 e 40 IRE</b></li>
+        <li>Nada clipando acima de <b>100</b>, nada abaixo de <b>3</b></li>
+        <li>Vectorscope: vetor da pele na linha de <b>11h</b></li>
+        <li><b>Catchlight nos dois olhos</b>, às 10h ou 2h</li>
+        <li>Headroom entre <b>4% e 8%</b>; olhos a <b>33–40%</b> do topo</li>
+        <li>Rosto e CTA dentro da <b>zona segura</b> do formato final</li>
+        <li>Teste de celular: assistir 10 s no telefone, com brilho no máximo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note mt">
+    <b>O teste que substitui todos os outros:</b> exporte 15 segundos, mande para o seu próprio celular, saia na rua e assista sob sol, sem som, com a legenda ligada. Se você entende a mensagem e o rosto lê como confiável nessas condições, a imagem está resolvida. Se não, nenhum ajuste de gosto no monitor do estúdio vai salvar.
+  </div>
+
+  <hr class="rule mt" style="margin-top:56px">
+  <div class="prose" style="margin-top:24px">
+    <p style="font-size:14px; color:var(--ink-3); font-family:var(--f-mono); line-height:1.7">
+      Os renders deste documento são gerados em tempo real por um modelo lambertiano com atenuação por 1/d², penumbra proporcional ao tamanho angular da fonte e traçado de oclusão sobre o campo de altura da face. Ratios e valores IRE são medidos no próprio render, em espaço linear, com codificação Rec.709. São aproximações fiéis à física da iluminação, não substitutos de medição com fotômetro no set.<br><br>
+      Benchmarks de retenção, consumo sem som e comportamento de plataforma são referências públicas de mercado (2025–2026) e variam muito por vertical, oferta e público — use-os como ponto de partida do seu teste, nunca como meta.
+    </p>
+  </div>
+</section>
+
+<style>
+ul.ck{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+ul.ck li{position:relative; padding-left:26px; font-size:15px; line-height:1.5; color:var(--ink-2)}
+ul.ck li::before{content:""; position:absolute; left:0; top:4px; width:13px; height:13px;
+  border:1.5px solid var(--line-strong); border-radius:2px}
+ul.ck li b{font-family:var(--f-mono); font-size:13px; color:var(--ink); font-weight:600}
+</style>
+
+</main>
+</div>
+</div>
+<script>
+(function(){
+"use strict";
+
+/* =========================================================================
+   1. GEOMETRIA — campo de altura da figura (cabeça, pescoço, ombros)
+   ========================================================================= */
+var HEAD_CY=-0.30, HEAD_RX=0.315, HEAD_RY=0.400;
+function g(x,y,cx,cy,sx,sy){var a=(x-cx)/sx,b=(y-cy)/sy;return Math.exp(-(a*a+b*b));}
+
+function heightAt(x,y){
+  var h=0,part=0;
+  var ty=(y-HEAD_CY)/HEAD_RY;
+  var rx=HEAD_RX*(1-0.22*Math.pow(Math.max(0,Math.min(1,ty)),1.6));
+  var t=1-(x/rx)*(x/rx)-ty*ty;
+  if(t>0){h=0.340*Math.sqrt(t);part=1;}
+  if(part===1){
+    h+=0.100*g(x,y,0,-0.220,0.070,0.130);      /* nariz */
+    h+=0.035*g(x,y,0,-0.375,0.200,0.045);      /* arcada */
+    h-=0.030*(g(x,y,0.115,-0.335,0.075,0.050)+g(x,y,-0.115,-0.335,0.075,0.050));
+    h+=0.025*(g(x,y,0.185,-0.190,0.100,0.090)+g(x,y,-0.185,-0.190,0.100,0.090));
+    h+=0.030*g(x,y,0,-0.085,0.100,0.045);      /* lábios */
+    h+=0.025*g(x,y,0,-0.005,0.110,0.060);      /* queixo */
+    return {h:h,part:1};
+  }
+  if(y>-0.075&&y<0.240&&Math.abs(x)<0.132){
+    var n=1-(x/0.132)*(x/0.132);
+    if(n>0)return {h:0.170*Math.sqrt(n),part:2};
+  }
+  var s=1-(x/0.780)*(x/0.780)-((y-0.980)/0.680)*((y-0.980)/0.680);
+  if(s>0&&y>0.150)return {h:0.200*Math.sqrt(s),part:3};
+  return {h:0,part:0};
+}
+
+var geoCache={};
+function geometry(W,H){
+  var k=W+"x"+H; if(geoCache[k])return geoCache[k];
+  var n=W*H, hf=new Float32Array(n), pt=new Uint8Array(n),
+      nx=new Float32Array(n), ny=new Float32Array(n), nz=new Float32Array(n),
+      hair=new Float32Array(n), sx=H*0.5, cx=W*0.5, cy=H*0.5, dn=2/H;
+  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
+    var x=(i-cx)/sx, y=(j-cy)/sx, r=heightAt(x,y), o=j*W+i;
+    hf[o]=r.h; pt[o]=r.part;
+    if(r.part===1){
+      var hl=-0.455+0.285*Math.min(1,(x/0.300)*(x/0.300));
+      hair[o]=Math.max(0,Math.min(1,(hl-y)*11));
+    }
+  }
+  for(var j2=0;j2<H;j2++)for(var i2=0;i2<W;i2++){
+    var o2=j2*W+i2,
+        l=hf[o2-(i2>0?1:0)], rr=hf[o2+(i2<W-1?1:0)],
+        u=hf[o2-(j2>0?W:0)], d=hf[o2+(j2<H-1?W:0)],
+        gx=(rr-l)/(2*dn), gy=(d-u)/(2*dn),
+        vx=-gx, vy=gy, vz=1, m=Math.sqrt(vx*vx+vy*vy+vz*vz);
+    nx[o2]=vx/m; ny[o2]=vy/m; nz[o2]=vz/m;
+  }
+  return geoCache[k]={W:W,H:H,hf:hf,pt:pt,nx:nx,ny:ny,nz:nz,hair:hair,sx:sx,cx:cx,cy:cy,dn:dn};
+}
+
+/* =========================================================================
+   2. COR — Kelvin -> RGB normalizado em luminância
+   ========================================================================= */
+function kelvin(K){
+  var t=K/100,r,g2,b;
+  if(t<=66){r=255;g2=99.4708*Math.log(t)-161.1196;b=t<=19?0:138.5177*Math.log(t-10)-305.0448;}
+  else{r=329.6987*Math.pow(t-60,-0.1332);g2=288.1222*Math.pow(t-60,-0.0755);b=255;}
+  r=Math.max(0,Math.min(255,r))/255;g2=Math.max(0,Math.min(255,g2))/255;b=Math.max(0,Math.min(255,b))/255;
+  var L=0.2126*r+0.7152*g2+0.0722*b;
+  return [r/L,g2/L,b/L];
+}
+
+/* =========================================================================
+   3. RENDER — lambert + wrap, 1/d², penumbra por tamanho angular, oclusão
+   ========================================================================= */
+function lightVec(azDeg,elDeg){
+  var a=azDeg*Math.PI/180,e=elDeg*Math.PI/180,ce=Math.cos(e);
+  return [-Math.sin(a)*ce, Math.sin(e), Math.cos(a)*ce];
+}
+
+function render(cv,P,measure){
+  var W=cv.width,H=cv.height,G=geometry(W,H),ctx=cv.getContext("2d"),
+      img=ctx.createImageData(W,H),data=img.data,n=W*H;
+  var side=P.az>=0?-1:1;
+
+  var kd=P.keyDist, kI=P.keyPow/(kd*kd), kL=lightVec(P.az,P.el),
+      kW=0.02+0.24*P.soft, kAng=Math.atan((P.srcSize/100)/(2*kd));
+  var fI=kI*P.fillRatio, fL=lightVec(-P.az,P.el), fW=kW;
+  var rI=kI*P.rim, rL=lightVec(side*138,32), rW=0.35;
+  var amb=kI*P.amb;
+
+  var kC=kelvin(P.keyK), fC=kelvin(P.fillK), rC=kelvin(P.rimK);
+
+  var lin=new Float32Array(n*3), lum=new Float32Array(n);
+  var kxy=Math.hypot(kL[0],-kL[1]), sxd=kxy>1e-4?kL[0]/kxy:0, syd=kxy>1e-4?-kL[1]/kxy:0,
+      rise=kxy>1e-4?kL[2]/kxy:1e9;
+  var STEPS=16, MAXD=0.42, SAMP=3;
+  var offs=[0,-kAng,kAng];
+
+  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
+    var o=j*W+i,p=G.pt[o],R=0,Gr=0,B=0;
+    var Nx=G.nx[o],Ny=G.ny[o],Nz=G.nz[o];
+
+    if(p===0){
+      var x0=(i-G.cx)/G.sx,y0=(j-G.cy)/G.sx;
+      var bg=0.45*kI*Math.pow(2,-P.bgStops)*(0.50+0.50*Math.exp(-(Math.pow(x0-side*0.42,2)+Math.pow(y0+0.30,2))/1.05));
+      var bc=kelvin(P.bgK);
+      R=bg*bc[0];Gr=bg*bc[1];B=bg*bc[2];
+    } else {
+      /* oclusão da key — média de 3 amostras na largura angular da fonte */
+      var sh=0;
+      if(kxy>1e-4){
+        for(var s=0;s<SAMP;s++){
+          var ao=offs[s],ca=Math.cos(ao),sa=Math.sin(ao),
+              dx=sxd*ca-syd*sa, dy=sxd*sa+syd*ca, hit=0;
+          for(var t2=1;t2<=STEPS;t2++){
+            var ss=MAXD*t2/STEPS,
+                si=Math.round(i+dx*ss*G.sx), sj=Math.round(j+dy*ss*G.sx);
+            if(si<0||si>=W||sj<0||sj>=H)break;
+            if(G.hf[sj*W+si]>G.hf[o]+ss*rise+0.006){hit=1;break;}
+          }
+          sh+=hit;
+        }
+        sh/=SAMP;
+      }
+      var shadow=1-sh*0.94;
+      var lk=Math.max(0,(Nx*kL[0]+Ny*kL[1]+Nz*kL[2]+kW)/(1+kW))*kI*shadow;
+      var lf=Math.max(0,(Nx*fL[0]+Ny*fL[1]+Nz*fL[2]+fW)/(1+fW))*fI;
+      var lr=Math.max(0,(Nx*rL[0]+Ny*rL[1]+Nz*rL[2]+rW)/(1+rW));
+      lr=Math.pow(lr,2.4)*rI*2.2;
+      var alb=p===3?0.105:(p===2?0.62:0.62-0.46*G.hair[o]);
+      R=(lk*kC[0]+lf*fC[0]+lr*rC[0]+amb)*alb;
+      Gr=(lk*kC[1]+lf*fC[1]+lr*rC[1]+amb)*alb;
+      B=(lk*kC[2]+lf*fC[2]+lr*rC[2]+amb)*alb;
+      if(p===1||p===2){R*=1.00;Gr*=0.80;B*=0.66;}          /* albedo de pele */
+      else if(p===3){R*=0.94;Gr*=0.96;B*=1.02;}            /* roupa neutra */
+    }
+    lin[o*3]=R;lin[o*3+1]=Gr;lin[o*3+2]=B;
+    lum[o]=0.2126*R+0.7152*Gr+0.0722*B;
+  }
+
+  /* medição em espaço linear */
+  function patch(px,py,r){
+    var acc=0,c=0,r2=r*r;
+    for(var j3=0;j3<H;j3++)for(var i3=0;i3<W;i3++){
+      var x=(i3-G.cx)/G.sx-px,y=(j3-G.cy)/G.sx-py,o3=j3*W+i3;
+      if(x*x+y*y<r2&&G.pt[o3]===1){acc+=lum[o3];c++;}
+    }
+    return c?acc/c:0;
+  }
+  function patchBG(px,py,r){
+    var acc=0,c=0,r2=r*r;
+    for(var jb=0;jb<H;jb++)for(var ib=0;ib<W;ib++){
+      var x=(ib-G.cx)/G.sx-px,y=(jb-G.cy)/G.sx-py,ob=jb*W+ib;
+      if(x*x+y*y<r2&&G.pt[ob]===0){acc+=lum[ob];c++;}
+    }
+    return c?acc/c:1e-9;
+  }
+  var litL=patch(side*0.222,-0.215,0.042),
+      shaL=patch(-side*0.222,-0.215,0.042),
+      bgL =patchBG(side*0.45,-0.32,0.10);
+
+  /* exposição: crava a bochecha iluminada no IRE alvo */
+  var target=Math.pow(P.targetIRE/100,2.2),
+      exp2=litL>1e-6?target/litL:1;
+
+  var sat=P.sat/100, ct=P.contrast;
+  for(var q=0;q<n;q++){
+    var r1=lin[q*3]*exp2,g1=lin[q*3+1]*exp2,b1=lin[q*3+2]*exp2;
+    r1=Math.pow(Math.max(0,Math.min(1,r1)),1/2.2);
+    g1=Math.pow(Math.max(0,Math.min(1,g1)),1/2.2);
+    b1=Math.pow(Math.max(0,Math.min(1,b1)),1/2.2);
+    var L2=0.2126*r1+0.7152*g1+0.0722*b1;
+    r1=L2+(r1-L2)*sat;g1=L2+(g1-L2)*sat;b1=L2+(b1-L2)*sat;
+    r1=(r1-0.5)*ct+0.5;g1=(g1-0.5)*ct+0.5;b1=(b1-0.5)*ct+0.5;
+    var o4=q*4;
+    data[o4]=Math.max(0,Math.min(255,r1*255));
+    data[o4+1]=Math.max(0,Math.min(255,g1*255));
+    data[o4+2]=Math.max(0,Math.min(255,b1*255));
+    data[o4+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+
+  /* olhos e catchlight */
+  var catch_=P.el<=54;
+  ctx.save();
+  [-0.115,0.115].forEach(function(ex){
+    var px=G.cx+ex*G.sx, py=G.cy+(-0.335)*G.sx, rr=0.052*G.sx;
+    ctx.beginPath();ctx.ellipse(px,py,rr*1.28,rr*0.72,0,0,6.2832);
+    ctx.fillStyle="rgba(238,232,224,0.80)";ctx.fill();
+    ctx.beginPath();ctx.arc(px,py,rr*0.62,0,6.2832);
+    ctx.fillStyle="rgba(38,28,20,0.90)";ctx.fill();
+    ctx.beginPath();ctx.arc(px,py,rr*0.28,0,6.2832);
+    ctx.fillStyle="rgba(12,8,6,0.95)";ctx.fill();
+    if(catch_){
+      var cxo=side*-0.34*rr, cyo=-0.34*rr;
+      ctx.beginPath();ctx.arc(px+cxo,py+cyo,rr*0.24,0,6.2832);
+      ctx.fillStyle="rgba(255,252,246,0.96)";ctx.fill();
+    }
+    ctx.beginPath();ctx.ellipse(px,py-rr*0.70,rr*1.30,rr*0.34,0,0,6.2832);
+    ctx.fillStyle="rgba(26,18,12,0.42)";ctx.fill();
+  });
+  ctx.restore();
+
+  if(!measure)return null;
+  var ratio=shaL>1e-7?litL/shaL:99,
+      ire=function(L){return 100*Math.pow(Math.max(0,Math.min(1,L*exp2)),1/2.2);};
+  return {
+    ratio:ratio, stops:Math.log(ratio)/Math.LN2,
+    litIRE:ire(litL), shaIRE:ire(shaL),
+    sep:Math.log(Math.max(litL,1e-7)/Math.max(bgL,1e-9))/Math.LN2,
+    hasCatch:catch_
+  };
+}
+
+/* =========================================================================
+   4. MAPA DE ILUMINÂNCIA — planta superior com curvas de nível por stop
+   ========================================================================= */
+function lightPositions(P){
+  var side=P.az>=0?-1:1, a=P.az*Math.PI/180;
+  var key=[-Math.sin(a)*P.keyDist, -Math.cos(a)*P.keyDist];
+  var fa=-a, fd=P.keyDist*1.35;
+  var fill=[-Math.sin(fa)*fd, -Math.cos(fa)*fd];
+  var ra=(side*138)*Math.PI/180, rd=P.keyDist*1.15;
+  var rim=[-Math.sin(ra)*rd, -Math.cos(ra)*rd];
+  return {key:key,fill:fill,rim:rim,side:side,fd:fd,rd:rd};
+}
+
+function renderPlot(cv,P){
+  var W=cv.width,H=cv.height,ctx=cv.getContext("2d"),
+      SPAN=3.4, sc=W/(2*SPAN), cx=W/2, cy=H*0.46;
+  var L=lightPositions(P);
+  var srcs=[
+    {p:L.key, i:P.keyPow/(P.keyDist*P.keyDist)},
+    {p:L.fill,i:P.keyPow/(P.keyDist*P.keyDist)*P.fillRatio*(L.fd*L.fd)/(P.keyDist*P.keyDist)},
+    {p:L.rim, i:P.keyPow/(P.keyDist*P.keyDist)*P.rim*(L.rd*L.rd)/(P.keyDist*P.keyDist)}
+  ];
+  function E(x,z){
+    var e=0;
+    for(var k=0;k<srcs.length;k++){
+      var s=srcs[k],dx=x-s.p[0],dz=z-s.p[1],d2=dx*dx+dz*dz;
+      e+=s.i*(P.keyDist*P.keyDist)/Math.max(d2,0.04);
+    }
+    return e;
+  }
+  var E0=E(0,0);
+  var img=ctx.createImageData(W,H),d=img.data;
+  var stopBuf=new Float32Array(W*H);
+  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
+    var x=(i-cx)/sc, z=-(j-cy)/sc, st=Math.log(Math.max(E(x,z),1e-6)/E0)/Math.LN2;
+    stopBuf[j*W+i]=st;
+    var u=Math.max(0,Math.min(1,(st+5.2)/8.2));
+    var r,g2,b;
+    if(u<0.42){var t=u/0.42;r=32+t*90;g2=36+t*54;b=48+t*8;}
+    else if(u<0.74){var t2=(u-0.42)/0.32;r=122+t2*102;g2=90+t2*76;b=56+t2*35;}
+    else{var t3=(u-0.74)/0.26;r=224+t3*31;g2=166+t3*77;b=91+t3*133;}
+    var o=(j*W+i)*4;d[o]=r;d[o+1]=g2;d[o+2]=b;d[o+3]=255;
+  }
+  /* curvas de nível a cada stop */
+  for(var j2=1;j2<H;j2++)for(var i2=1;i2<W;i2++){
+    var a1=Math.floor(stopBuf[j2*W+i2]);
+    if(a1!==Math.floor(stopBuf[j2*W+i2-1])||a1!==Math.floor(stopBuf[(j2-1)*W+i2])){
+      var o2=(j2*W+i2)*4;d[o2]=250;d[o2+1]=250;d[o2+2]=252;d[o2+3]=255;
+    }
+  }
+  ctx.putImageData(img,0,0);
+
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.font="9px ui-monospace,Menlo,monospace";
+  ctx.strokeStyle="rgba(210,214,222,0.30)";ctx.lineWidth=1;
+  [1,2,3].forEach(function(r){
+    ctx.beginPath();ctx.arc(0,0,r*sc,0,6.2832);ctx.stroke();
+    ctx.fillStyle="rgba(214,218,226,0.55)";ctx.fillText(r+" m",4,-r*sc-3);
+  });
+  ctx.strokeStyle="rgba(210,214,222,0.22)";
+  [-60,-30,0,30,60].forEach(function(a){
+    var rad=a*Math.PI/180;
+    ctx.beginPath();ctx.moveTo(0,0);
+    ctx.lineTo(-Math.sin(rad)*3.3*sc,Math.cos(rad)*3.3*sc);ctx.stroke();
+  });
+  /* parede de fundo */
+  ctx.strokeStyle="rgba(180,186,196,0.65)";ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(-2.6*sc,-1.55*sc);ctx.lineTo(2.6*sc,-1.55*sc);ctx.stroke();
+  ctx.fillStyle="rgba(200,205,214,0.75)";ctx.fillText("FUNDO",-2.55*sc,-1.60*sc);
+
+  function mark(p,col,label,rad){
+    var X=p[0]*sc,Z=-p[1]*sc;
+    ctx.beginPath();ctx.arc(X,Z,rad,0,6.2832);
+    ctx.fillStyle=col;ctx.fill();
+    ctx.strokeStyle="rgba(12,14,18,0.85)";ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle="rgba(244,246,250,0.95)";
+    ctx.fillText(label,X+rad+3,Z+3);
+    ctx.strokeStyle=col;ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(X,Z);ctx.lineTo(0,0);ctx.stroke();ctx.setLineDash([]);
+  }
+  mark(L.key,"#F0A94E","KEY",7);
+  if(P.fillRatio>0.03)mark(L.fill,"#5FB4D4","FILL",6);
+  if(P.rim>0.03)mark(L.rim,"#DCE2EC","RIM",5.5);
+
+  /* câmera */
+  ctx.fillStyle="rgba(232,236,244,0.92)";
+  ctx.beginPath();
+  ctx.moveTo(-9,2.05*sc);ctx.lineTo(9,2.05*sc);ctx.lineTo(0,1.80*sc);ctx.closePath();
+  ctx.fill();
+  ctx.fillText("CÂMERA",12,2.08*sc);
+
+  /* sujeito */
+  ctx.beginPath();ctx.arc(0,0,9,0,6.2832);
+  ctx.fillStyle="#12141A";ctx.fill();
+  ctx.strokeStyle="#F4F6FA";ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle="#F4F6FA";ctx.fillText("SUJEITO",13,4);
+  ctx.restore();
+}
+
+/* =========================================================================
+   5. SETUPS
+   ========================================================================= */
+var BASE={az:22,el:28,keyDist:1.2,keyPow:1,soft:0.55,srcSize:90,
+  fillRatio:0.5,fillAz:55,rim:0.5,amb:0.012,bgStops:1.5,
+  keyK:4300,fillK:4300,rimK:4600,bgK:4600,targetIRE:66,sat:100,contrast:1.0};
+
+var PRESETS=[
+ {id:"autoridade",name:"Autoridade frontal",tag:"O padrão VSL",
+  use:"Corpo do argumento. Frontal o bastante para ler microexpressão, com desenho suficiente para não chapar.",
+  p:{az:20,el:26,keyDist:1.1,soft:0.62,srcSize:100,fillRatio:0.20,fillAz:52,rim:0.45,bgStops:1.5,keyK:4300,fillK:4300,bgK:4800,targetIRE:67,sat:102,contrast:1.02}},
+ {id:"borboleta",name:"Borboleta / beleza",tag:"Clamshell",
+  use:"CTA, garantia, oferta. Máxima abertura facial e mínima sombra — lê como honestidade.",
+  p:{az:0,el:48,keyDist:1.0,soft:0.72,srcSize:120,fillRatio:0.62,fillAz:20,rim:0.40,bgStops:1.2,keyK:3900,fillK:3900,bgK:4200,targetIRE:70,sat:110,contrast:1.0}},
+ {id:"rembrandt",name:"Rembrandt",tag:"Narrativa",
+  use:"Virada, mecanismo único, história de origem. O triângulo na bochecha aparece sozinho na geometria.",
+  p:{az:45,el:42,keyDist:1.5,soft:0.32,srcSize:60,fillRatio:0.06,fillAz:70,rim:0.65,bgStops:2.2,keyK:3600,fillK:4200,rimK:3200,bgK:5200,targetIRE:62,sat:92,contrast:1.10}},
+ {id:"split",name:"Split",tag:"Dor · conflito",
+  use:"Seção de dor e inimigo comum. Use em trechos curtos — sustentado, destrói confiança.",
+  p:{az:82,el:14,keyDist:1.4,soft:0.20,srcSize:45,fillRatio:0.06,fillAz:80,rim:0.30,bgStops:3.4,keyK:5200,fillK:5600,rimK:6000,bgK:6800,targetIRE:58,sat:82,contrast:1.14}},
+ {id:"studio",name:"Estúdio internet",tag:"YouTube",
+  use:"Gancho e prova. Rim quente forte + fundo com prática colorida: alto contorno, alta leitura no feed.",
+  p:{az:28,el:26,keyDist:1.1,soft:0.66,srcSize:110,fillRatio:0.24,fillAz:60,rim:1.05,bgStops:1.1,keyK:4600,fillK:4600,rimK:3000,bgK:7200,targetIRE:68,sat:116,contrast:1.06}},
+ {id:"janela",name:"Janela + rebatedor",tag:"Custo zero",
+  use:"Setup sem equipamento. Janela grande como key, isopor branco do lado oposto como fill.",
+  p:{az:38,el:18,keyDist:0.95,soft:0.80,srcSize:150,fillRatio:0.16,fillAz:58,rim:0.10,bgStops:1.8,keyK:5600,fillK:5600,rimK:5600,bgK:5600,targetIRE:64,sat:98,contrast:1.03}}
+];
+function mk(p){var o={};for(var k in BASE)o[k]=BASE[k];for(var k2 in p)o[k2]=p[k2];return o;}
+
+/* =========================================================================
+   6. PAINEL INTERATIVO
+   ========================================================================= */
+var CTRLS=[
+ {k:"az",       label:"Key · azimute",      min:0,max:90,step:1,   fmt:function(v){return v+"°";}},
+ {k:"el",       label:"Key · elevação",     min:0,max:70,step:1,   fmt:function(v){return v+"°";}},
+ {k:"keyDist",  label:"Key · distância",    min:0.7,max:3.5,step:0.05,fmt:function(v){return v.toFixed(2)+" m";}},
+ {k:"srcSize",  label:"Tamanho da fonte",   min:25,max:180,step:5, fmt:function(v){return v+" cm";}},
+ {k:"soft",     label:"Difusão",            min:0,max:0.9,step:0.02,fmt:function(v){return Math.round(v*111)+"%";}},
+ {k:"fillRatio",label:"Fill",               min:0,max:1,step:0.02, cool:1,fmt:function(v){return v<0.03?"desligado":Math.round(v*100)+"%";}},
+ {k:"rim",      label:"Rim / contraluz",    min:0,max:1.6,step:0.05,cool:1,fmt:function(v){return v<0.03?"desligado":Math.round(v*100)+"%";}},
+ {k:"bgStops",  label:"Fundo abaixo da key",min:0,max:5,step:0.1,  cool:1,fmt:function(v){return "−"+v.toFixed(1)+" st";}},
+ {k:"keyK",     label:"Temperatura da key", min:2600,max:7000,step:100,fmt:function(v){return v+" K";}},
+ {k:"targetIRE",label:"Exposição da pele",  min:35,max:85,step:1,  fmt:function(v){return v+" IRE";}},
+ {k:"sat",      label:"Saturação",          min:60,max:150,step:1, fmt:function(v){return v+"%";}},
+ {k:"contrast", label:"Contraste",          min:0.8,max:1.35,step:0.01,fmt:function(v){return v.toFixed(2)+"×";}}
+];
+
+function patternOf(P){
+  var a=Math.abs(P.az),e=P.el;
+  if(P.fillRatio>0.68&&a<16&&e<40)return ["Chapado / frontal","Sem volume por escolha. Serve ao CTA e à demonstração, onde nada pode parecer escondido."];
+  if(a<13&&e>=38)return ["Borboleta (Paramount)","Sombra simétrica sob o nariz. Lisonjeiro e autoritário — o padrão de beleza e de âncora de TV."];
+  if(a<13)return ["Frontal baixo","Luz no eixo da lente. Máxima leitura, mínimo volume. Cuidado com sombra na parede."];
+  if(a<38&&e<46)return ["Loop","Sombra do nariz em vírgula, sem tocar a bochecha. O padrão de VSL: confiável e com desenho."];
+  if(a<58&&e>=30)return ["Rembrandt","Triângulo de luz na bochecha sombreada. Narrativo, sério, cinematográfico."];
+  if(a<58)return ["Rembrandt baixo","Triângulo alongado e sombra pesada sob a arcada. Tenso — use com intenção."];
+  if(a<74)return ["Meia-face","A transição corta perto do centro. Alta carga dramática, baixa confiança."];
+  return ["Split","Metade do rosto na luz, metade na sombra. Conflito puro. Trechos curtos apenas."];
+}
+
+var state=mk(PRESETS[0].p), face=document.getElementById("face"),
+    plot=document.getElementById("plot"), pending=0;
+
+function paint(){
+  pending=0;
+  var m=render(face,state,true);
+  renderPlot(plot,state);
+  var side=state.az>=0?"esquerda":"direita";
+  document.getElementById("roRatio").textContent=(m.ratio>40?"> 40":m.ratio.toFixed(1))+" : 1";
+  document.getElementById("roStops").textContent=(m.stops>5.3?"> 5,3":m.stops.toFixed(1).replace(".",","))+" stops";
+  document.getElementById("roLit").textContent=Math.round(m.litIRE)+" IRE";
+  document.getElementById("roSha").textContent=Math.round(m.shaIRE)+" IRE";
+  document.getElementById("roSep").textContent=m.sep.toFixed(1).replace(".",",")+" stops";
+  document.getElementById("roCatch").textContent=m.hasCatch?"presente":"ausente · baixe a key";
+  document.getElementById("lblExp").textContent="pele "+Math.round(m.litIRE)+" IRE · key à "+side;
+  var pt=patternOf(state);
+  document.getElementById("roPattern").textContent=pt[0];
+  document.getElementById("roUse").textContent=pt[1];
+  var lit=document.getElementById("roLit");
+  lit.style.color=(m.litIRE<45||m.litIRE>78)?"var(--alert)":"var(--ink)";
+  var sep=document.getElementById("roSep");
+  sep.style.color=(m.sep<0.8||m.sep>3.2)?"var(--alert)":"var(--ok)";
+}
+function schedule(){if(!pending){pending=1;requestAnimationFrame(paint);}}
+
+var box=document.getElementById("ctrls");
+CTRLS.forEach(function(c){
+  var w=document.createElement("div");w.className="ctrl";
+  var id="ct_"+c.k;
+  w.innerHTML='<div class="ctrl-top"><span>'+c.label+'</span><output id="o_'+c.k+'"></output></div>'+
+    '<input type="range" id="'+id+'" class="'+(c.cool?"cool":"")+'" min="'+c.min+'" max="'+c.max+
+    '" step="'+c.step+'" aria-label="'+c.label+'">';
+  box.appendChild(w);
+  var inp=w.querySelector("input"),out=w.querySelector("output");
+  inp.addEventListener("input",function(){
+    state[c.k]=parseFloat(inp.value);
+    if(c.k==="keyK"){state.fillK=state.keyK;}
+    out.textContent=c.fmt(state[c.k]);
+    document.querySelectorAll("#presets button").forEach(function(b){b.setAttribute("aria-pressed","false");});
+    schedule();
+  });
+  c._i=inp;c._o=out;
+});
+function sync(){CTRLS.forEach(function(c){c._i.value=state[c.k];c._o.textContent=c.fmt(state[c.k]);});}
+
+var pbox=document.getElementById("presets");
+PRESETS.forEach(function(ps,ix){
+  var b=document.createElement("button");
+  b.type="button";b.textContent=ps.name;b.setAttribute("aria-pressed",ix===0?"true":"false");
+  b.addEventListener("click",function(){
+    state=mk(ps.p);sync();
+    document.querySelectorAll("#presets button").forEach(function(x){x.setAttribute("aria-pressed","false");});
+    b.setAttribute("aria-pressed","true");schedule();
+    document.getElementById("lab").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  pbox.appendChild(b);
+});
+sync();paint();
+
+/* =========================================================================
+   7. GALERIA DE SETUPS
+   ========================================================================= */
+var gal=document.getElementById("gallery");
+PRESETS.forEach(function(ps){
+  var P=mk(ps.p);
+  var card=document.createElement("div");card.className="card";
+  card.innerHTML=
+   '<div style="padding:12px 14px 0"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">'+
+   '<b style="font-family:var(--f-display);font-size:16px;letter-spacing:-.01em">'+ps.name+'</b>'+
+   '<span class="tag k">'+ps.tag+'</span></div></div>'+
+   '<div style="padding:10px 14px 0"><div class="viewport" style="border-radius:4px"><canvas width="210" height="262"></canvas></div></div>'+
+   '<div style="padding:12px 14px 14px"><p style="font-size:14px;line-height:1.5;color:var(--ink-2);margin:0 0 10px">'+ps.use+'</p>'+
+   '<dl class="dl">'+
+   '<dt>Azimute / elev</dt><dd>'+P.az+'° / '+P.el+'°</dd>'+
+   '<dt>Distância</dt><dd>'+P.keyDist.toFixed(2)+' m</dd>'+
+   '<dt>Fonte</dt><dd>'+P.srcSize+' cm</dd>'+
+   '<dt>Fill</dt><dd>'+(P.fillRatio<0.03?"—":Math.round(P.fillRatio*100)+"%")+'</dd>'+
+   '<dt>Fundo</dt><dd>−'+P.bgStops.toFixed(1)+' st</dd>'+
+   '<dt>Temp key</dt><dd>'+P.keyK+' K</dd>'+
+   '<dt>Ratio medido</dt><dd id="gr_'+ps.id+'">—</dd>'+
+   '</dl>'+
+   '<button type="button" class="loadp" style="margin-top:12px;width:100%;font-family:var(--f-mono);font-size:10.5px;'+
+   'letter-spacing:.1em;text-transform:uppercase;padding:8px;border-radius:3px;cursor:pointer;'+
+   'border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink-2)">Carregar no laboratório</button></div>';
+  gal.appendChild(card);
+  var m=render(card.querySelector("canvas"),P,true);
+  card.querySelector("#gr_"+ps.id).textContent=(m.ratio>40?"> 40":m.ratio.toFixed(1))+" : 1";
+  card.querySelector(".loadp").addEventListener("click",function(){
+    state=mk(ps.p);sync();
+    document.querySelectorAll("#presets button").forEach(function(x){
+      x.setAttribute("aria-pressed",x.textContent===ps.name?"true":"false");});
+    paint();
+    document.getElementById("lab").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+});
+
+/* =========================================================================
+   8. ESCADA DE CONTRASTE — só o fill varia
+   ========================================================================= */
+var RUNGS=[
+  {f:1.00,u:"CTA · demonstração · garantia"},
+  {f:0.33,u:"Corpo do VSL · padrão"},
+  {f:0.14,u:"Autoridade · entrevista"},
+  {f:0.05,u:"Virada · mecanismo único"},
+  {f:0.00,u:"Teto desta key · sem fill"}
+];
+var lad=document.getElementById("ladder");
+RUNGS.forEach(function(r,ix){
+  var d=document.createElement("div");d.className="rung"+(ix===1?" pick":"");
+  d.innerHTML='<div class="vp"><canvas width="168" height="210"></canvas></div>'+
+    '<div class="cap"><b class="rr">—</b><span class="rs">—</span><br>'+
+    (r.f>0?"fill "+Math.round(r.f*100)+"%":"fill desligado")+'<br>'+r.u+'</div>';
+  lad.appendChild(d);
+  var m=render(d.querySelector("canvas"),mk({az:34,el:34,keyDist:1.2,soft:0.50,srcSize:95,
+    fillRatio:r.f,rim:0,bgStops:1.8,targetIRE:66,sat:100,contrast:1.02}),true);
+  d.querySelector(".rr").textContent=m.ratio.toFixed(1).replace(".",",")+" : 1";
+  d.querySelector(".rs").textContent=m.stops.toFixed(1).replace(".",",")+" stops medidos";
+});
+
+/* =========================================================================
+   9. ESCALA DE PLANO
+   ========================================================================= */
+var SH=[["Médio aberto",0.21],["Médio",0.30],["Médio fechado",0.42],["Close",0.56],["Close fechado",0.75]];
+var sg=document.getElementById("shots"),ns="http://www.w3.org/2000/svg",sx0=22;
+SH.forEach(function(s,i){
+  var x=sx0+i*156, fw=132, fh=150, hh=fh*s[1], hw=hh*0.74;
+  var eyeY=fh*0.36, cxx=x+fw/2, cyy=eyeY+hh*0.10;
+  var el=function(t,at){var e=document.createElementNS(ns,t);for(var k in at)e.setAttribute(k,at[k]);return e;};
+  sg.appendChild(el("rect",{x:x,y:14,width:fw,height:fh,fill:"var(--sunk)",stroke:"var(--line-strong)"}));
+  var gg=el("g",{});
+  gg.appendChild(el("ellipse",{cx:cxx,cy:14+cyy,rx:hw/2,ry:hh/2,fill:"var(--ink-3)","fill-opacity":"0.5"}));
+  gg.appendChild(el("path",{d:"M"+(cxx-hw*1.25)+" "+(14+fh)+" L"+(cxx-hw*1.0)+" "+(14+cyy+hh*0.86)+
+    " Q"+cxx+" "+(14+cyy+hh*0.60)+" "+(cxx+hw*1.0)+" "+(14+cyy+hh*0.86)+" L"+(cxx+hw*1.25)+" "+(14+fh)+" Z",
+    fill:"var(--ink-3)","fill-opacity":"0.5"}));
+  gg.appendChild(el("circle",{cx:cxx-hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
+  gg.appendChild(el("circle",{cx:cxx+hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
+  sg.appendChild(gg);
+  var t1=el("text",{x:x,y:fh+32,"font-family":"ui-monospace,Menlo,monospace","font-size":"10",
+    "font-weight":"700",fill:"var(--ink)"});t1.textContent=s[0];sg.appendChild(t1);
+  var t2=el("text",{x:x,y:fh+46,"font-family":"ui-monospace,Menlo,monospace","font-size":"9.5",
+    fill:"var(--ink-3)"});t2.textContent=Math.round(s[1]*100)+"% do quadro";sg.appendChild(t2);
+});
+
+/* =========================================================================
+   10. ÍNDICE ATIVO
+   ========================================================================= */
+var links=[].slice.call(document.querySelectorAll("#rail a")),
+    secs=links.map(function(a){return document.getElementById(a.getAttribute("href").slice(1));});
+function spy(){
+  var y=window.scrollY+140,best=0;
+  secs.forEach(function(s,i){if(s&&s.offsetTop<=y)best=i;});
+  links.forEach(function(a,i){a.classList.toggle("on",i===best);});
+}
+window.addEventListener("scroll",spy,{passive:true});spy();
+})();
+</script>
