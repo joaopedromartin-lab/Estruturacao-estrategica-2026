@@ -9,6 +9,9 @@
   --alert:#B33326; --alert-wash:#F2DAD6;
   --ok:#3B7048; --ok-wash:#DBE8DE;
   --plot-bg:#22242A; --plot-ink:#C9CBD2;
+  --plot-line:#9AA0AD; --plot-grid:#474D59; --plot-dim:#6E7481;
+  --plot-sub:#F4F6FA; --plot-sub2:#767D8B; --plot-rim:#D7DDE8;
+  --plot-flag:#0B0C0F; --plot-flagt:#9AA0AD; --plot-bgl:#6FC0DE;
   --f-display:"Helvetica Neue",Helvetica,Arial,sans-serif;
   --f-body:Georgia,"Iowan Old Style","Times New Roman",serif;
   --f-mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
@@ -24,6 +27,9 @@
     --alert:#E0574A; --alert-wash:#3B1B17;
     --ok:#63A874; --ok-wash:#18301D;
     --plot-bg:#0F1013; --plot-ink:#B9BCC4;
+    --plot-line:#7E8593; --plot-grid:#383E49; --plot-dim:#5C6270;
+    --plot-sub:#EDEFF4; --plot-sub2:#5F6673; --plot-rim:#C6CDDA;
+    --plot-flag:#050608; --plot-flagt:#7E8593; --plot-bgl:#5FB4D4;
     --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.7);
   }
 }
@@ -36,6 +42,9 @@
   --alert:#E0574A; --alert-wash:#3B1B17;
   --ok:#63A874; --ok-wash:#18301D;
   --plot-bg:#0F1013; --plot-ink:#B9BCC4;
+  --plot-line:#7E8593; --plot-grid:#383E49; --plot-dim:#5C6270;
+  --plot-sub:#EDEFF4; --plot-sub2:#5F6673; --plot-rim:#C6CDDA;
+  --plot-flag:#050608; --plot-flagt:#7E8593; --plot-bgl:#5FB4D4;
   --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.7);
 }
 
@@ -163,95 +172,48 @@ figcaption{font-family:var(--f-mono); font-size:10.5px; line-height:1.5; color:v
   letter-spacing:.02em; padding-top:9px}
 svg{display:block; max-width:100%}
 canvas{display:block}
-</style>
-<style>
-/* ---------- hero ---------- */
-.hero{padding:52px 0 0}
-.hero-kick{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:22px}
-.hero h1{
-  font-size:clamp(38px,6.6vw,72px); line-height:.95; letter-spacing:-.038em; font-weight:800;
-  max-width:16ch;
+
+/* ---------- plantas de luz ---------- */
+.lb{font-family:var(--f-mono); font-size:10px; font-weight:700; letter-spacing:.06em; fill:var(--plot-ink)}
+.ls{font-family:var(--f-mono); font-size:9px; letter-spacing:.03em; fill:var(--plot-dim)}
+.plots{display:flex; flex-direction:column; gap:22px}
+.plot-card{background:var(--surface); border:1px solid var(--line); border-radius:6px;
+  box-shadow:var(--shadow); padding:18px 20px 16px; scroll-margin-top:20px}
+.plot-head{display:flex; flex-wrap:wrap; gap:10px; align-items:baseline; justify-content:space-between;
+  padding-bottom:10px; border-bottom:1px solid var(--line)}
+.plot-head > div{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.plot-name{font-family:var(--f-display); font-size:20px; font-weight:800; letter-spacing:-.015em}
+.plot-ratio{font-family:var(--f-mono); font-size:19px; font-weight:600; color:var(--key);
+  font-variant-numeric:tabular-nums; letter-spacing:.02em}
+.plot-use{font-size:15.5px; line-height:1.55; color:var(--ink-2); margin:12px 0 0; max-width:74ch}
+.plot-grid{display:grid; gap:14px; grid-template-columns:1fr; margin-top:14px; align-items:start}
+@media (min-width:700px){
+  .plot-grid{grid-template-columns:minmax(0,1.42fr) minmax(0,1fr)}
+  .plot-spec{grid-column:1 / -1}
 }
-.hero h1 span{color:var(--ink-3)}
-.hero .lede{margin-top:22px}
-.hero-meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px}
-
-/* ---------- light lab ---------- */
-.lab{margin-top:34px; border:1px solid var(--line-2); border-radius:8px; overflow:hidden;
-  background:var(--surface); box-shadow:var(--shadow)}
-.lab-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between;
-  padding:11px 16px; background:var(--surface-2); border-bottom:1px solid var(--line-2)}
-.lab-bar b{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
-  font-weight:600; color:var(--ink-2)}
-.presets{display:flex; flex-wrap:wrap; gap:6px}
-.presets button{
-  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.05em; cursor:pointer;
-  padding:5px 9px; border-radius:3px; border:1px solid var(--line-2);
-  background:var(--surface); color:var(--ink-2);
+@media (min-width:1120px){
+  .plot-grid{grid-template-columns:minmax(0,1.42fr) minmax(0,1fr) 216px}
+  .plot-spec{grid-column:auto}
 }
-.presets button:hover{border-color:var(--line-strong); color:var(--ink)}
-.presets button[aria-pressed="true"]{background:var(--key-wash); border-color:var(--key); color:var(--key)}
+.plot-pane{min-width:0}
+.plot-lab{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:7px}
+.plot-pane svg{width:100%; height:auto; border:1px solid var(--line-2); border-radius:4px}
+.plot-spec{min-width:0}
+.plot-spec .dl{border-top:1px solid var(--line)}
+.plot-note{font-family:var(--f-body); font-size:14.5px; line-height:1.55; color:var(--ink-2);
+  border-top:1px solid var(--line); margin-top:14px; padding-top:12px; max-width:82ch}
+.plot-note b{font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--key)}
 
-.lab-body{display:grid; grid-template-columns:1fr; gap:0}
-@media (min-width:900px){.lab-body{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) 268px}}
-@media (min-width:640px) and (max-width:899px){.lab-body{grid-template-columns:1fr 1fr}}
-
-.lab-pane{padding:16px; border-bottom:1px solid var(--line); min-width:0}
-@media (min-width:900px){.lab-pane{border-bottom:0; border-right:1px solid var(--line)}}
-.lab-pane:last-child{border:0}
-.pane-label{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--ink-3); margin-bottom:10px; display:flex; justify-content:space-between; gap:8px}
-.viewport{background:var(--plot-bg); border-radius:4px; border:1px solid var(--line-2);
-  overflow:hidden; position:relative; display:flex; justify-content:center}
-.viewport canvas{width:100%; height:auto; image-rendering:auto}
-
-/* controls */
-.ctrls{display:flex; flex-direction:column; gap:12px}
-.ctrl{display:flex; flex-direction:column; gap:5px}
-.ctrl-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px;
-  font-family:var(--f-mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase}
-.ctrl-top span:first-child{color:var(--ink-3)}
-.ctrl-top output{color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:.02em}
-input[type=range]{
-  -webkit-appearance:none; appearance:none; width:100%; height:16px; background:transparent; cursor:pointer; margin:0;
+.plot-spec .dl{display:block; border-top:1px solid var(--line); font-size:12.5px}
+.plot-spec .dl dt{display:block; padding:7px 0 0; border:0; font-size:9.5px; letter-spacing:.13em;
+  color:var(--ink-3); text-transform:uppercase}
+.plot-spec .dl dd{display:block; padding:1px 0 7px; border-bottom:1px solid var(--line);
+  text-align:left; color:var(--ink); font-size:12.5px}
+.plot-spec .dl dd:last-of-type{border-bottom:0}
+@media (min-width:700px) and (max-width:1119px){
+  .plot-spec .dl{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0 22px}
 }
-input[type=range]::-webkit-slider-runnable-track{height:2px; background:var(--line-2); border-radius:2px}
-input[type=range]::-moz-range-track{height:2px; background:var(--line-2); border-radius:2px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:12px; height:12px; border-radius:50%;
-  background:var(--key-bright); border:2px solid var(--surface); margin-top:-5px;
-  box-shadow:0 0 0 1px var(--line-strong)}
-input[type=range]::-moz-range-thumb{width:12px; height:12px; border-radius:50%; border:2px solid var(--surface);
-  background:var(--key-bright); box-shadow:0 0 0 1px var(--line-strong)}
-input[type=range].cool::-webkit-slider-thumb{background:var(--fill-bright)}
-input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
-
-/* readout */
-.readout{display:flex; flex-direction:column; gap:0; margin-top:14px; border-top:1px solid var(--line)}
-.ro{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:6px 0;
-  border-bottom:1px solid var(--line); font-family:var(--f-mono); font-size:11px}
-.ro span{color:var(--ink-3); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase}
-.ro b{font-weight:500; font-variant-numeric:tabular-nums; color:var(--ink)}
-.ro b.hl{color:var(--key)}
-.pattern{margin-top:12px; padding:10px 12px; border-radius:4px; background:var(--surface-2);
-  border:1px solid var(--line)}
-.pattern .p-name{font-family:var(--f-display); font-weight:800; font-size:16px; letter-spacing:-.01em}
-.pattern .p-use{font-family:var(--f-mono); font-size:10.5px; line-height:1.5; color:var(--ink-2); margin-top:4px}
-
-.legend{display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; font-family:var(--f-mono); font-size:10px;
-  color:var(--ink-3); letter-spacing:.04em}
-.legend i{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:middle}
-
-/* ladders */
-.ladder{display:grid; gap:10px; grid-template-columns:repeat(2,1fr)}
-@media (min-width:660px){.ladder{grid-template-columns:repeat(5,1fr)}}
-.rung{display:flex; flex-direction:column; gap:0}
-.rung .vp{background:var(--plot-bg); border:1px solid var(--line-2); border-radius:4px 4px 0 0; overflow:hidden}
-.rung canvas{width:100%; height:auto}
-.rung .cap{border:1px solid var(--line-2); border-top:0; border-radius:0 0 4px 4px; padding:7px 8px;
-  background:var(--surface); font-family:var(--f-mono); font-size:10px; line-height:1.45; color:var(--ink-3)}
-.rung .cap b{display:block; color:var(--ink); font-size:11.5px; font-weight:600; letter-spacing:.02em}
-.rung.pick .vp,.rung.pick .cap{border-color:var(--key)}
-.rung.pick .cap b{color:var(--key)}
 </style>
 
 <div class="shell">
@@ -260,8 +222,8 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
 <nav class="rail" aria-label="Índice do estudo">
   <div class="rail-title">Índice</div>
   <ol id="rail">
-    <li><a href="#lab"><i>00</i>Laboratório de luz</a></li>
     <li><a href="#tese"><i>—</i>A tese</a></li>
+    <li><a href="#plataforma"><i>—</i>Google, Meta, TikTok</a></li>
     <li><a href="#c1"><i>01</i>Enquadramento</a></li>
     <li><a href="#c2"><i>02</i>Mapas de luz</a></li>
     <li><a href="#c3"><i>03</i>Contraste</a></li>
@@ -269,6 +231,7 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
     <li><a href="#c5"><i>05</i>Cenário</a></li>
     <li><a href="#mapa"><i>—</i>Mapa mestre</a></li>
     <li><a href="#heranca"><i>—</i>Cinema, TV, internet</a></li>
+    <li><a href="#ref"><i>—</i>Ler a luz de referências</a></li>
     <li><a href="#teste"><i>—</i>Protocolo de teste</a></li>
     <li><a href="#set"><i>—</i>Checklist de set</a></li>
   </ol>
@@ -285,68 +248,13 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
   <h1>A imagem vende antes<br>da primeira palavra. <span>Este é o mapa dela.</span></h1>
   <p class="lede">Cenário, luz, contraste e saturação para vídeos de venda — com as regras herdadas do cinema, da TV e da internet, filtradas por uma única pergunta: <strong>isso segura o espectador e faz ele comprar?</strong></p>
   <div class="hero-meta">
-    <span class="tag">Mapas de luz calculados, não ilustrados</span>
+    <span class="tag">6 plantas de luz com medidas de set</span>
     <span class="tag">Valores em stops, IRE e Kelvin</span>
-    <span class="tag">Protocolo de teste A/B incluso</span>
+    <span class="tag">Google · Meta · TikTok</span>
+    <span class="tag">Protocolo de teste A/B</span>
   </div>
 </header>
 
-<section id="lab" class="sec" style="padding-top:44px">
-  <div class="sec-head">
-    <span class="sec-num">00 · Ferramenta</span>
-    <h2>Laboratório de luz</h2>
-  </div>
-  <p class="prose" style="margin-top:0">Este painel não é um desenho. O rosto é iluminado por um motor de <em class="term">relighting</em> real: sombreamento lambertiano, lei do inverso do quadrado, penumbra proporcional ao tamanho da fonte e traçado de sombra sobre o campo de altura da face. <strong>O ratio que o painel mostra é o ratio que a câmera mediria.</strong> Mova a key e os padrões clássicos — borboleta, loop, Rembrandt, split — aparecem sozinhos, porque são consequência geométrica, não estilo.</p>
-
-  <div class="lab">
-    <div class="lab-bar">
-      <b>Planta de luz · sujeito na origem</b>
-      <div class="presets" id="presets" role="group" aria-label="Setups pré-definidos"></div>
-    </div>
-    <div class="lab-body">
-
-      <div class="lab-pane">
-        <div class="pane-label"><span>Render do sujeito</span><span id="lblExp">—</span></div>
-        <div class="viewport"><canvas id="face" width="320" height="400" aria-label="Render do rosto iluminado conforme os controles"></canvas></div>
-        <div class="legend">
-          <span><i style="background:var(--key-bright)"></i>Key</span>
-          <span><i style="background:var(--fill-bright)"></i>Fill</span>
-          <span><i style="background:#D7DCE4"></i>Rim</span>
-        </div>
-      </div>
-
-      <div class="lab-pane">
-        <div class="pane-label"><span>Mapa de iluminância · vista superior</span><span>iso = 1 stop</span></div>
-        <div class="viewport"><canvas id="plot" width="340" height="340" aria-label="Mapa de calor de iluminância do set, visto de cima, com curvas de nível a cada stop"></canvas></div>
-        <div class="legend">
-          <span><i style="background:#3A4152"></i>−4 st</span>
-          <span><i style="background:#7A5A38"></i>−2 st</span>
-          <span><i style="background:#E0A65B"></i>0 st</span>
-          <span><i style="background:#FFF3E0"></i>+2 st</span>
-        </div>
-      </div>
-
-      <div class="lab-pane">
-        <div class="pane-label"><span>Controles</span></div>
-        <div class="ctrls" id="ctrls"></div>
-        <div class="readout">
-          <div class="ro"><span>Ratio key:fill</span><b class="hl" id="roRatio">—</b></div>
-          <div class="ro"><span>Contraste</span><b id="roStops">—</b></div>
-          <div class="ro"><span>Pele · lado luz</span><b id="roLit">—</b></div>
-          <div class="ro"><span>Pele · lado sombra</span><b id="roSha">—</b></div>
-          <div class="ro"><span>Separação do fundo</span><b id="roSep">—</b></div>
-          <div class="ro"><span>Catchlight</span><b id="roCatch">—</b></div>
-        </div>
-        <div class="pattern">
-          <div class="p-name" id="roPattern">—</div>
-          <div class="p-use" id="roUse">—</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <figcaption style="max-width:74ch">Todos os valores derivam do render: IRE é a luminância Rec.709 do patch de pele medido no frame; o ratio é a razão linear entre a bochecha iluminada e a bochecha na sombra. O mapa superior soma a contribuição de cada fonte por 1/d² e traça uma curva a cada stop de queda.</figcaption>
-</section>
 <section id="tese" class="sec">
   <div class="sec-head">
     <span class="sec-num">Princípio</span>
@@ -405,6 +313,96 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
     </div>
     <figcaption>O cenário existe para servir ao rosto. Quando o fundo é a primeira coisa que você nota no seu próprio VSL, ele já custou retenção.</figcaption>
   </figure>
+</section>
+
+<section id="plataforma" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Decisão anterior a tudo</span>
+    <h2>Google, Meta e TikTok são três animais diferentes</h2>
+  </div>
+  <p class="lede">Antes de acender uma luz: <strong>na Meta e no TikTok, o VSL quase nunca é o anúncio.</strong> O anúncio é o gancho; o VSL mora na página. No YouTube, o VSL pode ser o anúncio. Essa única diferença muda tudo o que vem depois.</p>
+
+  <div class="grid g3 mt">
+    <div class="card pad stack">
+      <div style="display:flex;gap:8px;align-items:center"><span class="tag k">01</span><b style="font-family:var(--f-display);font-size:17px">Google / YouTube</b></div>
+      <p style="font-size:15px;color:var(--ink-2);margin:0"><strong>Intenção.</strong> A pessoa escolheu estar num site de vídeo. É a única das três onde a tolerância a duração é alta e o som costuma estar ligado.</p>
+      <dl class="dl">
+        <dt>Papel do VSL</dt><dd>pode ser o anúncio</dd>
+        <dt>Duração viável</dt><dd>15 s a 40 min</dd>
+        <dt>Janela de gancho</dt><dd>5 s até o skip</dd>
+        <dt>Formato</dt><dd>16:9 principal</dd>
+        <dt>Som</dt><dd>frequentemente ligado</dd>
+        <dt>CTR médio</dt><dd>0,42–0,65%</dd>
+        <dt>Hook rate mediano</dt><dd>~22%</dd>
+        <dt>VCR</dt><dd>30–35%</dd>
+      </dl>
+      <p style="font-size:14px;color:var(--ink-3);margin:0">Produção alta é tolerada e premiada. É onde o enquadramento de autoridade rende mais.</p>
+    </div>
+
+    <div class="card pad stack">
+      <div style="display:flex;gap:8px;align-items:center"><span class="tag k">02</span><b style="font-family:var(--f-display);font-size:17px">Meta</b></div>
+      <p style="font-size:15px;color:var(--ink-2);margin:0"><strong>Interrupção.</strong> Ninguém pediu para ver. Maior CTR das três e menor taxa de conclusão — o feed é bom em fazer clicar, ruim em fazer assistir.</p>
+      <dl class="dl">
+        <dt>Papel do VSL</dt><dd>na página, não no ad</dd>
+        <dt>Duração do ad</dt><dd>15–60 s</dd>
+        <dt>Janela de gancho</dt><dd>3 s</dd>
+        <dt>Formato</dt><dd>9:16 e 1:1</dd>
+        <dt>Som</dt><dd>85–92% desligado</dd>
+        <dt>CTR médio</dt><dd>~1,62%</dd>
+        <dt>VTR</dt><dd>15–25%</dd>
+        <dt>Valor nos 3 s</dt><dd>~47%</dd>
+      </dl>
+      <p style="font-size:14px;color:var(--ink-3);margin:0">Legenda obrigatória. UGC ganha em hook rate e CTR; produção alta ganha em recall e em ticket acima de ~R$ 1.000.</p>
+    </div>
+
+    <div class="card pad stack">
+      <div style="display:flex;gap:8px;align-items:center"><span class="tag k">03</span><b style="font-family:var(--f-display);font-size:17px">TikTok</b></div>
+      <p style="font-size:15px;color:var(--ink-2);margin:0"><strong>Nativo ou nada.</strong> Conteúdo de marca polido tipicamente performa <em>pior</em>. É a única das três onde parecer produzido é um passivo.</p>
+      <dl class="dl">
+        <dt>Papel do VSL</dt><dd>na página, não no ad</dd>
+        <dt>Duração do ad</dt><dd>5–60 s</dd>
+        <dt>Janela de gancho</dt><dd>2–3 s</dd>
+        <dt>Formato</dt><dd>9:16 exclusivo</dd>
+        <dt>Som</dt><dd>cultura de som ligado</dd>
+        <dt>Hook rate</dt><dd>25–35%</dd>
+        <dt>Spark vs in-feed</dt><dd>+30% conclusão</dd>
+        <dt>CPA Spark</dt><dd>30–50% menor</dd>
+      </dl>
+      <p style="font-size:14px;color:var(--ink-3);margin:0">Spark Ads carregam prova social do post orgânico. Quase sempre valem mais que um in-feed novo.</p>
+    </div>
+  </div>
+
+  <h3>O que isso significa para a imagem</h3>
+  <p class="prose" style="margin-top:8px">Esta é a tabela que conecta a plataforma às cinco camadas deste documento. É por aqui que se escolhe o setup, não pelo gosto.</p>
+
+  <div class="tw mt-s">
+    <table style="min-width:900px">
+      <caption>Plataforma → decisões de imagem. Os setups citados são as plantas de luz da Camada 02.</caption>
+      <thead><tr><th>Parâmetro</th><th>Google / YouTube</th><th>Meta</th><th>TikTok</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Setup de luz</strong></td><td>Estúdio internet ou Autoridade frontal</td><td>Autoridade frontal</td><td>Janela + rebatedor</td></tr>
+        <tr><td><strong>Ratio</strong></td><td>2:1 a 4:1 — cabe Rembrandt nas viradas</td><td>2:1 a 3:1, constante</td><td>2:1 a 3:1, sem drama</td></tr>
+        <tr><td><strong>Cenário</strong></td><td>Escritório-autoridade / Estúdio-limpo</td><td>Estúdio-limpo</td><td>Casa-intimidade</td></tr>
+        <tr><td><strong>Plano dominante</strong></td><td>Médio a médio fechado</td><td>Médio fechado</td><td>Close</td></tr>
+        <tr><td><strong>Saturação</strong></td><td>100–110%</td><td>105–115%</td><td>110–125%</td></tr>
+        <tr><td><strong>Contraste global</strong></td><td>pode ser mais alto</td><td>alto, sem info na sombra</td><td>alto, sem info na sombra</td></tr>
+        <tr><td><strong>Legenda</strong></td><td>recomendada</td><td><strong>obrigatória</strong></td><td>obrigatória, estilo nativo</td></tr>
+        <tr><td><strong>Troca de plano</strong></td><td>a cada 6–8 s</td><td>a cada 4–6 s</td><td>a cada 2–4 s</td></tr>
+        <tr><td><strong>Acabamento</strong></td><td>produzido é ativo</td><td>testar UGC e produzido</td><td>produzido é <strong>passivo</strong></td></tr>
+        <tr><td><strong>Quando usar</strong></td><td>ticket alto, compra considerada, remarketing quente</td><td>volume de teste criativo, prospecção ampla</td><td>ticket baixo/médio, impulso, topo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note no mt">
+    <b>Não reaproveite criativo entre plataformas sem re-produzir.</b> Peça de feed da Meta reaproveitada como pre-roll de YouTube costuma performar 40–60% abaixo de um criativo nativo. O mínimo aceitável é regravar o gancho e reexportar com as zonas seguras corretas — e no TikTok, quase sempre é preciso regravar a peça inteira, porque o que muda não é o formato, é o registro.
+  </div>
+
+  <h3>A arquitetura que funciona nas três</h3>
+  <div class="prose">
+    <p>O padrão que se consolidou não é "um VSL". É <strong>um funil de ganchos alimentando poucos VSLs</strong>: dezenas de vídeos curtos de 15–60 s, cada um testando um ângulo de entrada, todos levando para a mesma página onde mora o VSL longo. O curto não vende — ele compra atenção e cria a lacuna de curiosidade que o VSL fecha.</p>
+    <p>Consequência prática de produção: <strong>o gancho e o VSL têm requisitos de imagem diferentes e podem ser gravados em setups diferentes.</strong> O gancho precisa vencer o polegar em 3 segundos — close, contraste alto, saturação alta, registro nativo. O VSL precisa sustentar minutos — plano médio, ratio confortável, cenário que aguenta ser olhado. Tentar resolver os dois com uma configuração só é a razão mais comum de um VSL bem escrito ter hook rate ruim.</p>
+  </div>
 </section>
 
 <section id="c1" class="sec">
@@ -607,10 +605,164 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
   </div>
   <p class="lede">Luz é a única variável de produção que muda simultaneamente <strong>legibilidade, percepção de custo e leitura emocional</strong>. É onde o dinheiro rende mais.</p>
 
-  <h3>Os seis setups que cobrem 95% dos VSLs</h3>
-  <p class="prose" style="margin-top:8px">Cada card abaixo é renderizado pelo mesmo motor do laboratório, com os parâmetros reais listados. Clique para carregar o setup no painel do topo e mexer nele.</p>
+  <h3>As seis plantas que cobrem 95% dos VSLs</h3>
+  <div class="prose" style="margin-top:8px">
+    <p>Cada setup vem em <strong>planta baixa</strong> — ângulo, distância e modificador vistos de cima — e <strong>corte lateral</strong>, com altura e inclinação de cada fonte. Os desenhos estão em escala: a largura de cada retângulo é a largura física real do modificador.</p>
+    <p>São pontos de partida, não dogma. Todos assumem uma pessoa sentada com os olhos a 1,55 m do chão; se o apresentador grava em pé ou é mais alto, suba as alturas na mesma proporção e mantenha os ângulos.</p>
+  </div>
 
-  <div class="grid g3 mt-s" id="gallery"></div>
+  <div class="plots mt">
+<figure class="plot-card" id="setup-autoridade">
+<div class="plot-head">
+<div><span class="plot-name">Autoridade frontal</span><span class="tag k">O padrão VSL</span></div>
+<span class="plot-ratio">2:1</span>
+</div>
+<p class="plot-use">O setup de trabalho. Frontal o bastante para o espectador ler microexpressão — que é como o cérebro decide se confia — e com desenho suficiente para o rosto não chapar. Serve o corpo inteiro do argumento.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="95" x2="398" y2="95" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="95" x2="19" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="95" x2="32" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="95" x2="45" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="95" x2="58" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="95" x2="71" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="95" x2="84" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="95" x2="97" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="95" x2="110" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="95" x2="123" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="95" x2="136" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="95" x2="149" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="95" x2="162" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="95" x2="175" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="95" x2="188" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="95" x2="201" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="95" x2="214" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="95" x2="227" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="95" x2="240" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="95" x2="253" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="95" x2="266" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="95" x2="279" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="95" x2="292" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="95" x2="305" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="95" x2="318" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="95" x2="331" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="95" x2="344" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="95" x2="357" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="95" x2="370" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="95" x2="383" y2="88" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="83" class="ls">FUNDO · 2.2 m · −1.5 stop</text><line x1="185.7" y1="308.2" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 0 200.4 267.9" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="203.8" y="282.3" text-anchor="middle" class="ls" style="fill:var(--key)">20°</text><g transform="translate(185.7,308.2) rotate(-20.0)"><rect x="-21.1" y="-3.5" width="42.2" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-21.1" y1="4.5" x2="21.1" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="174.7" y="305.2" text-anchor="end" class="lb" style="fill:var(--key)">KEY</text><text x="174.7" y="316.2" text-anchor="end" class="ls">softbox 90×120</text><line x1="275.7" y1="289.5" x2="212.0" y2="236.0" stroke="var(--fill)" stroke-width="1" stroke-dasharray="3 3"/><g transform="translate(275.7,289.5) rotate(50.0)"><rect x="-17.6" y="-3.5" width="35.2" height="7.0" rx="1.5" fill="var(--fill)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-17.6" y1="4.5" x2="17.6" y2="4.5" stroke="var(--fill)" stroke-width="1.6" opacity=".55"/></g><text x="286.7" y="286.5" text-anchor="start" class="lb" style="fill:var(--fill)">FILL</text><text x="286.7" y="297.5" text-anchor="start" class="ls">rebatedor branco</text><line x1="269.6" y1="167.4" x2="212.0" y2="236.0" stroke="var(--plot-rim)" stroke-width="1" stroke-dasharray="2 3"/><g transform="translate(269.6,167.4) rotate(140.0)"><rect x="-10.6" y="-3.5" width="21.1" height="7.0" rx="1.5" fill="var(--plot-rim)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-10.6" y1="4.5" x2="10.6" y2="4.5" stroke="var(--plot-rim)" stroke-width="1.6" opacity=".55"/></g><text x="280.6" y="164.4" text-anchor="start" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="280.6" y="175.4" text-anchor="start" class="ls">strip 30×120</text><circle cx="257" cy="111" r="6" fill="var(--plot-bgl)"/><text x="268" y="115" class="ls" style="fill:var(--plot-bgl)">grid 4300 K</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 364 L222 364 L212 351 Z" fill="var(--plot-line)"/><text x="227" y="368" class="lb">CÂMERA · 2.0 m · 50 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="215" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,215) rotate(-25)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">1.95 m · inclinação 25°</text><path d="M68.0 205 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="212.0" y1="336" x2="212.0" y2="206" stroke="var(--plot-line)" stroke-width="2"/><line x1="201.0" y1="336" x2="223.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(212.0,206) rotate(22)"><rect x="-3" y="-11" width="6" height="22" rx="2" fill="var(--plot-rim)"/></g><text x="280" y="26" text-anchor="end" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="280" y="39" text-anchor="end" class="ls">2.10 m</text><line x1="266" y1="336" x2="266" y2="240" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="233" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="262" text-anchor="end" class="ls">câmera</text><text x="282" y="274" text-anchor="end" class="ls">1.55 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>softbox 90×120</dd>
+<dt>Azimute / altura</dt><dd>20° · 1.95 m</dd>
+<dt>Distância / inclin.</dt><dd>1.20 m · 25°</dd>
+<dt>Fill</dt><dd>rebatedor branco</dd>
+<dt>Rim</dt><dd>strip 30×120</dd>
+<dt>Fundo</dt><dd>2.2 m · −1.5 st</dd>
+<dt>Ratio alvo</dt><dd>2:1</dd>
+<dt>Temperatura</dt><dd>4300 K</dd>
+<dt>Pele</dt><dd>67 IRE</dd>
+<dt>Lente / distância</dt><dd>50 mm · 2.0 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> Se o rosto chapar, não gire a key — puxe o rebatedor 30 cm para trás. Você ganha modelagem sem perder frontalidade.</figcaption>
+</figure>
+<figure class="plot-card" id="setup-borboleta">
+<div class="plot-head">
+<div><span class="plot-name">Borboleta / clamshell</span><span class="tag k">CTA e oferta</span></div>
+<span class="plot-ratio">1,5:1</span>
+</div>
+<p class="plot-use">Máxima abertura facial, sombra mínima e simétrica sob o nariz. Nada parece escondido — por isso é o setup do CTA, da garantia e da quebra de objeção. Use por pouco tempo: sustentado, vira propaganda de creme.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="108" x2="398" y2="108" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="108" x2="19" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="108" x2="32" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="108" x2="45" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="108" x2="58" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="108" x2="71" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="108" x2="84" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="108" x2="97" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="108" x2="110" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="108" x2="123" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="108" x2="136" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="108" x2="149" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="108" x2="162" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="108" x2="175" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="108" x2="188" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="108" x2="201" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="108" x2="214" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="108" x2="227" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="108" x2="240" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="108" x2="253" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="108" x2="266" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="108" x2="279" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="108" x2="292" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="108" x2="305" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="108" x2="318" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="108" x2="331" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="108" x2="344" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="108" x2="357" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="108" x2="370" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="108" x2="383" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="96" class="ls">FUNDO · 2.0 m · −1.2 stop</text><line x1="212.0" y1="300.0" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 1 212.0 270.0" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="212.0" y="283.0" text-anchor="middle" class="ls" style="fill:var(--key)">0°</text><g transform="translate(212.0,300.0) rotate(0.0)"><rect x="-21.1" y="-3.5" width="42.2" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-21.1" y1="4.5" x2="21.1" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="223.0" y="297.0" text-anchor="start" class="lb" style="fill:var(--key)">KEY</text><text x="223.0" y="308.0" text-anchor="start" class="ls">octabox 120</text><line x1="223.6" y1="282.6" x2="212.0" y2="236.0" stroke="var(--fill)" stroke-width="1" stroke-dasharray="3 3"/><g transform="translate(223.6,282.6) rotate(14.0)"><rect x="-17.6" y="-3.5" width="35.2" height="7.0" rx="1.5" fill="var(--fill)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-17.6" y1="4.5" x2="17.6" y2="4.5" stroke="var(--fill)" stroke-width="1.6" opacity=".55"/></g><text x="234.6" y="279.6" text-anchor="start" class="lb" style="fill:var(--fill)">FILL</text><text x="234.6" y="290.6" text-anchor="start" class="ls">rebatedor no colo</text><circle cx="212" cy="124" r="6" fill="var(--plot-bgl)"/><text x="223" y="128" class="ls" style="fill:var(--plot-bgl)">wash suave</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 358 L222 358 L212 345 Z" fill="var(--plot-line)"/><text x="227" y="362" class="lb">CÂMERA · 1.9 m · 85 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="203" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,203) rotate(-48)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">2.15 m · inclinação 48°</text><path d="M68.0 193 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="266" y1="336" x2="266" y2="239" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="232" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="261" text-anchor="end" class="ls">câmera</text><text x="282" y="273" text-anchor="end" class="ls">1.57 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>octabox 120</dd>
+<dt>Azimute / altura</dt><dd>0° · 2.15 m</dd>
+<dt>Distância / inclin.</dt><dd>1.00 m · 48°</dd>
+<dt>Fill</dt><dd>rebatedor no colo</dd>
+<dt>Rim</dt><dd>—</dd>
+<dt>Fundo</dt><dd>2.0 m · −1.2 st</dd>
+<dt>Ratio alvo</dt><dd>1,5:1</dd>
+<dt>Temperatura</dt><dd>3900 K</dd>
+<dt>Pele</dt><dd>70 IRE</dd>
+<dt>Lente / distância</dt><dd>85 mm · 1.9 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> O rebatedor no colo é o que fecha a 'concha'. Sem ele o queixo e o pescoço afundam e o setup vira só uma key alta.</figcaption>
+</figure>
+<figure class="plot-card" id="setup-rembrandt">
+<div class="plot-head">
+<div><span class="plot-name">Rembrandt</span><span class="tag k">Virada e narrativa</span></div>
+<span class="plot-ratio">4:1</span>
+</div>
+<p class="plot-use">O triângulo de luz na bochecha sombreada. Marca a mudança de temperatura do argumento — história de origem, mecanismo único, revelação. Não é para o VSL inteiro.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="70" x2="398" y2="70" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="70" x2="19" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="70" x2="32" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="70" x2="45" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="70" x2="58" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="70" x2="71" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="70" x2="84" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="70" x2="97" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="70" x2="110" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="70" x2="123" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="70" x2="136" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="70" x2="149" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="70" x2="162" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="70" x2="175" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="70" x2="188" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="70" x2="201" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="70" x2="214" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="70" x2="227" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="70" x2="240" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="70" x2="253" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="70" x2="266" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="70" x2="279" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="70" x2="292" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="70" x2="305" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="70" x2="318" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="70" x2="331" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="70" x2="344" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="70" x2="357" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="70" x2="370" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="70" x2="383" y2="63" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="58" class="ls">FUNDO · 2.6 m · −2.2 stop</text><line x1="144.1" y1="303.9" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 0 188.0 260.0" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="194.0" y="279.4" text-anchor="middle" class="ls" style="fill:var(--key)">45°</text><g transform="translate(144.1,303.9) rotate(-45.0)"><rect x="-10.6" y="-3.5" width="21.1" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-10.6" y1="4.5" x2="10.6" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="133.1" y="300.9" text-anchor="end" class="lb" style="fill:var(--key)">KEY</text><text x="133.1" y="311.9" text-anchor="end" class="ls">softbox 60×90 + grid</text><g transform="translate(256.3,261.6) rotate(60.0)"><rect x="-15" y="-2.5" width="30" height="5" fill="var(--plot-flag)"/></g><text x="275" y="260" text-anchor="start" class="lb" style="fill:var(--plot-flagt)">BANDEIRA</text><text x="275" y="271" text-anchor="start" class="ls">negativa · 0.80 m</text><line x1="270.8" y1="177.2" x2="212.0" y2="236.0" stroke="var(--plot-rim)" stroke-width="1" stroke-dasharray="2 3"/><g transform="translate(270.8,177.2) rotate(135.0)"><rect x="-5.3" y="-3.5" width="10.6" height="7.0" rx="1.5" fill="var(--plot-rim)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-5.3" y1="4.5" x2="5.3" y2="4.5" stroke="var(--plot-rim)" stroke-width="1.6" opacity=".55"/></g><text x="281.8" y="174.2" text-anchor="start" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="281.8" y="185.2" text-anchor="start" class="ls">strip 3200 K</text><circle cx="154" cy="86" r="6" fill="var(--plot-bgl)"/><text x="165" y="90" class="ls" style="fill:var(--plot-bgl)">prática 2700 K</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 370 L222 370 L212 357 Z" fill="var(--plot-line)"/><text x="227" y="374" class="lb">CÂMERA · 2.1 m · 85 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="200" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,200) rotate(-42)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">2.20 m · inclinação 42°</text><path d="M68.0 190 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="212.0" y1="336" x2="212.0" y2="206" stroke="var(--plot-line)" stroke-width="2"/><line x1="201.0" y1="336" x2="223.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(212.0,206) rotate(26)"><rect x="-3" y="-11" width="6" height="22" rx="2" fill="var(--plot-rim)"/></g><text x="280" y="26" text-anchor="end" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="280" y="39" text-anchor="end" class="ls">2.10 m</text><line x1="266" y1="336" x2="266" y2="240" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="233" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="262" text-anchor="end" class="ls">câmera</text><text x="282" y="274" text-anchor="end" class="ls">1.55 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>softbox 60×90 + grid</dd>
+<dt>Azimute / altura</dt><dd>45° · 2.20 m</dd>
+<dt>Distância / inclin.</dt><dd>1.50 m · 42°</dd>
+<dt>Fill</dt><dd>— bandeira negativa</dd>
+<dt>Rim</dt><dd>strip 3200 K</dd>
+<dt>Fundo</dt><dd>2.6 m · −2.2 st</dd>
+<dt>Ratio alvo</dt><dd>4:1</dd>
+<dt>Temperatura</dt><dd>3600 K</dd>
+<dt>Pele</dt><dd>62 IRE</dd>
+<dt>Lente / distância</dt><dd>85 mm · 2.1 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> O triângulo só fecha se a key estiver acima da linha dos olhos e o nariz apontar para a sombra. Se ele vazar até a orelha, a key está baixa demais.</figcaption>
+</figure>
+<figure class="plot-card" id="setup-split">
+<div class="plot-head">
+<div><span class="plot-name">Split</span><span class="tag k">Dor e conflito</span></div>
+<span class="plot-ratio">8:1</span>
+</div>
+<p class="plot-use">Metade do rosto na luz, metade na sombra. Leitura de conflito puro — seção de dor, inimigo comum. Custa confiança a cada segundo, então entra em inserts curtos e sai.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="44" x2="398" y2="44" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="44" x2="19" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="44" x2="32" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="44" x2="45" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="44" x2="58" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="44" x2="71" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="44" x2="84" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="44" x2="97" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="44" x2="110" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="44" x2="123" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="44" x2="136" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="44" x2="149" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="44" x2="162" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="44" x2="175" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="44" x2="188" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="44" x2="201" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="44" x2="214" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="44" x2="227" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="44" x2="240" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="44" x2="253" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="44" x2="266" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="44" x2="279" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="44" x2="292" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="44" x2="305" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="44" x2="318" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="44" x2="331" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="44" x2="344" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="44" x2="357" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="44" x2="370" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="44" x2="383" y2="37" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="32" class="ls">FUNDO · 3.0 m · −3.4 stop</text><line x1="123.3" y1="248.5" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 0 178.3 240.7" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="181.2" y="271.5" text-anchor="middle" class="ls" style="fill:var(--key)">82°</text><g transform="translate(123.3,248.5) rotate(-82.0)"><rect x="-7.9" y="-3.5" width="15.8" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-7.9" y1="4.5" x2="7.9" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="112.3" y="245.5" text-anchor="end" class="lb" style="fill:var(--key)">KEY</text><text x="112.3" y="256.5" text-anchor="end" class="ls">fonte dura 45 cm</text><g transform="translate(243.7,267.7) rotate(45.0)"><rect x="-15" y="-2.5" width="30" height="5" fill="var(--plot-flag)"/></g><text x="263" y="266" text-anchor="start" class="lb" style="fill:var(--plot-flagt)">BANDEIRA</text><text x="263" y="277" text-anchor="start" class="ls">negativa · 0.70 m</text><line x1="250.4" y1="169.5" x2="212.0" y2="236.0" stroke="var(--plot-rim)" stroke-width="1" stroke-dasharray="2 3"/><g transform="translate(250.4,169.5) rotate(150.0)"><rect x="-5.3" y="-3.5" width="10.6" height="7.0" rx="1.5" fill="var(--plot-rim)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-5.3" y1="4.5" x2="5.3" y2="4.5" stroke="var(--plot-rim)" stroke-width="1.6" opacity=".55"/></g><text x="261.4" y="166.5" text-anchor="start" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="261.4" y="177.5" text-anchor="start" class="ls">strip fraco</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 377 L222 377 L212 364 Z" fill="var(--plot-line)"/><text x="227" y="381" class="lb">CÂMERA · 2.2 m · 85 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="229" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,229) rotate(-14)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">1.72 m · inclinação 14°</text><path d="M68.0 219 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="212.0" y1="336" x2="212.0" y2="212" stroke="var(--plot-line)" stroke-width="2"/><line x1="201.0" y1="336" x2="223.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(212.0,212) rotate(30)"><rect x="-3" y="-11" width="6" height="22" rx="2" fill="var(--plot-rim)"/></g><text x="280" y="26" text-anchor="end" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="280" y="39" text-anchor="end" class="ls">2.00 m</text><line x1="266" y1="336" x2="266" y2="241" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="234" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="263" text-anchor="end" class="ls">câmera</text><text x="282" y="275" text-anchor="end" class="ls">1.53 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>fonte dura 45 cm</dd>
+<dt>Azimute / altura</dt><dd>82° · 1.72 m</dd>
+<dt>Distância / inclin.</dt><dd>1.40 m · 14°</dd>
+<dt>Fill</dt><dd>— bandeira negativa</dd>
+<dt>Rim</dt><dd>strip fraco</dd>
+<dt>Fundo</dt><dd>3.0 m · −3.4 st</dd>
+<dt>Ratio alvo</dt><dd>8:1</dd>
+<dt>Temperatura</dt><dd>5200 K</dd>
+<dt>Pele</dt><dd>58 IRE</dd>
+<dt>Lente / distância</dt><dd>85 mm · 2.2 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> Fundo a 3 m e −3,4 stops: sem isso a sombra do rosto encosta numa parede visível e o efeito desmonta.</figcaption>
+</figure>
+<figure class="plot-card" id="setup-studio">
+<div class="plot-head">
+<div><span class="plot-name">Estúdio internet</span><span class="tag k">Gancho e prova</span></div>
+<span class="plot-ratio">2:1</span>
+</div>
+<p class="plot-use">O visual de canal de YouTube: contorno forte, fundo com profundidade e cor. Alta leitura no feed, boa para o gancho e para as seções de prova. É o setup que mais parece caro pelo que custa.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="82" x2="398" y2="82" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="82" x2="19" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="82" x2="32" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="82" x2="45" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="82" x2="58" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="82" x2="71" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="82" x2="84" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="82" x2="97" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="82" x2="110" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="82" x2="123" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="82" x2="136" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="82" x2="149" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="82" x2="162" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="82" x2="175" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="82" x2="188" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="82" x2="201" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="82" x2="214" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="82" x2="227" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="82" x2="240" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="82" x2="253" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="82" x2="266" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="82" x2="279" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="82" x2="292" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="82" x2="305" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="82" x2="318" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="82" x2="331" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="82" x2="344" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="82" x2="357" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="82" x2="370" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="82" x2="383" y2="75" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="70" class="ls">FUNDO · 2.4 m · −1.1 stop</text><line x1="178.9" y1="298.2" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 0 196.0 266.0" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="200.6" y="281.6" text-anchor="middle" class="ls" style="fill:var(--key)">28°</text><g transform="translate(178.9,298.2) rotate(-28.0)"><rect x="-17.6" y="-3.5" width="35.2" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-17.6" y1="4.5" x2="17.6" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="167.9" y="295.2" text-anchor="end" class="lb" style="fill:var(--key)">KEY</text><text x="167.9" y="306.2" text-anchor="end" class="ls">octabox 100</text><line x1="295.9" y1="294.7" x2="212.0" y2="236.0" stroke="var(--fill)" stroke-width="1" stroke-dasharray="3 3"/><g transform="translate(295.9,294.7) rotate(55.0)"><rect x="-10.6" y="-3.5" width="21.1" height="7.0" rx="1.5" fill="var(--fill)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-10.6" y1="4.5" x2="10.6" y2="4.5" stroke="var(--fill)" stroke-width="1.6" opacity=".55"/></g><text x="306.9" y="291.7" text-anchor="start" class="lb" style="fill:var(--fill)">FILL</text><text x="306.9" y="302.7" text-anchor="start" class="ls">painel LED difuso</text><line x1="265.5" y1="176.5" x2="212.0" y2="236.0" stroke="var(--plot-rim)" stroke-width="1" stroke-dasharray="2 3"/><g transform="translate(265.5,176.5) rotate(138.0)"><rect x="-21.1" y="-3.5" width="42.2" height="7.0" rx="1.5" fill="var(--plot-rim)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-21.1" y1="4.5" x2="21.1" y2="4.5" stroke="var(--plot-rim)" stroke-width="1.6" opacity=".55"/></g><text x="276.5" y="173.5" text-anchor="start" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="276.5" y="184.5" text-anchor="start" class="ls">tubo LED 3000 K</text><circle cx="142" cy="98" r="6" fill="var(--plot-bgl)"/><text x="153" y="102" class="ls" style="fill:var(--plot-bgl)">painel 7200 K + prática</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 364 L222 364 L212 351 Z" fill="var(--plot-line)"/><text x="227" y="368" class="lb">CÂMERA · 2.0 m · 50 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="212" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,212) rotate(-26)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">2.00 m · inclinação 26°</text><path d="M68.0 202 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="212.0" y1="336" x2="212.0" y2="209" stroke="var(--plot-line)" stroke-width="2"/><line x1="201.0" y1="336" x2="223.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(212.0,209) rotate(24)"><rect x="-3" y="-11" width="6" height="22" rx="2" fill="var(--plot-rim)"/></g><text x="280" y="26" text-anchor="end" class="lb" style="fill:var(--plot-rim)">RIM</text><text x="280" y="39" text-anchor="end" class="ls">2.05 m</text><line x1="266" y1="336" x2="266" y2="239" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="232" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="261" text-anchor="end" class="ls">câmera</text><text x="282" y="273" text-anchor="end" class="ls">1.56 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>octabox 100</dd>
+<dt>Azimute / altura</dt><dd>28° · 2.00 m</dd>
+<dt>Distância / inclin.</dt><dd>1.10 m · 26°</dd>
+<dt>Fill</dt><dd>painel LED difuso</dd>
+<dt>Rim</dt><dd>tubo LED 3000 K</dd>
+<dt>Fundo</dt><dd>2.4 m · −1.1 st</dd>
+<dt>Ratio alvo</dt><dd>2:1</dd>
+<dt>Temperatura</dt><dd>4600 K</dd>
+<dt>Pele</dt><dd>68 IRE</dd>
+<dt>Lente / distância</dt><dd>50 mm · 2.0 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> O fundo a apenas −1,1 stop é intencional: aqui o cenário trabalha. Mas nada no fundo pode ser mais saturado que o rosto.</figcaption>
+</figure>
+<figure class="plot-card" id="setup-janela">
+<div class="plot-head">
+<div><span class="plot-name">Janela + rebatedor</span><span class="tag k">Custo zero</span></div>
+<span class="plot-ratio">3:1</span>
+</div>
+<p class="plot-use">Sem equipamento nenhum. A janela é a key — enorme e suave. Um isopor branco do lado oposto fecha o ratio. Bate a maioria dos sets de três pontos mal balanceados.</p>
+<div class="plot-grid">
+<div class="plot-pane"><div class="plot-lab">Planta baixa · vista superior</div><svg viewBox="0 0 424 398" role="img" aria-label="Planta baixa do setup de luz"><rect width="424" height="398" fill="var(--plot-bg)" rx="4"/><circle cx="212.0" cy="236.0" r="64" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="183" class="ls">1 m</text><circle cx="212.0" cy="236.0" r="128" fill="none" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 4"/><text x="216" y="119" class="ls">2 m</text><line x1="212.0" y1="236.0" x2="212.0" y2="383" stroke="var(--plot-grid)" stroke-width="1"/><line x1="26" y1="108" x2="398" y2="108" stroke="var(--plot-line)" stroke-width="3"/><line x1="26" y1="108" x2="19" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="39" y1="108" x2="32" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="52" y1="108" x2="45" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="65" y1="108" x2="58" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="78" y1="108" x2="71" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="91" y1="108" x2="84" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="104" y1="108" x2="97" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="117" y1="108" x2="110" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="130" y1="108" x2="123" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="143" y1="108" x2="136" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="156" y1="108" x2="149" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="169" y1="108" x2="162" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="182" y1="108" x2="175" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="195" y1="108" x2="188" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="208" y1="108" x2="201" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="221" y1="108" x2="214" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="234" y1="108" x2="227" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="247" y1="108" x2="240" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="260" y1="108" x2="253" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="273" y1="108" x2="266" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="286" y1="108" x2="279" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="299" y1="108" x2="292" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="312" y1="108" x2="305" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="325" y1="108" x2="318" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="338" y1="108" x2="331" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="351" y1="108" x2="344" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="364" y1="108" x2="357" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="377" y1="108" x2="370" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><line x1="390" y1="108" x2="383" y2="101" stroke="var(--plot-line)" stroke-width="1" opacity=".5"/><text x="30" y="96" class="ls">FUNDO · 2.0 m · −1.8 stop</text><line x1="174.6" y1="283.9" x2="212.0" y2="236.0" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3"/><path d="M212.0 270.0 A34.0 34.0 0 0 0 191.1 262.8" fill="none" stroke="var(--key)" stroke-width="1.2"/><text x="196.7" y="280.4" text-anchor="middle" class="ls" style="fill:var(--key)">38°</text><g transform="translate(174.6,283.9) rotate(-38.0)"><rect x="-26.4" y="-3.5" width="52.8" height="7.0" rx="1.5" fill="var(--key)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-26.4" y1="4.5" x2="26.4" y2="4.5" stroke="var(--key)" stroke-width="1.6" opacity=".55"/></g><text x="163.6" y="280.9" text-anchor="end" class="lb" style="fill:var(--key)">KEY</text><text x="163.6" y="291.9" text-anchor="end" class="ls">janela ~150 cm</text><line x1="269.7" y1="276.4" x2="212.0" y2="236.0" stroke="var(--fill)" stroke-width="1" stroke-dasharray="3 3"/><g transform="translate(269.7,276.4) rotate(55.0)"><rect x="-17.6" y="-3.5" width="35.2" height="7.0" rx="1.5" fill="var(--fill)" stroke="var(--plot-line)" stroke-width="0.8"/><line x1="-17.6" y1="4.5" x2="17.6" y2="4.5" stroke="var(--fill)" stroke-width="1.6" opacity=".55"/></g><text x="280.7" y="273.4" text-anchor="start" class="lb" style="fill:var(--fill)">FILL</text><text x="280.7" y="284.4" text-anchor="start" class="ls">isopor 100×70</text><circle cx="212.0" cy="236.0" r="10" fill="var(--plot-sub)" stroke="var(--plot-line)" stroke-width="2"/><path d="M208 245 L212 251 L216 245 Z" fill="var(--plot-line)"/><text x="227" y="240" class="lb">SUJEITO</text><path d="M202 358 L222 358 L212 345 Z" fill="var(--plot-line)"/><text x="227" y="362" class="lb">CÂMERA · 1.9 m · 50 mm</text></svg></div>
+<div class="plot-pane"><div class="plot-lab">Corte lateral · alturas</div><svg viewBox="0 0 300 372" role="img" aria-label="Corte lateral com alturas das fontes"><rect width="300" height="372" fill="var(--plot-bg)" rx="4"/><line x1="18" y1="336.0" x2="284" y2="336.0" stroke="var(--plot-line)" stroke-width="2"/><line x1="18" y1="336.0" x2="12" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="29" y1="336.0" x2="23" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="40" y1="336.0" x2="34" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="51" y1="336.0" x2="45" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="62" y1="336.0" x2="56" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="73" y1="336.0" x2="67" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="84" y1="336.0" x2="78" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="95" y1="336.0" x2="89" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="106" y1="336.0" x2="100" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="117" y1="336.0" x2="111" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="128" y1="336.0" x2="122" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="139" y1="336.0" x2="133" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="150" y1="336.0" x2="144" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="161" y1="336.0" x2="155" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="172" y1="336.0" x2="166" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="183" y1="336.0" x2="177" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="194" y1="336.0" x2="188" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="205" y1="336.0" x2="199" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="216" y1="336.0" x2="210" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="227" y1="336.0" x2="221" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="238" y1="336.0" x2="232" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="249" y1="336.0" x2="243" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="260" y1="336.0" x2="254" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="271" y1="336.0" x2="265" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="282" y1="336.0" x2="276" y2="342.0" stroke="var(--plot-line)" stroke-width="1" opacity=".45"/><line x1="18" y1="274" x2="284" y2="274" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="270" class="ls">1,0 m</text><line x1="18" y1="212" x2="284" y2="212" stroke="var(--plot-grid)" stroke-width="1" stroke-dasharray="2 5"/><text x="20" y="208" class="ls">2,0 m</text><ellipse cx="140.0" cy="232" rx="13" ry="16" fill="var(--plot-sub2)"/><path d="M118.0 336 L124.0 256 Q140.0 247 156.0 256 L162.0 336 Z" fill="var(--plot-sub2)"/><circle cx="135.0" cy="240" r="2.4" fill="var(--key)"/><circle cx="145.0" cy="240" r="2.4" fill="var(--key)"/><line x1="18" y1="240" x2="284" y2="240" stroke="var(--key)" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/><text x="248" y="233" text-anchor="end" class="ls" style="fill:var(--key)">olhos · 1.55 m</text><line x1="62.0" y1="336" x2="62.0" y2="237" stroke="var(--plot-line)" stroke-width="2"/><line x1="51.0" y1="336" x2="73.0" y2="336" stroke="var(--plot-line)" stroke-width="3"/><g transform="translate(62.0,237) rotate(0)"><rect x="-4" y="-17" width="8" height="34" rx="2" fill="var(--key)"/></g><text x="20" y="26" class="lb" style="fill:var(--key)">KEY</text><text x="20" y="39" class="ls">1.60 m · inclinação 0°</text><path d="M68.0 227 L128.0 224 L128.0 252 Z" fill="var(--key)" opacity=".14"/><line x1="266" y1="336" x2="266" y2="240" stroke="var(--plot-line)" stroke-width="2"/><rect x="256" y="233" width="20" height="13" rx="2" fill="var(--plot-line)"/><text x="282" y="262" text-anchor="end" class="ls">câmera</text><text x="282" y="274" text-anchor="end" class="ls">1.55 m</text></svg></div>
+<div class="plot-spec">
+<dl class="dl">
+<dt>Key</dt><dd>janela ~150 cm</dd>
+<dt>Azimute / altura</dt><dd>38° · 1.60 m</dd>
+<dt>Distância / inclin.</dt><dd>0.95 m · 0°</dd>
+<dt>Fill</dt><dd>isopor 100×70</dd>
+<dt>Rim</dt><dd>—</dd>
+<dt>Fundo</dt><dd>2.0 m · −1.8 st</dd>
+<dt>Ratio alvo</dt><dd>3:1</dd>
+<dt>Temperatura</dt><dd>5600 K</dd>
+<dt>Pele</dt><dd>64 IRE</dd>
+<dt>Lente / distância</dt><dd>50 mm · 1.9 m</dd>
+</dl></div>
+</div>
+<figcaption class="plot-note"><b>No set:</b> Grave sempre no mesmo horário. A janela muda de intensidade e de temperatura ao longo do dia — é a única fonte deste setup que você não controla.</figcaption>
+</figure>
+  </div>
 
   <h3>Padrões de luz no rosto</h3>
   <div class="prose">
@@ -839,8 +991,8 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
   <h3>A escala de ratio, medida</h3>
   <p class="prose" style="margin-top:8px">Os cinco degraus abaixo são renderizados pelo motor com apenas uma variável mudando: o nível do fill. Tudo mais — key, fundo, exposição da pele — está travado.</p>
 
-  <div class="ladder mt-s" id="ladder"></div>
-  <figcaption style="max-width:70ch">Os números são <strong>medidos no próprio render</strong>, não rótulos escritos à mão — a única coisa que muda entre os cinco é o nível do fill. Repare no último degrau: com o fill totalmente desligado, esta key chega a ~10:1 e para. <strong>Existe um piso de ratio que o fill não controla</strong>, vindo da difusão da própria fonte e da luz de rebote do ambiente. Para passar disso é preciso endurecer e lateralizar a key, ou colocar bandeira negativa — e não continuar cortando um fill que já está em zero.</figcaption>
+  <figure class="mt-s"><div class="card pad" style="overflow-x:auto"><svg viewBox="0 0 792 300" role="img" aria-label="Escala de ratio de luz com os valores de IRE do lado iluminado e do lado sombra"><rect x="20.0" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="76.7" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="20.0" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="76.7" y1="26" x2="76.7" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="20.0" y="146" class="lb" style="fill:var(--ink)" font-size="14">1 : 1</text><text x="20.0" y="162" class="ls">0 stop</text><text x="20.0" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="20.0" y="198" class="ls" style="fill:var(--ink-2)">sombra 67 IRE</text><text x="20.0" y="220" class="ls">CTA ·</text><text x="20.0" y="233" class="ls">demonstração ·</text><text x="20.0" y="246" class="ls">garantia</text><text x="20.0" y="272" class="ls" style="fill:var(--ok)">legível sob sol</text><rect x="145.3" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="202.0" y="26" width="56.7" height="96" fill="#887A70"/><rect x="145.3" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="202.0" y1="26" x2="202.0" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="145.3" y="146" class="lb" style="fill:var(--key)" font-size="14">2 : 1</text><text x="145.3" y="162" class="ls">1 stop</text><text x="145.3" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="145.3" y="198" class="ls" style="fill:var(--ink-2)">sombra 49 IRE</text><text x="145.3" y="220" class="ls">Corpo do VSL · o</text><text x="145.3" y="233" class="ls">padrão</text><text x="145.3" y="272" class="ls" style="fill:var(--ok)">legível sob sol</text><rect x="270.7" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="327.3" y="26" width="56.7" height="96" fill="#71665D"/><rect x="270.7" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="327.3" y1="26" x2="327.3" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="270.7" y="146" class="lb" style="fill:var(--ink)" font-size="14">3 : 1</text><text x="270.7" y="162" class="ls">1,6 stop</text><text x="270.7" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="270.7" y="198" class="ls" style="fill:var(--ink-2)">sombra 41 IRE</text><text x="270.7" y="220" class="ls">Autoridade ·</text><text x="270.7" y="233" class="ls">entrevista ·</text><text x="270.7" y="246" class="ls">prova</text><text x="270.7" y="272" class="ls" style="fill:var(--ok)">legível sob sol</text><rect x="396.0" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="452.7" y="26" width="56.7" height="96" fill="#635952"/><rect x="396.0" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="452.7" y1="26" x2="452.7" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="396.0" y="146" class="lb" style="fill:var(--ink)" font-size="14">4 : 1</text><text x="396.0" y="162" class="ls">2 stops</text><text x="396.0" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="396.0" y="198" class="ls" style="fill:var(--ink-2)">sombra 36 IRE</text><text x="396.0" y="220" class="ls">Virada ·</text><text x="396.0" y="233" class="ls">mecanismo único</text><text x="396.0" y="272" class="ls" style="fill:var(--alert)">some sob sol</text><rect x="521.3" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="578.0" y="26" width="56.7" height="96" fill="#48413C"/><rect x="521.3" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="578.0" y1="26" x2="578.0" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="521.3" y="146" class="lb" style="fill:var(--ink)" font-size="14">8 : 1</text><text x="521.3" y="162" class="ls">3 stops</text><text x="521.3" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="521.3" y="198" class="ls" style="fill:var(--ink-2)">sombra 26 IRE</text><text x="521.3" y="220" class="ls">Dor · inimigo</text><text x="521.3" y="233" class="ls">comum</text><text x="521.3" y="272" class="ls" style="fill:var(--alert)">some sob sol</text><rect x="646.7" y="26" width="56.7" height="96" fill="#BAA89A"/><rect x="703.3" y="26" width="56.7" height="96" fill="#35302C"/><rect x="646.7" y="26" width="113.3" height="96" fill="none" stroke="var(--line-2)" stroke-width="1"/><line x1="703.3" y1="26" x2="703.3" y2="122" stroke="var(--plot-bg)" stroke-width="1" opacity=".5"/><text x="646.7" y="146" class="lb" style="fill:var(--ink)" font-size="14">16 : 1</text><text x="646.7" y="162" class="ls">4 stops</text><text x="646.7" y="184" class="ls" style="fill:var(--ink-2)">luz 67 IRE</text><text x="646.7" y="198" class="ls" style="fill:var(--ink-2)">sombra 19 IRE</text><text x="646.7" y="220" class="ls">Insert curto.</text><text x="646.7" y="233" class="ls">Nunca a peça</text><text x="646.7" y="246" class="ls">toda.</text><text x="646.7" y="272" class="ls" style="fill:var(--alert)">some sob sol</text><line x1="20" y1="286" x2="772" y2="286" stroke="var(--line)"/></svg></div></figure>
+  <figcaption style="max-width:72ch">As amostras são <strong>calculadas</strong>: fixada a bochecha iluminada em 67 IRE, o lado sombra é o que a matemática do ratio determina, com a codificação Rec.709. Repare na última linha — a partir de 4:1 a sombra cai abaixo de 40 IRE, que é o limite prático de leitura sob luz ambiente forte. <strong>É por isso que ratio alto e mobile brigam:</strong> não é questão de gosto, é a sombra deixando de existir na tela do espectador.</figcaption>
 
   <div class="tw mt">
     <table>
@@ -1257,6 +1409,135 @@ input[type=range].cool::-moz-range-thumb{background:var(--fill-bright)}
   </div>
 </section>
 
+<section id="ref" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">Método</span>
+    <h2>Como extrair a planta de luz de qualquer referência</h2>
+  </div>
+  <p class="lede">Referência visual útil não é uma imagem bonita salva numa pasta — é uma imagem <strong>desmontada</strong>. Um frame contém todas as informações necessárias para reconstruir o set que o produziu.</p>
+
+  <h3>Onde achar referências reais e atuais</h3>
+  <div class="prose">
+    <p>Fotografia de banco de imagem serve para estudar retrato. Para VSL, a fonte certa é <strong>o que está no ar agora, gastando dinheiro</strong> — porque um anúncio que roda há meses está rodando porque converte. Três bibliotecas públicas dão isso de graça:</p>
+  </div>
+  <div class="grid g3 mt-s">
+    <div class="card pad stack">
+      <span class="eyebrow">Fonte 01</span>
+      <b style="font-family:var(--f-display);font-size:16px">Meta Ad Library</b>
+      <p style="font-size:14.5px;color:var(--ink-2);margin:0">Todos os anúncios ativos de qualquer página, com data de início. Filtre por país e busque concorrentes diretos e infoprodutores do seu nicho.</p>
+      <p style="font-size:13px;color:var(--ink-3);margin:0;font-family:var(--f-mono)">facebook.com/ads/library</p>
+      <p style="font-size:13.5px;color:var(--ink-3);margin:0"><strong>O sinal:</strong> criativo no ar há mais de 60 dias. Esse é o vencedor deles.</p>
+    </div>
+    <div class="card pad stack">
+      <span class="eyebrow">Fonte 02</span>
+      <b style="font-family:var(--f-display);font-size:16px">TikTok Creative Center</b>
+      <p style="font-size:14.5px;color:var(--ink-2);margin:0">Top ads por setor, região e período, já ordenados por desempenho. Mostra também taxa de retenção por trecho em parte dos criativos.</p>
+      <p style="font-size:13px;color:var(--ink-3);margin:0;font-family:var(--f-mono)">ads.tiktok.com/business/creativecenter</p>
+      <p style="font-size:13.5px;color:var(--ink-3);margin:0"><strong>O sinal:</strong> repare em quantos são gravados com luz de janela.</p>
+    </div>
+    <div class="card pad stack">
+      <span class="eyebrow">Fonte 03</span>
+      <b style="font-family:var(--f-display);font-size:16px">Seu próprio funil</b>
+      <p style="font-size:14.5px;color:var(--ink-2);margin:0">A referência mais valiosa é o seu criativo que já converteu. Congele o frame do segundo 1 do melhor e do pior, e desmonte os dois lado a lado.</p>
+      <p style="font-size:13px;color:var(--ink-3);margin:0;font-family:var(--f-mono)">gerenciador de anúncios · vídeos salvos</p>
+      <p style="font-size:13.5px;color:var(--ink-3);margin:0"><strong>O sinal:</strong> a diferença entre eles é a sua hipótese de teste.</p>
+    </div>
+  </div>
+
+  <h3>O catchlight entrega o set inteiro</h3>
+  <div class="prose">
+    <p>O reflexo na córnea é uma fotografia da fonte de luz. <strong>Formato do catchlight = formato do modificador. Posição = azimute e elevação. Tamanho relativo = distância.</strong> Com uma lupa digital em cima do olho de qualquer referência, você reconstrói a key em trinta segundos.</p>
+  </div>
+
+  <figure class="mt-s">
+    <div class="card pad">
+      <svg viewBox="0 0 800 250" role="img" aria-label="Como ler o formato e a posição do catchlight para deduzir o modificador e a posição da fonte">
+        <g>
+          <g transform="translate(78,74)">
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="#F0E4D6"/>
+            <circle cx="0" cy="0" r="20" fill="#4A3520"/><circle cx="0" cy="0" r="9" fill="#140D06"/>
+            <rect x="-16" y="-17" width="13" height="13" fill="#FFFDF8"/>
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="var(--line-2)"/>
+            <text x="0" y="50" text-anchor="middle" class="lb">Quadrado</text>
+            <text x="0" y="65" text-anchor="middle" class="ls">softbox retangular</text>
+            <text x="0" y="79" text-anchor="middle" class="ls">alto e à esquerda</text>
+          </g>
+          <g transform="translate(238,74)">
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="#F0E4D6"/>
+            <circle cx="0" cy="0" r="20" fill="#4A3520"/><circle cx="0" cy="0" r="9" fill="#140D06"/>
+            <circle cx="-10" cy="-11" r="7.5" fill="#FFFDF8"/>
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="var(--line-2)"/>
+            <text x="0" y="50" text-anchor="middle" class="lb">Redondo</text>
+            <text x="0" y="65" text-anchor="middle" class="ls">octabox ou sombrinha</text>
+            <text x="0" y="79" text-anchor="middle" class="ls">o mais comum em VSL</text>
+          </g>
+          <g transform="translate(398,74)">
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="#F0E4D6"/>
+            <circle cx="0" cy="0" r="20" fill="#4A3520"/><circle cx="0" cy="0" r="9" fill="#140D06"/>
+            <rect x="-15" y="-15" width="6" height="28" rx="3" fill="#FFFDF8"/>
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="var(--line-2)"/>
+            <text x="0" y="50" text-anchor="middle" class="lb">Barra vertical</text>
+            <text x="0" y="65" text-anchor="middle" class="ls">strip box ou tubo LED</text>
+            <text x="0" y="79" text-anchor="middle" class="ls">quase na altura dos olhos</text>
+          </g>
+          <g transform="translate(558,74)">
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="#F0E4D6"/>
+            <circle cx="0" cy="0" r="20" fill="#4A3520"/><circle cx="0" cy="0" r="9" fill="#140D06"/>
+            <rect x="-18" y="-16" width="22" height="15" fill="#FFFDF8"/>
+            <rect x="-13" y="-16" width="2.4" height="15" fill="#8A7A66"/>
+            <rect x="-18" y="-9.5" width="22" height="2.2" fill="#8A7A66"/>
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="var(--line-2)"/>
+            <text x="0" y="50" text-anchor="middle" class="lb">Grade / caixilho</text>
+            <text x="0" y="65" text-anchor="middle" class="ls">janela — é luz natural</text>
+            <text x="0" y="79" text-anchor="middle" class="ls">a assinatura do custo zero</text>
+          </g>
+          <g transform="translate(718,74)">
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="#F0E4D6"/>
+            <circle cx="0" cy="0" r="20" fill="#4A3520"/><circle cx="0" cy="0" r="9" fill="#140D06"/>
+            <circle cx="0" cy="0" r="15.5" fill="none" stroke="#FFFDF8" stroke-width="4"/>
+            <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="var(--line-2)"/>
+            <text x="0" y="50" text-anchor="middle" class="lb">Anel</text>
+            <text x="0" y="65" text-anchor="middle" class="ls">ring light · no eixo</text>
+            <text x="0" y="79" text-anchor="middle" class="ls" style="fill:var(--alert)">chapa o rosto · evitar</text>
+          </g>
+        </g>
+        <line x1="20" y1="176" x2="780" y2="176" stroke="var(--line)"/>
+        <text x="20" y="198" class="ls" style="fill:var(--ink-2)">POSIÇÃO NO GLOBO → 10h ou 2h = key a 25–45° de azimute e 25–45° de elevação · centro alto = borboleta · quase no centro = fonte no eixo (ring)</text>
+        <text x="20" y="216" class="ls" style="fill:var(--ink-2)">TAMANHO RELATIVO → catchlight grande = fonte grande e perto (luz suave) · catchlight minúsculo e duro = fonte pequena ou distante (luz dura)</text>
+        <text x="20" y="234" class="ls" style="fill:var(--ink-2)">DOIS CATCHLIGHTS DO MESMO TAMANHO → dois modificadores concorrendo. Lê como erro. Um precisa ser claramente dominante.</text>
+      </svg>
+    </div>
+    <figcaption>Um catchlight com caixilho de janela é a prova de que o vídeo foi gravado com luz natural — informação útil quando um concorrente parece ter um estúdio caro e não tem.</figcaption>
+  </figure>
+
+  <h3>Protocolo de desmontagem — sete leituras, nesta ordem</h3>
+  <p class="prose" style="margin-top:8px">Pause a referência num frame frontal e limpo. Responda às sete perguntas. No fim você tem a planta.</p>
+
+  <div class="tw mt-s">
+    <table style="min-width:820px">
+      <caption>Cada leitura resolve um parâmetro da planta de luz. Vinte minutos por referência.</caption>
+      <thead><tr><th class="n">#</th><th>Onde olhar</th><th>O que procurar</th><th>O que fica resolvido</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>Catchlight</td><td>Formato e posição no globo ocular</td><td>Modificador, azimute e elevação da key</td></tr>
+        <tr><td class="n">2</td><td>Sombra do nariz</td><td>Para que lado aponta e até onde vai</td><td>Confirma o azimute e diz o padrão (loop, Rembrandt, split)</td></tr>
+        <tr><td class="n">3</td><td>Borda da sombra na bochecha</td><td>Transição curta e nítida ou longa e macia</td><td>Tamanho angular da fonte — logo, tamanho físico e distância</td></tr>
+        <tr><td class="n">4</td><td>As duas bochechas</td><td>Quanto o lado escuro é mais escuro</td><td>Ratio de luz. Some detalhe na sombra? Passou de 4:1.</td></tr>
+        <tr><td class="n">5</td><td>Sombra sob o queixo</td><td>Comprimento e dureza</td><td>Elevação da key e se existe rebatedor no colo</td></tr>
+        <tr><td class="n">6</td><td>Contorno do cabelo e do ombro</td><td>Existe uma linha de luz separando do fundo?</td><td>Presença, lado e intensidade do rim</td></tr>
+        <tr><td class="n">7</td><td>Fundo</td><td>Nitidez, queda de luz e sombra projetada</td><td>Distância sujeito–fundo e separação em stops</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note k mt">
+    <b>A pergunta que fecha a desmontagem:</b> depois de reconstruir a planta, pergunte por que <em>aquele</em> setup para <em>aquela</em> oferta. Um infoproduto de finanças em split lighting não está copiando um look — está tentando produzir tensão. Copiar a luz sem copiar a intenção é como copiar a headline sem a oferta.
+  </div>
+
+  <div class="note no mt-s">
+    <b>Uma ressalva sobre referência:</b> um anúncio no ar há muito tempo prova que o conjunto converte — não prova que a luz é o motivo. Oferta, copy, prova e público explicam a maior parte do resultado. Trate a referência como fonte de hipótese, e leve a hipótese para o protocolo de teste da seção seguinte.
+  </div>
+</section>
+
 <section id="teste" class="sec">
   <div class="sec-head">
     <span class="sec-num">Método</span>
@@ -1378,531 +1659,32 @@ ul.ck li b{font-family:var(--f-mono); font-size:13px; color:var(--ink); font-wei
 </div>
 </div>
 <script>
-(function(){
-"use strict";
-
-/* =========================================================================
-   1. GEOMETRIA — campo de altura da figura (cabeça, pescoço, ombros)
-   ========================================================================= */
-var HEAD_CY=-0.30, HEAD_RX=0.315, HEAD_RY=0.400;
-function g(x,y,cx,cy,sx,sy){var a=(x-cx)/sx,b=(y-cy)/sy;return Math.exp(-(a*a+b*b));}
-
-function heightAt(x,y){
-  var h=0,part=0;
-  var ty=(y-HEAD_CY)/HEAD_RY;
-  var rx=HEAD_RX*(1-0.22*Math.pow(Math.max(0,Math.min(1,ty)),1.6));
-  var t=1-(x/rx)*(x/rx)-ty*ty;
-  if(t>0){h=0.340*Math.sqrt(t);part=1;}
-  if(part===1){
-    h+=0.100*g(x,y,0,-0.220,0.070,0.130);      /* nariz */
-    h+=0.035*g(x,y,0,-0.375,0.200,0.045);      /* arcada */
-    h-=0.030*(g(x,y,0.115,-0.335,0.075,0.050)+g(x,y,-0.115,-0.335,0.075,0.050));
-    h+=0.025*(g(x,y,0.185,-0.190,0.100,0.090)+g(x,y,-0.185,-0.190,0.100,0.090));
-    h+=0.030*g(x,y,0,-0.085,0.100,0.045);      /* lábios */
-    h+=0.025*g(x,y,0,-0.005,0.110,0.060);      /* queixo */
-    return {h:h,part:1};
-  }
-  if(y>-0.075&&y<0.240&&Math.abs(x)<0.132){
-    var n=1-(x/0.132)*(x/0.132);
-    if(n>0)return {h:0.170*Math.sqrt(n),part:2};
-  }
-  var s=1-(x/0.780)*(x/0.780)-((y-0.980)/0.680)*((y-0.980)/0.680);
-  if(s>0&&y>0.150)return {h:0.200*Math.sqrt(s),part:3};
-  return {h:0,part:0};
-}
-
-var geoCache={};
-function geometry(W,H){
-  var k=W+"x"+H; if(geoCache[k])return geoCache[k];
-  var n=W*H, hf=new Float32Array(n), pt=new Uint8Array(n),
-      nx=new Float32Array(n), ny=new Float32Array(n), nz=new Float32Array(n),
-      hair=new Float32Array(n), sx=H*0.5, cx=W*0.5, cy=H*0.5, dn=2/H;
-  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
-    var x=(i-cx)/sx, y=(j-cy)/sx, r=heightAt(x,y), o=j*W+i;
-    hf[o]=r.h; pt[o]=r.part;
-    if(r.part===1){
-      var hl=-0.455+0.285*Math.min(1,(x/0.300)*(x/0.300));
-      hair[o]=Math.max(0,Math.min(1,(hl-y)*11));
-    }
-  }
-  for(var j2=0;j2<H;j2++)for(var i2=0;i2<W;i2++){
-    var o2=j2*W+i2,
-        l=hf[o2-(i2>0?1:0)], rr=hf[o2+(i2<W-1?1:0)],
-        u=hf[o2-(j2>0?W:0)], d=hf[o2+(j2<H-1?W:0)],
-        gx=(rr-l)/(2*dn), gy=(d-u)/(2*dn),
-        vx=-gx, vy=gy, vz=1, m=Math.sqrt(vx*vx+vy*vy+vz*vz);
-    nx[o2]=vx/m; ny[o2]=vy/m; nz[o2]=vz/m;
-  }
-  return geoCache[k]={W:W,H:H,hf:hf,pt:pt,nx:nx,ny:ny,nz:nz,hair:hair,sx:sx,cx:cx,cy:cy,dn:dn};
-}
-
-/* =========================================================================
-   2. COR — Kelvin -> RGB normalizado em luminância
-   ========================================================================= */
-function kelvin(K){
-  var t=K/100,r,g2,b;
-  if(t<=66){r=255;g2=99.4708*Math.log(t)-161.1196;b=t<=19?0:138.5177*Math.log(t-10)-305.0448;}
-  else{r=329.6987*Math.pow(t-60,-0.1332);g2=288.1222*Math.pow(t-60,-0.0755);b=255;}
-  r=Math.max(0,Math.min(255,r))/255;g2=Math.max(0,Math.min(255,g2))/255;b=Math.max(0,Math.min(255,b))/255;
-  var L=0.2126*r+0.7152*g2+0.0722*b;
-  return [r/L,g2/L,b/L];
-}
-
-/* =========================================================================
-   3. RENDER — lambert + wrap, 1/d², penumbra por tamanho angular, oclusão
-   ========================================================================= */
-function lightVec(azDeg,elDeg){
-  var a=azDeg*Math.PI/180,e=elDeg*Math.PI/180,ce=Math.cos(e);
-  return [-Math.sin(a)*ce, Math.sin(e), Math.cos(a)*ce];
-}
-
-function render(cv,P,measure){
-  var W=cv.width,H=cv.height,G=geometry(W,H),ctx=cv.getContext("2d"),
-      img=ctx.createImageData(W,H),data=img.data,n=W*H;
-  var side=P.az>=0?-1:1;
-
-  var kd=P.keyDist, kI=P.keyPow/(kd*kd), kL=lightVec(P.az,P.el),
-      kW=0.02+0.24*P.soft, kAng=Math.atan((P.srcSize/100)/(2*kd));
-  var fI=kI*P.fillRatio, fL=lightVec(-P.az,P.el), fW=kW;
-  var rI=kI*P.rim, rL=lightVec(side*138,32), rW=0.35;
-  var amb=kI*P.amb;
-
-  var kC=kelvin(P.keyK), fC=kelvin(P.fillK), rC=kelvin(P.rimK);
-
-  var lin=new Float32Array(n*3), lum=new Float32Array(n);
-  var kxy=Math.hypot(kL[0],-kL[1]), sxd=kxy>1e-4?kL[0]/kxy:0, syd=kxy>1e-4?-kL[1]/kxy:0,
-      rise=kxy>1e-4?kL[2]/kxy:1e9;
-  var STEPS=16, MAXD=0.42, SAMP=3;
-  var offs=[0,-kAng,kAng];
-
-  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
-    var o=j*W+i,p=G.pt[o],R=0,Gr=0,B=0;
-    var Nx=G.nx[o],Ny=G.ny[o],Nz=G.nz[o];
-
-    if(p===0){
-      var x0=(i-G.cx)/G.sx,y0=(j-G.cy)/G.sx;
-      var bg=0.45*kI*Math.pow(2,-P.bgStops)*(0.50+0.50*Math.exp(-(Math.pow(x0-side*0.42,2)+Math.pow(y0+0.30,2))/1.05));
-      var bc=kelvin(P.bgK);
-      R=bg*bc[0];Gr=bg*bc[1];B=bg*bc[2];
-    } else {
-      /* oclusão da key — média de 3 amostras na largura angular da fonte */
-      var sh=0;
-      if(kxy>1e-4){
-        for(var s=0;s<SAMP;s++){
-          var ao=offs[s],ca=Math.cos(ao),sa=Math.sin(ao),
-              dx=sxd*ca-syd*sa, dy=sxd*sa+syd*ca, hit=0;
-          for(var t2=1;t2<=STEPS;t2++){
-            var ss=MAXD*t2/STEPS,
-                si=Math.round(i+dx*ss*G.sx), sj=Math.round(j+dy*ss*G.sx);
-            if(si<0||si>=W||sj<0||sj>=H)break;
-            if(G.hf[sj*W+si]>G.hf[o]+ss*rise+0.006){hit=1;break;}
-          }
-          sh+=hit;
-        }
-        sh/=SAMP;
-      }
-      var shadow=1-sh*0.94;
-      var lk=Math.max(0,(Nx*kL[0]+Ny*kL[1]+Nz*kL[2]+kW)/(1+kW))*kI*shadow;
-      var lf=Math.max(0,(Nx*fL[0]+Ny*fL[1]+Nz*fL[2]+fW)/(1+fW))*fI;
-      var lr=Math.max(0,(Nx*rL[0]+Ny*rL[1]+Nz*rL[2]+rW)/(1+rW));
-      lr=Math.pow(lr,2.4)*rI*2.2;
-      var alb=p===3?0.105:(p===2?0.62:0.62-0.46*G.hair[o]);
-      R=(lk*kC[0]+lf*fC[0]+lr*rC[0]+amb)*alb;
-      Gr=(lk*kC[1]+lf*fC[1]+lr*rC[1]+amb)*alb;
-      B=(lk*kC[2]+lf*fC[2]+lr*rC[2]+amb)*alb;
-      if(p===1||p===2){R*=1.00;Gr*=0.80;B*=0.66;}          /* albedo de pele */
-      else if(p===3){R*=0.94;Gr*=0.96;B*=1.02;}            /* roupa neutra */
-    }
-    lin[o*3]=R;lin[o*3+1]=Gr;lin[o*3+2]=B;
-    lum[o]=0.2126*R+0.7152*Gr+0.0722*B;
-  }
-
-  /* medição em espaço linear */
-  function patch(px,py,r){
-    var acc=0,c=0,r2=r*r;
-    for(var j3=0;j3<H;j3++)for(var i3=0;i3<W;i3++){
-      var x=(i3-G.cx)/G.sx-px,y=(j3-G.cy)/G.sx-py,o3=j3*W+i3;
-      if(x*x+y*y<r2&&G.pt[o3]===1){acc+=lum[o3];c++;}
-    }
-    return c?acc/c:0;
-  }
-  function patchBG(px,py,r){
-    var acc=0,c=0,r2=r*r;
-    for(var jb=0;jb<H;jb++)for(var ib=0;ib<W;ib++){
-      var x=(ib-G.cx)/G.sx-px,y=(jb-G.cy)/G.sx-py,ob=jb*W+ib;
-      if(x*x+y*y<r2&&G.pt[ob]===0){acc+=lum[ob];c++;}
-    }
-    return c?acc/c:1e-9;
-  }
-  var litL=patch(side*0.222,-0.215,0.042),
-      shaL=patch(-side*0.222,-0.215,0.042),
-      bgL =patchBG(side*0.45,-0.32,0.10);
-
-  /* exposição: crava a bochecha iluminada no IRE alvo */
-  var target=Math.pow(P.targetIRE/100,2.2),
-      exp2=litL>1e-6?target/litL:1;
-
-  var sat=P.sat/100, ct=P.contrast;
-  for(var q=0;q<n;q++){
-    var r1=lin[q*3]*exp2,g1=lin[q*3+1]*exp2,b1=lin[q*3+2]*exp2;
-    r1=Math.pow(Math.max(0,Math.min(1,r1)),1/2.2);
-    g1=Math.pow(Math.max(0,Math.min(1,g1)),1/2.2);
-    b1=Math.pow(Math.max(0,Math.min(1,b1)),1/2.2);
-    var L2=0.2126*r1+0.7152*g1+0.0722*b1;
-    r1=L2+(r1-L2)*sat;g1=L2+(g1-L2)*sat;b1=L2+(b1-L2)*sat;
-    r1=(r1-0.5)*ct+0.5;g1=(g1-0.5)*ct+0.5;b1=(b1-0.5)*ct+0.5;
-    var o4=q*4;
-    data[o4]=Math.max(0,Math.min(255,r1*255));
-    data[o4+1]=Math.max(0,Math.min(255,g1*255));
-    data[o4+2]=Math.max(0,Math.min(255,b1*255));
-    data[o4+3]=255;
-  }
-  ctx.putImageData(img,0,0);
-
-  /* olhos e catchlight */
-  var catch_=P.el<=54;
-  ctx.save();
-  [-0.115,0.115].forEach(function(ex){
-    var px=G.cx+ex*G.sx, py=G.cy+(-0.335)*G.sx, rr=0.052*G.sx;
-    ctx.beginPath();ctx.ellipse(px,py,rr*1.28,rr*0.72,0,0,6.2832);
-    ctx.fillStyle="rgba(238,232,224,0.80)";ctx.fill();
-    ctx.beginPath();ctx.arc(px,py,rr*0.62,0,6.2832);
-    ctx.fillStyle="rgba(38,28,20,0.90)";ctx.fill();
-    ctx.beginPath();ctx.arc(px,py,rr*0.28,0,6.2832);
-    ctx.fillStyle="rgba(12,8,6,0.95)";ctx.fill();
-    if(catch_){
-      var cxo=side*-0.34*rr, cyo=-0.34*rr;
-      ctx.beginPath();ctx.arc(px+cxo,py+cyo,rr*0.24,0,6.2832);
-      ctx.fillStyle="rgba(255,252,246,0.96)";ctx.fill();
-    }
-    ctx.beginPath();ctx.ellipse(px,py-rr*0.70,rr*1.30,rr*0.34,0,0,6.2832);
-    ctx.fillStyle="rgba(26,18,12,0.42)";ctx.fill();
-  });
-  ctx.restore();
-
-  if(!measure)return null;
-  var ratio=shaL>1e-7?litL/shaL:99,
-      ire=function(L){return 100*Math.pow(Math.max(0,Math.min(1,L*exp2)),1/2.2);};
-  return {
-    ratio:ratio, stops:Math.log(ratio)/Math.LN2,
-    litIRE:ire(litL), shaIRE:ire(shaL),
-    sep:Math.log(Math.max(litL,1e-7)/Math.max(bgL,1e-9))/Math.LN2,
-    hasCatch:catch_
-  };
-}
-
-/* =========================================================================
-   4. MAPA DE ILUMINÂNCIA — planta superior com curvas de nível por stop
-   ========================================================================= */
-function lightPositions(P){
-  var side=P.az>=0?-1:1, a=P.az*Math.PI/180;
-  var key=[-Math.sin(a)*P.keyDist, -Math.cos(a)*P.keyDist];
-  var fa=-a, fd=P.keyDist*1.35;
-  var fill=[-Math.sin(fa)*fd, -Math.cos(fa)*fd];
-  var ra=(side*138)*Math.PI/180, rd=P.keyDist*1.15;
-  var rim=[-Math.sin(ra)*rd, -Math.cos(ra)*rd];
-  return {key:key,fill:fill,rim:rim,side:side,fd:fd,rd:rd};
-}
-
-function renderPlot(cv,P){
-  var W=cv.width,H=cv.height,ctx=cv.getContext("2d"),
-      SPAN=3.4, sc=W/(2*SPAN), cx=W/2, cy=H*0.46;
-  var L=lightPositions(P);
-  var srcs=[
-    {p:L.key, i:P.keyPow/(P.keyDist*P.keyDist)},
-    {p:L.fill,i:P.keyPow/(P.keyDist*P.keyDist)*P.fillRatio*(L.fd*L.fd)/(P.keyDist*P.keyDist)},
-    {p:L.rim, i:P.keyPow/(P.keyDist*P.keyDist)*P.rim*(L.rd*L.rd)/(P.keyDist*P.keyDist)}
-  ];
-  function E(x,z){
-    var e=0;
-    for(var k=0;k<srcs.length;k++){
-      var s=srcs[k],dx=x-s.p[0],dz=z-s.p[1],d2=dx*dx+dz*dz;
-      e+=s.i*(P.keyDist*P.keyDist)/Math.max(d2,0.04);
-    }
-    return e;
-  }
-  var E0=E(0,0);
-  var img=ctx.createImageData(W,H),d=img.data;
-  var stopBuf=new Float32Array(W*H);
-  for(var j=0;j<H;j++)for(var i=0;i<W;i++){
-    var x=(i-cx)/sc, z=-(j-cy)/sc, st=Math.log(Math.max(E(x,z),1e-6)/E0)/Math.LN2;
-    stopBuf[j*W+i]=st;
-    var u=Math.max(0,Math.min(1,(st+5.2)/8.2));
-    var r,g2,b;
-    if(u<0.42){var t=u/0.42;r=32+t*90;g2=36+t*54;b=48+t*8;}
-    else if(u<0.74){var t2=(u-0.42)/0.32;r=122+t2*102;g2=90+t2*76;b=56+t2*35;}
-    else{var t3=(u-0.74)/0.26;r=224+t3*31;g2=166+t3*77;b=91+t3*133;}
-    var o=(j*W+i)*4;d[o]=r;d[o+1]=g2;d[o+2]=b;d[o+3]=255;
-  }
-  /* curvas de nível a cada stop */
-  for(var j2=1;j2<H;j2++)for(var i2=1;i2<W;i2++){
-    var a1=Math.floor(stopBuf[j2*W+i2]);
-    if(a1!==Math.floor(stopBuf[j2*W+i2-1])||a1!==Math.floor(stopBuf[(j2-1)*W+i2])){
-      var o2=(j2*W+i2)*4;d[o2]=250;d[o2+1]=250;d[o2+2]=252;d[o2+3]=255;
-    }
-  }
-  ctx.putImageData(img,0,0);
-
-  ctx.save();
-  ctx.translate(cx,cy);
-  ctx.font="9px ui-monospace,Menlo,monospace";
-  ctx.strokeStyle="rgba(210,214,222,0.30)";ctx.lineWidth=1;
-  [1,2,3].forEach(function(r){
-    ctx.beginPath();ctx.arc(0,0,r*sc,0,6.2832);ctx.stroke();
-    ctx.fillStyle="rgba(214,218,226,0.55)";ctx.fillText(r+" m",4,-r*sc-3);
-  });
-  ctx.strokeStyle="rgba(210,214,222,0.22)";
-  [-60,-30,0,30,60].forEach(function(a){
-    var rad=a*Math.PI/180;
-    ctx.beginPath();ctx.moveTo(0,0);
-    ctx.lineTo(-Math.sin(rad)*3.3*sc,Math.cos(rad)*3.3*sc);ctx.stroke();
-  });
-  /* parede de fundo */
-  ctx.strokeStyle="rgba(180,186,196,0.65)";ctx.lineWidth=3;
-  ctx.beginPath();ctx.moveTo(-2.6*sc,-1.55*sc);ctx.lineTo(2.6*sc,-1.55*sc);ctx.stroke();
-  ctx.fillStyle="rgba(200,205,214,0.75)";ctx.fillText("FUNDO",-2.55*sc,-1.60*sc);
-
-  function mark(p,col,label,rad){
-    var X=p[0]*sc,Z=-p[1]*sc;
-    ctx.beginPath();ctx.arc(X,Z,rad,0,6.2832);
-    ctx.fillStyle=col;ctx.fill();
-    ctx.strokeStyle="rgba(12,14,18,0.85)";ctx.lineWidth=1.5;ctx.stroke();
-    ctx.fillStyle="rgba(244,246,250,0.95)";
-    ctx.fillText(label,X+rad+3,Z+3);
-    ctx.strokeStyle=col;ctx.lineWidth=1;ctx.setLineDash([3,3]);
-    ctx.beginPath();ctx.moveTo(X,Z);ctx.lineTo(0,0);ctx.stroke();ctx.setLineDash([]);
-  }
-  mark(L.key,"#F0A94E","KEY",7);
-  if(P.fillRatio>0.03)mark(L.fill,"#5FB4D4","FILL",6);
-  if(P.rim>0.03)mark(L.rim,"#DCE2EC","RIM",5.5);
-
-  /* câmera */
-  ctx.fillStyle="rgba(232,236,244,0.92)";
-  ctx.beginPath();
-  ctx.moveTo(-9,2.05*sc);ctx.lineTo(9,2.05*sc);ctx.lineTo(0,1.80*sc);ctx.closePath();
-  ctx.fill();
-  ctx.fillText("CÂMERA",12,2.08*sc);
-
-  /* sujeito */
-  ctx.beginPath();ctx.arc(0,0,9,0,6.2832);
-  ctx.fillStyle="#12141A";ctx.fill();
-  ctx.strokeStyle="#F4F6FA";ctx.lineWidth=2;ctx.stroke();
-  ctx.fillStyle="#F4F6FA";ctx.fillText("SUJEITO",13,4);
-  ctx.restore();
-}
-
-/* =========================================================================
-   5. SETUPS
-   ========================================================================= */
-var BASE={az:22,el:28,keyDist:1.2,keyPow:1,soft:0.55,srcSize:90,
-  fillRatio:0.5,fillAz:55,rim:0.5,amb:0.012,bgStops:1.5,
-  keyK:4300,fillK:4300,rimK:4600,bgK:4600,targetIRE:66,sat:100,contrast:1.0};
-
-var PRESETS=[
- {id:"autoridade",name:"Autoridade frontal",tag:"O padrão VSL",
-  use:"Corpo do argumento. Frontal o bastante para ler microexpressão, com desenho suficiente para não chapar.",
-  p:{az:20,el:26,keyDist:1.1,soft:0.62,srcSize:100,fillRatio:0.20,fillAz:52,rim:0.45,bgStops:1.5,keyK:4300,fillK:4300,bgK:4800,targetIRE:67,sat:102,contrast:1.02}},
- {id:"borboleta",name:"Borboleta / beleza",tag:"Clamshell",
-  use:"CTA, garantia, oferta. Máxima abertura facial e mínima sombra — lê como honestidade.",
-  p:{az:0,el:48,keyDist:1.0,soft:0.72,srcSize:120,fillRatio:0.62,fillAz:20,rim:0.40,bgStops:1.2,keyK:3900,fillK:3900,bgK:4200,targetIRE:70,sat:110,contrast:1.0}},
- {id:"rembrandt",name:"Rembrandt",tag:"Narrativa",
-  use:"Virada, mecanismo único, história de origem. O triângulo na bochecha aparece sozinho na geometria.",
-  p:{az:45,el:42,keyDist:1.5,soft:0.32,srcSize:60,fillRatio:0.06,fillAz:70,rim:0.65,bgStops:2.2,keyK:3600,fillK:4200,rimK:3200,bgK:5200,targetIRE:62,sat:92,contrast:1.10}},
- {id:"split",name:"Split",tag:"Dor · conflito",
-  use:"Seção de dor e inimigo comum. Use em trechos curtos — sustentado, destrói confiança.",
-  p:{az:82,el:14,keyDist:1.4,soft:0.20,srcSize:45,fillRatio:0.06,fillAz:80,rim:0.30,bgStops:3.4,keyK:5200,fillK:5600,rimK:6000,bgK:6800,targetIRE:58,sat:82,contrast:1.14}},
- {id:"studio",name:"Estúdio internet",tag:"YouTube",
-  use:"Gancho e prova. Rim quente forte + fundo com prática colorida: alto contorno, alta leitura no feed.",
-  p:{az:28,el:26,keyDist:1.1,soft:0.66,srcSize:110,fillRatio:0.24,fillAz:60,rim:1.05,bgStops:1.1,keyK:4600,fillK:4600,rimK:3000,bgK:7200,targetIRE:68,sat:116,contrast:1.06}},
- {id:"janela",name:"Janela + rebatedor",tag:"Custo zero",
-  use:"Setup sem equipamento. Janela grande como key, isopor branco do lado oposto como fill.",
-  p:{az:38,el:18,keyDist:0.95,soft:0.80,srcSize:150,fillRatio:0.16,fillAz:58,rim:0.10,bgStops:1.8,keyK:5600,fillK:5600,rimK:5600,bgK:5600,targetIRE:64,sat:98,contrast:1.03}}
-];
-function mk(p){var o={};for(var k in BASE)o[k]=BASE[k];for(var k2 in p)o[k2]=p[k2];return o;}
-
-/* =========================================================================
-   6. PAINEL INTERATIVO
-   ========================================================================= */
-var CTRLS=[
- {k:"az",       label:"Key · azimute",      min:0,max:90,step:1,   fmt:function(v){return v+"°";}},
- {k:"el",       label:"Key · elevação",     min:0,max:70,step:1,   fmt:function(v){return v+"°";}},
- {k:"keyDist",  label:"Key · distância",    min:0.7,max:3.5,step:0.05,fmt:function(v){return v.toFixed(2)+" m";}},
- {k:"srcSize",  label:"Tamanho da fonte",   min:25,max:180,step:5, fmt:function(v){return v+" cm";}},
- {k:"soft",     label:"Difusão",            min:0,max:0.9,step:0.02,fmt:function(v){return Math.round(v*111)+"%";}},
- {k:"fillRatio",label:"Fill",               min:0,max:1,step:0.02, cool:1,fmt:function(v){return v<0.03?"desligado":Math.round(v*100)+"%";}},
- {k:"rim",      label:"Rim / contraluz",    min:0,max:1.6,step:0.05,cool:1,fmt:function(v){return v<0.03?"desligado":Math.round(v*100)+"%";}},
- {k:"bgStops",  label:"Fundo abaixo da key",min:0,max:5,step:0.1,  cool:1,fmt:function(v){return "−"+v.toFixed(1)+" st";}},
- {k:"keyK",     label:"Temperatura da key", min:2600,max:7000,step:100,fmt:function(v){return v+" K";}},
- {k:"targetIRE",label:"Exposição da pele",  min:35,max:85,step:1,  fmt:function(v){return v+" IRE";}},
- {k:"sat",      label:"Saturação",          min:60,max:150,step:1, fmt:function(v){return v+"%";}},
- {k:"contrast", label:"Contraste",          min:0.8,max:1.35,step:0.01,fmt:function(v){return v.toFixed(2)+"×";}}
-];
-
-function patternOf(P){
-  var a=Math.abs(P.az),e=P.el;
-  if(P.fillRatio>0.68&&a<16&&e<40)return ["Chapado / frontal","Sem volume por escolha. Serve ao CTA e à demonstração, onde nada pode parecer escondido."];
-  if(a<13&&e>=38)return ["Borboleta (Paramount)","Sombra simétrica sob o nariz. Lisonjeiro e autoritário — o padrão de beleza e de âncora de TV."];
-  if(a<13)return ["Frontal baixo","Luz no eixo da lente. Máxima leitura, mínimo volume. Cuidado com sombra na parede."];
-  if(a<38&&e<46)return ["Loop","Sombra do nariz em vírgula, sem tocar a bochecha. O padrão de VSL: confiável e com desenho."];
-  if(a<58&&e>=30)return ["Rembrandt","Triângulo de luz na bochecha sombreada. Narrativo, sério, cinematográfico."];
-  if(a<58)return ["Rembrandt baixo","Triângulo alongado e sombra pesada sob a arcada. Tenso — use com intenção."];
-  if(a<74)return ["Meia-face","A transição corta perto do centro. Alta carga dramática, baixa confiança."];
-  return ["Split","Metade do rosto na luz, metade na sombra. Conflito puro. Trechos curtos apenas."];
-}
-
-var state=mk(PRESETS[0].p), face=document.getElementById("face"),
-    plot=document.getElementById("plot"), pending=0;
-
-function paint(){
-  pending=0;
-  var m=render(face,state,true);
-  renderPlot(plot,state);
-  var side=state.az>=0?"esquerda":"direita";
-  document.getElementById("roRatio").textContent=(m.ratio>40?"> 40":m.ratio.toFixed(1))+" : 1";
-  document.getElementById("roStops").textContent=(m.stops>5.3?"> 5,3":m.stops.toFixed(1).replace(".",","))+" stops";
-  document.getElementById("roLit").textContent=Math.round(m.litIRE)+" IRE";
-  document.getElementById("roSha").textContent=Math.round(m.shaIRE)+" IRE";
-  document.getElementById("roSep").textContent=m.sep.toFixed(1).replace(".",",")+" stops";
-  document.getElementById("roCatch").textContent=m.hasCatch?"presente":"ausente · baixe a key";
-  document.getElementById("lblExp").textContent="pele "+Math.round(m.litIRE)+" IRE · key à "+side;
-  var pt=patternOf(state);
-  document.getElementById("roPattern").textContent=pt[0];
-  document.getElementById("roUse").textContent=pt[1];
-  var lit=document.getElementById("roLit");
-  lit.style.color=(m.litIRE<45||m.litIRE>78)?"var(--alert)":"var(--ink)";
-  var sep=document.getElementById("roSep");
-  sep.style.color=(m.sep<0.8||m.sep>3.2)?"var(--alert)":"var(--ok)";
-}
-function schedule(){if(!pending){pending=1;requestAnimationFrame(paint);}}
-
-var box=document.getElementById("ctrls");
-CTRLS.forEach(function(c){
-  var w=document.createElement("div");w.className="ctrl";
-  var id="ct_"+c.k;
-  w.innerHTML='<div class="ctrl-top"><span>'+c.label+'</span><output id="o_'+c.k+'"></output></div>'+
-    '<input type="range" id="'+id+'" class="'+(c.cool?"cool":"")+'" min="'+c.min+'" max="'+c.max+
-    '" step="'+c.step+'" aria-label="'+c.label+'">';
-  box.appendChild(w);
-  var inp=w.querySelector("input"),out=w.querySelector("output");
-  inp.addEventListener("input",function(){
-    state[c.k]=parseFloat(inp.value);
-    if(c.k==="keyK"){state.fillK=state.keyK;}
-    out.textContent=c.fmt(state[c.k]);
-    document.querySelectorAll("#presets button").forEach(function(b){b.setAttribute("aria-pressed","false");});
-    schedule();
-  });
-  c._i=inp;c._o=out;
-});
-function sync(){CTRLS.forEach(function(c){c._i.value=state[c.k];c._o.textContent=c.fmt(state[c.k]);});}
-
-var pbox=document.getElementById("presets");
-PRESETS.forEach(function(ps,ix){
-  var b=document.createElement("button");
-  b.type="button";b.textContent=ps.name;b.setAttribute("aria-pressed",ix===0?"true":"false");
-  b.addEventListener("click",function(){
-    state=mk(ps.p);sync();
-    document.querySelectorAll("#presets button").forEach(function(x){x.setAttribute("aria-pressed","false");});
-    b.setAttribute("aria-pressed","true");schedule();
-    document.getElementById("lab").scrollIntoView({behavior:"smooth",block:"start"});
-  });
-  pbox.appendChild(b);
-});
-sync();paint();
-
-/* =========================================================================
-   7. GALERIA DE SETUPS
-   ========================================================================= */
-var gal=document.getElementById("gallery");
-PRESETS.forEach(function(ps){
-  var P=mk(ps.p);
-  var card=document.createElement("div");card.className="card";
-  card.innerHTML=
-   '<div style="padding:12px 14px 0"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">'+
-   '<b style="font-family:var(--f-display);font-size:16px;letter-spacing:-.01em">'+ps.name+'</b>'+
-   '<span class="tag k">'+ps.tag+'</span></div></div>'+
-   '<div style="padding:10px 14px 0"><div class="viewport" style="border-radius:4px"><canvas width="210" height="262"></canvas></div></div>'+
-   '<div style="padding:12px 14px 14px"><p style="font-size:14px;line-height:1.5;color:var(--ink-2);margin:0 0 10px">'+ps.use+'</p>'+
-   '<dl class="dl">'+
-   '<dt>Azimute / elev</dt><dd>'+P.az+'° / '+P.el+'°</dd>'+
-   '<dt>Distância</dt><dd>'+P.keyDist.toFixed(2)+' m</dd>'+
-   '<dt>Fonte</dt><dd>'+P.srcSize+' cm</dd>'+
-   '<dt>Fill</dt><dd>'+(P.fillRatio<0.03?"—":Math.round(P.fillRatio*100)+"%")+'</dd>'+
-   '<dt>Fundo</dt><dd>−'+P.bgStops.toFixed(1)+' st</dd>'+
-   '<dt>Temp key</dt><dd>'+P.keyK+' K</dd>'+
-   '<dt>Ratio medido</dt><dd id="gr_'+ps.id+'">—</dd>'+
-   '</dl>'+
-   '<button type="button" class="loadp" style="margin-top:12px;width:100%;font-family:var(--f-mono);font-size:10.5px;'+
-   'letter-spacing:.1em;text-transform:uppercase;padding:8px;border-radius:3px;cursor:pointer;'+
-   'border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink-2)">Carregar no laboratório</button></div>';
-  gal.appendChild(card);
-  var m=render(card.querySelector("canvas"),P,true);
-  card.querySelector("#gr_"+ps.id).textContent=(m.ratio>40?"> 40":m.ratio.toFixed(1))+" : 1";
-  card.querySelector(".loadp").addEventListener("click",function(){
-    state=mk(ps.p);sync();
-    document.querySelectorAll("#presets button").forEach(function(x){
-      x.setAttribute("aria-pressed",x.textContent===ps.name?"true":"false");});
-    paint();
-    document.getElementById("lab").scrollIntoView({behavior:"smooth",block:"start"});
-  });
-});
-
-/* =========================================================================
-   8. ESCADA DE CONTRASTE — só o fill varia
-   ========================================================================= */
-var RUNGS=[
-  {f:1.00,u:"CTA · demonstração · garantia"},
-  {f:0.33,u:"Corpo do VSL · padrão"},
-  {f:0.14,u:"Autoridade · entrevista"},
-  {f:0.05,u:"Virada · mecanismo único"},
-  {f:0.00,u:"Teto desta key · sem fill"}
-];
-var lad=document.getElementById("ladder");
-RUNGS.forEach(function(r,ix){
-  var d=document.createElement("div");d.className="rung"+(ix===1?" pick":"");
-  d.innerHTML='<div class="vp"><canvas width="168" height="210"></canvas></div>'+
-    '<div class="cap"><b class="rr">—</b><span class="rs">—</span><br>'+
-    (r.f>0?"fill "+Math.round(r.f*100)+"%":"fill desligado")+'<br>'+r.u+'</div>';
-  lad.appendChild(d);
-  var m=render(d.querySelector("canvas"),mk({az:34,el:34,keyDist:1.2,soft:0.50,srcSize:95,
-    fillRatio:r.f,rim:0,bgStops:1.8,targetIRE:66,sat:100,contrast:1.02}),true);
-  d.querySelector(".rr").textContent=m.ratio.toFixed(1).replace(".",",")+" : 1";
-  d.querySelector(".rs").textContent=m.stops.toFixed(1).replace(".",",")+" stops medidos";
-});
-
-/* =========================================================================
-   9. ESCALA DE PLANO
-   ========================================================================= */
+(function(){"use strict";
 var SH=[["Médio aberto",0.21],["Médio",0.30],["Médio fechado",0.42],["Close",0.56],["Close fechado",0.75]];
-var sg=document.getElementById("shots"),ns="http://www.w3.org/2000/svg",sx0=22;
-SH.forEach(function(s,i){
-  var x=sx0+i*156, fw=132, fh=150, hh=fh*s[1], hw=hh*0.74;
-  var eyeY=fh*0.36, cxx=x+fw/2, cyy=eyeY+hh*0.10;
-  var el=function(t,at){var e=document.createElementNS(ns,t);for(var k in at)e.setAttribute(k,at[k]);return e;};
+var sg=document.getElementById("shots"),ns="http://www.w3.org/2000/svg";
+function el(t,at){var e=document.createElementNS(ns,t);for(var k in at)e.setAttribute(k,at[k]);return e;}
+if(sg)SH.forEach(function(s,i){
+  var x=22+i*156, fw=132, fh=150, hh=fh*s[1], hw=hh*0.74,
+      eyeY=fh*0.36, cxx=x+fw/2, cyy=eyeY+hh*0.10;
   sg.appendChild(el("rect",{x:x,y:14,width:fw,height:fh,fill:"var(--sunk)",stroke:"var(--line-strong)"}));
-  var gg=el("g",{});
-  gg.appendChild(el("ellipse",{cx:cxx,cy:14+cyy,rx:hw/2,ry:hh/2,fill:"var(--ink-3)","fill-opacity":"0.5"}));
-  gg.appendChild(el("path",{d:"M"+(cxx-hw*1.25)+" "+(14+fh)+" L"+(cxx-hw*1.0)+" "+(14+cyy+hh*0.86)+
+  var g=el("g",{});
+  g.appendChild(el("ellipse",{cx:cxx,cy:14+cyy,rx:hw/2,ry:hh/2,fill:"var(--ink-3)","fill-opacity":"0.5"}));
+  g.appendChild(el("path",{d:"M"+(cxx-hw*1.25)+" "+(14+fh)+" L"+(cxx-hw*1.0)+" "+(14+cyy+hh*0.86)+
     " Q"+cxx+" "+(14+cyy+hh*0.60)+" "+(cxx+hw*1.0)+" "+(14+cyy+hh*0.86)+" L"+(cxx+hw*1.25)+" "+(14+fh)+" Z",
     fill:"var(--ink-3)","fill-opacity":"0.5"}));
-  gg.appendChild(el("circle",{cx:cxx-hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
-  gg.appendChild(el("circle",{cx:cxx+hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
-  sg.appendChild(gg);
-  var t1=el("text",{x:x,y:fh+32,"font-family":"ui-monospace,Menlo,monospace","font-size":"10",
-    "font-weight":"700",fill:"var(--ink)"});t1.textContent=s[0];sg.appendChild(t1);
-  var t2=el("text",{x:x,y:fh+46,"font-family":"ui-monospace,Menlo,monospace","font-size":"9.5",
-    fill:"var(--ink-3)"});t2.textContent=Math.round(s[1]*100)+"% do quadro";sg.appendChild(t2);
+  g.appendChild(el("circle",{cx:cxx-hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
+  g.appendChild(el("circle",{cx:cxx+hw*0.20,cy:14+cyy-hh*0.10,r:Math.max(1.8,hh*0.045),fill:"var(--key-bright)"}));
+  sg.appendChild(g);
+  var t1=el("text",{x:x,y:fh+32,"font-family":"ui-monospace,Menlo,monospace","font-size":"10","font-weight":"700",fill:"var(--ink)"});
+  t1.textContent=s[0];sg.appendChild(t1);
+  var t2=el("text",{x:x,y:fh+46,"font-family":"ui-monospace,Menlo,monospace","font-size":"9.5",fill:"var(--ink-3)"});
+  t2.textContent=Math.round(s[1]*100)+"% do quadro";sg.appendChild(t2);
 });
-
-/* =========================================================================
-   10. ÍNDICE ATIVO
-   ========================================================================= */
 var links=[].slice.call(document.querySelectorAll("#rail a")),
     secs=links.map(function(a){return document.getElementById(a.getAttribute("href").slice(1));});
-function spy(){
-  var y=window.scrollY+140,best=0;
-  secs.forEach(function(s,i){if(s&&s.offsetTop<=y)best=i;});
-  links.forEach(function(a,i){a.classList.toggle("on",i===best);});
-}
+function spy(){var y=window.scrollY+140,best=0;
+  secs.forEach(function(x,i){if(x&&x.offsetTop<=y)best=i;});
+  links.forEach(function(a,i){a.classList.toggle("on",i===best);});}
 window.addEventListener("scroll",spy,{passive:true});spy();
 })();
 </script>
