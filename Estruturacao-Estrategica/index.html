@@ -6582,7 +6582,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </div>
       </article>
 
-      <article class="ee-gallery__card">
+      <article class="ee-gallery__card" data-hide-for="inside-sales">
         <img src="assets/OPERACAOCOMER.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Operação Comercial</h3>
@@ -6598,7 +6598,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </div>
       </article>
 
-      <article class="ee-gallery__card">
+      <article class="ee-gallery__card" data-hide-for="inside-sales">
         <img src="assets/REGUAS CRM.png" alt="" class="ee-gallery__card-img"/>
         <div class="ee-gallery__card-info">
           <h3 class="ee-gallery__card-title">Réguas de CRM</h3>
@@ -6728,7 +6728,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           <p class="ee-roadmap__intro">Sprint calibrado pra <strong>venda consultiva B2B</strong>: funil, pipeline e times de pré-venda.</p>
           <div class="ee-roadmap__media">
             <div class="ee-roadmap__media-inner" data-week="3">
-              <img src="assets/Semana%203%20-%20Inside%20Sales.png" alt="Entregáveis da Semana 3 — Estrutura da Operação (Inside Sales)"/>
+              <img src="assets/Semana%203%20-%20Inside%20Sales.webp" alt="Entregáveis da Semana 3 — Estrutura da Operação (Inside Sales)"/>
             </div>
           </div>
         </div>
@@ -6868,8 +6868,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <li>Definição de métricas e critérios do funil.</li>
             <li>Pipeline comercial + réguas + script consultivo.</li>
             <li>Diagnóstico ou implementação de landing page.</li>
-            <li>Implementação ou otimização de CRM.</li>
-            <li>Scripts SDR AI-first (com fallback humano).</li>
             <li>Reunião de apresentação.</li>
           </ul>
         </div>
@@ -7760,36 +7758,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var gallery = document.querySelector('.ee-gallery');
     var rotator = document.getElementById('ee-gallery-rotator');
     if (!rotator || !gallery) return;
-    var cards = rotator.querySelectorAll('.ee-gallery__card');
-    if (!cards.length) return;
+    var allCards = Array.prototype.slice.call(rotator.querySelectorAll('.ee-gallery__card'));
+    if (!allCards.length) return;
 
+    var RADIUS = 600;               // distância dos cards ao centro do rotator
+    var dotsWrap = document.getElementById('ee-gallery-dots');
+
+    // Geometria recalculada a cada rebuild (o nº de cards varia por modelo de vendas)
+    var cards          = allCards;
     var ITEM_COUNT     = cards.length;
     var ANGLE_PER_ITEM = 360 / ITEM_COUNT;
-    var RADIUS         = 600;            // distância dos cards ao centro do rotator
+    var dots           = [];
+    var rotation       = 0;
+    var animating      = false;
 
-    // Distribui cada card ao redor do círculo (eixo Y)
-    cards.forEach(function (card, i) {
-      var angle = i * ANGLE_PER_ITEM;
-      card.style.transform = 'rotateY(' + angle + 'deg) translateZ(' + RADIUS + 'px)';
-    });
-
-    var rotation = 0;
-
-    // ── Dots de paginação (1 por card) ──
-    var dotsWrap = document.getElementById('ee-gallery-dots');
-    var dots = [];
-    if (dotsWrap) {
-      cards.forEach(function (card, i) {
-        var d = document.createElement('button');
-        d.type = 'button';
-        d.className = 'ee-gallery__dot';
-        d.setAttribute('role', 'tab');
-        d.setAttribute('aria-label', 'Ir para o card ' + (i + 1));
-        d.addEventListener('click', function () { goToIndex(i); });
-        dotsWrap.appendChild(d);
-        dots.push(d);
-      });
-    }
     function frontIndex() {
       var raw = Math.round(-rotation / ANGLE_PER_ITEM);
       return ((raw % ITEM_COUNT) + ITEM_COUNT) % ITEM_COUNT;
@@ -7820,17 +7802,55 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       updateDots();
     }
 
-    // Carrossel manual: gira SÓ ao clicar nas setas (sem auto-rotate, sem drag).
-    applyRotation(); // pinta o estado inicial uma vez
+    // Remonta o círculo com os cards válidos para o modelo de vendas atual.
+    // Cards com data-hide-for="<modelo>" saem do círculo e os restantes são
+    // redistribuídos em 360°, sem buracos. Os dots são recriados junto.
+    function rebuild(model) {
+      animating = false; // cancela qualquer animação em curso
+
+      cards = allCards.filter(function (card) {
+        var hideFor = card.getAttribute('data-hide-for');
+        var hidden  = !!model && hideFor === model;
+        card.style.display = hidden ? 'none' : '';
+        return !hidden;
+      });
+      if (!cards.length) return;
+
+      ITEM_COUNT     = cards.length;
+      ANGLE_PER_ITEM = 360 / ITEM_COUNT;
+
+      cards.forEach(function (card, i) {
+        card.style.transform = 'rotateY(' + (i * ANGLE_PER_ITEM) + 'deg) translateZ(' + RADIUS + 'px)';
+      });
+
+      // ── Dots de paginação (1 por card visível) ──
+      dots = [];
+      if (dotsWrap) {
+        dotsWrap.innerHTML = '';
+        cards.forEach(function (card, i) {
+          var d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'ee-gallery__dot';
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', 'Ir para o card ' + (i + 1));
+          d.addEventListener('click', function () { goToIndex(i); });
+          dotsWrap.appendChild(d);
+          dots.push(d);
+        });
+      }
+
+      rotation = 0;
+      applyRotation();
+    }
 
     // Anima a rotação até um alvo com easing (easeOutCubic), sem libs externas.
-    var animating = false;
     function animateTo(target, duration) {
       var startRot = rotation;
       var change   = target - startRot;
       var startTs  = null;
       animating = true;
       function step(ts) {
+        if (!animating) return;            // rebuild cancelou a animação
         if (startTs === null) startTs = ts;
         var t = Math.min(1, (ts - startTs) / duration);
         var eased = 1 - Math.pow(1 - t, 3);
@@ -7866,6 +7886,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var nextBtn = gallery.querySelector('.ee-gallery__nav--next');
     if (prevBtn) prevBtn.addEventListener('click', function () { rotateBy(+ANGLE_PER_ITEM); });
     if (nextBtn) nextBtn.addEventListener('click', function () { rotateBy(-ANGLE_PER_ITEM); });
+
+    // Carrossel manual: gira SÓ ao clicar nas setas (sem auto-rotate, sem drag).
+    rebuild((window.V4SalesModel && window.V4SalesModel.value) || null);
+
+    window.addEventListener('v4-sales-model-change', function (e) {
+      rebuild((e.detail && e.detail.value) || null);
+    });
   });
 
   // ── PRODUTO: zoom-in scroll-driven na imagem de fundo ──
@@ -8247,8 +8274,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
               'Definição de métricas e critérios do funil.',
               'Pipeline comercial + réguas + script consultivo.',
               'Diagnóstico ou implementação de landing page.',
-              'Implementação ou otimização de CRM.',
-              'Scripts SDR AI-first (com fallback humano).',
               'Reunião de apresentação.'
             ]
           },
@@ -9010,8 +9035,6 @@ document.addEventListener('DOMContentLoaded', function() {
       'Definição de métricas e critérios do funil.',
       'Pipeline comercial + réguas + script consultivo.',
       'Diagnóstico ou implementação de landing page.',
-      'Implementação ou otimização de CRM.',
-      'Scripts SDR AI-first (com fallback humano).',
       'Reunião de apresentação.'
     ]},
     'e-commerce': { title: 'Semana 03 — Estrutura da Operação · E-commerce / Vendas Online', items: [
