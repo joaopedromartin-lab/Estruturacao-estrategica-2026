@@ -1,0 +1,4157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="description" content="Estruturação Estratégica 2026 — V4 Company."/>
+<meta property="og:title" content="Estruturação Estratégica 2026"/>
+<meta property="og:description" content="Estruturação Estratégica 2026 — V4 Company."/>
+<meta name="theme-color" content="#560303"/>
+<title>Estruturação Estratégica 2026 — V4 Company</title>
+<link href="assets/v4-logo.svg" rel="icon" type="image/svg+xml"/>
+
+<!-- === SAME CSS ASSETS AS REFERENCE === -->
+<link href="assets/style_b805307881ca.css" id="wp-block-navigation-css" media="all" rel="stylesheet"/>
+<link href="assets/style-index_d2122a7a14b7.css" id="spicerack-block-select-content-loop-style-css" media="all" rel="stylesheet"/>
+<link href="assets/style_92c8a3b039be.css" id="wp-block-image-css" media="all" rel="stylesheet"/>
+<link href="assets/style_a405ed4bb8da.css" id="wp-block-gallery-css" media="all" rel="stylesheet"/>
+<link href="assets/spicerack-wp-front-style_1190ae6c40d2.css" id="spicerack-wp-front-style-css" media="all" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css"/>
+
+<!-- === SAME INLINE STYLES FROM REFERENCE (verbatim) === -->
+<style id="wp-block-group-inline-css">
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+</style>
+<style id="spicerack-core-wp-block-group-styles-inline-css">
+.wp-block-group{display:block}
+</style>
+
+<!-- GLOBAL STYLES (design tokens from reference) -->
+<style id="global-styles-inline-css">
+:root{--wp--preset--color--black: #050505;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #FFFFFF;--wp--preset--color--yellow: #FDFF87;--wp--preset--color--light-gray: #F2F2F2;--wp--preset--color--gray: #606060;--wp--preset--color--dark-gray: #1E2124;--wp--preset--color--black-70: #1c1c1cb3;--wp--preset--color--white-70: #ffffffb3;--wp--preset--gradient--black-radial-yellow: radial-gradient(circle at 100% 150%, rgba(253,255,135,1) 0%, rgba(5,5,5,1) 50%);--wp--preset--gradient--brand-primary: linear-gradient(135deg, #560303 0%, #7A0A02 40%, #FB2E0A 100%);--wp--preset--gradient--brand-subtle: linear-gradient(160deg, #560303 0%, #8B1205 50%, #C41E08 100%);--wp--preset--gradient--brand-radial: radial-gradient(ellipse at 20% 80%, #FB2E0A 0%, #7A0A02 40%, #560303 100%);--wp--preset--font-size--small: 12px;--wp--preset--font-size--medium: clamp(14px, 0.875rem + ((1vw - 5.8px) * 0.448), 20px);--wp--preset--font-size--large: clamp(22.041px, 1.378rem + ((1vw - 5.8px) * 1.042), 36px);--wp--preset--font-size--x-large: clamp(25.014px, 1.563rem + ((1vw - 5.8px) * 1.268), 42px);--wp--preset--font-size--h-1: clamp(2.7rem, 2.7rem + ((1vw - 0.363rem) * 5.359), 115px);--wp--preset--font-size--h-2: clamp(2.188rem, 2.188rem + ((1vw - 0.363rem) * 4.104), 90px);--wp--preset--font-size--h-3: clamp(1.75rem, 1.75rem + ((1vw - 0.363rem) * 2.687), 64px);--wp--preset--font-size--h-4: clamp(28px, 1.75rem + ((1vw - 5.8px) * 1.493), 48px);--wp--preset--font-size--h-5: clamp(26px, 1.625rem + ((1vw - 5.8px) * 0.448), 32px);--wp--preset--font-size--p-1: clamp(1.2rem, 1.2rem + ((1vw - 0.363rem) * 0.358), 24px);--wp--preset--font-size--p-2: clamp(1rem, 1rem + ((1vw - 0.363rem) * 0.374), 21px);--wp--preset--font-size--p-3: clamp(1rem, 1rem + ((1vw - 0.363rem) * 0.149), 18px);--wp--preset--font-size--p-4: clamp(0.875rem, 0.875rem + ((1vw - 0.363rem) * 0.149), 16px);--wp--preset--font-family--pp-telegraf: 'IBM Plex Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 24px;--wp--preset--spacing--40: clamp(0.75rem, 0.1549rem + 1.6418vw, 2.125rem);--wp--preset--spacing--50: clamp(1.625rem, 1.0299rem + 1.6418vw, 3rem);--wp--preset--spacing--60: clamp(2rem, 1.2425rem + 2.0896vw, 3.75rem);--wp--preset--spacing--70: clamp(3.125rem, 1.7724rem + 3.7313vw, 6.25rem);--wp--preset--spacing--80: clamp(4.375rem, 2.2108rem + 5.9701vw, 9.375rem);--wp--preset--spacing--90: clamp(5rem, 1.7537rem + 8.9552vw, 12.5rem);--wp--style--global--content-size: 1720px;--wp--style--global--wide-size: 1720px;}:where(body) { margin: 0; }.wp-site-blocks { padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom); }.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{background-color: var(--wp--preset--color--white);color: var(--wp--preset--color--black-70);font-family: var(--wp--preset--font-family--pp-telegraf);font-size: var(--wp--preset--font-size--p-1);font-style: normal;font-weight: 400;line-height: 1.4;--wp--style--root--padding-top: 0px;--wp--style--root--padding-right: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);--wp--style--root--padding-bottom: 0px;--wp--style--root--padding-left: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);}a:where(:not(.wp-element-button)){color: var(--wp--preset--color--gray);text-decoration: none;}h1, h2, h3, h4, h5, h6{color: var(--wp--preset--color--black);font-style: normal;font-weight: 400;line-height: 1.15;margin-bottom: 0.4em;letter-spacing: -0.02em;}h1{font-size: var(--wp--preset--font-size--h-1);font-weight: 400;line-height: 1;letter-spacing: -0.03em;margin-bottom: clamp(1.125rem, 0.4216rem + 1.9403vw, 2.75rem);}h2{font-size: var(--wp--preset--font-size--h-2);margin-bottom: 0.5em;}h3{font-size: var(--wp--preset--font-size--h-3);}h4{font-size: var(--wp--preset--font-size--h-4);}h5{font-size: var(--wp--preset--font-size--h-5);}h6{font-size: var(--wp--preset--font-size--p-4);font-weight: 600;text-transform: uppercase;letter-spacing: 0.04em;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #0E8420;border-radius: 9999px;border-width: 0;color: var(--wp--preset--color--white);text-align: center;font-family: inherit;font-size: var(--wp--preset--font-size--p-4);font-style: inherit;font-weight: 600;letter-spacing: 0.06em;line-height: inherit;padding-top: clamp(0.875rem, 0.5612rem + 0.8657vw, 1.7rem);padding-right: clamp(1.625rem, 1.0299rem + 1.6418vw, 3rem);padding-bottom: clamp(0.875rem, 0.5612rem + 0.8657vw, 1.6rem);padding-left: clamp(1.625rem, 1.0299rem + 1.6418vw, 3rem);text-decoration: none;text-transform: uppercase;}:root :where(.wp-element-button:hover, .wp-block-button__link:hover){background-color: #FF6200;color: var(--wp--preset--color--white);}:root :where(.wp-element-button:focus, .wp-block-button__link:focus){outline-color: #FF6200;outline-offset: 2px;outline-style: dotted;outline-width: 1px;}:root :where(.wp-element-button:active, .wp-block-button__link:active){background-color: #E55700;color: var(--wp--preset--color--white);}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-yellow-color{color: var(--wp--preset--color--yellow) !important;}.has-light-gray-color{color: var(--wp--preset--color--light-gray) !important;}.has-gray-color{color: var(--wp--preset--color--gray) !important;}.has-dark-gray-color{color: var(--wp--preset--color--dark-gray) !important;}.has-black-70-color{color: var(--wp--preset--color--black-70) !important;}.has-white-70-color{color: var(--wp--preset--color--white-70) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-yellow-background-color{background-color: var(--wp--preset--color--yellow) !important;}.has-light-gray-background-color{background-color: var(--wp--preset--color--light-gray) !important;}.has-gray-background-color{background-color: var(--wp--preset--color--gray) !important;}.has-dark-gray-background-color{background-color: var(--wp--preset--color--dark-gray) !important;}.has-black-70-background-color{background-color: var(--wp--preset--color--black-70) !important;}.has-white-70-background-color{background-color: var(--wp--preset--color--white-70) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-black-radial-yellow-gradient-background{background: var(--wp--preset--gradient--black-radial-yellow) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-h-1-font-size{font-size: var(--wp--preset--font-size--h-1) !important;}.has-h-2-font-size{font-size: var(--wp--preset--font-size--h-2) !important;}.has-h-3-font-size{font-size: var(--wp--preset--font-size--h-3) !important;}.has-h-4-font-size{font-size: var(--wp--preset--font-size--h-4) !important;}.has-h-5-font-size{font-size: var(--wp--preset--font-size--h-5) !important;}.has-p-1-font-size{font-size: var(--wp--preset--font-size--p-1) !important;}.has-p-2-font-size{font-size: var(--wp--preset--font-size--p-2) !important;}.has-p-3-font-size{font-size: var(--wp--preset--font-size--p-3) !important;}.has-p-4-font-size{font-size: var(--wp--preset--font-size--p-4) !important;}.has-pp-telegraf-font-family{font-family: 'IBM Plex Sans', sans-serif !important;}body{-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;letter-spacing: -0.01em;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:root :where(.wp-block-image img, .wp-block-image .wp-block-image__crop-area, .wp-block-image .components-placeholder){border-radius: 25px;}:root :where(p){margin-bottom: 1.2em;}
+:root :where(.wp-block-button.is-style-outline-large--3 .wp-block-button__link){background-color: transparent;border-radius: 25px;color: var(--wp--preset--color--dark-gray);font-size: var(--wp--preset--font-size--p-4);font-weight: 700;padding-top: var(--wp--preset--spacing--50);padding-bottom: var(--wp--preset--spacing--50);text-transform: uppercase;}
+:root :where(.wp-block-button.is-style-arrow--6 .wp-block-button__link){background-color: transparent;border-radius: 25px;color: var(--wp--preset--color--yellow);font-size: var(--wp--preset--font-size--p-4);font-weight: 700;padding-top: 0;padding-bottom: 0;padding-left: 0;text-transform: uppercase;}
+</style>
+
+<!-- BLOCK SUPPORT CLASSES -->
+<style id="core-block-supports-inline-css">
+.wp-container-core-group-is-layout-0dfbf163{flex-wrap:nowrap;justify-content:space-between;}
+.wp-container-core-column-is-layout-9dcafdb0 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:140px;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-columns-is-layout-9d6595d7{flex-wrap:nowrap;}
+.wp-container-content-9cfa9a5a{flex-grow:1;}
+.wp-container-core-group-is-layout-54c4a4a3 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1000px;margin-left:0 !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-72db4498 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1200px;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-76a81b31{flex-direction:column;align-items:flex-start;justify-content:center;}
+.wp-container-core-group-is-layout-88f98ed3 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1430px;margin-left:0 !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-c398a23e > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1200px;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-371bb381 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1000px;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-b2efbac8{grid-template-columns:repeat(2, minmax(0, 1fr));}
+.wp-container-core-group-is-layout-eb3e6886{grid-template-columns:repeat(4, minmax(0, 1fr));}
+.wp-container-content-ab356492{grid-column:span 3;grid-row:span 1;}
+.wp-container-core-group-is-layout-07b51d56 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){margin-right:0 !important;}
+.wp-container-core-group-is-layout-d9786264{flex-direction:column;align-items:stretch;justify-content:space-between;}
+.wp-container-core-group-is-layout-ad2f72ca{flex-wrap:nowrap;}
+.wp-elements-0e82c84bea804740f1bed6a7e5af9be4 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--black);}
+.wp-elements-c1c0a04b6b5a05fb8423b3695c1885d7 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--black);}
+.wp-elements-4fbb14df82d2034385cd6bece1e8c58e a:where(:not(.wp-element-button)){color:var(--wp--preset--color--dark-gray);}
+.wp-elements-34220f63e827e54b1f41af8d31838438 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--dark-gray);}
+.wp-elements-f1c470a54b547a1a51539cac186fa2e4 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-063ccdfb19b34999fe11a525722de979 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-c72879ba3440108999f3a6b14aaf62a2 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-c72879ba3440108999f3a6b14aaf62a2 a:where(:not(.wp-element-button)):hover{color:var(--wp--preset--color--yellow);}
+.wp-elements-0ffe665a8b37f9a1c9c74fc8b729f843 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-0ffe665a8b37f9a1c9c74fc8b729f843 a:where(:not(.wp-element-button)):hover{color:var(--wp--preset--color--yellow);}
+.wp-elements-d3f9cecf7e55a4b0a990339329c8a5cc a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-d3f9cecf7e55a4b0a990339329c8a5cc a:where(:not(.wp-element-button)):hover{color:var(--wp--preset--color--yellow);}
+.wp-elements-a01d33b614f447b92ef2c318ad4300d2 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+.wp-elements-c4ecc91c725c3f8d1df72cd4bae330f4 a:where(:not(.wp-element-button)){color:var(--wp--preset--color--white);}
+</style>
+
+<!-- FONTS: IBM Plex Sans via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+<!-- Morganite self-hosted (Google Fonts removeu do catálogo; servimos local) -->
+<style id="morganite-self-hosted">
+@font-face {
+  font-family: 'Morganite';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('assets/fonts/Morganite-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Morganite';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('assets/fonts/Morganite-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Morganite';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/Morganite-Bold.ttf') format('truetype');
+}
+</style>
+
+<!-- DESIGN SYSTEM SHOWCASE STYLES (minimal, for section nav + spec tables only) -->
+<style id="ds-showcase-styles">
+/* === LOGO MARQUEE === */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.ds-marquee {
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.ds-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+.ds-marquee:hover .ds-marquee__track {
+  animation-play-state: paused;
+}
+.ds-marquee__logos {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 5vw, 6rem);
+  padding-right: clamp(3rem, 5vw, 6rem);
+  flex-shrink: 0;
+}
+.ds-marquee__logos img {
+  height: 36px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+.ds-marquee:hover .ds-marquee__logos img {
+  opacity: 1;
+}
+
+/* === BRAND GRADIENT BACKGROUNDS === */
+:root {
+  --ds-gradient-dark: linear-gradient(135deg, #560303 0%, #7A0A02 40%, #FB2E0A 100%);
+  --ds-gradient-subtle: linear-gradient(160deg, #560303 0%, #8B1205 50%, #C41E08 100%);
+  --ds-gradient-radial: radial-gradient(ellipse at 20% 80%, #FB2E0A 0%, #7A0A02 40%, #560303 100%);
+  --ds-offwhite: #FAF9F7;
+  /* Tokens de espaçamento vertical pra padronização entre seções */
+  --ee-pad-y-default: clamp(48px, 7vh, 96px);
+  /* Respiro vertical CONSISTENTE entre as seções de conteúdo (ajuste aqui pra mudar tudo) */
+  --ee-section-y: 128px;
+  --ee-pad-x: clamp(1.5rem, -0.556rem + 5.6716vw, 6.25rem);
+  /* Largura máxima do conteúdo — reduzida pra centralizar melhor em telas compartilhadas */
+  --ee-max-width: 1440px;
+
+  /* ============================================================
+     ESCALA TIPOGRÁFICA — um degrau por papel.
+     Antes cada seção inventava o seu clamp (48/56/40 pro mesmo h2,
+     19/20/24 pro mesmo sub). Aqui existe UM valor por papel; se
+     precisar mudar o tamanho de todos os títulos, muda-se só aqui.
+     Razão ~1.25 (terça maior) entre degraus.
+     ============================================================ */
+  /* Display Morganite — números e palavras gigantes. 3 degraus, não 5. */
+  --ee-display-xl: clamp(120px, 16vw, 300px);  /* missão (o maior momento da página) */
+  --ee-display-lg: clamp(88px, 12vw, 216px);   /* hero, autoridade, ecossistema */
+  --ee-display-md: clamp(72px, 9vw, 156px);    /* método, big numbers */
+  /* Títulos de seção IBM Plex */
+  --ee-title: clamp(28px, 3.2vw, 52px);        /* h2 padrão de todas as seções */
+  --ee-title-sm: clamp(24px, 2.6vw, 40px);     /* h2 secundário (reconhecimento) */
+  /* Texto */
+  --ee-sub: clamp(16px, 1.4vw, 22px);          /* lead/subtítulo de seção */
+  --ee-body: clamp(15px, 1.2vw, 18px);         /* corpo */
+  --ee-body-sm: var(--ee-body-sm);     /* corpo pequeno / apoio */
+  --ee-label: var(--ee-label);       /* labels uppercase / meta */
+
+  /* Alturas de linha por papel — display aperta, texto respira */
+  --ee-lh-display: 0.86;
+  --ee-lh-title: 1.12;
+  --ee-lh-body: 1.55;
+  /* Tracking: negativo em display/título, neutro no corpo */
+  --ee-ls-display: -0.01em;
+  --ee-ls-title: -0.02em;
+
+  /* Raios — 3 degraus por elevação, em vez de 8 valores soltos */
+  --ee-radius-sm: 14px;   /* chips, pills, elementos pequenos */
+  --ee-radius-md: 20px;   /* cards e superfícies */
+  --ee-radius-lg: 28px;   /* superfícies grandes / destaque */
+  --ee-radius-pill: 9999px;
+
+  /* Degraus de espaçamento interno (múltiplos de 4) */
+  --ee-gap-sm: clamp(10px, 1vw, 16px);
+  --ee-gap-md: clamp(16px, 1.8vw, 28px);
+  --ee-gap-lg: clamp(28px, 3.2vw, 48px);
+  --ee-gap-xl: clamp(44px, 5.5vw, 80px);
+}
+.ds-bg-gradient {
+  background: var(--ds-gradient-dark) !important;
+}
+.ds-bg-gradient-subtle {
+  background: var(--ds-gradient-subtle) !important;
+}
+.ds-bg-gradient-radial {
+  background: var(--ds-gradient-radial) !important;
+}
+.ds-bg-offwhite {
+  background-color: var(--ds-offwhite) !important;
+}
+/* Gradient sections: force light text + borders */
+.ds-bg-gradient h1, .ds-bg-gradient h2, .ds-bg-gradient h3,
+.ds-bg-gradient h4, .ds-bg-gradient h5, .ds-bg-gradient h6,
+.ds-bg-gradient-subtle h1, .ds-bg-gradient-subtle h2, .ds-bg-gradient-subtle h3,
+.ds-bg-gradient-subtle h4, .ds-bg-gradient-subtle h5, .ds-bg-gradient-subtle h6,
+.ds-bg-gradient-radial h1, .ds-bg-gradient-radial h2, .ds-bg-gradient-radial h3,
+.ds-bg-gradient-radial h4, .ds-bg-gradient-radial h5, .ds-bg-gradient-radial h6 {
+  color: #FFFFFF !important;
+}
+.ds-bg-gradient p, .ds-bg-gradient .ds-section-label,
+.ds-bg-gradient .ds-type-name, .ds-bg-gradient .ds-type-spec,
+.ds-bg-gradient-subtle p, .ds-bg-gradient-subtle .ds-section-label,
+.ds-bg-gradient-subtle .ds-type-name, .ds-bg-gradient-subtle .ds-type-spec,
+.ds-bg-gradient-radial p, .ds-bg-gradient-radial .ds-section-label,
+.ds-bg-gradient-radial .ds-type-name, .ds-bg-gradient-radial .ds-type-spec {
+  color: rgba(255,255,255,0.75) !important;
+}
+.ds-bg-gradient .ds-type-row,
+.ds-bg-gradient-subtle .ds-type-row,
+.ds-bg-gradient-radial .ds-type-row {
+  border-bottom-color: rgba(255,255,255,0.12) !important;
+}
+</style>
+
+<!-- ============================================================ -->
+<!-- ESTRUTURAÇÃO ESTRATÉGICA — ESTILOS DA PÁGINA                 -->
+<!-- ============================================================ -->
+<style id="ee-page-styles">
+/* === RESPONSIVIDADE GERAL — COMPORTAMENTO DE SLIDE ===
+   Cada seção é EXATAMENTE 1 viewport (um slide). O conteúdo "in-flow" é envolvido
+   por .ee-slide__fit e escalado via JS (transform: scale) pra caber sem passar nem
+   sobrar — exatamente como um slide se adapta a qualquer tela.
+   Fundos absolutos (imagens full-bleed: mission/product) NÃO são escalados: ficam
+   no lugar e cobrem a seção. Limitado a >=901px; no mobile mantém o fluxo natural. */
+@media (min-width: 901px) {
+  /* === FLUXO NATURAL — cada seção do tamanho do seu conteúdo; respiro vertical ÚNICO entre TODAS.
+     Controle central: --ee-section-y (0 = coladas; qualquer valor = mesmo respiro em todas). === */
+  #top > section {
+    padding-top: var(--ee-section-y);
+    padding-bottom: var(--ee-section-y);
+  }
+  /* Hero: tela cheia (intro), com respiro próprio */
+  #top > #hero { padding-top: var(--ee-pad-y-default); padding-bottom: var(--ee-pad-y-default); }
+  /* Missão: única seção de tela cheia que restou — o momento de maior peso da página */
+  #top > #missao { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  /* Ecossistema: imagem full-bleed de tela cheia, colada (sem respiro) */
+  #top > #ecossistema { padding-top: 0; padding-bottom: 0; }
+  #ecossistema .ee-ecosystem__img {
+    width: 100%; height: 100vh; object-fit: contain; margin: 0; clip-path: none;
+  }
+  /* Cases: cards full-bleed 50/50 colados, sem respiro vertical e sem padding lateral */
+  #top > #cases { padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; }
+  #top > #cases .ee-cases__heading { padding-left: var(--ee-pad-x); padding-right: var(--ee-pad-x); }
+  /* Reconhecimento + clientes formam um bloco só (prova social): meio respiro entre eles,
+     pra não parecerem duas seções desconexas com o mesmo fundo branco. */
+  #top > #reconhecimento { padding-bottom: calc(var(--ee-section-y) / 2); }
+  #top > #clientes { padding-top: calc(var(--ee-section-y) / 2); }
+  /* Simulador fecha a página: respiro extra antes do footer */
+  #top > #simulador { padding-bottom: calc(var(--ee-section-y) * 1.15); }
+}
+
+/* === HERO === */
+.ee-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  overflow: hidden;
+  /* Fundo gradiente da marca — visível no estado de seleção (antes da imagem entrar) */
+  background: radial-gradient(125% 120% at 50% 24%, #8B1004 0%, #4A0202 44%, #1a0000 100%);
+}
+/* Wipe "minhoca" (mantido): cobre de baixo→topo e encolhe pro topo na transição. */
+.ee-hero__wipe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 6;
+  background: #120000;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* SELECT: prompt + seletor centralizados sobre o gradiente (inalterado) */
+.ee-hero__inner {
+  width: 100%;
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+.ee-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 48px);
+}
+.ee-hero .ee-model-selector {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.ee-hero__select-prompt {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(18px, 1.6vw, 26px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: -0.01em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.ee-hero__select-prompt strong { font-weight: 700; color: #FFFFFF; }
+
+.ee-hero[data-hero-state="select"] { min-height: 100vh; }
+.ee-hero[data-hero-state="select"] .ee-hero__inner {
+  justify-content: center;
+  align-items: center;
+}
+.ee-hero[data-hero-state="select"] .ee-hero__content {
+  align-items: center;
+  text-align: center;
+}
+
+/* === ESTADO WELCOME — split-screen: painel branco (esquerda) + imagem full-height (direita) === */
+.ee-hero__welcome {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  grid-template-columns: 1.05fr 1fr;
+}
+.ee-hero[data-hero-state="welcome"] .ee-hero__welcome { display: grid; }
+.ee-hero[data-hero-state="welcome"] .ee-hero__inner { display: none; }
+.ee-hero__panel {
+  position: relative;
+  background: #FFFFFF;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(56px, 7vw, 120px) clamp(36px, 4.5vw, 88px);
+}
+.ee-hero__photo {
+  position: relative;
+  overflow: hidden;
+  background: #C1130B;
+}
+.ee-hero__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* Anotações nos cantos do painel branco */
+.ee-hero__note {
+  position: absolute;
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 17px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  /* gradiente escuro → vermelho em TODO o texto da anotação */
+  background: linear-gradient(90deg, #280000 0%, #7A0A02 52%, #FB2E0A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ee-hero__note strong { font-weight: 700; }
+.ee-hero__note em { font-style: italic; font-weight: 600; }
+.ee-hero__note--tl { top: clamp(26px, 3.6vw, 52px); left: clamp(36px, 4.5vw, 88px); }
+.ee-hero__note--tr { top: clamp(26px, 3.6vw, 52px); right: clamp(28px, 3.4vw, 64px); }
+.ee-hero__note--bl { bottom: clamp(26px, 3.6vw, 52px); left: clamp(36px, 4.5vw, 88px); }
+.ee-hero__note--br { bottom: clamp(26px, 3.6vw, 52px); right: clamp(28px, 3.4vw, 64px); }
+/* Bloco de boas-vindas */
+.ee-hero__welcome-lead {
+  display: block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;            /* light */
+  font-size: clamp(26px, 3.2vw, 54px);
+  color: #280000;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  margin: 0 0 clamp(0px, 0.2vw, 4px);
+}
+.ee-hero__welcome-title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;            /* Bold = peso mais forte disponível (não há Black self-hosted) */
+  text-transform: uppercase;
+  font-size: var(--ee-display-lg);
+  line-height: 1;              /* caixa alta o suficiente p/ o gradiente (background-clip:text) cobrir o topo das maiúsculas */
+  letter-spacing: var(--ee-ls-display);
+  margin: -0.08em 0 0;         /* puxa pra cima → menos gap com o "Bem-Vindo à" (sem encostar) */
+  padding: 0.12em 0 0.04em;    /* respiro do topo (gradiente cobre as maiúsculas → não corta) */
+  /* gradiente escuro (esquerda) → vermelho (direita), como na referência */
+  background: linear-gradient(90deg, #160000 0%, #280000 24%, #9A1004 62%, #FB2E0A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+/* Seletor de modelo no painel welcome (abaixo do "V4 Company"): sempre visível
+   — não entra na animação de entrada do seletor do estado select — + espaçamento */
+.ee-hero__panel .ee-model-selector {
+  opacity: 1;
+  transform: none;
+  margin-top: clamp(22px, 3vh, 40px);
+}
+/* Mobile: empilha painel em cima, imagem embaixo */
+@media (max-width: 860px) {
+  .ee-hero__welcome { grid-template-columns: 1fr; grid-template-rows: auto 42vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-hero .ee-model-selector,
+  .ee-hero__select-prompt { opacity: 1; transform: none; }
+}
+
+/* Trava de scroll enquanto nenhum modelo de vendas foi escolhido */
+html.ee-scroll-lock,
+html.ee-scroll-lock body {
+  overflow: hidden;
+}
+
+/* === SALES MODEL SELECTOR === */
+.ee-model-selector {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+.ee-model-selector__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-width: clamp(320px, 36vw, 460px);
+  padding: 22px 32px;
+  background: linear-gradient(135deg, rgba(94, 5, 5, 0.82) 0%, rgba(139, 14, 5, 0.82) 50%, rgba(196, 30, 8, 0.82) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--ee-radius-pill);
+  color: #FFFFFF;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 28px rgba(251, 46, 10, 0.22);
+  transition:
+    background 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-model-selector__trigger:hover {
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 40px rgba(255, 98, 0, 0.35);
+  transform: translateY(-1px);
+}
+.ee-model-selector__trigger:active { transform: translateY(0); }
+.ee-model-selector__trigger:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+.ee-model-selector__label {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ee-model-selector__chevron {
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-model-selector[data-state="open"] .ee-model-selector__chevron {
+  transform: rotate(180deg);
+}
+.ee-model-selector__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: rgba(30, 5, 5, 0.94);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--ee-radius-md);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition:
+    opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 20;
+}
+.ee-model-selector[data-state="open"] .ee-model-selector__menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.ee-model-selector__menu li {
+  padding: 14px 26px;
+  border-radius: var(--ee-radius-pill);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+.ee-model-selector__menu li + li { margin-top: 2px; }
+.ee-model-selector__menu li:hover,
+.ee-model-selector__menu li:focus-visible {
+  background: rgba(255, 98, 0, 0.18);
+  color: #FFFFFF;
+  outline: none;
+}
+.ee-model-selector__menu li.is-selected {
+  background: rgba(251, 46, 10, 0.28);
+  color: #FFFFFF;
+}
+
+/* Sections that depend on a sales model selection start hidden */
+[data-depends-on-sales-model] { display: none; }
+body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
+
+/* === SEÇÃO AUTORIDADE === */
+.ee-auth {
+  background: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-auth__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 5vw, 80px);   /* coluna: texto | mapa */
+  row-gap: clamp(8px, 1.4vh, 22px);  /* linha menor: aproxima a faixa de big numbers do conteúdo */
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .ee-auth__inner {
+    grid-template-columns: 1fr 1fr; /* conteúdo | mapa */
+  }
+}
+/* Coluna de conteúdo (esquerda) */
+.ee-auth__main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vh, 36px);
+}
+.ee-auth__eyebrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: var(--ee-body);
+  color: #606060;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+/* Divisor + selos: imagem única (divisornumber.png) que você passou */
+.ee-auth__divider-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Mapa (direita) */
+.ee-auth__map { display: flex; justify-content: center; }
+.ee-auth__map-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+}
+
+/* Big numbers em uma única linha (4 colunas) no rodapé do conteúdo */
+.ee-auth__stats {
+  grid-column: 1 / -1;              /* faixa full-width abaixo da head + mapa */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;                          /* o respiro vem do padding + divisor */
+  align-items: stretch;
+  margin-top: 0;
+}
+.ee-auth__stat {
+  flex: 1 1 0;                     /* 4 colunas de largura igual ocupando a faixa toda */
+  min-width: 160px;               /* abaixo disso, quebra em 2 por linha (mobile) */
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6px, 1vw, 16px) clamp(20px, 2.4vw, 44px);
+}
+.ee-auth__stat:first-child { padding-left: 0; }
+/* Divisor vertical entre os big numbers */
+.ee-auth__stat + .ee-auth__stat {
+  border-left: 1px solid rgba(40, 0, 0, 0.18);
+}
+
+.ee-auth__stat-number {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: var(--ee-display-md);
+  line-height: var(--ee-lh-display);
+  letter-spacing: var(--ee-ls-display);
+  color: #E50914;
+  margin: 0 0 var(--ee-gap-sm);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums; /* dígitos com largura igual = sem "pulinho" durante count-up */
+}
+/* Estado inicial antes da animação dispara — evita flash do número final */
+.ee-auth__stat-number[data-counting="pending"] { opacity: 0; }
+.ee-auth__stat-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: var(--ee-body);
+  line-height: 1.4;
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.ee-auth__who-title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: var(--ee-display-lg);
+  line-height: var(--ee-lh-display);
+  letter-spacing: var(--ee-ls-display);
+  text-transform: uppercase;
+  margin: 0;
+  background: linear-gradient(160deg, #560303 0%, #8B1205 50%, #C41E08 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.ee-auth__who-title span { display: block; }
+.ee-auth__who-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(20px, 1.8vw, 32px);
+  line-height: 1.35;
+  color: #280000;
+  margin: clamp(-28px, -2vw, -12px) 0 0;
+  letter-spacing: -0.01em;
+}
+.ee-auth__who-sub strong { font-weight: 700; }
+
+/* Stack no mobile: divisores adaptados */
+@media (max-width: 600px) {
+  .ee-auth__stat-number { font-size: clamp(56px, 18vw, 88px); }
+}
+
+/* === SEÇÃO RECONHECIMENTO (texto esquerda + badges empilhados direita) === */
+.ee-recognition {
+  background: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  /* Aproxima da seção "Quem acredita na V4" logo abaixo (mesmo bloco de prova social) */
+  padding-bottom: var(--ee-gap-xl);
+}
+.ee-recognition__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .ee-recognition__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.ee-recognition__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-title-sm);
+  font-weight: 400;
+  color: #280000;
+  margin: 0;
+  letter-spacing: var(--ee-ls-title);
+  line-height: var(--ee-lh-title);
+  max-width: 22ch;
+}
+.ee-recognition__title strong {
+  font-weight: 700;
+  background: linear-gradient(90deg, #E50914 0%, #FF3D47 45%, #280000 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+/* Grade de badges: 2 colunas escalonadas (a 2ª desce um pouco), igual ao layout
+   de referência. Cards (Kommo/HubSpot/Google/Meta) + selos hexagonais (Tray/Facebook). */
+.ee-recognition__badges {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.8vw, 28px);
+  align-items: start;
+  justify-items: center;
+}
+.ee-recognition__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 2.6vw, 40px);
+  width: 100%;
+}
+/* Escalona a 2ª coluna pra baixo (efeito masonry da referência) */
+.ee-recognition__col--offset {
+  margin-top: clamp(26px, 4vw, 56px);
+}
+.ee-recognition__badge {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.14));
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              filter    0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* Selos hexagonais (sem moldura de card) — um pouco menores pra harmonizar */
+.ee-recognition__badge--hex {
+  max-width: 128px;
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.16));
+}
+.ee-recognition__badge:hover {
+  transform: translateY(-5px) scale(1.03);
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.24));
+}
+@media (max-width: 480px) {
+  .ee-recognition__badge { max-width: 168px; }
+  .ee-recognition__badge--hex { max-width: 112px; }
+}
+
+/* === SEÇÃO CLIENTES (marquee de logos, 2 linhas, direções opostas) === */
+.ee-clients {
+  background: #FFFFFF;
+  padding: var(--ee-pad-y-default) 0;
+  /* Aproxima da seção de reconhecimento (badges) logo acima */
+  padding-top: var(--ee-gap-xl);
+  overflow: hidden;
+}
+.ee-clients__title {
+  text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-title);
+  font-weight: 400;
+  color: #280000;
+  margin: 0 0 var(--ee-gap-xl);
+  padding: 0 var(--ee-pad-x);
+  letter-spacing: var(--ee-ls-title);
+  line-height: var(--ee-lh-title);
+}
+.ee-clients__title strong { font-weight: 700; color: #E50914; }
+.ee-clients__rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.6vh, 36px);
+}
+/* Velocidades ligeiramente diferentes pra dar sensação orgânica
+   (24 logos por linha → durações longas pra movimento ficar suave).
+   animation-delay NEGATIVO faz a track começar "já avançada" (no meio do ciclo),
+   evitando começar com o primeiro logo grudado na borda esquerda. */
+.ee-clients__row .ds-marquee__track {
+  animation-duration: 110s;
+  animation-delay: -55s; /* metade de 110s → começa no centro do ciclo */
+}
+.ee-clients__row--reverse .ds-marquee__track {
+  animation-duration: 130s;
+  animation-direction: reverse; /* keyframe marquee-scroll vai 0 → -50%; reverse inverte para mover à direita */
+  animation-delay: -80s; /* offset diferente da linha 2 → desalinha os logos entre as duas linhas */
+}
+/* Item de logo (img) — SLOT FIXO pra consistência (cada logo ocupa o mesmo espaço,
+   independente do aspect ratio original) */
+.ee-clients__logo {
+  flex-shrink: 0;
+  display: block;
+  width: clamp(120px, 12vw, 170px);
+  height: clamp(40px, 3.8vw, 56px);
+  object-fit: contain;
+  object-position: center;
+  /* Default: fundo branco da seção #clientes → tudo preto fade */
+  filter: brightness(0);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.ee-clients__logo:hover { opacity: 0.85; }
+
+/* Army BR e Bombeef — logos menores por natureza, precisam de slot maior pra ficar consistentes visualmente */
+.ee-clients__logo[src*="army br"],
+.ee-clients__logo[src*="bombeef"] {
+  width: clamp(160px, 16vw, 220px);
+  height: clamp(60px, 5.6vw, 80px);
+}
+
+/* === MARQUEE SEAMLESS LOOP ===
+   Override do keyframe original do brandbook (que vai 0 → -100% e tem "pulinho").
+   Como nossos tracks têm 2 cópias idênticas dos logos lado a lado, mover só -50%
+   coloca a segunda cópia exatamente onde a primeira estava → reset invisível. */
+@keyframes ee-marquee-seamless {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ee-clients__row .ds-marquee__track {
+  animation-name: ee-marquee-seamless;
+}
+
+/* === FAIXA DE AFILIAÇÃO (Grupo Dreamers + InfoMoney) ===
+   Vive DENTRO da seção "Quem acredita na V4" (#clientes), abaixo das 2 faixas de logo.
+   Sem fundo próprio (herda o branco da seção); só um gap das faixas acima. */
+.ee-affiliation {
+  margin-top: clamp(56px, 8vh, 110px);
+  padding: 0 var(--ee-pad-x); /* #clientes tem padding lateral 0 (marquees full-bleed) */
+}
+.ee-affiliation__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vh, 40px);
+  text-align: center;
+}
+.ee-affiliation__text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(16px, 1.6vw, 24px);
+  font-weight: 400;
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.ee-affiliation__text strong { font-weight: 700; }
+.ee-affiliation__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(32px, 6vw, 96px);
+}
+.ee-affiliation__logo {
+  height: clamp(34px, 3.6vw, 52px);
+  width: auto;
+  display: block;
+  /* Os SVGs originais são brancos (sumiam no fundo claro). Recolorimos pra escuro
+     via filtro — mesma técnica das logos de clientes acima (brightness(0)). */
+  filter: brightness(0);
+  opacity: 0.72;
+}
+/* O globo do Rock in Rio é mais "alto" que os logos de texto — equilibra visualmente */
+.ee-affiliation__logo--rockinrio { height: clamp(46px, 4.8vw, 68px); }
+
+/* === SEÇÃO CASES (fundo branco — card por modelo de vendas) === */
+.ee-cases {
+  background: #FFFFFF;
+  color: #280000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  position: relative;
+  overflow: hidden;
+}
+.ee-cases__inner {
+  max-width: none;
+  margin: 0;
+}
+.ee-cases__heading {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-title);
+  font-weight: 400;
+  color: #280000;
+  margin: 0 0 var(--ee-gap-xl);
+  letter-spacing: var(--ee-ls-title);
+  line-height: var(--ee-lh-title);
+  text-align: center;
+}
+.ee-cases__heading strong { font-weight: 700; color: #E50914; }
+
+/* Estado vazio (sem modelo selecionado) */
+.ee-cases__empty {
+  text-align: center;
+  padding: clamp(48px, 7vw, 90px);
+  border: 1px dashed rgba(40, 0, 0, 0.2);
+  border-radius: var(--ee-radius-md);
+  color: rgba(40, 0, 0, 0.6);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+.ee-cases__empty strong { color: #E50914; font-weight: 700; }
+.ee-cases[data-state="filled"] .ee-cases__empty { display: none; }
+.ee-cases[data-state="empty"]  .ee-cases__group { display: none; }
+
+/* Grupos por modelo — só o ativo aparece; 2 cards lado a lado, SEM gap */
+.ee-cases__group { display: none; }
+.ee-cases__group.is-active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  overflow: hidden;
+}
+@media (max-width: 720px) {
+  .ee-cases__group.is-active { grid-template-columns: 1fr; }
+}
+/* Card: imagem full-bleed + overlay preto suave; conteúdo ancorado embaixo */
+.ee-cases__card {
+  position: relative;
+  min-height: clamp(460px, 72vh, 740px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  background-color: #2A0101;
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+}
+.ee-cases__card--ph {
+  background-image: linear-gradient(160deg, #C41E08 0%, #7A0A02 55%, #2A0101 100%);
+}
+.ee-cases__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.66) 45%, rgba(0,0,0,0.46) 100%);
+}
+/* Tint uniforme: card começa "meio escuro" e ACENDE no hover (o tint some) */
+.ee-cases__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.52);
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+.ee-cases__card:hover::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ee-cases__card::after { transition: none; }
+}
+.ee-cases__card-body {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(24px, 2.6vw, 44px) clamp(24px, 2.6vw, 44px) clamp(48px, 6vw, 104px);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vh, 18px);
+}
+.ee-cases__brand {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.2vw, 16px);
+}
+.ee-cases__logo {
+  flex-shrink: 0;
+  width: clamp(48px, 3.8vw, 62px);
+  height: clamp(48px, 3.8vw, 62px);
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.1vw, 17px);
+  color: #280000;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+}
+/* logo inteira dentro do badge (sem cortar) */
+.ee-cases__logo img { width: 78%; height: 78%; object-fit: contain; }
+.ee-cases__name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 30px);
+  color: #FFFFFF;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+.ee-cases__brand-text { display: flex; flex-direction: column; gap: 2px; }
+.ee-cases__type {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.ee-cases__challenge {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-body-sm);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  line-height: 1.45;
+  max-width: 480px;
+  letter-spacing: -0.005em;
+}
+.ee-cases__nums {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: clamp(12px, 1.6vh, 18px) clamp(20px, 2.4vw, 38px);
+  margin-top: clamp(4px, 1vh, 10px);
+}
+.ee-cases__num { display: flex; flex-direction: column; gap: 4px; }
+.ee-cases__num-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-label);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.62);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ee-cases__num-val {
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+}
+/* antes (apagado / menor)  →  depois (destacado / maior) */
+.ee-cases__num-before {
+  font-size: clamp(13px, 1.2vw, 17px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: -0.01em;
+}
+.ee-cases__num-before::after {
+  content: "→";
+  margin: 0 0.42em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+.ee-cases__num-after {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+/* herói — o big number em destaque (linha inteira, bem maior) */
+.ee-cases__num--hero { flex-basis: 100%; gap: 5px; }
+.ee-cases__num--hero .ee-cases__num-after { font-size: clamp(34px, 4.2vw, 60px); }
+.ee-cases__num--hero .ee-cases__num-before { font-size: clamp(16px, 1.7vw, 24px); }
+.ee-cases__num-note {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-label);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0;
+}
+.ee-cases__quote {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--ee-body-sm);
+  color: rgba(255, 255, 255, 0.92);
+  margin: clamp(6px, 1.2vh, 12px) 0 0;
+  line-height: 1.4;
+  max-width: 480px;
+  padding-left: 13px;
+  border-left: 3px solid #FB2E0A;
+}
+
+/* Slider de cases dentro de cada grupo */
+.ee-cases__slider {
+  display: grid;
+  position: relative;
+  isolation: isolate;
+}
+.ee-cases__slide {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 72px);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 1;
+  transition:
+    opacity   0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0.45s;
+}
+@media (min-width: 900px) {
+  .ee-cases__slide { grid-template-columns: 0.9fr 1fr; } /* imagem | conteúdo */
+}
+.ee-cases__slide.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 2;
+  transition:
+    opacity   0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    visibility 0s linear 0s;
+}
+.ee-cases__content { display: flex; flex-direction: column; }
+.ee-cases__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 4.5vw, 72px);
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin: 0 0 clamp(20px, 2.4vw, 36px);
+}
+/* Eyebrow "CASES" — pequeno texto identificando a seção */
+.ee-cases__eyebrow {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 2.8vw, 44px);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1;
+  color: #FFFFFF;
+  margin: 0 0 clamp(20px, 2.5vw, 36px);
+}
+.ee-cases__brand-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 40px);
+  color: #280000;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.ee-cases__brand-type {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.1vw, 18px);
+  color: #707070;
+  margin: 6px 0 0;
+  letter-spacing: -0.005em;
+}
+/* Descrição do case (parágrafo abaixo do brand) */
+.ee-cases__brand-desc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(15px, 1.2vw, 19px);
+  font-weight: 400;
+  color: #444444;
+  margin: clamp(16px, 2vw, 28px) 0 0;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  max-width: 520px;
+}
+/* Nota auxiliar abaixo das métricas (ex: "Cadência de follow-up ativa.") */
+.ee-cases__metric-note {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 400;
+  color: #606060;
+  margin: clamp(16px, 2vh, 24px) 0 0;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+/* Mídia do case — imagem grande arredondada (coluna esquerda) */
+.ee-cases__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--ee-radius-lg);
+  overflow: hidden;
+  background: linear-gradient(180deg, #FF3B0F 0%, #C41E08 45%, #3A0000 100%);
+}
+.ee-cases__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ee-cases__media-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-body-sm);
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 24px;
+  letter-spacing: -0.005em;
+}
+
+/* Resultados (data points) — antes → depois, em linha */
+.ee-cases__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 4vw, 64px);
+  margin-top: clamp(28px, 4vh, 56px);
+}
+.ee-cases__metric-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-body-sm);
+  font-weight: 400;
+  color: #909090;
+  margin: 0 0 8px;
+  letter-spacing: 0.01em;
+}
+.ee-cases__metric-values {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.ee-cases__metric-before {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(18px, 1.8vw, 26px);
+  font-weight: 400;
+  color: #B5B5B5;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.ee-cases__metric-before::after {
+  content: "→";
+  margin-left: 10px;
+  color: #C8C8C8;
+}
+.ee-cases__metric-after {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(34px, 4vw, 60px);
+  font-weight: 700;
+  color: #E50914;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+/* Navegação ← → entre slides do grupo */
+.ee-cases__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(40px, 5vh, 72px);
+  position: relative;
+  z-index: 3;
+}
+.ee-cases__nav-btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(40, 0, 0, 0.25);
+  border-radius: 50%;
+  background: transparent;
+  color: #280000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    color 0.25s,
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ee-cases__nav-btn:hover {
+  background: rgba(229, 9, 20, 0.06);
+  border-color: rgba(229, 9, 20, 0.5);
+  color: #E50914;
+  transform: translateY(-1px);
+}
+.ee-cases__nav-btn:focus-visible {
+  outline: 2px solid rgba(229, 9, 20, 0.5);
+  outline-offset: 3px;
+}
+.ee-cases__nav-btn svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.ee-cases__nav-dots {
+  display: inline-flex;
+  gap: 6px;
+  margin: 0 16px;
+}
+.ee-cases__nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(40, 0, 0, 0.2);
+  transition: background 0.25s;
+}
+.ee-cases__nav-dot.is-active { background: #E50914; }
+
+/* === SEÇÃO ECOSSISTEMA (full-bleed image only) === */
+.ee-ecosystem {
+  position: relative;
+  display: block;
+  /* O PNG dos 5 personagens tem fundo transparente, então este gradiente aparece
+     atrás dele. Ele CONTINUA o radial da seção de Cases (mesma elipse/stops, só com
+     o centro deslocado pra -10%, deixando o brilho laranja no topo, casando com o
+     rodapé dos Cases) e TERMINA em #280000 (mesma cor do +30 soluções, logo abaixo). */
+  background:
+    radial-gradient(ellipse 130% 110% at 50% -10%,
+      #FB2E0A 0%,
+      #C41E08 28%,
+      #7A0A02 52%,
+      #3A0000 78%,
+      #280000 100%
+    );
+  line-height: 0; /* remove qualquer gap em torno da img */
+  font-size: 0;     /* mata whitespace inline residual */
+  margin: 0;
+  padding: 0;
+}
+.ee-ecosystem__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 -1px 0; /* puxa 1px pra cima e cobre qualquer rounding do navegador */
+  vertical-align: bottom; /* trava o baseline pra não criar gap */
+  clip-path: inset(0 0 4px 0); /* corta 4px da borda inferior (faixa escura/transparente do PNG) */
+}
+
+/* Gradiente à FRENTE do PNG: apaga a parte de baixo dos personagens, mesclando-os
+   com o fundo #280000 (mesma cor do +30 soluções). */
+.ee-ecosystem__fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 52%,
+    rgba(40, 0, 0, 0.45) 74%,
+    #280000 97%
+  );
+}
+
+/* Texto sobreposto: "Ecossistema" (Morganite) embaixo à esquerda + sub à direita */
+.ee-ecosystem__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding-bottom: clamp(36px, 6vh, 96px);
+}
+.ee-ecosystem__overlay-inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  padding: 0 var(--ee-pad-x);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 80px);
+}
+.ee-ecosystem__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--ee-display-lg);
+  line-height: var(--ee-lh-display);
+  letter-spacing: var(--ee-ls-display);
+  color: #FFFFFF;
+  margin: 0;
+}
+.ee-ecosystem__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: var(--ee-sub);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: right;
+  max-width: 420px;
+  margin: 0 0 clamp(8px, 1vh, 18px);
+}
+.ee-ecosystem__sub strong { font-weight: 700; color: #FFFFFF; }
+
+@media (max-width: 760px) {
+  .ee-ecosystem__overlay-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(8px, 2vw, 16px);
+  }
+  .ee-ecosystem__sub { text-align: left; max-width: 100%; }
+}
+
+/* === SEÇÃO ECOSSISTEMA-30 (+30 soluções digitais — texto + imagem) === */
+.ee-ecosystem30 {
+  position: relative;
+  background: #280000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+  overflow: hidden;
+}
+.ee-ecosystem30__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .ee-ecosystem30__inner { grid-template-columns: 1fr 1fr; }
+}
+.ee-ecosystem30__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+.ee-ecosystem30__number {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(96px, 13vw, 220px);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin: 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #FFB8AC 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ee-ecosystem30__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-title);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: var(--ee-gap-sm) 0 0;
+  letter-spacing: var(--ee-ls-title);
+  line-height: var(--ee-lh-title);
+}
+.ee-ecosystem30__title em {
+  font-style: normal;
+  color: #FB2E0A;
+}
+.ee-ecosystem30__body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-body);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: var(--ee-lh-body);
+  letter-spacing: -0.005em;
+  max-width: 460px;
+}
+.ee-ecosystem30__body + .ee-ecosystem30__body {
+  margin-top: clamp(8px, 1vh, 16px);
+}
+.ee-ecosystem30__media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ee-ecosystem30__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+}
+
+/* === SEÇÃO MISSÃO (full-bleed bg + conteúdo esquerda) === */
+.ee-mission {
+  position: relative;
+  width: 100%;
+  min-height: clamp(480px, 68vh, 760px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* vermelho no meio (atrás do VENDER) escurecendo até a base, terminando na MESMA
+     cor escura em que o método começa — sem pico de brilho na emenda (fluxo contínuo) */
+  background: linear-gradient(180deg, #FF3D0A 0%, #F0200C 52%, #D2120A 100%);
+}
+.ee-mission__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-mission__content {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;     /* centraliza o bloco (VENDER + pontos) na seção */
+  color: #FFFFFF;
+}
+/* VENDER à esquerda + os 4 pontos à direita (ao lado), centralizados na vertical */
+.ee-mission__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 120px);
+  flex-wrap: wrap;
+}
+.ee-mission__eyebrow {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(24px, 2vw, 36px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 clamp(10px, 1.2vw, 20px);
+  letter-spacing: -0.005em;
+}
+.ee-mission__eyebrow strong { font-weight: 700; }
+.ee-mission__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: var(--ee-display-xl);
+  line-height: var(--ee-lh-display);
+  letter-spacing: var(--ee-ls-display);
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;    /* mantém "VENDER" em uma linha */
+  flex: 0 0 auto;
+}
+.ee-mission__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vh, 32px);
+  flex: 0 1 auto;         /* largura pelo conteúdo (pra centralizar o bloco); quebra no mobile */
+}
+.ee-mission__list li {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(20px, 1.8vw, 32px);
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.ee-mission__num { font-weight: 700; }
+
+/* Mobile: conteúdo ocupa tudo */
+@media (max-width: 900px) {
+  .ee-mission { min-height: auto; }
+  .ee-mission__content { max-width: 100%; }
+}
+
+/* Estado inicial da animação GSAP — entram quando o GSAP rodar */
+.ee-mission__eyebrow,
+.ee-mission__list li {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.ee-mission__title {
+  opacity: 0;
+  transform: translateY(40px) scale(0.92);
+  transform-origin: left center;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-mission__eyebrow,
+  .ee-mission__list li,
+  .ee-mission__title {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* === SEÇÃO MÉTODO (header central + 4 cards didáticos) === */
+.ee-method {
+  background: #FFFFFF;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-method__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vh, 88px);
+}
+
+/* Header em 2 colunas: headline (esquerda) + sub (direita) */
+.ee-method__head {
+  text-align: left;
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(28px, 5vw, 88px);
+}
+@media (max-width: 860px) {
+  .ee-method__head { flex-direction: column; gap: clamp(16px, 3vh, 28px); }
+}
+.ee-method__title {
+  font-family: 'Morganite', 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: var(--ee-display-md);
+  line-height: var(--ee-lh-display);
+  letter-spacing: var(--ee-ls-display);
+  text-transform: uppercase;
+  margin: 0;
+  /* gradiente geral no "MÉTODO V4" (escuro → vermelho), legível no fundo branco */
+  background: linear-gradient(90deg, #280000 0%, #7A0A02 45%, #FB2E0A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ee-method__title strong { font-weight: 700; }
+.ee-method__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: var(--ee-sub);
+  line-height: var(--ee-lh-body);
+  color: rgba(40, 0, 0, 0.7);
+  margin: 0;
+  max-width: 760px;             /* sub mais esticada na coluna da direita */
+  letter-spacing: -0.005em;
+  flex: 0 1 760px;
+}
+@media (max-width: 860px) { .ee-method__sub { max-width: none; flex: 1 1 auto; } }
+.ee-method__sub strong { color: #280000; font-weight: 700; }
+
+/* Grid dos 4 pilares */
+.ee-method__pillars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 3vw, 56px);
+}
+@media (min-width: 680px)  { .ee-method__pillars { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ee-method__pillars { grid-template-columns: repeat(4, 1fr); } }
+
+/* Pilar: ícone (acima) + card */
+.ee-method__pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 1.4vw, 20px);
+}
+.ee-method__pillar-icon {
+  display: block;
+  width: clamp(44px, 3.6vw, 60px);
+  height: auto;
+}
+.ee-method__pillar-card {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 2.6vh, 36px);
+  padding: clamp(24px, 2.2vw, 38px) clamp(16px, 1.6vw, 26px);
+  background: rgba(40, 0, 0, 0.025);
+  border-radius: var(--ee-radius-md);
+  position: relative;
+}
+/* Traçado em gradiente brand (borda via máscara, sem fundo) */
+.ee-method__pillar-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(160deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.ee-method__pillar-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(19px, 1.6vw, 26px);
+  font-weight: 500;
+  color: #280000;
+  margin: 0;
+  text-align: center;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+/* Ferramentas — empilhadas, centralizadas */
+.ee-method__pillar-tools {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 2.4vh, 32px);
+}
+.ee-method__tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.ee-method__tool img,
+.ee-method__tool svg {
+  display: block;
+  width: clamp(34px, 3vw, 46px);
+  height: clamp(34px, 3vw, 46px);
+  object-fit: contain;
+}
+.ee-method__tool svg { color: #E50914; stroke-width: 1.75; }
+.ee-method__tool-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-body-sm);
+  font-weight: 500;
+  color: rgba(40, 0, 0, 0.8);
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+}
+/* Estado inicial pra animação GSAP em onda dos 4 pilares */
+.ee-method__pillar {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-method__pillar { opacity: 1; transform: none; }
+}
+
+
+/* === SLIDE-UP REVEAL DOS TÍTULOS (IntersectionObserver) === */
+.ee-anim-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.18s,
+    transform 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.18s;
+  will-change: opacity, transform;
+}
+.ee-anim-up.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ee-anim-up { opacity: 1; transform: none; transition: none; }
+}
+
+/* === GSAP CHARACTER REVEAL === */
+/* Estado inicial dos chars antes do GSAP animar */
+.ee-reveal-chars .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  will-change: opacity, transform;
+}
+/* Fallback caso o JS / Splitting falhem: sem .char gerado, mostra texto normal */
+.ee-reveal-chars:not([data-splitted]) { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .ee-reveal-chars .char { opacity: 1 !important; transform: none !important; }
+}
+
+
+
+/* === SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) ===
+   Fundo branco. 4 barras arrastáveis; tentar furar a ordem dispara um alerta. */
+.ee-sim {
+  background: #FFFFFF;
+  color: #280000;
+  padding: var(--ee-pad-y-default) var(--ee-pad-x);
+}
+.ee-sim__inner {
+  max-width: var(--ee-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+.ee-sim__head { max-width: 62ch; margin: 0 auto var(--ee-gap-lg); text-align: center; }
+.ee-sim__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-title);
+  font-weight: 400;
+  color: #280000;
+  margin: 0 0 var(--ee-gap-sm);
+  letter-spacing: var(--ee-ls-title);
+  line-height: var(--ee-lh-title);
+}
+.ee-sim__title strong { font-weight: 700; color: #FB2E0A; }
+.ee-sim__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--ee-sub);
+  font-weight: 400;
+  color: rgba(40, 0, 0, 0.62);
+  margin: 0;
+  line-height: var(--ee-lh-body);
+  letter-spacing: -0.005em;
+}
+.ee-sim__bars {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.6vh, 20px);
+}
+.ee-sim__bar {
+  display: grid;
+  grid-template-columns: clamp(56px, 6vw, 96px) 1fr;
+  gap: clamp(12px, 1.4vw, 20px);
+  align-items: stretch;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ee-sim__chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ee-radius-sm);
+  background: transparent;
+  color: #280000;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 34px);
+}
+/* Traçado (borda) em gradiente, sem fundo — máscara pra respeitar o border-radius */
+.ee-sim__chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #FB2E0A 0%, #C41E08 55%, #7A0A02 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.ee-sim__track {
+  position: relative;
+  border-radius: var(--ee-radius-sm);
+  overflow: hidden;
+  min-height: clamp(54px, 8vh, 88px);
+  /* track (parte vazia) em rosa claro sobre o fundo branco */
+  background: linear-gradient(90deg, #F3D9D3 0%, #EBC8BF 100%);
+  /* stroke sutil escuro pra definir a barra no branco */
+  border: 1px solid rgba(40, 0, 0, 0.12);
+  /* sombra suave (vermelho discreto) pra dar profundidade no branco */
+  box-shadow: 0 6px 18px rgba(196, 30, 8, 0.12);
+}
+.ee-sim__fill {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: var(--start, 50%);
+  background: linear-gradient(90deg, #FF3B0F 0%, #C41E08 60%, #7A0A02 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  touch-action: none; /* nós controlamos o arrasto horizontal do nível */
+}
+.ee-sim__fill.is-dragging { filter: brightness(1.06); }
+/* "Pega" (grip) na borda esquerda do preenchimento — sinaliza que dá pra arrastar */
+.ee-sim__fill::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 38%;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
+}
+.ee-sim__label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 34px);
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.ee-sim__alert {
+  margin: var(--ee-gap-md) 0 0;
+  min-height: 1.6em;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: var(--ee-body);
+  color: #FB2E0A;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.ee-sim__alert.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Frase-gancho: transição pro próximo bloco (Estruturação Estratégica) */
+.ee-sim__hook {
+  margin: clamp(20px, 3vh, 40px) 0 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(20px, 2.2vw, 34px);
+  font-weight: 400;
+  color: #280000;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  text-align: center;
+}
+.ee-sim__hook strong { font-weight: 700; }
+.ee-sim__hook-dots { color: #FB2E0A; font-weight: 700; }
+
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+  .ee-hero { min-height: auto; padding-top: 120px; padding-bottom: 96px; }
+  .ee-hero__visual { aspect-ratio: 1; max-width: 380px; }
+  .ee-hero__logo { width: 30%; }
+}
+@media (max-width: 600px) {
+  .ee-model-selector__trigger { min-width: 0; width: 100%; }
+}
+
+/* ===== FASES DO PROJETO (velocímetro / carrossel) ===== */
+.ee-phases { background: #FFFFFF; padding: var(--ee-pad-y-default) var(--ee-pad-x); }
+.ee-phases__inner {
+  max-width: var(--ee-max-width); width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr; gap: var(--ee-gap-xl); align-items: center;
+}
+@media (min-width: 920px) { .ee-phases__inner { grid-template-columns: 1fr 1fr; } }
+.ee-phases__title {
+  font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; text-transform: none;
+  font-size: var(--ee-title); line-height: var(--ee-lh-title); letter-spacing: var(--ee-ls-title);
+  color: #280000; margin: 0 0 var(--ee-gap-lg);
+}
+.ee-phases__bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(14px, 2vh, 22px); }
+.ee-phases__bullets li {
+  position: relative; padding-left: 22px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 500; color: #280000; letter-spacing: -0.01em;
+}
+.ee-phases__bullets li::before {
+  content: ""; position: absolute; left: 0; top: 0.5em;
+  width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #FB2E0A, #C41E08);
+}
+.ee-phases__carousel { position: relative; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; column-gap: clamp(6px,1vw,14px); row-gap: 16px; }
+.ee-phases__card {
+  grid-column: 2; grid-row: 1; text-align: center;
+  border: 2px solid transparent; border-radius: var(--ee-radius-md);
+  /* fundo claro no padding-box + stroke de gradiente brand no border-box */
+  background:
+    linear-gradient(#F6F3F1, #F6F3F1) padding-box,
+    linear-gradient(135deg, #FB2E0A 0%, #C41E08 50%, #7A0A02 100%) border-box;
+  padding: clamp(24px,3vw,40px) clamp(20px,3vw,44px) clamp(26px,3.2vw,42px);
+}
+.ee-phases__gauge { position: relative; width: 100%; max-width: clamp(240px,26vw,330px); margin: 0 auto clamp(8px,1.2vw,16px); }
+.ee-phases__dial { display: block; width: 100%; height: auto; overflow: visible; }
+.ee-phases__needle { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.ee-phases__logo { position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%); width: 15.5%; height: auto; pointer-events: none; }
+.ee-phases__step { font-family: 'IBM Plex Sans', sans-serif; font-size: var(--ee-label); font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #C41E08; margin: 0 0 4px; }
+.ee-phases__name { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(26px,3vw,40px); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #280000; margin: 0 0 clamp(8px,1vw,12px); line-height: 1; }
+.ee-phases__metrics { font-family: 'IBM Plex Sans', sans-serif; font-size: var(--ee-label); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(40,0,0,0.45); margin: 0 0 clamp(10px,1.2vw,14px); min-height: 1.2em; }
+.ee-phases__desc { font-family: 'IBM Plex Sans', sans-serif; font-size: var(--ee-body-sm); font-weight: 400; line-height: 1.5; color: rgba(40,0,0,0.7); margin: 0 auto; max-width: 44ch; min-height: 8em; }
+.ee-phases__nav { grid-row: 1; width: clamp(38px,3vw,46px); height: clamp(38px,3vw,46px); border-radius: 50%; border: 1px solid rgba(40,0,0,0.16); background: #FFFFFF; color: #280000; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; }
+.ee-phases__nav:hover { background: #C41E08; border-color: #C41E08; color: #FFFFFF; transform: scale(1.06); }
+.ee-phases__nav--prev { grid-column: 1; }
+.ee-phases__nav--next { grid-column: 3; }
+.ee-phases__nav svg { width: 20px; height: 20px; }
+.ee-phases__dots { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: 8px; }
+.ee-phases__dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: rgba(40,0,0,0.18); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.ee-phases__dot.is-active { background: #FB2E0A; transform: scale(1.25); }
+/* Foco de teclado — mesmo tratamento dos outros controles da página */
+.ee-phases__nav:focus-visible,
+.ee-phases__dot:focus-visible {
+  outline: 2px solid rgba(229, 9, 20, 0.5);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) { .ee-phases__needle, .ee-phases__nav, .ee-phases__dot { transition: none; } }
+@media (max-width: 919px) { .ee-phases__title { text-align: center; } .ee-phases__bullets { align-items: flex-start; max-width: 420px; margin: 0 auto; } }
+/* Animações da seção Fases: entrada (stagger) + troca de slide */
+@keyframes ee-phases-textin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ee-phases.is-armed .ee-phases__title,
+.ee-phases.is-armed .ee-phases__bullets li { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+.ee-phases.is-armed .ee-phases__carousel { opacity: 0; transform: translateY(28px) scale(0.985); transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1); }
+.ee-phases.is-revealed .ee-phases__title { opacity: 1; transform: none; transition-delay: 0.05s; }
+.ee-phases.is-revealed .ee-phases__bullets li { opacity: 1; transform: none; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(1) { transition-delay: 0.16s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(2) { transition-delay: 0.28s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(3) { transition-delay: 0.40s; }
+.ee-phases.is-revealed .ee-phases__bullets li:nth-child(4) { transition-delay: 0.52s; }
+.ee-phases.is-revealed .ee-phases__carousel { opacity: 1; transform: none; transition-delay: 0.22s; }
+.ee-phases__card.is-switching .ee-phases__step,
+.ee-phases__card.is-switching .ee-phases__name,
+.ee-phases__card.is-switching .ee-phases__metrics,
+.ee-phases__card.is-switching .ee-phases__desc { animation: ee-phases-textin 0.42s cubic-bezier(0.23,1,0.32,1); }
+@media (prefers-reduced-motion: reduce) {
+  .ee-phases.is-armed .ee-phases__title, .ee-phases.is-armed .ee-phases__bullets li, .ee-phases.is-armed .ee-phases__carousel { opacity: 1; transform: none; transition: none; }
+  .ee-phases__card.is-switching .ee-phases__step, .ee-phases__card.is-switching .ee-phases__name, .ee-phases__card.is-switching .ee-phases__metrics, .ee-phases__card.is-switching .ee-phases__desc { animation: none; }
+}
+
+/* === FOOTER — slogan da marca === */
+.ee-footer {
+  background: #160000;
+  padding: clamp(56px, 9vh, 110px) var(--ee-pad-x);
+  text-align: center;
+}
+.ee-footer__line {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(20px, 2.4vw, 38px);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0.06em 0;
+  background: linear-gradient(90deg, #FB2E0A 0%, #FF6A00 50%, #FFD60A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+</style>
+</head>
+
+<body class="home page wp-custom-logo wp-theme-studiosunup">
+
+<div class="wp-site-blocks">
+
+<!-- ============================================================ -->
+<!-- SECTION 01 — BRAND                                            -->
+<!-- ============================================================ -->
+<main class="wp-block-group is-layout-flow wp-block-group-is-layout-flow" id="top">
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 01 — HERO                                               -->
+<!-- ============================================================ -->
+<section id="hero" class="ee-hero ds-bg-gradient" data-hero-state="select" aria-label="Bem-vindo à V4 Company">
+  <div class="ee-hero__wipe" aria-hidden="true"></div>
+
+  <!-- ESTADO SELECT: prompt + seletor de modelo (centralizado sobre o gradiente) -->
+  <div class="ee-hero__inner">
+    <div class="ee-hero__content">
+      <p class="ee-hero__select-prompt">Para começar, selecione o <strong>modelo de vendas</strong></p>
+
+      <div class="ee-model-selector" data-state="closed">
+        <button type="button"
+                class="ee-model-selector__trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-label="Escolha seu modelo de vendas">
+          <span class="ee-model-selector__label" data-placeholder="Escolha seu modelo de vendas">Escolha seu modelo de vendas</span>
+          <svg class="ee-model-selector__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <ul class="ee-model-selector__menu" role="listbox" aria-label="Modelos de vendas disponíveis">
+          <li role="option" data-value="pdv" tabindex="-1">PDV</li>
+          <li role="option" data-value="inside-sales" tabindex="-1">Inside Sales</li>
+          <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTADO WELCOME: split-screen (painel branco à esquerda + imagem full-height à direita) -->
+  <div class="ee-hero__welcome">
+    <div class="ee-hero__panel">
+      <p class="ee-hero__note ee-hero__note--tl">Somos <strong>Cientistas</strong></p>
+      <p class="ee-hero__note ee-hero__note--tr">Inimigos da <em>Inércia</em></p>
+      <div class="ee-hero__welcome-block">
+        <span class="ee-hero__welcome-lead">Bem-Vindo à</span>
+        <h1 class="ee-hero__welcome-title">V4 Company</h1>
+        <div class="ee-model-selector ee-model-selector--welcome" data-state="closed">
+          <button type="button"
+                  class="ee-model-selector__trigger"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-label="Escolha seu modelo de vendas">
+            <span class="ee-model-selector__label" data-placeholder="Escolha seu modelo de vendas">Escolha seu modelo de vendas</span>
+            <svg class="ee-model-selector__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <ul class="ee-model-selector__menu" role="listbox" aria-label="Modelos de vendas disponíveis">
+            <li role="option" data-value="pdv" tabindex="-1">PDV</li>
+            <li role="option" data-value="inside-sales" tabindex="-1">Inside Sales</li>
+            <li role="option" data-value="e-commerce" tabindex="-1">E-commerce</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ee-hero__note ee-hero__note--bl">Nosso negócio é vender o seu</p>
+      <p class="ee-hero__note ee-hero__note--br">#GoToIPO2030</p>
+    </div>
+    <div class="ee-hero__photo">
+      <img src="assets/imgherose.webp" alt="Mão segurando o cubo translúcido da V4 Company"/>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 02 — AUTORIDADE (stats + quem somos)                    -->
+<!-- ============================================================ -->
+<section id="autoridade" class="ee-auth" aria-label="Autoridade da V4 Company">
+  <div class="ee-auth__inner">
+
+    <!-- Conteúdo (esquerda) -->
+    <div class="ee-auth__main">
+      <p class="ee-auth__eyebrow">Quem somos?</p>
+      <h2 class="ee-auth__who-title">
+        <span>MAIOR</span>
+        <span>ASSESSORIA</span>
+      </h2>
+      <p class="ee-auth__who-sub">de Marketing da <strong>América Latina</strong></p>
+    </div>
+
+    <!-- Mapa (direita) -->
+    <div class="ee-auth__map">
+      <img src="assets/MapaV4.webp" alt="Mapa do Brasil com a presença nacional da V4 Company" class="ee-auth__map-img"/>
+    </div>
+
+    <!-- Big numbers — faixa full-width abaixo da head + mapa -->
+    <div class="ee-auth__stats" role="list">
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+14</p>
+        <p class="ee-auth__stat-label">Anos de<br/>mercado</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+200</p>
+        <p class="ee-auth__stat-label">Franquias<br/>pelo Brasil</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+16bi</p>
+        <p class="ee-auth__stat-label">Receita gerada para<br/>nossos clientes</p>
+      </div>
+      <div class="ee-auth__stat" role="listitem">
+        <p class="ee-auth__stat-number">+48 mil</p>
+        <p class="ee-auth__stat-label">Projetos<br/>atendidos</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — RECONHECIMENTO (badges Google + Meta)                 -->
+<!-- ============================================================ -->
+<section id="reconhecimento" class="ee-recognition" aria-label="Reconhecimentos de plataformas">
+  <div class="ee-recognition__inner">
+    <h2 class="ee-recognition__title">Reconhecida pelas <strong>maiores plataformas</strong> de mídia.</h2>
+    <div class="ee-recognition__badges">
+      <div class="ee-recognition__col">
+        <img class="ee-recognition__badge ee-recognition__badge--kommo" src="assets/kommoCrm.png" alt="Kommo Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--tray" src="assets/tray.svg" alt="Tray — Parceiro Diamante"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hubspot" src="assets/hubspot.png" alt="HubSpot Certified Partner"/>
+      </div>
+      <div class="ee-recognition__col ee-recognition__col--offset">
+        <img class="ee-recognition__badge ee-recognition__badge--google" src="assets/GOOGLE PARTNER PREMIER 2022.png" alt="Google Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--meta" src="assets/META CERTIFIED COMPANY.png" alt="Meta Business Partner"/>
+        <img class="ee-recognition__badge ee-recognition__badge--hex ee-recognition__badge--facebook" src="assets/Facebook.svg" alt="Facebook Blueprint Certification"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 03 — CLIENTES (carrossel de logos, 2 linhas opostas)    -->
+<!-- ============================================================ -->
+<section id="clientes" class="ee-clients" aria-label="Nossos clientes">
+  <p class="ee-clients__title">Quem <strong>acredita</strong> na V4</p>
+  <div class="ee-clients__rows">
+
+    <!-- Linha 1 — anima da esquerda para a direita (24 logos) -->
+    <div class="ds-marquee ee-clients__row ee-clients__row--reverse">
+      <div class="ds-marquee__track">
+        <div class="ds-marquee__logos" role="list" aria-label="Clientes — linha 1">
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Calvin Klein.svg" alt="Calvin Klein"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/LUGANO.svg" alt="Lugano"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/ifood.svg" alt="iFood"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/XP.svg" alt="XP"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Sicoob.svg" alt="Sicoob"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Max Titanium.svg" alt="Max Titanium"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/angatu.svg" alt="Angatu"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt="Spoleto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/mahogany.svg" alt="Mahogany"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/todeschini.svg" alt="Todeschini"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/army br.svg" alt="Army BR"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/cvc.png" alt="CVC"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt="Spotify"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/grupok1.svg" alt="Grupo K1"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/applebeews.svg" alt="Applebee's"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/metroform.png" alt="Metroform"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/alphabeto.svg" alt="Alphabeto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/oficialfarma.svg" alt="Oficial Farma"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/MarveeLogo.svg" alt="Marvee"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bembrasil.svg" alt="Bem Brasil"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/thebestacai.svg" alt="The Best Açaí"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bombeef.png" alt="Bombeef"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Group.png" alt="Cliente V4"/>
+        </div>
+        <!-- Cópia duplicada (aria-hidden) para o loop infinito ficar seamless -->
+        <div class="ds-marquee__logos" aria-hidden="true">
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Calvin Klein.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/LUGANO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/ifood.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/XP.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Sicoob.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Max Titanium.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/angatu.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/mahogany.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/todeschini.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/army br.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/cvc.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/grupok1.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/applebeews.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/metroform.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/alphabeto.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/oficialfarma.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/MarveeLogo.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bembrasil.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/thebestacai.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bombeef.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Group.png" alt=""/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha 2 — anima da direita para a esquerda (24 logos, ordem deslocada) -->
+    <div class="ds-marquee ee-clients__row">
+      <div class="ds-marquee__track">
+        <div class="ds-marquee__logos" role="list" aria-label="Clientes — linha 2">
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/metroform.png" alt="Metroform"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt="Spotify"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/army br.svg" alt="Army BR"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/oficialfarma.svg" alt="Oficial Farma"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/ifood.svg" alt="iFood"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Sicoob.svg" alt="Sicoob"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/applebeews.svg" alt="Applebee's"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/alphabeto.svg" alt="Alphabeto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Calvin Klein.svg" alt="Calvin Klein"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bombeef.png" alt="Bombeef"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/LUGANO.svg" alt="Lugano"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/mahogany.svg" alt="Mahogany"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/todeschini.svg" alt="Todeschini"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/MarveeLogo.svg" alt="Marvee"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt="Spoleto"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/thebestacai.svg" alt="The Best Açaí"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/angatu.svg" alt="Angatu"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/cvc.png" alt="CVC"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Max Titanium.svg" alt="Max Titanium"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/grupok1.svg" alt="Grupo K1"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/XP.svg" alt="XP"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/Group.png" alt="Cliente V4"/>
+          <img class="ee-clients__logo" role="listitem" src="assets/Faixadelogos/bembrasil.svg" alt="Bem Brasil"/>
+        </div>
+        <div class="ds-marquee__logos" aria-hidden="true">
+          <img class="ee-clients__logo" src="assets/Faixadelogos/metroform.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOTIFY.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/army br.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/oficialfarma.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/ifood.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Sicoob.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/applebeews.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/alphabeto.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Calvin Klein.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bombeef.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/LUGANO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/mahogany.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/todeschini.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/MarveeLogo.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/BRANCO - SPOLETO.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/thebestacai.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/angatu.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/cvc.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Max Titanium.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/grupok1.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/XP.svg" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/Group.png" alt=""/>
+          <img class="ee-clients__logo" src="assets/Faixadelogos/bembrasil.svg" alt=""/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Faixa de afiliação: Grupo Dreamers + InfoMoney — dentro de "Quem acredita na V4" -->
+  <div class="ee-affiliation">
+    <div class="ee-affiliation__inner">
+      <p class="ee-affiliation__text">Somos uma empresa do <strong>Grupo Dreamers</strong> e parceiros do <strong>InfoMoney</strong>.</p>
+      <div class="ee-affiliation__logos">
+        <img src="assets/grupoDreamers.svg" alt="Grupo Dreamers" class="ee-affiliation__logo ee-affiliation__logo--dreamers"/>
+        <img src="assets/rock-in-rio 1.svg" alt="Rock in Rio" class="ee-affiliation__logo ee-affiliation__logo--rockinrio"/>
+        <img src="assets/Infomoney.svg" alt="InfoMoney" class="ee-affiliation__logo ee-affiliation__logo--infomoney"/>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — CASES (fundo preto, conteúdo varia por modelo de vendas) -->
+<!-- ============================================================ -->
+<section id="cases" class="ee-cases" data-state="empty" aria-label="Cases de sucesso" aria-live="polite">
+  <div class="ee-cases__inner">
+
+    <h2 class="ee-cases__heading">Alguns cases que temos de <strong data-cases-model>PDV</strong></h2>
+
+    <!-- Estado vazio: prompt -->
+    <div class="ee-cases__empty">
+      Selecione seu <strong>modelo de vendas</strong> no topo da página pra ver cases de sucesso da V4 no seu segmento.
+    </div>
+
+    <!-- GRUPO: PDV -->
+    <div class="ee-cases__group" data-model="pdv">
+      <article class="ee-cases__card" style="background-image:url('assets/preventimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/Preventlogo.png" alt="Óticas Prevent"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Óticas Prevent</span><span class="ee-cases__type">Varejo de óticas</span></span>
+          </div>
+          <p class="ee-cases__challenge">Rede gigante batendo no teto do Google e do Meta (CPM/CPL subindo, eficiência caindo). Reposicionamos TikTok Ads e Kwai como pilar de aquisição local, com criativos nativos e segmentação por município, e trocamos a métrica de "custo do clique" para agendamento, comparecimento e fechamento na loja.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">10x</span><span class="ee-cases__num-after">13,83x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 5,06M</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Canal saturado não pede mais verba; pede o canal certo e a métrica certa.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/valecimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/valeclogo.png" alt="Valec Renault"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Valec Renault</span><span class="ee-cases__type">Concessionária</span></span>
+          </div>
+          <p class="ee-cases__challenge">Gerava leads, mas vivia a "ilusão do tráfego": o gargalo era o comercial não converter na loja. Conectamos o marketing ao CRM e retroalimentamos as campanhas toda semana com base em quem comprava, focando em oferta direta e lead com intenção real.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 392,5K</span><span class="ee-cases__num-after">R$ 1,69M</span></span><span class="ee-cases__num-note">4,3x em receita</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Vendas</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5</span><span class="ee-cases__num-after">16</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 3.600</span><span class="ee-cases__num-after">R$ 1.588</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Ticket</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 90K</span><span class="ee-cases__num-after">R$ 180K</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">4,55%</span><span class="ee-cases__num-after">6,99%</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Marketing sem comercial é só tráfego. No CRM, vira venda.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- GRUPO: INSIDE SALES -->
+    <div class="ee-cases__group" data-model="inside-sales">
+      <article class="ee-cases__card" style="background-image:url('assets/cvcimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/cvclogo.png" alt="CVC Corp"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">CVC Corp</span><span class="ee-cases__type">Turismo / Educação</span></span>
+          </div>
+          <p class="ee-cases__challenge">Venda consultiva de ciclo longo, com leads desqualificados, volume baixo e CAC alto (R$ 1.250). Plugamos a mídia no e-mail/CRM, passamos a analisar cohort respeitando o ciclo de decisão e fizemos os criativos atuarem como filtro, entregando MQL real ao vendedor.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 91,6M</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 1.250</span><span class="ee-cases__num-after">R$ 544</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">12x</span><span class="ee-cases__num-after">21x</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Em venda consultiva, criativo bom não gera mais lead; gera o lead certo.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/medfuturaimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/medfuturalogo.png" alt="Medfutura"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Medfutura</span><span class="ee-cases__type">Distribuidora B2B / Medicamentos</span></span>
+          </div>
+          <p class="ee-cases__challenge">B2B de saúde com alto custo de mídia e nenhuma conversão proporcional: fuga na landing page, anúncio saturado, comercial no escuro. Como em B2B volume não é qualidade, reestruturamos o Google Ads por intenção de compra e produto rentável, com mensuração e rotina de otimização orientada ao comercial.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">82,52x</span></span><span class="ee-cases__num-note">com R$ 8,9K de investimento</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CPL</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 11,51</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão LP</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">25,26%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 734K</span></span></div>
+          </div>
+          <p class="ee-cases__quote">B2B escala com precisão cirúrgica, não com volume bruto.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- GRUPO: E-COMMERCE -->
+    <div class="ee-cases__group" data-model="e-commerce">
+      <article class="ee-cases__card" style="background-image:url('assets/uvlineimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/uvlinelogo.png" alt="UV Line"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">UV Line</span><span class="ee-cases__type">E-commerce / Proteção solar</span></span>
+          </div>
+          <p class="ee-cases__challenge">E-commerce maduro com verba alta, mas conversão baixa (1,11%) e ROAS travado nos 7x, sem escalar sem perder margem. Escalamos por diversificação + sazonalidade: além de Google e Meta, entramos com Pinterest e TikTok, mantendo o grosso da verba no motor principal e cortando rápido todo teste sem performance.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 10,8M</span></span><span class="ee-cases__num-note">~R$ 1M em um dia</span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">7,94x</span><span class="ee-cases__num-after">14,56x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">1,11%</span><span class="ee-cases__num-after">4,03%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 21</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Escala não é só mais verba; é o canal certo na hora certa.</p>
+        </div>
+      </article>
+      <article class="ee-cases__card" style="background-image:url('assets/totalarteimagem.png')">
+        <div class="ee-cases__card-body">
+          <div class="ee-cases__brand">
+            <span class="ee-cases__logo"><img src="assets/totalartelogo.png" alt="Total Arte"/></span>
+            <span class="ee-cases__brand-text"><span class="ee-cases__name">Total Arte</span><span class="ee-cases__type">E-commerce / Bens de consumo</span></span>
+          </div>
+          <p class="ee-cases__challenge">Marca gigante no offline apanhando no digital: CAC estourando a margem (R$ 40,21), site convertendo só 2,24% e dados ruins demais pra saber onde estava o problema. Arrumamos a casa: faxina no rastreamento do GA4 e landing pages de apoio pra não perder venda enquanto o site era ajustado.</p>
+          <div class="ee-cases__nums">
+            <div class="ee-cases__num ee-cases__num--hero"><span class="ee-cases__num-label">Conversão</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">2,24%</span><span class="ee-cases__num-after">5,88%</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">ROAS</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">5,76x</span><span class="ee-cases__num-after">12,12x</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">CAC</span><span class="ee-cases__num-val"><span class="ee-cases__num-before">R$ 40</span><span class="ee-cases__num-after">R$ 22</span></span></div>
+            <div class="ee-cases__num"><span class="ee-cases__num-label">Receita gerada</span><span class="ee-cases__num-val"><span class="ee-cases__num-after">R$ 1,16M</span></span></div>
+          </div>
+          <p class="ee-cases__quote">Às vezes o problema não é o anúncio; é a casa.</p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — ECOSSISTEMA (full-bleed image only)                   -->
+<!-- ============================================================ -->
+<section id="ecossistema" class="ee-ecosystem" aria-label="Ecossistema V4">
+  <img class="ee-ecosystem__img" src="assets/Ecossistema foto.png" alt="Ecossistema V4 — em 14 anos de mercado, construímos um ecossistema sólido e próspero"/>
+  <div class="ee-ecosystem__fade" aria-hidden="true"></div>
+  <div class="ee-ecosystem__overlay">
+    <div class="ee-ecosystem__overlay-inner">
+      <h2 class="ee-ecosystem__title">Ecossistema</h2>
+      <p class="ee-ecosystem__sub">Em <strong>14 anos</strong> de mercado, construímos um ecossistema <strong>sólido e próspero</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — +30 SOLUÇÕES DIGITAIS (texto esquerda + grid direita)  -->
+<!-- ============================================================ -->
+<section id="ecossistema-30" class="ee-ecosystem30" aria-label="+30 soluções digitais para vender mais">
+  <div class="ee-ecosystem30__inner">
+
+    <div class="ee-ecosystem30__content">
+      <h2 class="ee-ecosystem30__number">+30</h2>
+      <h3 class="ee-ecosystem30__title">Soluções <em>Digitais</em><br>para vender mais.</h3>
+    </div>
+
+    <div class="ee-ecosystem30__media">
+      <img class="ee-ecosystem30__img" src="assets/Ecossistema-30.png" alt="Grade de 30+ soluções digitais V4: Consultoria Estratégica, Meta Ads, Treinamento Comercial, Product, Automação, Live Marketing, LinkedIn Ads, TikTok Ads, Mídia Paralela, UX/UI, SDR IA, V4 MKT, Growth, Pesquisa de Mercado, BI, Landing Pages, Outbound, Branding, Tráfego Pago, Social Media, Auditoria, Inside Sales, Google Ads, E-mail Mkt, Edição de Vídeo, CRM, Analytics, Copywriting, SEO, Criativos, CRO, Lead Broker e Inbound"/>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 04 — MISSÃO (full-bleed bg + conteúdo à esquerda)       -->
+<!-- ============================================================ -->
+<section id="missao" class="ee-mission" aria-label="Nossa missão: vender">
+  <div class="ee-mission__inner">
+    <div class="ee-mission__content">
+      <p class="ee-mission__eyebrow">Mas qual é a <strong>NOSSA MISSÃO?</strong></p>
+      <div class="ee-mission__row">
+        <h2 class="ee-mission__title">VENDER</h2>
+        <ol class="ee-mission__list">
+          <li><span class="ee-mission__num">01</span> - O seu produto</li>
+          <li><span class="ee-mission__num">02</span> - Para mais pessoas</li>
+          <li><span class="ee-mission__num">03</span> - Mais vezes</li>
+          <li><span class="ee-mission__num">04</span> - Pelo maior valor</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO 05 — MÉTODO (planta de receita + 4 pilares)             -->
+<!-- ============================================================ -->
+<section id="metodo" class="ee-method" aria-label="Nosso método científico">
+  <div class="ee-method__inner">
+
+    <!-- Header centralizado -->
+    <header class="ee-method__head">
+      <h2 class="ee-method__title">Método <strong>V4</strong></h2>
+      <p class="ee-method__sub">O Método V4 é uma estratégia utilizada para impulsionar as vendas dos clientes. É composto por quatro pilares: <strong>aquisição, engajamento, monetização e retenção.</strong> Ao contrário do funil de vendas tradicional, essas etapas se conectam e a conversão pode ocorrer em qualquer momento do processo de vendas.</p>
+    </header>
+
+    <!-- 4 cards: ícone do pilar acima + ferramentas dentro -->
+    <ol class="ee-method__pillars">
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/aquisicao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Aquisição</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/Meta ads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Meta Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Googleads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Google Ads</span></li>
+            <li class="ee-method__tool"><img src="assets/Tiktokads.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">TikTok Ads</span></li>
+            <li class="ee-method__tool"><i data-lucide="search" aria-hidden="true"></i><span class="ee-method__tool-label">S.E.O.</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/engagamento.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Engajamento</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/criativos.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Criativos</span></li>
+            <li class="ee-method__tool"><i data-lucide="shopping-cart" aria-hidden="true"></i><span class="ee-method__tool-label">Sales Pages</span></li>
+            <li class="ee-method__tool"><img src="assets/lp.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Landing Pages</span></li>
+            <li class="ee-method__tool"><i data-lucide="file-text" aria-hidden="true"></i><span class="ee-method__tool-label">Conteúdo</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/monetizacao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Monetização</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><i data-lucide="store" aria-hidden="true"></i><span class="ee-method__tool-label">E-commerce</span></li>
+            <li class="ee-method__tool"><img src="assets/insidesales.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inside Sales</span></li>
+            <li class="ee-method__tool"><img src="assets/inbound.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Inbound</span></li>
+            <li class="ee-method__tool"><img src="assets/timedeevendas.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Time de Vendas</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="ee-method__pillar">
+        <img class="ee-method__pillar-icon" src="assets/retencao.svg" alt="" aria-hidden="true"/>
+        <div class="ee-method__pillar-card">
+          <h3 class="ee-method__pillar-title">Retenção</h3>
+          <ul class="ee-method__pillar-tools">
+            <li class="ee-method__tool"><img src="assets/emarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">E-mail Marketing</span></li>
+            <li class="ee-method__tool"><img src="assets/remarketing.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">Remarketing</span></li>
+            <li class="ee-method__tool"><img src="assets/crm.svg" alt="" aria-hidden="true"/><span class="ee-method__tool-label">CRM: RFM, LTV</span></li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — FASES DO PROJETO (velocímetro / carrossel)            -->
+<!-- ============================================================ -->
+<section id="fases" class="ee-phases" aria-label="Fases do projeto">
+  <div class="ee-phases__inner">
+
+    <div class="ee-phases__intro">
+      <h2 class="ee-phases__title">Fases do projeto</h2>
+      <ul class="ee-phases__bullets">
+        <li>O que você já tem?</li>
+        <li>O que você acredita que falta?</li>
+        <li>O que eu percebi que falta?</li>
+        <li>Como nós vamos resolver juntos?</li>
+      </ul>
+    </div>
+
+    <div class="ee-phases__carousel">
+      <button type="button" class="ee-phases__nav ee-phases__nav--prev" aria-label="Fase anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+      <div class="ee-phases__card">
+        <div class="ee-phases__gauge">
+          <svg class="ee-phases__dial" viewBox="0 0 220 124" role="img" aria-label="Velocímetro da fase do projeto">
+            <defs>
+              <linearGradient id="ph-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7CC93D"/>
+                <stop offset="27%" stop-color="#C6D92E"/>
+                <stop offset="50%" stop-color="#FFC400"/>
+                <stop offset="73%" stop-color="#FF7A0A"/>
+                <stop offset="100%" stop-color="#FB2E0A"/>
+              </linearGradient>
+            </defs>
+            <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="url(#ph-grad)" stroke-width="18" stroke-linecap="round"/>
+            <g stroke="#280000" stroke-opacity="0.38" stroke-width="3" stroke-linecap="round">
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-90 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-72 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-54 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-36 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(-18 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(0 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(18 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(36 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(54 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(72 110 110)"/>
+              <line x1="110" y1="40" x2="110" y2="52" transform="rotate(90 110 110)"/>
+            </g>
+            <polygon class="ee-phases__needle" points="110,32 105.5,110 114.5,110" fill="#280000" style="transform:rotate(-90deg)"/>
+            <circle cx="110" cy="110" r="8.5" fill="#280000"/>
+            <circle cx="110" cy="110" r="3.5" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <p class="ee-phases__step">STEP V0</p>
+        <h3 class="ee-phases__name">ESTRUTURAR</h3>
+        <p class="ee-phases__metrics"></p>
+        <p class="ee-phases__desc">Nesta etapa, o foco está em estruturar todos os processos e dados necessários para a implementação do nosso processo de vendas.</p>
+      </div>
+      <button type="button" class="ee-phases__nav ee-phases__nav--next" aria-label="Próxima fase"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
+      <div class="ee-phases__dots">
+        <button type="button" class="ee-phases__dot is-active" aria-label="Fase 1 — Estruturar"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 2 — Indicadores"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 3 — Maturar"></button>
+        <button type="button" class="ee-phases__dot" aria-label="Fase 4 — Escalar"></button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script id="ee-phases-script">
+(function () {
+  var sec = document.getElementById('fases');
+  if (!sec) return;
+  var PHASES = [
+    { step: 'STEP V0', name: 'ESTRUTURAR',  metrics: '',                      angle: -67, desc: 'Nesta etapa, o foco está em estruturar todos os processos e dados necessários para a implementação do nosso processo de vendas.' },
+    { step: 'STEP V1', name: 'INDICADORES', metrics: 'CAC · LTV · ARPU · ROI', angle: -22, desc: 'Projetos que estão em fase inicial nos processos de vendas através da internet. Ou seja, projetos que não tenham um processo de vendas bem definido, e/ou total clareza dos principais indicadores e métricas do negócio.' },
+    { step: 'STEP V2', name: 'MATURAR',     metrics: '',                      angle:  22, desc: 'Projetos que apresentam definições de seus principais indicadores e processos bem estruturados. Ocorre a realização de testes e validações que visam identificar e/ou manter os bons indicadores.' },
+    { step: 'STEP V3', name: 'ESCALAR',     metrics: '',                      angle:  67, desc: 'Nesta fase os projetos já apresentam dados e estratégias validadas, portanto, estão aptos para que possamos realizar um aumento no investimento, e buscar mais escalabilidade para o projeto.' }
+  ];
+  var i = 0;
+  var needle = sec.querySelector('.ee-phases__needle');
+  var card   = sec.querySelector('.ee-phases__card');
+  var elStep = sec.querySelector('.ee-phases__step');
+  var elName = sec.querySelector('.ee-phases__name');
+  var elMet  = sec.querySelector('.ee-phases__metrics');
+  var elDesc = sec.querySelector('.ee-phases__desc');
+  var dots   = sec.querySelectorAll('.ee-phases__dot');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealed = reduce;   // ponteiro só faz o "sweep" quando a seção entra na tela
+  function render(animateText) {
+    var p = PHASES[i];
+    if (needle) needle.style.transform = 'rotate(' + (revealed ? p.angle : -90) + 'deg)';
+    if (elStep) elStep.textContent = p.step;
+    if (elName) elName.textContent = p.name;
+    if (elMet)  elMet.textContent  = p.metrics;
+    if (elDesc) elDesc.textContent = p.desc;
+    for (var d = 0; d < dots.length; d++) dots[d].classList[d === i ? 'add' : 'remove']('is-active');
+    if (animateText && card && !reduce) {           // crossfade do texto ao trocar de step
+      card.classList.remove('is-switching');
+      void card.offsetWidth;                         // reflow → re-dispara a animação
+      card.classList.add('is-switching');
+    }
+  }
+  function go(n) { i = (n % PHASES.length + PHASES.length) % PHASES.length; render(true); }
+  var prev = sec.querySelector('.ee-phases__nav--prev');
+  var next = sec.querySelector('.ee-phases__nav--next');
+  if (prev) prev.addEventListener('click', function () { go(i - 1); });
+  if (next) next.addEventListener('click', function () { go(i + 1); });
+  for (var k = 0; k < dots.length; k++) (function (idx) { dots[idx].addEventListener('click', function () { go(idx); }); })(k);
+  render(false);
+
+  // Entrada (stagger via CSS) + sweep do ponteiro quando a seção surge na tela
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealed = true; sec.classList.add('is-revealed'); render(false);
+  } else {
+    sec.classList.add('is-armed');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        sec.classList.add('is-revealed');
+        revealed = true;
+        requestAnimationFrame(function () { if (needle) needle.style.transform = 'rotate(' + PHASES[i].angle + 'deg)'; });
+        io.unobserve(sec);
+      });
+    }, { threshold: 0.25 });
+    io.observe(sec);
+  }
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- SEÇÃO — SIMULADOR DE PRODUTO (Saber → Ter → Executar → Potencializar) -->
+<!-- ============================================================ -->
+<section id="simulador" class="ee-sim" aria-label="Por que saber antes de executar">
+  <div class="ee-sim__inner">
+    <header class="ee-sim__head">
+      <h2 class="ee-sim__title">Por que <strong>saber</strong> antes de <strong>executar?</strong></h2>
+      <p class="ee-sim__sub">Cada solução depende da anterior. Tente reorganizar as barras — você vai ver que não dá pra pular etapa.</p>
+    </header>
+
+    <div class="ee-sim__bars" id="ee-sim-bars">
+      <div class="ee-sim__bar" data-key="potencializar" style="--start: 62%;">
+        <span class="ee-sim__chip" aria-hidden="true">P</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Potencializar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="executar" style="--start: 50%;">
+        <span class="ee-sim__chip" aria-hidden="true">E</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Executar</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="ter" style="--start: 34%;">
+        <span class="ee-sim__chip" aria-hidden="true">T</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Ter</span></div></div>
+      </div>
+      <div class="ee-sim__bar" data-key="saber" style="--start: 17%;">
+        <span class="ee-sim__chip" aria-hidden="true">S</span>
+        <div class="ee-sim__track"><div class="ee-sim__fill"><span class="ee-sim__label">Saber</span></div></div>
+      </div>
+    </div>
+
+    <p class="ee-sim__alert" id="ee-sim-alert" role="status" aria-live="polite"></p>
+
+    <p class="ee-sim__hook">É por isso que todo projeto começa por <strong>saber</strong><span class="ee-sim__hook-dots">.</span></p>
+  </div>
+</section>
+
+
+<!-- LP MAE: seções a partir de "Estruturacao Estrategica 3.0" (#produto) removidas — pagina termina em #simulador -->
+
+</main>
+
+
+<!-- ============================================================ -->
+<!-- ESTRUTURAÇÃO ESTRATÉGICA — SCRIPTS DA PÁGINA                 -->
+<!-- ============================================================ -->
+<script id="ee-page-script">
+(function () {
+  'use strict';
+
+  // ── TRAVA DE SCROLL ATÉ ESCOLHER O MODELO DE VENDAS ──
+  // Aplicada já no parse do script (antes do paint) pra evitar flash. É liberada
+  // na 1ª seleção de modelo de vendas (ver revealWelcome). Sem persistência: todo
+  // reload (F5/Ctrl+R) ou nova visita volta pro seletor antes do "Bem vindo a V4".
+  //
+  // O navegador, por padrão, restaura a posição de scroll no reload — o que, com a
+  // trava, deixaria o usuário "preso" na seção em que estava. Então desligamos a
+  // restauração e forçamos o topo, garantindo que todo F5 caia no seletor.
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  document.documentElement.classList.add('ee-scroll-lock');
+  window.addEventListener('load', function () {
+    if (document.documentElement.classList.contains('ee-scroll-lock')) window.scrollTo(0, 0);
+  });
+
+  // ── ESTADO GLOBAL DO MODELO DE VENDAS ──
+  // Disponível em window.V4SalesModel para qualquer seção/script ler.
+  // Emite 'v4-sales-model-change' em window quando muda.
+  var SALES_MODELS = [
+    { value: 'pdv',           label: 'PDV' },
+    { value: 'inside-sales',  label: 'Inside Sales' },
+    { value: 'e-commerce',    label: 'E-commerce' }
+  ];
+
+  window.V4SalesModel = {
+    value:   null,
+    label:   null,
+    options: SALES_MODELS,
+    get: function () { return { value: this.value, label: this.label }; },
+    set: function (value) {
+      var model = SALES_MODELS.find(function (m) { return m.value === value; });
+      if (!model) return false;
+      this.value = model.value;
+      this.label = model.label;
+      document.body.setAttribute('data-sales-model', model.value);
+      window.dispatchEvent(new CustomEvent('v4-sales-model-change', {
+        detail: { value: model.value, label: model.label }
+      }));
+      return true;
+    },
+    clear: function () {
+      this.value = null;
+      this.label = null;
+      document.body.removeAttribute('data-sales-model');
+      window.dispatchEvent(new CustomEvent('v4-sales-model-change', {
+        detail: { value: null, label: null }
+      }));
+    }
+  };
+
+  // ── COMPONENTE: SELETOR(ES) DE MODELO DE VENDAS (1+ instâncias, sincronizadas) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var selectors = Array.prototype.slice.call(document.querySelectorAll('.ee-model-selector'));
+    if (!selectors.length) return;
+
+    function wire(selector) {
+      var trigger = selector.querySelector('.ee-model-selector__trigger');
+      var menu    = selector.querySelector('.ee-model-selector__menu');
+      if (!trigger || !menu) return;
+      var options = Array.prototype.slice.call(menu.querySelectorAll('li[role="option"]'));
+
+      function open() {
+        selector.setAttribute('data-state', 'open');
+        trigger.setAttribute('aria-expanded', 'true');
+        var current = menu.querySelector('li.is-selected') || options[0];
+        if (current) current.focus({ preventScroll: true });
+      }
+      function close() {
+        selector.setAttribute('data-state', 'closed');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+      function toggle() {
+        if (selector.getAttribute('data-state') === 'open') close(); else open();
+      }
+      function select(li) {
+        window.V4SalesModel.set(li.getAttribute('data-value')); // dispara o evento → sincroniza abaixo
+        close();
+        trigger.focus();
+      }
+
+      trigger.addEventListener('click', toggle);
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); open(); }
+      });
+      options.forEach(function (li, idx) {
+        li.addEventListener('click', function () { select(li); });
+        li.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(li); }
+          else if (e.key === 'ArrowDown') { e.preventDefault(); options[(idx + 1) % options.length].focus({ preventScroll: true }); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); options[(idx - 1 + options.length) % options.length].focus({ preventScroll: true }); }
+          else if (e.key === 'Escape') { e.preventDefault(); close(); trigger.focus(); }
+          else if (e.key === 'Tab') { close(); }
+        });
+      });
+      document.addEventListener('click', function (e) { if (!selector.contains(e.target)) close(); });
+    }
+
+    selectors.forEach(wire);
+
+    // Sincroniza rótulo + item selecionado de TODOS os seletores quando o modelo muda
+    window.addEventListener('v4-sales-model-change', function (e) {
+      var val = e.detail && e.detail.value;
+      var lbl = e.detail && e.detail.label;
+      selectors.forEach(function (selector) {
+        var label = selector.querySelector('.ee-model-selector__label');
+        if (label && lbl) label.textContent = lbl;
+        [].forEach.call(selector.querySelectorAll('li[role="option"]'), function (o) {
+          o.classList.toggle('is-selected', o.getAttribute('data-value') === val);
+        });
+      });
+    });
+
+    // Sem seleção padrão/persistência: a página começa travada no hero até o
+    // vendedor escolher o modelo (ver revealWelcome). Reload volta pro seletor.
+  });
+
+  // ── COUNT-UP ANIMATION (big numbers em .ee-auth__stat-number) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var nodes = document.querySelectorAll('.ee-auth__stat-number');
+    if (!nodes.length) return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) return; // mantém texto original sem animar
+
+    function parse(raw) {
+      var m = raw.trim().match(/^(\D*)(\d+)(\D*)$/);
+      if (!m) return null;
+      return { prefix: m[1], target: parseInt(m[2], 10), suffix: m[3], original: raw };
+    }
+
+    // Snapshot do texto original + marca como "pending" pra esconder via CSS até animar
+    var snapshots = new Map();
+    nodes.forEach(function (el) {
+      var p = parse(el.textContent);
+      if (!p) return;
+      snapshots.set(el, p);
+      el.setAttribute('data-counting', 'pending');
+    });
+
+    var DURATION = 1800;
+    function animate(el, parsed) {
+      var start = null;
+      function tick(now) {
+        if (start === null) start = now;
+        var elapsed = now - start;
+        var p = Math.min(elapsed / DURATION, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        var current = Math.floor(parsed.target * eased);
+        el.textContent = parsed.prefix + current + parsed.suffix;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = parsed.original;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var parsed = snapshots.get(el);
+        if (!parsed) { io.unobserve(el); return; }
+        el.textContent = parsed.prefix + '0' + parsed.suffix;
+        el.removeAttribute('data-counting'); // revela (opacity 1)
+        requestAnimationFrame(function () { animate(el, parsed); });
+        io.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+
+    nodes.forEach(function (el) { io.observe(el); });
+  });
+
+  // ── HERO: FLUXO DE SELEÇÃO + ANIMAÇÃO DE ENTRADA ──
+  // Na carga, só o prompt + o pré-selecionador entram (estado "select"), centralizados.
+  // O "Bem vindo a V4" (título + visual) só é revelado quando um modelo de vendas é
+  // escolhido — momento em que a trava de scroll também é liberada.
+  document.addEventListener('DOMContentLoaded', function () {
+    var hero       = document.getElementById('hero');
+    var prompt     = document.querySelector('.ee-hero__select-prompt');
+    var selector   = document.querySelector('.ee-hero .ee-model-selector');
+    var revealEls  = document.querySelectorAll('.ee-hero__welcome-lead, .ee-hero__welcome-title, .ee-hero__note, .ee-hero__panel .ee-model-selector');
+    var visual     = document.querySelector('.ee-hero__visual');
+    var wipe       = document.querySelector('.ee-hero__wipe');
+    if (!hero) return;
+
+    var hasGsap       = typeof gsap !== 'undefined';
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(el, anim) {
+      if (!el) return;
+      if (hasGsap) { gsap.set(el, anim || { opacity: 1, y: 0, scale: 1 }); return; }
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    }
+
+    // Entrada do estado "select": prompt + seletor
+    if (hasGsap && !prefersReduce) {
+      var tl = gsap.timeline({ delay: 0.15 });
+      if (prompt)   tl.to(prompt,   { opacity: 1, y: 0, duration: 0.7,  ease: 'power2.out' }, 0);
+      if (selector) tl.to(selector, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, 0.2);
+    } else {
+      show(prompt, { opacity: 1, y: 0 });
+      show(selector, { opacity: 1, y: 0 });
+    }
+
+    // Revela o "Bem vindo a V4" e libera o scroll (roda só uma vez).
+    // Transição fluida: o prompt sai suave → o seletor desliza pra nova posição
+    // (FLIP, sem "pulo" do reflow) → título + visual entram em crossfade.
+    var revealed = false;
+    function revealWelcome() {
+      if (revealed) return;
+      revealed = true;
+
+      // Sem GSAP / motion reduzido: troca direta, sem animação
+      if (!hasGsap || prefersReduce) {
+        hero.setAttribute('data-hero-state', 'welcome');
+        document.documentElement.classList.remove('ee-scroll-lock');
+        show(visual);
+        [].forEach.call(revealEls, function (s) { show(s); });
+        if (typeof ScrollTrigger !== 'undefined') {
+          requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+        }
+        return;
+      }
+
+      function enterWelcome() {
+        var refresh = function () {
+          if (typeof ScrollTrigger !== 'undefined') {
+            requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+          }
+        };
+        var goWelcome = function () {
+          hero.setAttribute('data-hero-state', 'welcome');
+          document.documentElement.classList.remove('ee-scroll-lock');
+        };
+
+        // título começa escondido; entra depois que o wipe revelar a hero
+        if (revealEls.length) gsap.set(revealEls, { opacity: 0, y: 40 });
+
+        if (!wipe) {
+          // sem o painel: troca direta + revela
+          goWelcome();
+          if (revealEls.length) gsap.to(revealEls, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 });
+          refresh();
+          return;
+        }
+
+        // === WIPE "MINHOCA" ===
+        // Fase 1: o retângulo nasce fixado na base e cresce até o topo (cobre a seção).
+        // Com a seção coberta, troca pro estado welcome (seletor some, imagem aparece) — escondido.
+        // Fase 2: fixa no topo e encolhe de baixo pra cima (a "cauda" segue a "cabeça", com leve
+        // delay), revelando a hero já montada embaixo.
+        var tl = gsap.timeline({ onComplete: refresh });
+        tl.set(wipe, { visibility: 'visible', scaleY: 0, transformOrigin: '50% 100%' });
+        tl.to(wipe, { scaleY: 1, duration: 0.5, ease: 'power2.inOut' });
+        tl.add(goWelcome);                                           // troca escondida atrás do painel
+        tl.set(wipe, { transformOrigin: '50% 0%' });                 // fixa no topo
+        tl.to(wipe, { scaleY: 0, duration: 0.62, ease: 'power3.inOut' }, '+=0.06');
+        tl.set(wipe, { visibility: 'hidden' });
+        // headline entra na hero já revelada (sobrepõe levemente o fim do wipe)
+        if (revealEls.length) {
+          tl.to(revealEls, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, '-=0.32');
+        }
+      }
+
+      // 1) Prompt sai suave; 2) ao terminar, entra o estado "welcome"
+      if (prompt) {
+        gsap.to(prompt, { opacity: 0, y: -16, duration: 0.5, ease: 'power2.inOut', onComplete: enterWelcome });
+      } else {
+        enterWelcome();
+      }
+    }
+
+    // Dispara quando um modelo de vendas é escolhido (ignora o "clear")
+    window.addEventListener('v4-sales-model-change', function (e) {
+      if (e.detail && e.detail.value) revealWelcome();
+    });
+  });
+
+  // ── SLIDE FIT: cada seção = 1 viewport; o conteúdo escala pra caber (nunca passa nem sobra) ──
+  // Envolve o conteúdo "in-flow" de cada seção num .ee-slide__fit e aplica transform:scale
+  // pra encaixar exatamente na altura da tela. Fundos absolutos (imagens full-bleed) ficam
+  // de fora e cobrem a seção. Só atua em telas >=901px (no mobile mantém o fluxo natural).
+  (function () {
+    return; /* FLUXO NATURAL — sistema de slide/escala desativado: seções em altura natural */
+    var SLIDE_MQ = window.matchMedia('(min-width: 901px)');
+    // Seções fora do escalonamento: hero (fluxo próprio), problema (oculta),
+    // ecossistema (imagem full-bleed tratada por object-fit no CSS),
+    // produto (texto ancorado no rodapé via margin-top:auto — cabe em 100vh),
+    // precos e proposta (conteúdo grande — rolam normalmente, sem caber no viewport),
+    // simulador (interativo de arrastar — não pode ser escalado por transform),
+    // crescer (SVG full-bleed com traçado animado — posicionado, não escalado).
+    var SKIP = { hero: 1, problema: 1, ecossistema: 1, produto: 1, precos: 1, proposta: 1, simulador: 1, crescer: 1, reconhecimento: 1, clientes: 1, garantia: 1, cases: 1, recap: 1, definicao: 1, estrutura: 1 };
+    var sections = [];
+
+    var ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function () {
+      if (ro.__raf) cancelAnimationFrame(ro.__raf);
+      ro.__raf = requestAnimationFrame(fitAll);
+    }) : null;
+
+    function wrap(sec) {
+      if (sec.__fitWrap) return sec.__fitWrap;
+      var w = document.createElement('div');
+      w.className = 'ee-slide__fit';
+      [].slice.call(sec.childNodes).forEach(function (n) {
+        if (n.nodeType === 1) {
+          var pos = getComputedStyle(n).position;
+          if (pos === 'absolute' || pos === 'fixed') return; // fundos ficam no lugar
+        }
+        w.appendChild(n);
+      });
+      sec.appendChild(w);
+      sec.__fitWrap = w;
+      if (ro) ro.observe(w);
+      return w;
+    }
+
+    function fit(sec) {
+      if (!SLIDE_MQ.matches) { if (sec.__fitWrap) sec.__fitWrap.style.transform = ''; return; }
+      if (getComputedStyle(sec).display === 'none') return;
+      var w = sec.__fitWrap || wrap(sec);
+      var cs = getComputedStyle(sec);
+      var avail = sec.clientHeight - (parseFloat(cs.paddingTop) || 0) - (parseFloat(cs.paddingBottom) || 0);
+      var needed = w.offsetHeight; // altura natural (offsetHeight ignora o transform já aplicado)
+      if (needed <= 0 || avail <= 0) return;
+      var scale = avail / needed;
+      w.style.transformOrigin = 'center center';
+      w.style.transform = scale < 1 ? 'scale(' + scale + ')' : 'none';
+    }
+
+    function fitAll() { sections.forEach(fit); }
+
+    function init() {
+      sections = [].filter.call(document.querySelectorAll('#top > section'), function (s) {
+        return !SKIP[s.id];
+      });
+      fitAll();
+      var rt;
+      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fitAll, 120); });
+      window.addEventListener('load', fitAll);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+      // Conteúdo dependente do modelo (cases/cronograma/proposta) muda de tamanho
+      window.addEventListener('v4-sales-model-change', function () { requestAnimationFrame(fitAll); });
+      if (SLIDE_MQ.addEventListener) SLIDE_MQ.addEventListener('change', fitAll);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+
+  // ── GSAP CHARACTER REVEAL (letra por letra ao entrar na viewport) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var targets = document.querySelectorAll('.ee-reveal-chars');
+    if (!targets.length) return;
+    if (typeof gsap === 'undefined' || typeof Splitting === 'undefined') return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      targets.forEach(function (el) { el.setAttribute('data-splitted', ''); });
+      return;
+    }
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    targets.forEach(function (el) {
+      // Splitting quebra o textContent em <span class="char"> preservando <strong> e outros wrappers
+      Splitting({ target: el, by: 'chars' });
+      el.setAttribute('data-splitted', '');
+
+      var chars = el.querySelectorAll('.char');
+      if (!chars.length) return;
+
+      // Stagger adaptativo: textos longos animam mais rápido pra não arrastar
+      var stagger = chars.length > 60 ? Math.max(0.008, 0.9 / chars.length) : 0.022;
+
+      gsap.to(chars, {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        ease: 'power2.out',
+        stagger: stagger,
+        scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+          trigger: el,
+          start: 'top 82%',
+          toggleActions: 'play none none none'
+        } : undefined
+      });
+    });
+  });
+
+  // ── MISSÃO: timeline GSAP (eyebrow + VENDER + lista 01-04) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var section = document.getElementById('missao');
+    if (!section) return;
+    var eyebrow = section.querySelector('.ee-mission__eyebrow');
+    var title   = section.querySelector('.ee-mission__title');
+    var items   = section.querySelectorAll('.ee-mission__list li');
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      gsap.set([eyebrow, title].filter(Boolean), { opacity: 1, y: 0, scale: 1 });
+      gsap.set(items, { opacity: 1, y: 0 });
+      return;
+    }
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    var tl = gsap.timeline({
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: section,
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+
+    if (eyebrow)      tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0);
+    if (title)        tl.to(title,   { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: 'power3.out' }, 0.05);
+    if (items.length) tl.to(items,   { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, 0.3);
+  });
+
+  // ── MÉTODO PILARES: animação em onda dos 4 pilares (Aquisição/Engajamento/...) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var pillars = document.querySelectorAll('.ee-method__pillar');
+    if (!pillars.length) return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) { gsap.set(pillars, { opacity: 1, y: 0 }); return; }
+
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(pillars, {
+      opacity: 1, y: 0,
+      duration: 0.7,
+      ease: 'power3.out',
+      stagger: 0.13,
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: '.ee-method__pillars',
+        start: 'top 82%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+  });
+
+  // ── CARROSSEL 3D (vanilla port do CircularGallery) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var gallery = document.querySelector('.ee-gallery');
+    var rotator = document.getElementById('ee-gallery-rotator');
+    if (!rotator || !gallery) return;
+    var allCards = Array.prototype.slice.call(rotator.querySelectorAll('.ee-gallery__card'));
+    if (!allCards.length) return;
+
+    var RADIUS = 600;               // distância dos cards ao centro do rotator
+    var dotsWrap = document.getElementById('ee-gallery-dots');
+
+    // Geometria recalculada a cada rebuild (o nº de cards varia por modelo de vendas)
+    var cards          = allCards;
+    var ITEM_COUNT     = cards.length;
+    var ANGLE_PER_ITEM = 360 / ITEM_COUNT;
+    var dots           = [];
+    var rotation       = 0;
+    var animating      = false;
+
+    function frontIndex() {
+      var raw = Math.round(-rotation / ANGLE_PER_ITEM);
+      return ((raw % ITEM_COUNT) + ITEM_COUNT) % ITEM_COUNT;
+    }
+    function updateDots() {
+      if (!dots.length) return;
+      var fi = frontIndex();
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === fi);
+        d.setAttribute('aria-selected', i === fi ? 'true' : 'false');
+      });
+    }
+
+    function updateOpacities() {
+      var totalRotation = rotation % 360;
+      cards.forEach(function (card, i) {
+        var itemAngle      = i * ANGLE_PER_ITEM;
+        var relativeAngle  = (itemAngle + totalRotation + 360) % 360;
+        var normalizedAng  = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
+        var opacity = Math.max(0.3, 1 - (normalizedAng / 180));
+        card.style.opacity = opacity;
+      });
+    }
+
+    function applyRotation() {
+      rotator.style.transform = 'rotateY(' + rotation + 'deg)';
+      updateOpacities();
+      updateDots();
+    }
+
+    // Remonta o círculo com os cards válidos para o modelo de vendas atual.
+    // Cards com data-hide-for="<modelo>" saem do círculo e os restantes são
+    // redistribuídos em 360°, sem buracos. Os dots são recriados junto.
+    function rebuild(model) {
+      animating = false; // cancela qualquer animação em curso
+
+      cards = allCards.filter(function (card) {
+        var hideFor = card.getAttribute('data-hide-for');
+        var hidden  = !!model && hideFor === model;
+        card.style.display = hidden ? 'none' : '';
+        return !hidden;
+      });
+      if (!cards.length) return;
+
+      ITEM_COUNT     = cards.length;
+      ANGLE_PER_ITEM = 360 / ITEM_COUNT;
+
+      cards.forEach(function (card, i) {
+        card.style.transform = 'rotateY(' + (i * ANGLE_PER_ITEM) + 'deg) translateZ(' + RADIUS + 'px)';
+      });
+
+      // ── Dots de paginação (1 por card visível) ──
+      dots = [];
+      if (dotsWrap) {
+        dotsWrap.innerHTML = '';
+        cards.forEach(function (card, i) {
+          var d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'ee-gallery__dot';
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', 'Ir para o card ' + (i + 1));
+          d.addEventListener('click', function () { goToIndex(i); });
+          dotsWrap.appendChild(d);
+          dots.push(d);
+        });
+      }
+
+      rotation = 0;
+      applyRotation();
+    }
+
+    // Anima a rotação até um alvo com easing (easeOutCubic), sem libs externas.
+    function animateTo(target, duration) {
+      var startRot = rotation;
+      var change   = target - startRot;
+      var startTs  = null;
+      animating = true;
+      function step(ts) {
+        if (!animating) return;            // rebuild cancelou a animação
+        if (startTs === null) startTs = ts;
+        var t = Math.min(1, (ts - startTs) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        rotation = startRot + change * eased;
+        applyRotation();
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          rotation = target;
+          applyRotation();
+          animating = false;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    // Gira exatamente 1 card por clique (ignora cliques durante a animação)
+    function rotateBy(delta) {
+      if (animating) return;
+      animateTo(rotation + delta, 520);
+    }
+
+    // Gira até trazer o card `i` pra frente, pelo caminho mais curto
+    function goToIndex(i) {
+      if (animating) return;
+      var targetBase = -i * ANGLE_PER_ITEM;            // rotação que põe o card i na frente
+      var diff = ((targetBase - rotation) % 360 + 540) % 360 - 180; // menor delta [-180,180]
+      if (Math.abs(diff) < 0.5) return;                // já está na frente
+      animateTo(rotation + diff, 520);
+    }
+
+    var prevBtn = gallery.querySelector('.ee-gallery__nav--prev');
+    var nextBtn = gallery.querySelector('.ee-gallery__nav--next');
+    if (prevBtn) prevBtn.addEventListener('click', function () { rotateBy(+ANGLE_PER_ITEM); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { rotateBy(-ANGLE_PER_ITEM); });
+
+    // Carrossel manual: gira SÓ ao clicar nas setas (sem auto-rotate, sem drag).
+    rebuild((window.V4SalesModel && window.V4SalesModel.value) || null);
+
+    window.addEventListener('v4-sales-model-change', function (e) {
+      rebuild((e.detail && e.detail.value) || null);
+    });
+  });
+
+  // ── PRODUTO: zoom-in scroll-driven na imagem de fundo ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var bg = document.querySelector('.ee-product__bg');
+    if (!bg) return;
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) { gsap.set(bg, { scale: 1 }); return; }
+
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(bg,
+      { scale: 1.6 },
+      {
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+          trigger: '.ee-product',
+          start: 'top bottom',  // estado inicial (grande) quando a seção entra pela base
+          end:   'center center', // estado final (normal) quando o centro da seção atinge o centro da viewport
+          scrub: 0.5
+        } : undefined
+      }
+    );
+  });
+
+  // ── PRODUTO: logo + sub fade-up sequencial ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap === 'undefined') return;
+    var section = document.getElementById('produto');
+    if (!section) return;
+    var logo = section.querySelector('.ee-product__logo');
+    var sub  = section.querySelector('.ee-product__sub');
+
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) {
+      gsap.set([logo, sub].filter(Boolean), { opacity: 1, y: 0 });
+      return;
+    }
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    var tl = gsap.timeline({
+      scrollTrigger: typeof ScrollTrigger !== 'undefined' ? {
+        trigger: section,
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      } : undefined
+    });
+
+    if (logo) tl.to(logo, { opacity: 1, y: 0, duration: 0.95, ease: 'power3.out' }, 0);
+    if (sub)  tl.to(sub,  { opacity: 1, y: 0, duration: 0.7,  ease: 'power2.out' }, 0.3);
+  });
+
+
+  // ── CASES DE SUCESSO: grupo varia por modelo, slider interno por grupo ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.getElementById('cases');
+    if (!section) return;
+    var groups = section.querySelectorAll('.ee-cases__group');
+    if (!groups.length) return;
+
+    // 2 cards lado a lado (sem carrossel). Mostra/esconde o grupo conforme V4SalesModel
+    // e atualiza o rótulo do modelo no título ("Alguns cases que temos de ___").
+    var titleModelEl = section.querySelector('[data-cases-model]');
+    var CASE_LABELS = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+
+    function updateGroup() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      if (!model) {
+        section.setAttribute('data-state', 'empty');
+        groups.forEach(function (g) { g.classList.remove('is-active'); });
+        return;
+      }
+      var anyActive = false;
+      groups.forEach(function (g) {
+        var matches = g.getAttribute('data-model') === model;
+        g.classList.toggle('is-active', matches);
+        if (matches) anyActive = true;
+      });
+      if (titleModelEl && CASE_LABELS[model]) titleModelEl.textContent = CASE_LABELS[model];
+      section.setAttribute('data-state', anyActive ? 'filled' : 'empty');
+    }
+    window.addEventListener('v4-sales-model-change', updateGroup);
+    updateGroup();
+  });
+
+
+  // ── SIMULADOR DE PRODUTO (#simulador): arrastar o NÍVEL (gradiente) na horizontal ──
+  // Cada barra tem um nível = largura do preenchimento. Arrasta-se o gradiente na
+  // horizontal pra ajustar. A dependência limita o nível: uma categoria não pode passar
+  // do nível da que ela depende — ao tentar, o nível trava e mostra o alerta.
+  // Ordem visual (top→bottom): 0 Potencializar, 1 Executar, 2 Ter, 3 Saber.
+  // start% = borda esquerda do preenchimento (menor start = mais cheio = nível maior).
+  // Invariante: start0 >= start1 >= start2 >= start3 (Saber é a base, mais cheia).
+  document.addEventListener('DOMContentLoaded', function () {
+    var wrap = document.getElementById('ee-sim-bars');
+    if (!wrap) return;
+    var alertEl = document.getElementById('ee-sim-alert');
+    var bars = [].slice.call(wrap.querySelectorAll('.ee-sim__bar'));
+    if (!bars.length) return;
+
+    // Mensagens por fronteira de dependência (i | i+1):
+    var MESSAGES = [
+      'Não dá pra POTENCIALIZAR algo que ainda não está rodando.', // 0 Potencializar | 1 Executar
+      'Não dá pra EXECUTAR sem ter uma base montada.',             // 1 Executar | 2 Ter
+      'Não dá pra TER algo sem saber o porquê daquilo.'            // 2 Ter | 3 Saber
+    ];
+    var MIN = 0, MAX = 86; // limite mínimo 0 = dá pra preencher o trilho inteiro (sem sobrar marrom)
+
+    var starts = bars.map(function (bar) {
+      return parseFloat(getComputedStyle(bar).getPropertyValue('--start')) || 50;
+    });
+    function apply(i) { bars[i].style.setProperty('--start', starts[i] + '%'); }
+
+    var alertTimer;
+    function showAlert(msg) {
+      if (!alertEl || !msg) return;
+      alertEl.textContent = msg;
+      alertEl.classList.add('is-visible');
+      clearTimeout(alertTimer);
+      alertTimer = setTimeout(function () { alertEl.classList.remove('is-visible'); }, 2600);
+    }
+
+    function pointerX(e) {
+      if (e.touches && e.touches[0]) return e.touches[0].clientX;
+      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+      return e.clientX;
+    }
+
+    var drag = null;
+    function onMove(e) {
+      if (!drag) return;
+      var i = drag.i;
+      var want = drag.startStart + (pointerX(e) - drag.downX) / drag.trackW * 100;
+      var lower = (i < bars.length - 1) ? starts[i + 1] : MIN; // não pode ficar mais cheio que a base
+      var upper = (i > 0) ? starts[i - 1] : MAX;               // não pode ficar menos cheio que o dependente
+      if (want < lower) { want = lower; showAlert(MESSAGES[i]); }            // bateu na base (dependência)
+      else if (want > upper) { want = upper; showAlert(MESSAGES[i - 1]); }   // bateu no dependente
+      starts[i] = want;
+      apply(i);
+      if (e.cancelable) e.preventDefault();
+    }
+    function onEnd() {
+      if (!drag) return;
+      drag.fill.classList.remove('is-dragging');
+      drag = null;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+      document.removeEventListener('touchcancel', onEnd);
+    }
+    function startDrag(e, bar, fill) {
+      var track = bar.querySelector('.ee-sim__track');
+      drag = {
+        i: bars.indexOf(bar),
+        fill: fill,
+        downX: pointerX(e),
+        startStart: starts[bars.indexOf(bar)],
+        trackW: track.getBoundingClientRect().width || 1
+      };
+      fill.classList.add('is-dragging');
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', onEnd);
+      document.addEventListener('touchcancel', onEnd);
+    }
+
+    bars.forEach(function (bar) {
+      var fill = bar.querySelector('.ee-sim__fill');
+      if (!fill) return;
+      fill.addEventListener('mousedown', function (e) { e.preventDefault(); startDrag(e, bar, fill); });
+      fill.addEventListener('touchstart', function (e) { startDrag(e, bar, fill); }, { passive: true });
+    });
+  });
+
+  // ── CRONOGRAMA (#cronograma): tabs das semanas + setas (sem loop circular) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var tabs   = document.querySelectorAll('.ee-roadmap__tab');
+    if (!tabs.length) return;
+    var panels = document.querySelectorAll('.ee-roadmap__week');
+    var prevBtn = document.getElementById('ee-roadmap-prev');
+    var nextBtn = document.getElementById('ee-roadmap-next');
+
+    function currentIndex() {
+      for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].classList.contains('is-active')) return i;
+      }
+      return 0;
+    }
+    function updateArrows() {
+      var idx = currentIndex();
+      if (prevBtn) prevBtn.disabled = (idx === 0);
+      if (nextBtn) nextBtn.disabled = (idx === tabs.length - 1);
+    }
+    function activate(week) {
+      tabs.forEach(function (t) {
+        var isActive = t.getAttribute('data-week') === week;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('aria-labelledby') === 'ee-roadmap-tab-' + week);
+      });
+      updateArrows();
+    }
+    function step(delta) {
+      var idx = currentIndex() + delta;
+      if (idx < 0 || idx >= tabs.length) return; // bloqueia nas pontas
+      activate(tabs[idx].getAttribute('data-week'));
+    }
+
+    tabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-week'));
+      });
+      tab.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          var nextIdx = Math.min(idx + 1, tabs.length - 1);
+          activate(tabs[nextIdx].getAttribute('data-week'));
+          tabs[nextIdx].focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var prevIdx = Math.max(idx - 1, 0);
+          activate(tabs[prevIdx].getAttribute('data-week'));
+          tabs[prevIdx].focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          activate(tabs[0].getAttribute('data-week'));
+          tabs[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          activate(tabs[tabs.length - 1].getAttribute('data-week'));
+          tabs[tabs.length - 1].focus();
+        }
+      });
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { step( 1); });
+
+    // Estado inicial das setas
+    updateArrows();
+  });
+
+  // ── CRONOGRAMA (#cronograma): Semana 3 sincronizada com V4SalesModel ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var variants = document.querySelectorAll('.ee-roadmap__week3-variant');
+    if (!variants.length) return;
+
+    function updateCronogramaWeek3() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var matched = false;
+      variants.forEach(function (el) {
+        var v = el.getAttribute('data-week3-variant');
+        var shouldShow = (v === model);
+        el.classList.toggle('is-shown', shouldShow);
+        if (shouldShow) matched = true;
+      });
+      // Se nenhum modelo selecionado (ou inválido), exibe o fallback "prompt"
+      if (!matched) {
+        var prompt = document.querySelector('.ee-roadmap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt) prompt.classList.add('is-shown');
+      } else {
+        var prompt2 = document.querySelector('.ee-roadmap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt2) prompt2.classList.remove('is-shown');
+      }
+    }
+
+    updateCronogramaWeek3();
+    window.addEventListener('v4-sales-model-change', updateCronogramaWeek3);
+  });
+
+  // ── RECAP (#recap): Semana 3 sincronizada com V4SalesModel ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var variants = document.querySelectorAll('.ee-recap__week3-variant');
+    if (!variants.length) return;
+
+    function updateRecapWeek3() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var matched = false;
+      variants.forEach(function (el) {
+        var v = el.getAttribute('data-week3-variant');
+        var shouldShow = (v === model);
+        el.classList.toggle('is-shown', shouldShow);
+        if (shouldShow) matched = true;
+      });
+      if (!matched) {
+        var prompt = document.querySelector('.ee-recap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt) prompt.classList.add('is-shown');
+      } else {
+        var prompt2 = document.querySelector('.ee-recap__week3-variant[data-week3-variant="prompt"]');
+        if (prompt2) prompt2.classList.remove('is-shown');
+      }
+    }
+
+    updateRecapWeek3();
+    window.addEventListener('v4-sales-model-change', updateRecapWeek3);
+  });
+
+  // ── COMBOS PERFORMANCE (#precos): troca o conjunto de packs conforme o modelo ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var variants = document.querySelectorAll('.ee-packs__variant');
+    if (!variants.length) return;
+    var modelLabelEl = document.querySelector('[data-combo-model]');
+    var LABELS = { 'pdv': 'PDV', 'inside-sales': 'Inside Sales', 'e-commerce': 'E-commerce' };
+
+    function updateCombos() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || 'pdv';
+      if (!LABELS[model]) model = 'pdv';
+      variants.forEach(function (el) {
+        el.classList.toggle('is-shown', el.getAttribute('data-pack-variant') === model);
+      });
+      if (modelLabelEl) modelLabelEl.textContent = '- ' + LABELS[model] + ' - AQUISIÇÃO';
+    }
+
+    updateCombos();
+    window.addEventListener('v4-sales-model-change', updateCombos);
+  });
+
+  // ── PROPOSTA: estado, dados, render e wiring com os CTAs ──
+  (function () {
+    // ===== Dados base (textos completos das semanas + packs) =====
+    var WEEKS = {
+      1: {
+        label: 'Semana 01',
+        title: 'Descoberta do Negócio e Pesquisa de Mercado',
+        items: [
+          'Criação de grupo com o cliente e boas-vindas.',
+          'Preenchimento do V4 Marketing.',
+          'Reunião para alinhamento de expectativas e cronograma.',
+          'Solicitação de acesso a todos os canais e ferramentas do cliente.',
+          'Análise de concorrente e SWOT estratégica.',
+          'Auditoria de comunicação no digital.',
+          'Persona e ICP.',
+          'Arquitetura de presença digital.',
+          'Pesquisa de mercado (TAM/SAM/SOM + marketshare).',
+          'Reunião de apresentação.'
+        ]
+      },
+      2: {
+        label: 'Semana 02',
+        title: 'Diagnóstico Digital e Posicionamento Estratégico',
+        items: [
+          'Diagnóstico de mídia paga.',
+          'Diagnóstico orgânico (redes sociais).',
+          'Diagnóstico de criativos.',
+          'Diagnóstico de maturidade digital.',
+          'Posicionamento estratégico + PUV + taglines.',
+          'Reunião de apresentação.'
+        ]
+      },
+      // Semana 3: varia por modelo de vendas
+      3: {
+        label: 'Semana 03',
+        byModel: {
+          'pdv': {
+            title: 'Estrutura da Operação — PDV / Loja Física',
+            items: [
+              'Diagnóstico da base ativa e controle de vendas (ERP/planilha/caixa).',
+              'Diagnóstico de GMN (Google Meu Negócio / Perfil da Empresa).',
+              'Diagnóstico ou implementação de landing page.',
+              'Diagnóstico de experiência do PDV (remoto).',
+              'Régua de WhatsApp para fluxo de loja (pré, durante, pós-visita).',
+              'Reunião de apresentação.'
+            ]
+          },
+          'inside-sales': {
+            title: 'Estrutura da Operação — Inside Sales',
+            items: [
+              'Diagnóstico de CRO (site/LP).',
+              'Cliente oculto (avaliação do atendimento).',
+              'Diagnóstico comercial e etapas do funil.',
+              'Definição de métricas e critérios do funil.',
+              'Pipeline comercial + réguas + script consultivo.',
+              'Diagnóstico ou implementação de landing page.',
+              'Reunião de apresentação.'
+            ]
+          },
+          'e-commerce': {
+            title: 'Estrutura da Operação — E-commerce / Vendas Online',
+            items: [
+              'Diagnóstico de CRO de e-commerce (checkout + PDP + carrinho).',
+              'Diagnóstico do funil de vendas e-commerce.',
+              'Diagnóstico de marketplace (se aplicável).',
+              'Régua de relacionamento e CRM (e-mail + WhatsApp).',
+              'Recuperação de carrinho e pós-venda.',
+              'Reunião de apresentação.'
+            ]
+          }
+        }
+      },
+      4: {
+        label: 'Semana 04',
+        title: 'Identidade de Comunicação e Plano de Mídia',
+        items: [
+          'Manual de marca unificado (brandbook + MIV).',
+          'Banco de copy para anúncios.',
+          'Briefing de criativos para produção.',
+          'Forecast e elaboração de planejamento de mídia (6 meses).',
+          'Reunião de apresentação.'
+        ]
+      }
+    };
+
+    var PACKS = {
+      's': {
+        label: 'Pack S',
+        items: [
+          { strong: 'Gestão de mídia:',         text: 'até 2 canais (Meta e/ou Google). Monitoramento diário + otimizações 2–3×/semana. SLA: otimizações em até 24h após desvio.' },
+          { strong: 'Produção de criativos:',   text: '8 peças estáticas + 2 vídeos/motion ≤30s. Design + copywriting. SLA: entrega em até 7 dias corridos após aprovação do briefing.' },
+          { strong: 'Ambientes:',               text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês (copy, CTA, imagem). SLA: ajustes simples em até 3 dias úteis.' },
+          { strong: 'Relatórios:',              text: 'report diário automatizado (investimento, leads, CPL) + relatório semanal por e-mail + relatório mensal completo.' },
+          { strong: 'Atendimento:',             text: 'gestor de projetos compartilhado. Respostas em até 24h úteis.' },
+          { strong: 'Reuniões:',                text: '1 reunião mensal de resultados (1h).' }
+        ]
+      },
+      'm': {
+        label: 'Pack M',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'até 2 canais (Meta e/ou Google). Monitoramento diário + otimizações 3–4×/semana.' },
+          { strong: 'Produção de criativos:', text: '14 peças estáticas + 3 vídeos/motion. Design + copywriting. SLA: entrega em até 6 dias corridos.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 2 dias úteis.' },
+          { strong: 'Relatórios:',            text: 'report diário automatizado + relatório semanal por e-mail + relatório mensal completo.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos compartilhado. Respostas em até 24h úteis.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (30 min) + 1 mensal estratégica (1h).' }
+        ]
+      },
+      'l': {
+        label: 'Pack L',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'até 4 canais. Monitoramento diário + otimizações diárias. SLA: otimizações em até 12h após desvio.' },
+          { strong: 'Produção de criativos:', text: '20 peças estáticas + 4 vídeos/motion. Design + copywriting + produção. SLA: entrega em até 5 dias.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 1 dia útil.' },
+          { strong: 'Relatórios:',            text: 'report diário + dashboard operacional + relatório executivo mensal.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos + envolvimento operacional da coordenação. Respostas em até 4h úteis.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (45 min) + 1 quinzenal estratégica (1h).' },
+          { strong: 'Inteligência:',          text: 'data analytics / CRM no time alocado.' }
+        ]
+      },
+      'xl': {
+        label: 'Pack XL',
+        items: [
+          { strong: 'Gestão de mídia:',       text: 'canais ilimitados. Equipe dedicada + monitoramento em tempo real. SLA: otimizações em tempo real. Campanha parada: comunicação em até 1h.' },
+          { strong: 'Produção de criativos:', text: '28+ peças estáticas + vídeos sob demanda. Equipe criativa dedicada. Revisões ilimitadas. SLA: entrega em até 4 dias corridos.' },
+          { strong: 'Ambientes:',             text: '1 LP de conversão (entregue na EE) + até 2 ajustes/mês. SLA: ajustes em até 4h úteis.' },
+          { strong: 'Relatórios:',            text: 'dashboard em tempo real + relatório executivo mensal + análise estratégica trimestral.' },
+          { strong: 'Atendimento:',           text: 'gestor de projetos + coordenador + gerente. Respostas em até 4h úteis. Urgências em horário comercial: imediato.' },
+          { strong: 'Reuniões:',              text: '1 weekly operacional (1h) + 1 weekly estratégica (1h).' },
+          { strong: 'Inteligência:',          text: 'data analytics / CRM dedicado.' }
+        ]
+      }
+    };
+
+    var SOLUTIONS = {
+      'ee':        { title: 'Estruturação Estratégica',                                isBundle: false },
+      'bundle-s':  { title: 'Estruturação Estratégica + Executar (Bundle · Pack S)',  isBundle: true, packSize: 's'  },
+      'bundle-m':  { title: 'Estruturação Estratégica + Executar (Bundle · Pack M)',  isBundle: true, packSize: 'm'  },
+      'bundle-l':  { title: 'Estruturação Estratégica + Executar (Bundle · Pack L)',  isBundle: true, packSize: 'l'  },
+      'bundle-xl': { title: 'Estruturação Estratégica + Executar (Bundle · Pack XL)', isBundle: true, packSize: 'xl' }
+    };
+
+    // ===== Estado global (sessionStorage, reseta por sessão) =====
+    var STORAGE_KEY = 'v4-proposal';
+    function loadState() {
+      try {
+        var raw = sessionStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) { return null; }
+    }
+    function saveState(state) {
+      try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+
+    window.V4Proposal = {
+      solution: null,                 // chave em SOLUTIONS
+      addons: { socialMedia: false }, // adicionais escolhidos
+      get: function () { return { solution: this.solution, addons: Object.assign({}, this.addons) }; },
+      select: function (solutionKey) {
+        if (solutionKey === null) {
+          this.solution = null;
+          saveState(this.get());
+          window.dispatchEvent(new CustomEvent('v4-proposal-change', { detail: this.get() }));
+          return true;
+        }
+        if (!SOLUTIONS[solutionKey]) return false;
+        this.solution = solutionKey;
+        saveState(this.get());
+        window.dispatchEvent(new CustomEvent('v4-proposal-change', { detail: this.get() }));
+        return true;
+      },
+      toggleAddon: function (name) {
+        if (!(name in this.addons)) return;
+        this.addons[name] = !this.addons[name];
+        saveState(this.get());
+        window.dispatchEvent(new CustomEvent('v4-proposal-change', { detail: this.get() }));
+      },
+      clear: function () {
+        this.solution = null;
+        this.addons = { socialMedia: false };
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        window.dispatchEvent(new CustomEvent('v4-proposal-change', { detail: this.get() }));
+      }
+    };
+
+    // F5 sempre reseta a proposta — não restauramos do sessionStorage no load
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+
+    // ===== Render =====
+    function buildItemHTML(weekLabel, text) {
+      var li = '<li class="ee-proposal__item">';
+      li += '<span class="ee-proposal__check" aria-hidden="true"></span>';
+      if (weekLabel) li += '<span><span class="ee-proposal__week-label">' + weekLabel + ' ·</span> ' + escapeHTML(text) + '</span>';
+      else li += '<span>' + text + '</span>';
+      return li + '</li>';
+    }
+    function escapeHTML(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function chevronSvg() {
+      return '<svg class="ee-proposal__week-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    }
+    function buildWeek(label, title, items, notice) {
+      var itemsHTML = items.map(function (it) {
+        return '<li><span class="ee-proposal__week-bullet" aria-hidden="true"></span><span>' + escapeHTML(it) + '</span></li>';
+      }).join('');
+      return ''
+        + '<article class="ee-proposal__week">'
+        +   '<button type="button" class="ee-proposal__week-toggle" aria-expanded="false">'
+        +     '<span class="ee-proposal__week-num">' + escapeHTML(label) + ' ·</span>'
+        +     '<span class="ee-proposal__week-title">' + escapeHTML(title) + '</span>'
+        +     chevronSvg()
+        +   '</button>'
+        +   '<div class="ee-proposal__week-panel">'
+        +     '<div class="ee-proposal__week-panel-inner">'
+        +       (notice ? '<p class="ee-proposal__week-notice">' + escapeHTML(notice) + '</p>' : '')
+        +       '<ul class="ee-proposal__week-list">' + itemsHTML + '</ul>'
+        +     '</div>'
+        +   '</div>'
+        + '</article>';
+    }
+
+    function renderEEList() {
+      var listEl = document.getElementById('ee-proposal-list-ee');
+      if (!listEl) return;
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var html = '';
+
+      // Semana 01 e 02 (fixas)
+      var w1 = WEEKS[1]; html += buildWeek(w1.label, w1.title, w1.items);
+      var w2 = WEEKS[2]; html += buildWeek(w2.label, w2.title, w2.items);
+
+      // Semana 03 — varia conforme o modelo de vendas
+      var w3 = WEEKS[3];
+      var s3 = (model && w3.byModel[model]) ? w3.byModel[model] : null;
+      if (s3) {
+        html += buildWeek(w3.label, s3.title, s3.items);
+      } else {
+        html += buildWeek(
+          w3.label,
+          'Estrutura da Operação',
+          ['Selecione um modelo de vendas no topo da página para detalhar a Semana 3.'],
+          'Conteúdo personalizado por modelo (PDV / Inside Sales / E-commerce).'
+        );
+      }
+
+      // Semana 04
+      var w4 = WEEKS[4]; html += buildWeek(w4.label, w4.title, w4.items);
+
+      listEl.innerHTML = html;
+    }
+
+    function renderExecutarList(packSize) {
+      var listEl = document.getElementById('ee-proposal-list-executar');
+      if (!listEl) return;
+      var pack = PACKS[packSize];
+      if (!pack) { listEl.innerHTML = ''; return; }
+      var html = '';
+      pack.items.forEach(function (item) {
+        html += '<li class="ee-proposal__item">';
+        html +=   '<span class="ee-proposal__check" aria-hidden="true"></span>';
+        html +=   '<span><strong>' + escapeHTML(item.strong) + '</strong> ' + escapeHTML(item.text) + '</span>';
+        html += '</li>';
+      });
+      listEl.innerHTML = html;
+    }
+
+    function render() {
+      var section = document.getElementById('proposta');
+      if (!section) return;
+
+      var state = window.V4Proposal.get();
+      var solutionKey = state.solution;
+
+      if (!solutionKey || !SOLUTIONS[solutionKey]) {
+        section.setAttribute('data-state', 'empty');
+        return;
+      }
+      section.setAttribute('data-state', 'filled');
+
+      var sol = SOLUTIONS[solutionKey];
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var modelLabel = (window.V4SalesModel && window.V4SalesModel.label) || null;
+
+      // Header da proposta
+      var titleEl = document.getElementById('ee-proposal-pack-title');
+      var metaEl  = document.getElementById('ee-proposal-pack-meta');
+      if (titleEl) titleEl.textContent = 'Você escolheu: ' + sol.title;
+      if (metaEl) {
+        metaEl.innerHTML = modelLabel
+          ? 'Modelo de vendas: <strong>' + escapeHTML(modelLabel) + '</strong>'
+          : '<em style="opacity:.7">Selecione um modelo de vendas no hero para personalizar a Semana 3.</em>';
+      }
+
+      // Lista da Estruturação
+      renderEEList();
+
+      // Lista do Executar Pack (se for bundle)
+      var groupExe = document.getElementById('ee-proposal-group-executar');
+      var labelEl  = document.getElementById('ee-proposal-pack-label');
+      if (sol.isBundle && PACKS[sol.packSize]) {
+        if (groupExe) groupExe.hidden = false;
+        if (labelEl)  labelEl.textContent = PACKS[sol.packSize].label;
+        renderExecutarList(sol.packSize);
+      } else {
+        if (groupExe) groupExe.hidden = true;
+      }
+
+      // Heading dinâmico (acessibilidade + visual)
+      var headingEl = document.getElementById('ee-proposal-heading');
+      if (headingEl) headingEl.textContent = 'Sua proposta personalizada';
+
+      // Addon Social Media foi movido pra seção de Preços (antes do CTA).
+      // Aqui só garantimos que E.E sozinho não carregue o add-on de bundle.
+      if (!sol.isBundle && state.addons.socialMedia) {
+        window.V4Proposal.addons.socialMedia = false;
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(window.V4Proposal.get())); } catch (e) {}
+      }
+
+      // Total (placeholder por enquanto — quando user passar valores reais, calcula aqui)
+      // O HTML já tem placeholders; mantemos como está.
+    }
+
+    // ===== Toggle do accordion (event delegation — sobrevive aos re-renders do EE list) =====
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('.ee-proposal__week-toggle');
+      if (!btn) return;
+      var panel = btn.nextElementSibling;
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      if (panel && panel.classList) panel.classList.toggle('is-open', !isOpen);
+    });
+
+    // ===== Wiring =====
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1) Cada "Seguir com essa solução" → V4Proposal.select(value) + scroll
+      document.querySelectorAll('[data-pack-cta]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-pack-cta');
+          if (!window.V4Proposal.select(key)) return;
+          var target = document.getElementById('proposta');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // 2) Toggle do addon Social Media (agora nos Preços, antes do CTA)
+      var addonBtn = document.querySelector('.ee-proposal__addon[data-addon="socialMedia"] .ee-proposal__addon-controls');
+      if (addonBtn) {
+        addonBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.V4Proposal.toggleAddon('socialMedia');
+        });
+      }
+      // 2b) Estado visual do addon — independente da proposta (pode alternar antes de escolher)
+      function renderAddonVisual() {
+        var addonEl = document.querySelector('.ee-proposal__addon[data-addon="socialMedia"]');
+        if (!addonEl) return;
+        var on = !!(window.V4Proposal.addons && window.V4Proposal.addons.socialMedia);
+        addonEl.setAttribute('data-checked', on ? 'true' : 'false');
+        var input = addonEl.querySelector('.ee-proposal__addon-input');
+        if (input) input.checked = on;
+        var b = addonEl.querySelector('.ee-proposal__addon-controls');
+        if (b) {
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          var act = b.querySelector('.ee-proposal__addon-action');
+          if (act) act.textContent = on ? 'Pacote adicionado' : 'Adicionar este pacote';
+        }
+      }
+
+      // 3) Listeners pra re-render
+      window.addEventListener('v4-proposal-change',     render);
+      window.addEventListener('v4-proposal-change',     renderAddonVisual);
+      window.addEventListener('v4-sales-model-change',  render);
+
+      // Render inicial (caso já exista estado salvo na sessão)
+      render();
+      renderAddonVisual();
+    });
+  })();
+
+  // ── PREÇOS: imagens dos packs variam conforme o modelo de vendas selecionado ──
+  // Arquivos: assets/bundlePack{S|M|L|XL}-{PDV|Inside|ECOM}.png
+  document.addEventListener('DOMContentLoaded', function () {
+    var articles = document.querySelectorAll('.ee-pricing__pack-detail');
+    if (!articles.length) return;
+    var SUFFIX = { 'pdv': 'PDV', 'inside-sales': 'Inside', 'e-commerce': 'ECOM' };
+    var SIZE   = { s: 'S', m: 'M', l: 'L', xl: 'XL' };
+
+    function update() {
+      var model = (window.V4SalesModel && window.V4SalesModel.value) || null;
+      var suffix = model && SUFFIX[model];
+      if (!suffix) return; // sem modelo escolhido: mantém a imagem atual
+      articles.forEach(function (art) {
+        var size = (art.id || '').replace('ee-pack-detail-', '');
+        if (!SIZE[size]) return; // pula o detalhe E.E (não é imagem de pack)
+        var img = art.querySelector('img');
+        if (img) img.src = 'assets/bundlePack' + SIZE[size] + '-' + suffix + '.png';
+      });
+    }
+    window.addEventListener('v4-sales-model-change', update);
+    update();
+  });
+
+  // ── BUNDLE: toggle entre os 4 packs (S / M / L / XL) ──
+  document.addEventListener('DOMContentLoaded', function () {
+    var packTabs = document.querySelectorAll('.ee-pricing__pack-tab');
+    if (!packTabs.length) return;
+    var packDetails = document.querySelectorAll('.ee-pricing__pack-detail');
+
+    var pricingSection = document.getElementById('precos');
+    var bundleCta = document.getElementById('ee-bundle-cta');
+    function activatePack(size) {
+      packTabs.forEach(function (t) {
+        var isActive = t.getAttribute('data-pack-size') === size;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+      packDetails.forEach(function (d) {
+        d.classList.toggle('is-active', d.getAttribute('aria-labelledby') === 'ee-pack-tab-' + size);
+      });
+      // Marca a solução ativa na seção: o CSS esconde o header e o rodapé de "Bundle"
+      // (Social Media + CTA único) quando é E.E sozinho.
+      if (pricingSection) pricingSection.setAttribute('data-active-pack', size);
+      // O CTA único do bundle aponta pro pack ativo (E.E tem CTA próprio no seu detalhe)
+      if (bundleCta && size !== 'ee') bundleCta.setAttribute('data-pack-cta', 'bundle-' + size);
+    }
+
+    packTabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () {
+        activatePack(tab.getAttribute('data-pack-size'));
+      });
+      tab.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var nextIdx = e.key === 'ArrowRight'
+            ? (idx + 1) % packTabs.length
+            : (idx - 1 + packTabs.length) % packTabs.length;
+          var next = packTabs[nextIdx];
+          activatePack(next.getAttribute('data-pack-size'));
+          next.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          activatePack(packTabs[0].getAttribute('data-pack-size'));
+          packTabs[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          activatePack(packTabs[packTabs.length - 1].getAttribute('data-pack-size'));
+          packTabs[packTabs.length - 1].focus();
+        }
+      });
+    });
+  });
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- FOOTER (same as reference)                                    -->
+<!-- ============================================================ -->
+<footer class="ee-footer">
+  <p class="ee-footer__line">Inimigos da <em>Inércia</em></p>
+</footer>
+
+</div><!-- .wp-site-blocks -->
+
+<!-- GSAP + ScrollTrigger + Splitting.js (Scroll Text Reveal component) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+
+<!-- Lucide Icons (icon system) -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ── Lucide icons (replace [data-lucide] placeholders with inline SVG) ──
+  if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+    lucide.createIcons();
+  }
+
+  // ── SLIDE-UP REVEAL DOS TÍTULOS (entrada na viewport) ──
+  (function titlesSlideUp() {
+    var SEL = [
+      '.ee-auth__who-title', '.ee-recognition__title',
+      '.ee-clients__title', '.ee-cases__heading', '.ee-mission__title',
+      '.ee-method__title', '.ee-structure__title', '.ee-foru__title',
+      '.ee-define__heading', '.ee-roadmap__heading', '.ee-grow__title',
+      '.ee-handoff__title', '.ee-sim__title', '.ee-warranty__title',
+      '.ee-ecosystem30__title'
+    ].join(',');
+    var titles = Array.prototype.slice.call(document.querySelectorAll(SEL));
+    if (!titles.length) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // CSS já mantém tudo visível
+
+    titles.forEach(function (el) { el.classList.add('ee-anim-up'); });
+
+    if (!('IntersectionObserver' in window)) {
+      titles.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    titles.forEach(function (el) { io.observe(el); });
+  })();
+
+
+});
+</script>
+
+<!-- LP MAE: barra de proposta e scripts de planos/proposta removidos junto das secoes de oferta -->
+
+</body>
+</html>
