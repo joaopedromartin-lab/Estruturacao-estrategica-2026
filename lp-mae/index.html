@@ -5716,16 +5716,13 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 
 /* ============================================================
    SEÇÃO — SOLUÇÕES POR PRODUTO (Saber / Ter / Executar / Performar)
-   Seletor de produto no topo + lista de soluções. A solução ativa
-   abre num painel gradiente; as irmãs encolhem e perdem opacidade,
-   deixando claro onde está o foco sem esconder o resto da lista.
+   Seletor de produto no topo + grid de cards lado a lado. Cada
+   solução é um card completo (nome, pitch, descrição, preço, CTA);
+   soluções ainda sem página têm o mesmo visual, só sem preço/CTA.
    ============================================================ */
 .ee-sol {
   background: #FFFFFF;
   padding: var(--ee-pad-y-default) var(--ee-pad-x);
-  /* O card aberto sangra com 100vw, que inclui a barra de rolagem;
-     sem isso sobraria alguns px de scroll horizontal na página. */
-  overflow-x: hidden;
 }
 .ee-sol__inner {
   max-width: var(--ee-max-width);
@@ -5797,149 +5794,108 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: var(--ee-lh-body);
 }
 
-/* ── Lista de soluções ── */
+/* ── Grid de cards ── */
 .ee-sol__list { position: relative; }
 .ee-sol__panel { display: none; }
-.ee-sol__panel.is-active { display: block; }
+/* auto-fill (não auto-fit): um painel com 1 card não estica o card na
+   largura toda — ele fica do tamanho de um card normal. */
+.ee-sol__panel.is-active {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: var(--ee-gap-md);
+  align-items: stretch;
+}
 
 .ee-sol__item {
-  border-top: 1px solid rgba(40, 0, 0, 0.14);
-  transition: opacity 0.32s ease, transform 0.32s ease;
-}
-.ee-sol__item:last-child { border-bottom: 1px solid rgba(40, 0, 0, 0.14); }
-
-/* Linha fechada: só o nome da solução */
-.ee-sol__row {
-  width: 100%;
-  appearance: none;
-  background: transparent;
-  border: 0;
-  text-align: left;
-  cursor: pointer;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: var(--ee-gap-md);
-  padding: clamp(18px, 2vw, 26px) clamp(4px, 1vw, 12px);
+  padding: clamp(24px, 2.4vw, 36px);
+  background: #FFFFFF;
+  border: 1px solid rgba(40, 0, 0, 0.12);
+  border-radius: var(--ee-radius-md);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+/* Fio gradiente no topo — assinatura dos cards ativos */
+.ee-sol__item::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7A0A02 0%, #C41E08 55%, #FB2E0A 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ee-sol__item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 9, 20, 0.35);
+  box-shadow: 0 22px 48px rgba(123, 10, 2, 0.14);
+}
+.ee-sol__item:hover::before { opacity: 1; }
+
+/* Cabeçalho do card: nome da solução */
+.ee-sol__row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ee-gap-sm);
+  margin: 0;
+}
+.ee-sol__name {
   font-family: 'Fjalla One', 'Oswald', 'Arial Narrow', sans-serif;
-  font-size: clamp(17px, 1.5vw, 23px);
+  font-size: clamp(19px, 1.5vw, 24px);
   font-weight: 400;
   letter-spacing: 0.01em;
+  line-height: 1.15;
   text-transform: uppercase;
   color: #160000;
-  transition: color 0.25s ease, padding 0.3s ease;
+  margin: 0;
 }
-.ee-sol__row:focus-visible { outline: 2px solid rgba(229, 9, 20, 0.5); outline-offset: -2px; }
-.ee-sol__item:not(.is-open) .ee-sol__row:hover { color: #E50914; }
-.ee-sol__status {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: var(--ee-label);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgba(40, 0, 0, 0.4);
-  white-space: nowrap;
-  flex: 0 0 auto;
-}
-.ee-sol__item[data-status="breve"] .ee-sol__status { color: rgba(40, 0, 0, 0.34); }
 
-/* Estado de foco: a solução aberta vira painel gradiente */
-.ee-sol__item.is-open {
-  border-color: transparent;
-  border-radius: 0;              /* edge-to-edge: sem cantos, encosta nas bordas */
-  overflow: hidden;
-  background: linear-gradient(100deg, #3D0100 0%, #8B1205 42%, #E5250B 78%, #FB4A18 100%);
-  box-shadow: 0 18px 44px rgba(123, 10, 2, 0.28);
-  transform: none;
-  /* Sangra pra largura total da viewport, furando o padding lateral da seção
-     e o max-width do __inner. 50% do container + 50vw = borda da tela. */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-.ee-sol__item.is-open + .ee-sol__item { border-top-color: transparent; }
-.ee-sol__item.is-open .ee-sol__row {
-  color: #FFFFFF;
-  /* Alinha com as linhas fechadas: mesma calha lateral da seção + mesmo
-     max-width do conteúdo, agora que o card sangra até a borda da tela. */
-  width: 100%;
-  max-width: var(--ee-max-width);
-  margin: 0 auto;
-  padding: clamp(22px, 2.4vw, 32px) var(--ee-pad-x) 0;
-  cursor: default;
-}
-.ee-sol__item.is-open .ee-sol__status { color: rgba(255, 255, 255, 0.72); }
-
-/* Irmãs: menores e apagadas — o foco fica só na aberta */
-.ee-sol__list.has-open .ee-sol__item:not(.is-open) {
-  opacity: 0.34;
-  transform: scale(0.985);
-}
-.ee-sol__list.has-open .ee-sol__item:not(.is-open) .ee-sol__row { color: rgba(22, 0, 0, 0.82); }
-
-/* Conteúdo revelado */
+/* Corpo: pitch + descrição + (preço/CTA no rodapé) */
 .ee-sol__body {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr) auto;
-  gap: clamp(18px, 2.4vw, 44px);
-  align-items: start;
-  width: 100%;
-  max-width: var(--ee-max-width);
-  margin: 0 auto;
-  padding: clamp(14px, 1.6vw, 20px) var(--ee-pad-x) clamp(28px, 3vw, 44px);
-}
-/* Soluções ainda sem página: só pitch + descrição, sem coluna de preço.
-   Sem isso, a 3ª coluna do grid ficaria como um vão vazio à direita. */
-.ee-sol__body--nopricing,
-.ee-sol__body:not(:has(.ee-sol__aside)) {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
-}
-.ee-sol__item:not(.is-open) .ee-sol__body { display: none; }
-/* Fio curto sob o título — acompanha a calha, sem atravessar o card todo */
-.ee-sol__rule {
-  width: 100%;
-  max-width: var(--ee-max-width);
-  margin: clamp(10px, 1.2vw, 16px) auto 0;
-  padding: 0 var(--ee-pad-x);
-  box-sizing: border-box;
-}
-.ee-sol__rule::before {
-  content: "";
-  display: block;
-  height: 1px;
-  max-width: 420px;
-  background: rgba(255, 255, 255, 0.32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ee-gap-sm);
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .ee-sol__pitch {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--ee-body);
+  font-weight: 600;
   line-height: var(--ee-lh-body);
-  color: #FFFFFF;
+  color: #280000;
   margin: 0;
 }
-.ee-sol__pitch strong { font-weight: 700; }
+.ee-sol__pitch strong { font-weight: 700; color: #C41E08; }
 .ee-sol__desc {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--ee-body-sm);
   line-height: var(--ee-lh-body);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(40, 0, 0, 0.66);
   margin: 0;
 }
-.ee-sol__desc strong { font-weight: 700; color: #FFFFFF; }
-/* Coluna da direita: preço + CTA */
+.ee-sol__desc strong { font-weight: 700; color: #280000; }
+
+/* Rodapé do card: preço + meta + CTA — sempre alinhado embaixo */
 .ee-sol__aside {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: var(--ee-gap-sm);
-  text-align: right;
+  margin-top: auto;
+  padding-top: var(--ee-gap-md);
+  border-top: 1px solid rgba(40, 0, 0, 0.1);
   min-width: 0;
 }
 .ee-sol__price {
   font-family: 'Fjalla One', 'Oswald', 'Arial Narrow', sans-serif;
-  font-size: clamp(30px, 3.4vw, 56px);
+  font-size: clamp(28px, 2.6vw, 40px);
   line-height: 1;
-  color: #FFFFFF;
+  color: #280000;
   margin: 0;
   white-space: nowrap;
 }
@@ -5947,46 +5903,45 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   font-size: 0.42em;
   vertical-align: 0.5em;
   margin-right: 0.15em;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 .ee-sol__meta {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--ee-body-sm);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(40, 0, 0, 0.6);
   margin: 0;
 }
 .ee-sol__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
-  background: #FFFFFF;
-  color: #A01004;
+  margin-top: var(--ee-gap-sm);
+  background: linear-gradient(100deg, #7A0A02 0%, #C41E08 55%, #FB2E0A 100%);
+  color: #FFFFFF;
+  border: 0;
+  cursor: pointer;
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--ee-body-sm);
   font-weight: 700;
   line-height: 1;
-  padding: 0.85em 1.5em;
+  padding: 0.95em 1.6em;
   border-radius: var(--ee-radius-pill);
   text-decoration: none;
   white-space: nowrap;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.ee-sol__cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22); }
-.ee-sol__cta:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+.ee-sol__cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(229, 9, 20, 0.32); }
+.ee-sol__cta:focus-visible { outline: 2px solid rgba(229, 9, 20, 0.5); outline-offset: 3px; }
 .ee-sol__cta[aria-disabled="true"] {
-  background: rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.75);
+  background: rgba(40, 0, 0, 0.08);
+  color: rgba(40, 0, 0, 0.45);
   pointer-events: none;
 }
 
-@media (max-width: 1020px) {
-  .ee-sol__body { grid-template-columns: 1fr; }
-  .ee-sol__aside { align-items: flex-start; text-align: left; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .ee-sol__item, .ee-sol__row, .ee-sol__tab, .ee-sol__cta { transition: none; }
-  .ee-sol__list.has-open .ee-sol__item:not(.is-open) { transform: none; }
+  .ee-sol__item, .ee-sol__item::before, .ee-sol__tab, .ee-sol__cta { transition: none; }
+  .ee-sol__item:hover { transform: none; }
 }
 </style>
 </head>
@@ -6695,11 +6650,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-sol__panel is-active" role="tabpanel" id="sol-panel-saber" aria-labelledby="sol-tab-saber">
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Estruturação Estratégica 3.0</span>
-            <span class="ee-sol__status">Na LP</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Estruturação Estratégica 3.0</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">O setup estratégico completo da sua empresa <strong>em 30 dias.</strong></p>
             <p class="ee-sol__desc"><strong>Imersão de 4 semanas:</strong> persona e ICP, pesquisa de mercado (TAM/SAM/SOM), diagnóstico de mídia e criativos, posicionamento estratégico (PUV + taglines), estrutura da operação comercial calibrada pro seu modelo de vendas, identidade de marca e plano de mídia de 6 meses. Ativos prontos pra operar no Dia 31.</p>
@@ -6712,11 +6665,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Destrava Receita (DR-OTE)</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Destrava Receita (DR-OTE)</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Identifica a trava que impede seu faturamento de crescer — e organiza a execução pra destruí-la.</p>
             <p class="ee-sol__desc">Toda empresa é uma fábrica de receita. Quando o faturamento trava, o problema quase nunca é "fazer mais" — é uma restrição no sistema que ninguém enxergou. Audita o fluxo de receita, encontra a trava ativa entre 8 gargalos possíveis e orienta a alocação de capital com base em causalidade, não em achismo.</p>
@@ -6729,11 +6680,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Análise Consultiva do Time de Vendas (EQV 1)</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Análise Consultiva do Time de Vendas (EQV 1)</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Transforma sua operação comercial em um ativo previsível e escalável.</p>
             <p class="ee-sol__desc">Raio-X cirúrgico da operação em 4 semanas: mapeamento do fluxo de vendas, diagnóstico de processos e benchmark, estratégia redesenhada com novo funil, manual do processo comercial (BPMN), SLA entre marketing e vendas, scripts, DRE projetado de 6 meses e imersão de treinamento para o time.</p>
@@ -6746,11 +6695,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="breve">
-          <button type="button" class="ee-sol__row">
-            <span>Tração de Mídia 1 — Diagnóstico de Mídia</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
-          <div class="ee-sol__body ee-sol__body--nopricing">
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Tração de Mídia 1 — Diagnóstico de Mídia</h3>
+          </header>
+          <div class="ee-sol__body">
             <p class="ee-sol__pitch">Diagnóstico completo da sua operação de mídia paga — antes de investir mais um real.</p>
             <p class="ee-sol__desc">Auditoria técnica de Meta Ads, Google Ads e demais canais pagos. Identifica onde o investimento está vazando, quais canais estão saturados e qual a alocação ideal de verba para o seu momento.</p>
           </div>
@@ -6762,11 +6710,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-sol__panel" role="tabpanel" id="sol-panel-ter" aria-labelledby="sol-tab-ter" hidden>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Implementação de CRM</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Implementação de CRM</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Organize seu funil, automatize seus processos e venda com previsibilidade.</p>
             <p class="ee-sol__desc">Processo guiado que estrutura seu funil de vendas, integra canais, ativa automações e treina o time. Trabalhamos com Kommo, ActiveCampaign e outras plataformas — a escolha depende do modelo de vendas e maturidade. Inclui inbox unificado, chatbots, agente de IA, automações e gestão de tarefas.</p>
@@ -6779,11 +6725,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Implementação de Landing Page</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Implementação de Landing Page</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Sem LP estruturada, sua mídia queima verba. Convertemos seu tráfego em leads qualificados.</p>
             <p class="ee-sol__desc">Entrega completa: briefing e análise de mercado, copywriting, design responsivo, publicação em domínio próprio, integração (CRM, WhatsApp, eventos de conversão) e teste A/B ativo desde o lançamento.</p>
@@ -6796,11 +6740,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>ZapFirst</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">ZapFirst</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Transforme seu WhatsApp na máquina de vendas do seu negócio.</p>
             <p class="ee-sol__desc">Para negócios locais e PMEs. Metodologia 3P-IA: Produto → Processo → Pessoas → IA. No mês 3: catálogo no WhatsApp, PIX integrado, scripts para cada etapa, time treinado, SDR de IA 24/7 e CRM Kommo configurado.</p>
@@ -6818,11 +6760,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-sol__panel" role="tabpanel" id="sol-panel-executar" aria-labelledby="sol-tab-executar" hidden>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Combos Performance</span>
-            <span class="ee-sol__status">Na LP</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Combos Performance</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Gestão de mídia, criativos e otimização contínua — calibrados pro seu modelo e faixa de investimento.</p>
             <p class="ee-sol__desc">Planos de 6 meses por modelo de vendas (PDV, Inside Sales, E-commerce) e faixa de mídia. Inclui gestão de tráfego, produção de criativos (artes + vídeos), estratégia de captação/recompra e reuniões de resultados.</p>
@@ -6835,11 +6775,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>Destrava Viral</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Destrava Viral</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Transformamos o perfil do founder no canal de aquisição orgânica mais previsível da empresa.</p>
             <p class="ee-sol__desc">Founder Led Growth com método Fernando Miranda (700M+ views). Roteiros virais, direção de gravação, análise por ciclo. Em 30 dias encontra o formato vencedor; nos 5 meses seguintes transforma alcance em demanda orgânica com CAC decrescente.</p>
@@ -6852,11 +6790,9 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="ativo">
-          <button type="button" class="ee-sol__row">
-            <span>FTE — Times Dedicados</span>
-            <span class="ee-sol__status">Link disponível</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">FTE — Times Dedicados</h3>
+          </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Profissionais especialistas da V4 alocados na sua operação — de 16h a 160h/mês.</p>
             <p class="ee-sol__desc">Gestor de Tráfego, Designer, Redator, Social Media, Analista de CRM, Sales Enablement e BI. Cada profissional opera no Método V4, com check-in semanal e atualizações diárias.</p>
@@ -6869,22 +6805,20 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         </article>
 
         <article class="ee-sol__item" data-status="breve">
-          <button type="button" class="ee-sol__row">
-            <span>Copiloto de Mídia</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
-          <div class="ee-sol__body ee-sol__body--nopricing">
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Copiloto de Mídia</h3>
+          </header>
+          <div class="ee-sol__body">
             <p class="ee-sol__pitch">Acompanhamento especializado da sua mídia paga — sem terceirizar a gestão.</p>
             <p class="ee-sol__desc">Para empresas com gestor de tráfego interno que precisam de um especialista V4 analisando performance, identificando oportunidades e corrigindo rota. O copiloto orienta — quem executa é o seu time.</p>
           </div>
         </article>
 
         <article class="ee-sol__item" data-status="breve">
-          <button type="button" class="ee-sol__row">
-            <span>Copiloto Comercial</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
-          <div class="ee-sol__body ee-sol__body--nopricing">
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Copiloto Comercial</h3>
+          </header>
+          <div class="ee-sol__body">
             <p class="ee-sol__pitch">Acompanhamento especializado da sua operação de vendas — sem substituir seu time.</p>
             <p class="ee-sol__desc">Orientação estratégica contínua: análise de pipeline, otimização de scripts, calibração de metas e rituais de gestão comercial. O copiloto acompanha indicadores, identifica gargalos e orienta a tomada de decisão.</p>
           </div>
@@ -6896,11 +6830,10 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       <div class="ee-sol__panel" role="tabpanel" id="sol-panel-performar" aria-labelledby="sol-tab-performar" hidden>
 
         <article class="ee-sol__item" data-status="breve">
-          <button type="button" class="ee-sol__row">
-            <span>Mídia Paralela</span>
-          </button>
-          <div class="ee-sol__rule" aria-hidden="true"></div>
-          <div class="ee-sol__body ee-sol__body--nopricing">
+          <header class="ee-sol__row">
+            <h3 class="ee-sol__name">Mídia Paralela</h3>
+          </header>
+          <div class="ee-sol__body">
             <p class="ee-sol__pitch">Diversificação de canais de aquisição para escalar além do Google e do Meta.</p>
             <p class="ee-sol__desc">Para empresas que já operam mídia nos canais tradicionais e precisam abrir novas frentes de aquisição para sustentar o crescimento. Identificamos oportunidades em canais complementares e operamos a expansão.</p>
           </div>
@@ -10510,51 +10443,14 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
     var section = document.getElementById('solucoes');
     if (!section) return;
 
-    var list   = document.getElementById('ee-sol-list');
     var leadEl = document.getElementById('ee-sol-lead');
     var tabs   = [].slice.call(section.querySelectorAll('.ee-sol__tab'));
     var panels = [].slice.call(section.querySelectorAll('.ee-sol__panel'));
-    if (!list || !tabs.length) return;
-
-    // ── Abrir/fechar uma solução dentro do painel visível ──
-    // Sempre há uma aberta: fechar a única aberta não deixa a lista "morta".
-    function openItem(item) {
-      var panel = item.closest('.ee-sol__panel');
-      if (!panel) return;
-      panel.querySelectorAll('.ee-sol__item').forEach(function (el) {
-        el.classList.toggle('is-open', el === item);
-      });
-      list.classList.add('has-open');
-    }
-
-    function firstItemOf(panel) {
-      return panel ? panel.querySelector('.ee-sol__item') : null;
-    }
-
-    list.addEventListener('click', function (e) {
-      var row = e.target.closest && e.target.closest('.ee-sol__row');
-      if (!row || !list.contains(row)) return;
-      openItem(row.closest('.ee-sol__item'));
-    });
-
-    // Hover abre também — no desktop o mouse é o gesto natural aqui.
-    // Só reage a ponteiro fino (mouse): no touch, hover dispararia junto do clique.
-    var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-    list.addEventListener('mouseover', function (e) {
-      if (!finePointer.matches) return;
-      var row = e.target.closest && e.target.closest('.ee-sol__row');
-      if (!row || !list.contains(row)) return;
-      openItem(row.closest('.ee-sol__item'));
-    });
-
-    // Teclado: foco na linha abre, mantendo o mesmo comportamento do mouse.
-    list.addEventListener('focusin', function (e) {
-      var row = e.target.closest && e.target.closest('.ee-sol__row');
-      if (!row) return;
-      openItem(row.closest('.ee-sol__item'));
-    });
+    if (!tabs.length) return;
 
     // ── Troca de produto (tabs) ──
+    // Cada painel é um grid de cards já todos visíveis — não há estado
+    // aberto/fechado por card, só a troca de painel.
     function activate(tab) {
       var id = tab.getAttribute('aria-controls');
       tabs.forEach(function (t) {
@@ -10568,10 +10464,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
       });
       var key = tab.id.replace('sol-tab-', '');
       if (leadEl && LEADS[key]) leadEl.textContent = LEADS[key];
-      // Abre a primeira solução do produto recém-escolhido.
-      var panel = document.getElementById(id);
-      var first = firstItemOf(panel);
-      if (first) openItem(first);
     }
 
     tabs.forEach(function (tab, i) {
@@ -10585,11 +10477,6 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
         next.focus();
       });
     });
-
-    // Estado inicial: primeira solução do painel ativo já aberta.
-    var active = panels.filter(function (p) { return p.classList.contains('is-active'); })[0] || panels[0];
-    var firstItem = firstItemOf(active);
-    if (firstItem) openItem(firstItem);
 
     // ── Destrava o bloco EE 3.0 / Combos ──
     // As 10 seções do bloco nascem com .ee-locked (display:none). O primeiro
