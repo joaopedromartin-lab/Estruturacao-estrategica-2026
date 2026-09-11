@@ -5816,24 +5816,39 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   border: 1px solid rgba(40, 0, 0, 0.12);
   border-radius: var(--ee-radius-md);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
-/* Fio gradiente no topo — assinatura dos cards ativos */
+/* Camada gradiente que cobre o card inteiro no hover. Fica num ::before
+   com opacidade (gradiente não anima via background), atrás do conteúdo. */
 .ee-sol__item::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  background: linear-gradient(90deg, #7A0A02 0%, #C41E08 55%, #FB2E0A 100%);
+  inset: 0;
+  background: linear-gradient(100deg, #3D0100 0%, #8B1205 42%, #E5250B 78%, #FB4A18 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
+.ee-sol__item > * { position: relative; z-index: 1; }
 .ee-sol__item:hover {
   transform: translateY(-4px);
-  border-color: rgba(229, 9, 20, 0.35);
-  box-shadow: 0 22px 48px rgba(123, 10, 2, 0.14);
+  border-color: transparent;
 }
 .ee-sol__item:hover::before { opacity: 1; }
+/* Textos invertidos pra branco sobre o gradiente */
+.ee-sol__item:hover .ee-sol__name,
+.ee-sol__item:hover .ee-sol__pitch,
+.ee-sol__item:hover .ee-sol__pitch strong,
+.ee-sol__item:hover .ee-sol__price,
+.ee-sol__item:hover .ee-sol__desc strong { color: #FFFFFF; }
+.ee-sol__item:hover .ee-sol__desc { color: rgba(255, 255, 255, 0.9); }
+.ee-sol__item:hover .ee-sol__meta { color: rgba(255, 255, 255, 0.86); }
+.ee-sol__item:hover .ee-sol__aside { border-top-color: rgba(255, 255, 255, 0.32); }
+.ee-sol__item:hover .ee-sol__cta {
+  background: #FFFFFF;
+  color: #A01004;
+}
+.ee-sol__item:hover .ee-sol__cta:hover { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22); }
 
 /* Cabeçalho do card: nome da solução */
 .ee-sol__row {
@@ -5852,6 +5867,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   text-transform: uppercase;
   color: #160000;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 /* Corpo: pitch + descrição + (preço/CTA no rodapé) */
@@ -5869,16 +5885,18 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: var(--ee-lh-body);
   color: #280000;
   margin: 0;
+  transition: color 0.3s ease;
 }
-.ee-sol__pitch strong { font-weight: 700; color: #C41E08; }
+.ee-sol__pitch strong { font-weight: 700; color: #C41E08; transition: color 0.3s ease; }
 .ee-sol__desc {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: var(--ee-body-sm);
   line-height: var(--ee-lh-body);
   color: rgba(40, 0, 0, 0.66);
   margin: 0;
+  transition: color 0.3s ease;
 }
-.ee-sol__desc strong { font-weight: 700; color: #280000; }
+.ee-sol__desc strong { font-weight: 700; color: #280000; transition: color 0.3s ease; }
 
 /* Rodapé do card: preço + meta + CTA — sempre alinhado embaixo */
 .ee-sol__aside {
@@ -5890,6 +5908,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   padding-top: var(--ee-gap-md);
   border-top: 1px solid rgba(40, 0, 0, 0.1);
   min-width: 0;
+  transition: border-color 0.3s ease;
 }
 .ee-sol__price {
   font-family: 'Fjalla One', 'Oswald', 'Arial Narrow', sans-serif;
@@ -5898,6 +5917,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   color: #280000;
   margin: 0;
   white-space: nowrap;
+  transition: color 0.3s ease;
 }
 .ee-sol__price .ee-sol__cur {
   font-size: 0.42em;
@@ -5911,6 +5931,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   line-height: 1.5;
   color: rgba(40, 0, 0, 0.6);
   margin: 0;
+  transition: color 0.3s ease;
 }
 .ee-sol__cta {
   display: inline-flex;
@@ -5929,7 +5950,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
   border-radius: var(--ee-radius-pill);
   text-decoration: none;
   white-space: nowrap;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
 }
 .ee-sol__cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(229, 9, 20, 0.32); }
 .ee-sol__cta:focus-visible { outline: 2px solid rgba(229, 9, 20, 0.5); outline-offset: 3px; }
@@ -5940,7 +5961,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ee-sol__item, .ee-sol__item::before, .ee-sol__tab, .ee-sol__cta { transition: none; }
+  .ee-sol__item, .ee-sol__item::before, .ee-sol__item *, .ee-sol__tab, .ee-sol__cta { transition: none; }
   .ee-sol__item:hover { transform: none; }
 }
 </style>
@@ -6669,8 +6690,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">Destrava Receita (DR-OTE)</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Identifica a trava que impede seu faturamento de crescer — e organiza a execução pra destruí-la.</p>
-            <p class="ee-sol__desc">Toda empresa é uma fábrica de receita. Quando o faturamento trava, o problema quase nunca é "fazer mais" — é uma restrição no sistema que ninguém enxergou. Audita o fluxo de receita, encontra a trava ativa entre 8 gargalos possíveis e orienta a alocação de capital com base em causalidade, não em achismo.</p>
+            <p class="ee-sol__pitch">Identifica a trava que impede seu faturamento de crescer e organiza a execução pra destruí-la.</p>
+            <p class="ee-sol__desc">Toda empresa é uma fábrica de receita. Quando o faturamento trava, o problema quase nunca é "fazer mais". É uma restrição no sistema que ninguém enxergou. Audita o fluxo de receita, encontra a trava ativa entre 8 gargalos possíveis e orienta a alocação de capital com base em causalidade, não em achismo.</p>
             <div class="ee-sol__aside">
               <p class="ee-sol__price"><span class="ee-sol__cur">R$</span>20–40k</p>
               <p class="ee-sol__meta">Raio-X · 45 dias<br>Operacional ~R$ 50k/ano · Tático ~R$ 150k/ano · Estratégico ~R$ 350k/ano</p>
@@ -6699,7 +6720,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">Tração de Mídia 1 — Diagnóstico de Mídia</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Diagnóstico completo da sua operação de mídia paga — antes de investir mais um real.</p>
+            <p class="ee-sol__pitch">Diagnóstico completo da sua operação de mídia paga antes de investir mais um real.</p>
             <p class="ee-sol__desc">Auditoria técnica de Meta Ads, Google Ads e demais canais pagos. Identifica onde o investimento está vazando, quais canais estão saturados e qual a alocação ideal de verba para o seu momento.</p>
           </div>
         </article>
@@ -6715,7 +6736,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
           </header>
           <div class="ee-sol__body">
             <p class="ee-sol__pitch">Organize seu funil, automatize seus processos e venda com previsibilidade.</p>
-            <p class="ee-sol__desc">Processo guiado que estrutura seu funil de vendas, integra canais, ativa automações e treina o time. Trabalhamos com Kommo, ActiveCampaign e outras plataformas — a escolha depende do modelo de vendas e maturidade. Inclui inbox unificado, chatbots, agente de IA, automações e gestão de tarefas.</p>
+            <p class="ee-sol__desc">Processo guiado que estrutura seu funil de vendas, integra canais, ativa automações e treina o time. Trabalhamos com Kommo, ActiveCampaign e outras plataformas. A escolha depende do modelo de vendas e da maturidade. Inclui inbox unificado, chatbots, agente de IA, automações e gestão de tarefas.</p>
             <div class="ee-sol__aside">
               <p class="ee-sol__price">Basic / Pro</p>
               <p class="ee-sol__meta">Basic: início de estruturação<br>Pro: automação completa · 5 semanas</p>
@@ -6764,7 +6785,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">Combos Performance</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Gestão de mídia, criativos e otimização contínua — calibrados pro seu modelo e faixa de investimento.</p>
+            <p class="ee-sol__pitch">Gestão de mídia, criativos e otimização contínua, calibrados pro seu modelo e faixa de investimento.</p>
             <p class="ee-sol__desc">Planos de 6 meses por modelo de vendas (PDV, Inside Sales, E-commerce) e faixa de mídia. Inclui gestão de tráfego, produção de criativos (artes + vídeos), estratégia de captação/recompra e reuniões de resultados.</p>
             <div class="ee-sol__aside">
               <p class="ee-sol__price"><span class="ee-sol__cur">R$</span>6.656<span class="ee-sol__cur">/mês</span></p>
@@ -6794,7 +6815,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">FTE — Times Dedicados</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Profissionais especialistas da V4 alocados na sua operação — de 16h a 160h/mês.</p>
+            <p class="ee-sol__pitch">Profissionais especialistas da V4 alocados na sua operação, de 16h a 160h/mês.</p>
             <p class="ee-sol__desc">Gestor de Tráfego, Designer, Redator, Social Media, Analista de CRM, Sales Enablement e BI. Cada profissional opera no Método V4, com check-in semanal e atualizações diárias.</p>
             <div class="ee-sol__aside">
               <p class="ee-sol__price">Por horas</p>
@@ -6809,8 +6830,8 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">Copiloto de Mídia</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Acompanhamento especializado da sua mídia paga — sem terceirizar a gestão.</p>
-            <p class="ee-sol__desc">Para empresas com gestor de tráfego interno que precisam de um especialista V4 analisando performance, identificando oportunidades e corrigindo rota. O copiloto orienta — quem executa é o seu time.</p>
+            <p class="ee-sol__pitch">Acompanhamento especializado da sua mídia paga, sem terceirizar a gestão.</p>
+            <p class="ee-sol__desc">Para empresas com gestor de tráfego interno que precisam de um especialista V4 analisando performance, identificando oportunidades e corrigindo rota. O copiloto orienta. Quem executa é o seu time.</p>
           </div>
         </article>
 
@@ -6819,7 +6840,7 @@ body[data-sales-model] [data-depends-on-sales-model] { display: revert; }
             <h3 class="ee-sol__name">Copiloto Comercial</h3>
           </header>
           <div class="ee-sol__body">
-            <p class="ee-sol__pitch">Acompanhamento especializado da sua operação de vendas — sem substituir seu time.</p>
+            <p class="ee-sol__pitch">Acompanhamento especializado da sua operação de vendas, sem substituir seu time.</p>
             <p class="ee-sol__desc">Orientação estratégica contínua: análise de pipeline, otimização de scripts, calibração de metas e rituais de gestão comercial. O copiloto acompanha indicadores, identifica gargalos e orienta a tomada de decisão.</p>
           </div>
         </article>
